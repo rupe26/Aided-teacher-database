@@ -1,38 +1,38 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="mr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>केंद्र रविवार पेठ — शाळा व शिक्षक नोंदवही</title>
+<title>केंद्र रविवार पेठ — शाळा व शिक्षक नोंदवही (Cloud Sync & HM Access)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Marathi:ital@0;1&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
---navy:#1b2c47;
---navy2:#24365d;
---paper:#f7f3e8;
---card:#ffffff;
---gold:#b8862e;
---gold-d:#8f6a20;
---maroon:#7c2432;
---ink:#232323;
---muted:#6b6459;
---line:#ddd4bd;
---green:#2f6d4f;
---shadow: 0 1px 3px rgba(27,44,71,0.08), 0 6px 18px rgba(27,44,71,0.06);
+  --navy:#1b2c47;
+  --navy2:#24365d;
+  --paper:#f7f3e8;
+  --card:#ffffff;
+  --gold:#b8862e;
+  --gold-d:#8f6a20;
+  --maroon:#7c2432;
+  --ink:#232323;
+  --muted:#6b6459;
+  --line:#ddd4bd;
+  --green:#2f6d4f;
+  --shadow: 0 1px 3px rgba(27,44,71,0.08), 0 6px 18px rgba(27,44,71,0.06);
 }
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
 body{
-background:var(--paper);
-background-image:
-linear-gradient(rgba(27,44,71,0.02) 1px, transparent 1px),
-linear-gradient(90deg, rgba(27,44,71,0.02) 1px, transparent 1px);
-background-size: 26px 26px;
-color:var(--ink);
-font-family:'Noto Sans Devanagari','Noto Sans',sans-serif;
-min-height:100vh;
+  background:var(--paper);
+  background-image:
+    linear-gradient(rgba(27,44,71,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(27,44,71,0.02) 1px, transparent 1px);
+  background-size: 26px 26px;
+  color:var(--ink);
+  font-family:'Noto Sans Devanagari','Noto Sans',sans-serif;
+  min-height:100vh;
 }
 h1,h2,h3,.serif{font-family:'Tiro Devanagari Marathi','Noto Sans Devanagari',serif;}
 a{color:inherit}
@@ -41,43 +41,53 @@ button{font-family:inherit;cursor:pointer}
 
 /* ---------- Header ---------- */
 header.top{
-background:linear-gradient(180deg,var(--navy),var(--navy2));
-color:#f3ede0;
-padding:22px 20px 20px;
-position:relative;
-border-bottom:4px solid var(--gold);
+  background:linear-gradient(180deg,var(--navy),var(--navy2));
+  color:#f3ede0;
+  padding:22px 20px 20px;
+  position:relative;
+  border-bottom:4px solid var(--gold);
 }
 .top-inner{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
 .emblem{
-width:46px;height:46px;border-radius:50%;
-border:2px solid var(--gold);
-display:flex;align-items:center;justify-content:center;
-font-family:'Tiro Devanagari Marathi',serif;font-weight:700;font-size:18px;
-color:var(--gold);flex:none;background:rgba(184,134,46,0.08);
+  width:46px;height:46px;border-radius:50%;
+  border:2px solid var(--gold);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Tiro Devanagari Marathi',serif;font-weight:700;font-size:18px;
+  color:var(--gold);flex:none;background:rgba(184,134,46,0.08);
 }
 .title-block{display:flex;gap:14px;align-items:flex-start}
 .title-block h1{margin:0;font-size:1.55rem;font-weight:700;letter-spacing:.2px;line-height:1.25}
 .title-block .sub{margin:4px 0 0;font-size:.86rem;color:#cdd6e6;letter-spacing:.3px}
-.title-block .sub2{margin-top:2px;font-size:.78rem;color:#9fb0cb}
+.title-block .sub2{margin-top:2px;font-size:.78rem;color:#9fb0cb; font-weight:600;}
 
 .admin-area{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .badge-admin{
-display:flex;align-items:center;gap:8px;
-background:rgba(184,134,46,0.15);
-border:1px solid var(--gold);
-color:#f6e6c2;
-padding:6px 12px;border-radius:999px;font-size:.82rem;font-weight:600;
+  display:flex;align-items:center;gap:8px;
+  background:rgba(184,134,46,0.15);
+  border:1px solid var(--gold);
+  color:#f6e6c2;
+  padding:6px 12px;border-radius:999px;font-size:.82rem;font-weight:600;
 }
 .badge-admin .dot{width:8px;height:8px;border-radius:50%;background:#5fd08a;box-shadow:0 0 0 3px rgba(95,208,138,0.25)}
+.badge-hm{
+  display:flex;align-items:center;gap:8px;
+  background:rgba(47,109,79,0.15);
+  border:1px solid var(--green);
+  color:var(--navy);
+  padding:5px 12px;border-radius:999px;font-size:.8rem;font-weight:700;
+}
+.badge-hm .dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 3px rgba(47,109,79,0.2)}
 .btn{
-border:1px solid var(--gold);
-background:transparent;color:#f3ede0;
-padding:8px 14px;border-radius:8px;font-size:.85rem;font-weight:600;
-transition:.15s;
+  border:1px solid var(--gold);
+  background:transparent;color:#f3ede0;
+  padding:8px 14px;border-radius:8px;font-size:.85rem;font-weight:600;
+  transition:.15s;
 }
 .btn:hover{background:rgba(184,134,46,0.18)}
 .btn.solid{background:var(--gold);color:#2a1e08;border-color:var(--gold)}
 .btn.solid:hover{background:#c99537}
+.btn.solid-green{background:var(--green);color:#fff;border-color:var(--green)}
+.btn.solid-green:hover{background:#25573e}
 .btn.ghost-light{border-color:rgba(255,255,255,0.35)}
 .btn.small{padding:5px 10px;font-size:.78rem}
 .btn.maroon{border-color:#e2a3ab;color:#ffe2e6}
@@ -86,149 +96,151 @@ transition:.15s;
 /* ---------- Layout ---------- */
 main{max-width:1100px;margin:0 auto;padding:26px 20px 80px}
 .searchbar{
-display:flex;gap:10px;align-items:center;margin-bottom:22px;flex-wrap:wrap;
+  display:flex;gap:10px;align-items:center;margin-bottom:22px;flex-wrap:wrap;
 }
 .searchbar input[type=text], .searchbar select{
-flex:1;min-width:150px;
-padding:12px 14px;border-radius:10px;border:1px solid var(--line);
-background:var(--card);font-size:.95rem;color:var(--ink);
-box-shadow:var(--shadow);
+  flex:1;min-width:150px;
+  padding:12px 14px;border-radius:10px;border:1px solid var(--line);
+  background:var(--card);font-size:.95rem;color:var(--ink);
+  box-shadow:var(--shadow);
 }
 .searchbar input[type=text]:focus, .searchbar select:focus{outline:2px solid var(--gold);outline-offset:1px}
 .count-pill{
-font-size:.8rem;color:var(--muted);background:var(--card);
-border:1px solid var(--line);padding:8px 12px;border-radius:999px;white-space:nowrap;
+  font-size:.8rem;color:var(--muted);background:var(--card);
+  border:1px solid var(--line);padding:8px 12px;border-radius:999px;white-space:nowrap;
 }
 
 /* ---------- Index / register list ---------- */
 .register{
-background:var(--card);
-border:1px solid var(--line);
-border-radius:14px;
-box-shadow:var(--shadow);
-overflow:hidden;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:14px;
+  box-shadow:var(--shadow);
+  overflow:hidden;
 }
 .reg-head{
-display:grid;grid-template-columns:56px 1fr 150px 90px 36px;
-gap:10px;padding:12px 18px;background:#f1ecdd;
-font-size:.74rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:700;
-border-bottom:1px solid var(--line);
+  display:grid;grid-template-columns:56px 1fr 150px 90px 36px;
+  gap:10px;padding:12px 18px;background:#f1ecdd;
+  font-size:.74rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:700;
+  border-bottom:1px solid var(--line);
 }
 .reg-row{
-display:grid;grid-template-columns:56px 1fr 150px 90px 36px;
-gap:10px;padding:14px 18px;align-items:center;
-border-bottom:1px solid var(--line);
-cursor:pointer;transition:.12s;
-position:relative;
+  display:grid;grid-template-columns:56px 1fr 150px 90px 36px;
+  gap:10px;padding:14px 18px;align-items:center;
+  border-bottom:1px solid var(--line);
+  cursor:pointer;transition:.12s;
+  position:relative;
 }
 .reg-row:last-child{border-bottom:none}
 .reg-row:hover{background:#faf7ee}
 .reg-row .num{
-font-family:'Tiro Devanagari Marathi',serif;font-weight:700;color:var(--gold-d);
-font-size:1.05rem;
+  font-family:'Tiro Devanagari Marathi',serif;font-weight:700;color:var(--gold-d);
+  font-size:1.05rem;
 }
 .reg-row .name{font-weight:600;font-size:.98rem}
 .reg-row .udise{color:var(--muted);font-size:.82rem;letter-spacing:.02em}
 .reg-row .tcount{
-font-size:.78rem;color:var(--green);font-weight:700;background:#e7f2ec;
-padding:3px 9px;border-radius:999px;text-align:center;width:max-content;
+  font-size:.78rem;color:var(--green);font-weight:700;background:#e7f2ec;
+  padding:3px 9px;border-radius:999px;text-align:center;width:max-content;
 }
 .reg-row .arrow{color:var(--gold-d);font-size:1.1rem;text-align:right}
 .tab-strip{position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--gold);opacity:0;transition:.15s}
 .reg-row:hover .tab-strip{opacity:1}
 
 @media (max-width:640px){
-.reg-head{display:none}
-.reg-row{grid-template-columns:34px 1fr 20px;grid-template-areas:"num name arrow" ". udise arrow" ". tcount arrow";row-gap:4px}
-.reg-row .num{grid-area:num}
-.reg-row .name{grid-area:name}
-.reg-row .udise{grid-area:udise}
-.reg-row .tcount{grid-area:tcount}
-.reg-row .arrow{grid-area:arrow;align-self:center}
+  .reg-head{display:none}
+  .reg-row{grid-template-columns:34px 1fr 20px;grid-template-areas:"num name arrow" ". udise arrow" ". tcount arrow";row-gap:4px}
+  .reg-row .num{grid-area:num}
+  .reg-row .name{grid-area:name}
+  .reg-row .udise{grid-area:udise}
+  .reg-row .tcount{grid-area:tcount}
+  .reg-row .arrow{grid-area:arrow;align-self:center}
 }
 
 /* ---------- School detail ---------- */
 .back-link{
-display:inline-flex;align-items:center;gap:6px;color:var(--navy);
-font-weight:600;font-size:.9rem;margin-bottom:16px;background:none;border:none;padding:0;
+  display:inline-flex;align-items:center;gap:6px;color:var(--navy);
+  font-weight:600;font-size:.9rem;margin-bottom:16px;background:none;border:none;padding:0;
 }
 .back-link:hover{text-decoration:underline}
 .school-head{
-background:linear-gradient(180deg,var(--navy),var(--navy2));
-color:#f3ede0;border-radius:12px 12px 0 0;
-padding:16px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;
-border-bottom:3px solid var(--gold);
+  background:linear-gradient(180deg,var(--navy),var(--navy2));
+  color:#f3ede0;border-radius:12px 12px 0 0;
+  padding:16px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;
+  border-bottom:3px solid var(--gold);
 }
 .school-head h2{margin:0;font-size:1.25rem}
 .school-head .meta{font-size:.78rem;color:#b9c4d9;margin-top:3px}
 .school-actions{display:flex;gap:8px;flex-wrap:wrap; align-items: center;}
 .school-actions select { padding: 6px 10px; border-radius: 6px; border: 1px solid var(--line); font-size: .85rem; background: var(--card);}
 .teacher-grid{
-background:#efe9d8;
-border-radius:0 0 12px 12px;
-padding:18px;display:grid;gap:14px;
-grid-template-columns:repeat(auto-fill,minmax(340px,1fr));
-border:1px solid var(--line);border-top:none;
+  background:#efe9d8;
+  border-radius:0 0 12px 12px;
+  padding:18px;display:grid;gap:14px;
+  grid-template-columns:repeat(auto-fill,minmax(340px,1fr));
+  border:1px solid var(--line);border-top:none;
 }
 .tcard{
-background:var(--card);border:1px solid var(--line);border-radius:10px;
-padding:16px;box-shadow:var(--shadow);position:relative;
+  background:var(--card);border:1px solid var(--line);border-radius:10px;
+  padding:16px;box-shadow:var(--shadow);position:relative;
 }
 .tcard .tname{font-weight:700;font-size:1.05rem;color:var(--navy); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--line);}
 .tcard .desig{font-size:.8rem;color:var(--gold-d);font-weight:600;margin-left:6px; background: rgba(184,134,46,0.1); padding: 3px 8px; border-radius: 12px;}
 
-/* Distinct boxes for each detail in teacher card */
 .tcard-grid {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 8px;
-margin-bottom: 12px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 4px;
 }
 .tcard-grid-item {
-background: #fbfaf6;
-border: 1px solid #e1dbcc;
-padding: 8px 10px;
-border-radius: 6px;
+    background: #fbfaf6;
+    border: 1px solid #e1dbcc;
+    padding: 8px 10px;
+    border-radius: 6px;
 }
 .tcard-grid-item.full-width {
-grid-column: 1 / -1;
+    grid-column: 1 / -1;
 }
 .tcard-grid-item .lbl {
-color: var(--muted);
-font-size: .72rem;
-text-transform: uppercase;
-letter-spacing: .04em;
-margin-bottom: 2px;
-display: block;
+    color: var(--muted);
+    font-size: .72rem;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    margin-bottom: 2px;
+    display: block;
 }
 .tcard-grid-item .val {
-margin: 0;
-font-weight: 500;
-font-size: .85rem;
-word-break: break-word;
-color: var(--ink);
+    margin: 0;
+    font-weight: 500;
+    font-size: .85rem;
+    word-break: break-word;
+    color: var(--ink);
 }
 
 .tcard .card-tools{position:absolute;top:14px;right:16px;display:flex;gap:6px}
 .icon-btn{
-width:26px;height:26px;border-radius:6px;border:1px solid var(--line);background:#fbfaf5;
-display:flex;align-items:center;justify-content:center;font-size:.78rem;color:var(--navy);
+  width:26px;height:26px;border-radius:6px;border:1px solid var(--line);background:#fbfaf5;
+  display:flex;align-items:center;justify-content:center;font-size:.78rem;color:var(--navy);
 }
 .icon-btn.danger{color:var(--maroon);border-color:#e6c3c8}
 .empty-note{
-grid-column:1/-1;text-align:center;color:var(--muted);padding:26px 10px;font-size:.9rem;
+  grid-column:1/-1;text-align:center;color:var(--muted);padding:26px 10px;font-size:.9rem;
+}
+.loading-note{
+  grid-column:1/-1;text-align:center;color:var(--navy);padding:60px 10px;font-size:1.15rem;font-weight:bold;
 }
 
 /* ---------- Modal & Form Fields ---------- */
 .overlay{
-position:fixed;inset:0;background:rgba(20,26,38,0.55);
-display:none;align-items:center;justify-content:center;padding:20px;z-index:60;
+  position:fixed;inset:0;background:rgba(20,26,38,0.55);
+  display:none;align-items:center;justify-content:center;padding:20px;z-index:60;
 }
 .overlay.show{display:flex}
 .modal{
-background:var(--card);border-radius:14px;max-width:480px;width:100%;
-max-height:88vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.3);
-border-top:5px solid var(--gold);
+  background:var(--card);border-radius:14px;max-width:480px;width:100%;
+  max-height:88vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.3);
+  border-top:5px solid var(--gold);
 }
 .modal.wide{max-width:750px}
 .modal-head{padding:18px 22px 6px;display:flex;justify-content:space-between;align-items:center}
@@ -236,392 +248,303 @@ border-top:5px solid var(--gold);
 .modal-close{background:none;border:none;font-size:1.2rem;color:var(--muted)}
 .modal-body{padding:6px 22px 22px}
 
-/* Display box around each field */
 .field {
-margin-bottom: 14px;
-padding: 12px 14px;
-border: 1px solid #e1dbcc;
-border-radius: 8px;
-background-color: #fbfaf6;
+  margin-bottom: 14px;
+  padding: 12px 14px;
+  border: 1px solid #e1dbcc;
+  border-radius: 8px;
+  background-color: #fbfaf6;
 }
 .field > label {
-display: block;
-font-size: .85rem;
-color: var(--navy);
-margin-bottom: 8px;
-font-weight: 700;
+  display: block;
+  font-size: .85rem;
+  color: var(--navy);
+  margin-bottom: 8px;
+  font-weight: 700;
 }
 .field input, .field select, .field textarea {
-width: 100%;
-padding: 9px 11px;
-border: 1px solid #ccc;
-border-radius: 6px;
-font-size: .92rem;
-font-family: inherit;
-background: #fff;
-transition: .15s;
+  width: 100%;
+  padding: 9px 11px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: .92rem;
+  font-family: inherit;
+  background: #fff;
+  transition: .15s;
 }
 .field input:focus, .field select:focus, .field textarea:focus {
-outline: 2px solid var(--gold);
-outline-offset: 0;
-border-color: var(--gold);
+  outline: 2px solid var(--gold);
+  outline-offset: 0;
+  border-color: var(--gold);
 }
 .field.row2, .field.row3 {
-display: grid;
-gap: 14px;
-border: none;
-padding: 0;
-background: transparent;
+  display: grid;
+  gap: 14px;
+  border: none;
+  padding: 0;
+  background: transparent;
 }
 .field.row2 { grid-template-columns: 1fr 1fr; }
 .field.row3 { grid-template-columns: 1fr 1fr 1fr; }
-
 .field.row2 > div, .field.row3 > div {
-border: 1px solid #e1dbcc;
-padding: 12px 14px;
-border-radius: 8px;
-background-color: #fbfaf6;
+  border: 1px solid #e1dbcc;
+  padding: 12px 14px;
+  border-radius: 8px;
+  background-color: #fbfaf6;
 }
-
 .modal-foot{display:flex;justify-content:flex-end;gap:10px;margin-top:14px}
 .helptext{font-size:.78rem;color:var(--muted);line-height:1.5;margin-top:2px}
 .error-text{color:var(--maroon);font-size:.82rem;margin-top:6px;min-height:1em}
 .toast{
-position:fixed;bottom:22px;left:50%;transform:translateX(-50%);
-background:var(--navy);color:#f3ede0;padding:11px 20px;border-radius:999px;
-font-size:.85rem;box-shadow:var(--shadow);z-index:80;opacity:0;pointer-events:none;transition:.25s;
-border:1px solid var(--gold);
+  position:fixed;bottom:22px;left:50%;transform:translateX(-50%);
+  background:var(--navy);color:#f3ede0;padding:11px 20px;border-radius:999px;
+  font-size:.85rem;box-shadow:var(--shadow);z-index:80;opacity:0;pointer-events:none;transition:.25s;
+  border:1px solid var(--gold);
 }
 .toast.show{opacity:1;transform:translateX(-50%) translateY(-4px)}
-textarea.code{
-font-family:'Courier New',monospace;font-size:.72rem;height:160px;white-space:pre;
-}
 
 footer.foot{max-width:1100px;margin:0 auto;padding:10px 20px 40px;color:var(--muted);font-size:.78rem;text-align:center}
 
 /* ---------- Print styles ---------- */
 #printArea{display:none}
 @media print{
-body *{visibility:hidden}
-#printArea, #printArea *{visibility:visible}
-#printArea{display:block;position:absolute;left:0;top:0;width:100%;padding:0;background:#fff}
-.p-page-head{text-align:center;padding:14px 0;border-bottom:2px solid var(--navy);margin-bottom:14px}
-.p-page-head h2{margin:0;font-family:'Tiro Devanagari Marathi',serif}
-.p-page-head .p-sub{font-size:.85rem;color:#555;margin-top:4px}
-.p-school{background:var(--navy);color:#fff;padding:10px 16px;font-weight:700;margin:16px 0 10px;border-radius:4px; page-break-after: avoid;}
-.p-tcard{border:1px solid #ccc;border-radius:6px;padding:10px 14px;margin-bottom:10px; break-inside:avoid;}
-.p-tname{font-weight:700;color:var(--navy); margin-bottom: 6px; padding-bottom: 4px; border-bottom: 1px solid #eee;}
-.p-desig{color:var(--gold-d);font-size:.78rem; margin-left: 5px;}
-.p-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px 14px;margin-top:6px;font-size:.78rem}
-.p-grid-item {border: 1px solid #eee; padding: 4px 6px; border-radius: 4px;}
-.p-grid-item.full-width { grid-column: 1 / -1; }
-.p-grid .lbl{color:#777;font-size:.68rem;text-transform:uppercase}
-.print-btn-global { display: none !important; }
+  body *{visibility:hidden}
+  #printArea, #printArea *{visibility:visible}
+  #printArea{display:block;position:absolute;left:0;top:0;width:100%;padding:0;background:#fff}
+  .p-page-head{text-align:center;padding:14px 0;border-bottom:2px solid var(--navy);margin-bottom:14px}
+  .p-page-head h2{margin:0;font-family:'Tiro Devanagari Marathi',serif}
+  .p-page-head .p-sub{font-size:.85rem;color:#555;margin-top:4px}
+  .p-school{background:var(--navy);color:#fff;padding:10px 16px;font-weight:700;margin:16px 0 10px;border-radius:4px; page-break-after: avoid;}
+  .p-tcard{border:1px solid #ccc;border-radius:6px;padding:10px 14px;margin-bottom:10px; break-inside:avoid;}
+  .p-tname{font-weight:700;color:var(--navy); margin-bottom: 6px; padding-bottom: 4px; border-bottom: 1px solid #eee;}
+  .p-desig{color:var(--gold-d);font-size:.78rem; margin-left: 5px;}
+  .p-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px 14px;margin-top:6px;font-size:.78rem}
+  .p-grid-item {border: 1px solid #eee; padding: 4px 6px; border-radius: 4px;}
+  .p-grid-item.full-width { grid-column: 1 / -1; }
+  .p-grid .lbl{color:#777;font-size:.68rem;text-transform:uppercase}
 }
 </style>
 </head>
 <body>
 
 <header class="top">
-<div class="top-inner">
-<div class="title-block">
-<div class="emblem">रा</div>
-<div>
-<h1>केंद्र रविवार पेठ — शाळा व शिक्षक नोंदवही</h1>
-<div class="sub">तालुका: अंबाजोगाई &nbsp;•&nbsp; जिल्हा: बीड &nbsp;•&nbsp; जिल्हा परिषद शाळा (गट १)</div>
-<div class="sub2" id="lastSyncLine">ढगावरून (Cloud) माहिती घेत आहे...</div>
-</div>
-</div>
-<div class="admin-area" id="adminArea"></div>
-</div>
+  <div class="top-inner">
+    <div class="title-block">
+      <div class="emblem">रा</div>
+      <div>
+        <h1>केंद्र रविवार पेठ — शाळा व शिक्षक नोंदवही</h1>
+        <div class="sub">तालुका: अंबाजोगाई &nbsp;•&nbsp; जिल्हा: बीड &nbsp;•&nbsp; खाजगी अनुदानित शाळा/ विनाअनुदानित शाळा</div>
+        <div class="sub2" id="lastSyncLine">ढगावरून (Cloud) माहिती घेत आहे...</div>
+      </div>
+    </div>
+    <div class="admin-area" id="adminArea"></div>
+  </div>
 </header>
 
 <main>
-<div id="viewRoot"></div>
+  <div id="viewRoot">
+      <div class="loading-note">ऑनलाइन सर्व्हरवरून माहिती घेत आहे... कृपया प्रतीक्षा करा.</div>
+  </div>
 </main>
 
-<footer class="foot">केंद्रप्रमुख कार्यालय, रविवार पेठ — अंबाजोगाई, बीड. माहिती अद्ययावत ठेवण्याची जबाबदारी संबंधित केंद्रप्रमुखांची आहे.</footer>
+<footer class="foot">केंद्रप्रमुख कार्यालय, रविवार पेठ — अंबाजोगाई, बीड. सर्व माहिती Google Sheet वर सुरक्षितपणे जतन केली जाते.</footer>
 
-<!-- ===== Modals ===== -->
+<!-- ===== MODALS ===== -->
+
+<!-- 1. Kendra Pramukh Master Login Modal -->
 <div class="overlay" id="loginOverlay">
-<div class="modal">
-<div class="modal-head"><h3 id="loginModalTitle">केंद्रप्रमुख प्रवेश</h3><button class="modal-close" onclick="closeModal('loginOverlay')">✕</button></div>
-<div class="modal-body">
-<p class="helptext" id="loginHelpText">प्रोफाईल संपादित करण्यासाठी ४-अंकी पिन टाका.</p>
-<div class="field"><label>पिन क्रमांक</label><input id="pinInput" type="password" inputmode="numeric" maxlength="8" placeholder="****" autocomplete="off"></div>
-<div class="error-text" id="loginError"></div>
-<div class="modal-foot">
-<button class="btn" style="border-color:var(--line);color:var(--ink)" onclick="closeModal('loginOverlay')">रद्द करा</button>
-<button class="btn solid" id="loginModalBtn" onclick="attemptLogin()">प्रवेश करा</button>
-</div>
-</div>
-</div>
+  <div class="modal">
+    <div class="modal-head"><h3 id="loginModalTitle">केंद्रप्रमुख प्रवेश</h3><button class="modal-close" onclick="closeModal('loginOverlay')">✕</button></div>
+    <div class="modal-body">
+      <p class="helptext" id="loginHelpText">प्रोफाईल संपादित करण्यासाठी ४-अंकी पिन टाका.</p>
+      <div class="field"><label>केंद्रप्रमुख पिन</label><input id="pinInput" type="password" inputmode="numeric" maxlength="8" placeholder="****" autocomplete="off"></div>
+      <div class="error-text" id="loginError"></div>
+      <div class="modal-foot">
+        <button class="btn" style="border-color:var(--line);color:var(--ink)" onclick="closeModal('loginOverlay')">रद्द करा</button>
+        <button class="btn solid" id="loginModalBtn" onclick="attemptLogin()">प्रवेश करा</button>
+      </div>
+    </div>
+  </div>
 </div>
 
+<!-- 2. Kendra Pramukh Master Change PIN Modal -->
 <div class="overlay" id="changePinOverlay">
-<div class="modal">
-<div class="modal-head"><h3>पिन बदला (Change PIN)</h3><button class="modal-close" onclick="closeModal('changePinOverlay')">✕</button></div>
-<div class="modal-body">
-<p class="helptext">तुमचा नवीन ४-अंकी सिक्रेट पिन सेट करा.</p>
-<div class="field"><label>सध्याचा पिन (Current PIN)</label><input id="oldPinInput" type="password" inputmode="numeric" maxlength="8" placeholder="****"></div>
-<div class="field"><label>नवीन पिन (New PIN)</label><input id="newPinInput" type="password" inputmode="numeric" maxlength="8" placeholder="****"></div>
-<div class="field"><label>पुन्हा नवीन पिन टाका (Confirm New PIN)</label><input id="confirmPinInput" type="password" inputmode="numeric" maxlength="8" placeholder="****"></div>
-<div class="error-text" id="changePinError"></div>
-<div class="modal-foot">
-<button class="btn" style="border-color:var(--line);color:var(--ink)" onclick="closeModal('changePinOverlay')">रद्द करा</button>
-<button class="btn solid" onclick="saveNewPin()">जतन करा</button>
-</div>
-</div>
-</div>
+  <div class="modal">
+    <div class="modal-head"><h3>केंद्रप्रमुख पिन बदला (Change Master PIN)</h3><button class="modal-close" onclick="closeModal('changePinOverlay')">✕</button></div>
+    <div class="modal-body">
+      <p class="helptext">नवीन केंद्रप्रमुख सिक्रेट पिन ऑनलाइन सेट करा.</p>
+      <div class="field"><label>सध्याचा पिन (Current PIN)</label><input id="oldPinInput" type="password" inputmode="numeric" maxlength="8" placeholder="****"></div>
+      <div class="field"><label>नवीन पिन (New PIN)</label><input id="newPinInput" type="password" inputmode="numeric" maxlength="8" placeholder="****"></div>
+      <div class="field"><label>पुन्हा नवीन पिन टाका (Confirm New PIN)</label><input id="confirmPinInput" type="password" inputmode="numeric" maxlength="8" placeholder="****"></div>
+      <div class="error-text" id="changePinError"></div>
+      <div class="modal-foot">
+        <button class="btn" style="border-color:var(--line);color:var(--ink)" onclick="closeModal('changePinOverlay')">रद्द करा</button>
+        <button class="btn solid" onclick="saveNewPin()">ऑनलाइन जतन करा</button>
+      </div>
+    </div>
+  </div>
 </div>
 
+<!-- 3. Headmaster (HM) School-Specific Login Modal -->
+<div class="overlay" id="hmLoginOverlay">
+  <div class="modal">
+    <div class="modal-head"><h3 id="hmLoginTitle">शाळा मुख्याध्यापक प्रवेश</h3><button class="modal-close" onclick="closeModal('hmLoginOverlay')">✕</button></div>
+    <div class="modal-body">
+      <p class="helptext" id="hmLoginHelp">शाळेची शिक्षक माहिती संपादित करण्यासाठी ४-अंकी मुख्याध्यापक (HM) पिन टाका.</p>
+      <div class="field"><label>मुख्याध्यापक पिन (HM PIN)</label><input id="hmPinInput" type="password" inputmode="numeric" maxlength="8" placeholder="****" autocomplete="off"></div>
+      <div class="error-text" id="hmLoginError"></div>
+      <div class="modal-foot">
+        <button class="btn" style="border-color:var(--line);color:var(--ink)" onclick="closeModal('hmLoginOverlay')">रद्द करा</button>
+        <button class="btn solid-green" id="hmLoginBtn" onclick="attemptHmLogin()">प्रवेश करा</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 4. Headmaster (HM) Change PIN Modal -->
+<div class="overlay" id="changeHmPinOverlay">
+  <div class="modal">
+    <div class="modal-head"><h3>मुख्याध्यापक पिन बदला (Change HM PIN)</h3><button class="modal-close" onclick="closeModal('changeHmPinOverlay')">✕</button></div>
+    <div class="modal-body">
+      <p class="helptext">या शाळेसाठी नवीन HM पिन सेट करा.</p>
+      <div class="field" id="hmOldPinBox"><label>सध्याचा HM पिन (Current PIN)</label><input id="hmOldPinInput" type="password" inputmode="numeric" maxlength="8" placeholder="****"></div>
+      <div class="field"><label>नवीन HM पिन (New PIN)</label><input id="hmNewPinInput" type="password" inputmode="numeric" maxlength="8" placeholder="****"></div>
+      <div class="field"><label>पुन्हा नवीन पिन टाका (Confirm New PIN)</label><input id="hmConfirmPinInput" type="password" inputmode="numeric" maxlength="8" placeholder="****"></div>
+      <div class="error-text" id="changeHmPinError"></div>
+      <div class="modal-foot">
+        <button class="btn" style="border-color:var(--line);color:var(--ink)" onclick="closeModal('changeHmPinOverlay')">रद्द करा</button>
+        <button class="btn solid-green" onclick="saveNewHmPin()">ऑनलाइन जतन करा</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 5. Teacher Modal (Add / Edit) -->
 <div class="overlay" id="teacherOverlay">
-<div class="modal wide">
-<div class="modal-head"><h3 id="teacherModalTitle">शिक्षक माहिती</h3><button class="modal-close" onclick="closeModal('teacherOverlay')">✕</button></div>
-<div class="modal-body">
-<div class="field"><label>पूर्ण नाव</label><input id="f_name"></div>
-<div class="field"><label>पदनाम</label>
-<select id="f_desig">
-<option>मुख्याध्यापक</option>
-<option>प्रभारी मुख्याध्यापक</option>
-<option>पदवीधर शिक्षक</option>
-<option>सहशिक्षक</option>
-<option>प्राथमिक शिक्षक</option>
-<option>विशेष शिक्षक</option>
-<option>केंद्र समन्वयक</option>
-</select>
-</div>
-<div class="field row2">
-<div><label>मोबाईल</label><input id="f_mobile" inputmode="tel"></div>
-<div><label>ई-मेल</label><input id="f_email" type="email"></div>
-</div>
-<div class="field row2">
-<div><label>जन्मतारीख</label><input id="f_dob" type="date"></div>
-<div><label>लिंग</label>
-<select id="f_gender"><option>पुरुष</option><option>स्त्री</option><option>इतर</option></select>
-</div>
-</div>
-<div class="field row2">
-<div><label>पात्रता</label><input id="f_qual" placeholder="उदा. MA / D.Ed"></div>
-<div><label>प्रवर्ग</label><input id="f_cat" placeholder="उदा. General / OBC / SC / ST"></div>
-</div>
-<div class="field"><label>नियुक्ती तारीख</label><input id="f_appoint" type="date"></div>
-<div class="field"><label>विषय</label><input id="f_subject"></div>
+  <div class="modal wide">
+    <div class="modal-head"><h3 id="teacherModalTitle">शिक्षक माहिती</h3><button class="modal-close" onclick="closeModal('teacherOverlay')">✕</button></div>
+    <div class="modal-body">
+      <div class="field"><label>पूर्ण नाव</label><input id="f_name"></div>
+      <div class="field"><label>पदनाम</label>
+        <select id="f_desig">
+          <option>मुख्याध्यापक</option>
+          <option>प्रभारी मुख्याध्यापक</option>
+          <option>पदवीधर शिक्षक</option>
+          <option>सहशिक्षक</option>
+          <option>प्राथमिक शिक्षक</option>
+          <option>विशेष शिक्षक</option>
+          <option>केंद्र समन्वयक</option>
+        </select>
+      </div>
+      <div class="field row2">
+        <div><label>मोबाईल</label><input id="f_mobile" inputmode="tel"></div>
+        <div><label>ई-मेल</label><input id="f_email" type="email"></div>
+      </div>
+      <div class="field row2">
+        <div><label>जन्मतारीख</label><input id="f_dob" type="date"></div>
+        <div><label>लिंग</label>
+          <select id="f_gender"><option>पुरुष</option><option>स्त्री</option><option>इतर</option></select>
+        </div>
+      </div>
+      <div class="field row2">
+        <div><label>पात्रता</label><input id="f_qual" placeholder="उदा. MA / D.Ed"></div>
+        <div><label>प्रवर्ग</label><input id="f_cat" placeholder="उदा. General / OBC / SC / ST"></div>
+      </div>
+      <div class="field"><label>नियुक्ती तारीख</label><input id="f_appoint" type="date"></div>
+      <div class="field"><label>विषय</label><input id="f_subject"></div>
 
-<!-- Separate inputs for Both types of leaves -->
-<div class="field" style="background:#f2f5f8; border-color:#d5e2da;">
-<label style="font-size:.95rem; border-bottom:1px solid #d5e2da; padding-bottom:6px; margin-bottom:12px;">रजा माहिती (Leave Details)</label>
-<div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-bottom:14px;">
-<div><label style="font-size:0.8rem; margin-bottom:4px; display:block;">महिना व वर्ष</label><input id="f_leaveMonthYear" type="month"></div>
-<div><label style="font-size:0.8rem; margin-bottom:4px; display:block;">कालावधी (पासून)</label><input id="f_leaveFrom" type="date"></div>
-<div><label style="font-size:0.8rem; margin-bottom:4px; display:block;">कालावधी (पर्यंत)</label><input id="f_leaveTo" type="date"></div>
-</div>
-<div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
-<div style="background:#fff; border:1px solid #e1dbcc; padding:12px; border-radius:6px;">
-<label style="color:#27ae60; margin-bottom:8px; display:block;">अर्जित रजा (Earned Leave)</label>
-<div style="display:flex; gap:6px;">
-<input id="f_elTotal" type="number" step="1" placeholder="एकूण" title="एकूण">
-<input id="f_elTaken" type="number" step="0.5" placeholder="घेतलेली" title="घेतलेली">
-<input id="f_elRem" type="number" step="0.5" placeholder="शिल्लक" title="शिल्लक">
-</div>
-</div>
-<div style="background:#fff; border:1px solid #e1dbcc; padding:12px; border-radius:6px;">
-<label style="color:#c0392b; margin-bottom:8px; display:block;">आकस्मिक रजा (Casual Leave)</label>
-<div style="display:flex; gap:6px;">
-<input id="f_clTotal" type="number" step="1" placeholder="एकूण" title="एकूण">
-<input id="f_clTaken" type="number" step="0.5" placeholder="घेतलेली" title="घेतलेली">
-<input id="f_clRem" type="number" step="0.5" placeholder="शिल्लक" title="शिल्लक">
-</div>
-</div>
-</div>
+      <div class="error-text" id="teacherError"></div>
+      <div class="modal-foot">
+        <button class="btn maroon" id="deleteTeacherBtn" style="margin-right:auto" onclick="deleteCurrentTeacher()">काढून टाका</button>
+        <button class="btn" style="border-color:var(--line);color:var(--ink)" onclick="closeModal('teacherOverlay')">रद्द करा</button>
+        <button class="btn solid" onclick="saveTeacher()">ऑनलाइन जतन करा</button>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div class="error-text" id="teacherError"></div>
-<div class="modal-foot">
-<button class="btn maroon" id="deleteTeacherBtn" style="margin-right:auto" onclick="deleteCurrentTeacher()">काढून टाका</button>
-<button class="btn" style="border-color:var(--line);color:var(--ink)" onclick="closeModal('teacherOverlay')">रद्द करा</button>
-<button class="btn solid" onclick="saveTeacher()">जतन करा</button>
-</div>
-</div>
-</div>
-</div>
-
+<!-- 6. Cloud Settings Modal (Now only used for manual force sync) -->
 <div class="overlay" id="settingsOverlay">
-<div class="modal wide">
-<div class="modal-head"><h3>सेटिंग्ज — Google Sheet सिंक</h3><button class="modal-close" onclick="closeModal('settingsOverlay')">✕</button></div>
-<div class="modal-body">
-<p class="helptext">माहिती Google Sheet मध्ये पाठवण्यासाठी, खालील Apps Script कोड आपल्या Google Sheet मध्ये (Extensions → Apps Script) पेस्ट करा, तो Web App म्हणून Deploy करा (Execute as: Me, Access: Anyone), आणि मिळालेली URL खाली टाका.</p>
-<div class="field"><label>Apps Script कोड (कॉपी करा)</label>
-<textarea class="code" readonly id="appsScriptCode"></textarea>
-<button class="btn small" style="margin-top:6px;border-color:var(--line);color:var(--ink)" onclick="copyScript()">कोड कॉपी करा</button>
+  <div class="modal wide">
+    <div class="modal-head"><h3>क्लाउड सिंक (Cloud Sync)</h3><button class="modal-close" onclick="closeModal('settingsOverlay')">✕</button></div>
+    <div class="modal-body">
+      <p class="helptext">माहिती ऑनलाइन जतन करण्यासाठी मॅन्युअल सिंक करा.</p>
+      <div class="error-text" id="settingsMsg"></div>
+      <div class="modal-foot">
+        <button class="btn" style="border-color:var(--line);color:var(--ink)" onclick="closeModal('settingsOverlay')">बंद करा</button>
+        <button class="btn solid" onclick="manualForceSync()">आत्ता सक्तीने सिंक करा (Force Sync)</button>
+      </div>
+    </div>
+  </div>
 </div>
-<div class="field"><label>Web App URL</label><input id="sheetUrl" placeholder="https://script.google.com/macros/s/xxxxx/exec"></div>
-<div class="error-text" id="settingsMsg"></div>
-<div class="modal-foot">
-<button class="btn" style="border-color:var(--line);color:var(--ink)" onclick="closeModal('settingsOverlay')">बंद करा</button>
-<button class="btn solid" onclick="saveSheetUrlAndSync()">आता सिंक करा</button>
-</div>
-</div>
-</div>
+
+<!-- 7. School Modal (Add / Edit) -->
+<div class="overlay" id="schoolOverlay">
+  <div class="modal">
+    <div class="modal-head"><h3 id="schoolModalTitle">नवीन शाळा जोडा</h3><button class="modal-close" onclick="closeModal('schoolOverlay')">✕</button></div>
+    <div class="modal-body">
+      <div class="field"><label>शाळेचे नाव</label><input id="s_name" placeholder="उदा. जि. प. प्रा. शाळा..."></div>
+      <div class="field"><label>युडायस कोड (UDISE Code)</label><input id="s_udise" type="number" placeholder="उदा. 27270101620"></div>
+      <div class="error-text" id="schoolError"></div>
+      <div class="modal-foot">
+        <button class="btn maroon" id="deleteSchoolBtn" style="margin-right:auto" onclick="deleteCurrentSchool()">शाळा काढून टाका</button>
+        <button class="btn" style="border-color:var(--line);color:var(--ink)" onclick="closeModal('schoolOverlay')">रद्द करा</button>
+        <button class="btn solid" onclick="saveSchool()">ऑनलाइन जतन करा</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="toast" id="toast"></div>
-
-<!-- Printable area (hidden on screen, shown on print) -->
 <div id="printArea"></div>
 
 <script>
 /* ============================================================
-DATA MODEL
-============================================================ */
+   DATA & ONLINE CONFIG (Strict Hardcoded Version)
+   ============================================================ */
 const CENTER_INFO = { name:"रविवार पेठ", taluka:"अंबाजोगाई", district:"बीड" };
 
-function T(name,desig,mobile,email,dob,gender,qual,cat,appoint,subject, leaveMY="", elTot="", elTak="", elRem="", clTot="", clTak="", clRem="", lFrom="", lTo=""){
-return {
-id: crypto.randomUUID(), name,desig,mobile,email,dob,gender,qual,cat,appoint,subject,
-leaveMY, elTot, elTak, elRem, clTot, clTak, clRem, lFrom, lTo
-};
+// 1. HARDCODED URL: The code will ONLY use this URL, preventing cache issues.
+const CLOUD_SYNC_URL = "https://script.google.com/macros/s/AKfycbx4d005w7PJXOnMjhl7xrK2LS41HVtFK4IKpk9aarWCrLlghFbyrZ5ikNxZ3ksFYQyb/exec";
+
+function getValidUrl() {
+    let url = CLOUD_SYNC_URL.trim();
+    if (/^https/i.test(url)) {
+        url = url.replace(/^https/i, "https");
+    }
+    return url;
 }
 
-const DEFAULT_SCHOOLS = [
-{ udise:"27270101612", name:"सी.पी.एस. रविवार पेठ", teachers:[
-T("उषाताई नारायण चव्हाण","प्राथमिक शिक्षक","9422929990","addeushatai@gmail.com","1970-06-06","स्त्री","HSC / D.Ed","OBC","1997-09-01","-"),
-T("रेखा सुखदेव बनसोडे","पदवीधर शिक्षक","9767539553","rekha9553bansode@gmail.com","1972-04-13","स्त्री","BA / B.Ed","SC","1992-06-17","समाजशास्त्र"),
-T("इंद्रजित शिवाजीराव डांगे","प्रभारी मुख्याध्यापक","9403023319","indradange01@gmail.com","1974-01-01","पुरुष","BA / D.Ed","General","1997-09-01","सर्व"),
-T("रुपेश पांडुरंग लोंढे","केंद्र समन्वयक","7066100281","-","","","-","-","",""),
-T("पुरुषोत्तम संभाप्पा रुद्राक्ष","विशेष शिक्षक","7588566554","-","","","-","-","","")
-]},
-{ udise:"27270101613", name:"जि.प.प्रा.शा. क्र. २, अंबाजोगाई", teachers:[
-T("बालासाहेब रामराव सोनवणे","प्राथमिक शिक्षक","9403608550","balasahebsonwane94@gmail.com","1971-05-15","पुरुष","BA / D.Ed","SC","1993-10-20","भाषा, गणित, इंग्लिश, परिसर अभ्यास १,२"),
-T("बळीराम शिवदास आकुसकर","प्रभारी मुख्याध्यापक","9011999904","baliramakuskar9005@gmail.com","1970-06-04","पुरुष","SSC / D.Ed","General","1995-11-22","भाषा गणित इंग्रजी परिसर अभ्यास १ २")
-]},
-{ udise:"27270102401", name:"जि.प.प्रा.शा. साकुड (मराठी)", teachers:[
-T("अंगद कोंडीबा घुले","प्रभारी मुख्याध्यापक","9822373937","angadghule118@gmail.com","1975-07-10","पुरुष","BA / B.P.Ed","OBC","1995-08-11","-"),
-T("सुर्यवंशी सविता जगन्नाथ","सहशिक्षक","9403646485","Savitagaikwad970@gmail.com","1976-03-04","स्त्री","BA / D.Ed","General","1995-08-05","-"),
-T("लव्हारे सुरेखा तुकाराम","सहशिक्षक","9822576718","surekhalavare@gmail.com","1972-09-16","स्त्री","BA / D.Ed","OBC","1996-12-14","-"),
-T("आघाव सुरेखा प्रल्हाद","सहशिक्षक","9881655787","surekhaaghav07@gmail.com","1981-05-07","स्त्री","MA / B.Ed","OBC","2002-02-05","सर्व विषय"),
-T("जाधव छाया मधुकर","सहशिक्षक","9421480353","chhyadhapate1981@gmail.com","1981-01-01","स्त्री","BA / D.Ed","General","2004-01-30","सर्व"),
-T("तोडकर माधुरी मुरली","सहशिक्षक","8788833061","madhuritodakar79851@gmail.com","1977-06-14","स्त्री","BA / D.Ed","OBC","1998-08-04","-"),
-T("गायके शिल्पा तात्यासाहेब","सहशिक्षक","7588934345","Shilpagayke@gmail.com","1985-02-04","स्त्री","BA / B.Ed","OBC","2007-12-03","-"),
-T("मुंडे मंगल विश्वनाथ","सहशिक्षक","-","-","","","-","-","",""),
-T("राठोड विनायक घुगू","सहशिक्षक","-","-","","","-","-","","")
-]},
-{ udise:"27270102404", name:"जि.प.प्रा.शा. साकुड (उर्दू)", teachers:[
-T("मोहम्मदगौस मोहिउद्दीन फकीरमोहम्मद शेख","पदवीधर शिक्षक","9423170486","anwarshaikhamba.246086@gmail.com","1971-09-12","पुरुष","MA / D.Ed","General","1996-12-02","Language"),
-T("रेश्मा बेगम तुफैल अहमद खान पठाण","पदवीधर शिक्षक","8788220923","fazilgauri264@gmail.com","1978-03-24","स्त्री","BA / D.Ed","General","2002-10-28","Social science"),
-T("तरन्नुम अहमद अली सय्यद","प्राथमिक शिक्षक","8668338554","tannuwajid43@gmail.com","1987-05-17","स्त्री","BA / D.Ed","General","2008-12-24","Math English Science"),
-T("अहमदी बेगम अब्दुल शुकुर साहेब फारुकी","प्राथमिक शिक्षक","9975082007","ahmedibegum0206@gmail.com","1969-06-02","स्त्री","HSC / D.Ed","General","1991-09-25","-"),
-T("फारुकी शहेबाज सादेक","पदवीधर शिक्षक","9420432681","farooquishahebaz49@gmail.com","1997-06-07","पुरुष","BSc / B.Ed","OBC","2024-07-25","Science, math"),
-T("आरिफ अहमद अब्दुल रशीद शेख","प्रभारी मुख्याध्यापक","9405292799","arifahemadabdulrashid78@gmail.com","1978-07-02","पुरुष","BA / M.Ed","General","2009-03-12","-"),
-T("सबीहानाझ जमील अहमद सिद्दीकी","प्राथमिक शिक्षक","8007128724","sabihanaazsiddiqui@gmail.com","1982-06-02","स्त्री","MA / D.Ed","General","2003-06-26","Urdu, marathi, English"),
-T("अयुब कलीम सय्यद","प्राथमिक शिक्षक","8605825544","aksayyed22@gmail.com","1979-07-04","पुरुष","BA / D.Ed","General","2002-04-02","-")
-]},
-{ udise:"27270102501", name:"जि.प.प्रा.शा. काळवटी तांडा क्र. १", teachers:[
-T("कमल गंगाधर चिखले","प्राथमिक शिक्षक","9422082541","kamalchikhale1970@gmail.com","1970-06-01","स्त्री","MA / B.Ed","OBC","1993-01-12","भाषा, गणित, विज्ञान"),
-T("प्रभू बाबुराव खोडवे","प्राथमिक शिक्षक","9764569825","pratikshaprajwal@gmail.com","1971-04-03","पुरुष","BA / D.Ed","OBC","1993-12-01","भाषा, गणित, विज्ञान"),
-T("उत्तम बाबुराव डोंगरे","प्रभारी मुख्याध्यापक","9689008389","uttamdongreuttam@gmail.com","1970-06-20","पुरुष","MA / D.Ed","SC","1993-10-18","भाषा गणित विज्ञान")
-]},
-{ udise:"27270102502", name:"जि.प.प्रा.शा. काळवटी तांडा क्र. ३", teachers:[
-T("मंजुषा भीमाशंकर जिडगे","प्रभारी मुख्याध्यापक","9561941714","manjushavhotte@gmail.com","1973-05-27","स्त्री","MA / M.Ed","OBC","1993-10-18","-"),
-T("नंदकुमार नामदेव सूर्यवंशी","प्राथमिक शिक्षक","9307856717","nandkumarsuryawanshi1122@gemal.com","1974-04-05","पुरुष","BA / D.Ed","SC","1995-08-08","इयत्ता दुसरी")
-]},
-{ udise:"27270102503", name:"जि.प.प्रा.शा. भीमाई वस्ती", teachers:[
-T("वंदना तुकाराम उजगरे","प्रभारी मुख्याध्यापक","9552983384","vandanaujgare37@gmail.com","1978-07-03","स्त्री","MA / D.Ed","SC","2001-06-15","इयत्ता पहिली ते चौथी सर्व विषय"),
-T("वैजनाथ आबासाहेब गडदे","प्राथमिक शिक्षक","9421168755","vaijnathgadade16473@gmail.com","1984-05-27","पुरुष","MA / B.Ed","OBC","2008-01-17","मराठी, गणित, इंग्लीश, सामाजिक शास्त्र")
-]},
-{ udise:"27270102601", name:"जि.प.प्रा.शा. काळवटी तांडा क्र. २", teachers:[
-T("संजय हणमंतराव कचकलवार","प्रभारी मुख्याध्यापक","9284746414","kachkalwarsanjay1@gmail.com","1986-05-01","पुरुष","MA / D.Ed","ST","2009-01-12","सर्व"),
-T("पूनम किसन लेंगरे","प्राथमिक शिक्षक","7798661934","devkate3377@gmail.com","1985-09-04","स्त्री","MA / D.Ed","OBC","2010-05-13","मराठी, गणित, इंग्रजी, विज्ञान")
-]},
-{ udise:"27270102701", name:"जि.प.प्रा.शा. मांडवा पठाण", teachers:[
-T("मनीषा रत्नलिंग बिडवे","प्राथमिक शिक्षक","7875865244","bidwemanisha01@gmail.com","1980-01-01","स्त्री","MA / D.Ed","General","2004-08-28","मराठी, गणित, इंग्लीश, परिसर अभ्यास"),
-T("बापूराव राघुआप्पा धारेकर","प्रभारी मुख्याध्यापक","7020752753","dharekar1969@gmail.com","1969-06-05","पुरुष","BA / D.Ed","इतर मागास वर्ग","1991-07-26","मराठी, गणित, इंग्रजी, विज्ञान"),
-T("सुरेश नामदेव निपाणीकर","पदवीधर शिक्षक","9423469937","nipanikarsuresh1@gmail.com","1969-07-09","पुरुष","BA / D.Ed","General","1992-08-01","सामाजिक शास्त्रे, मराठी")
-]},
-{ udise:"27270102801", name:"जि.प.प्रा.शा. मांडवा तांडा", teachers:[
-T("पंचशीला मधुकर साळवी","प्राथमिक शिक्षक","9503685010","panchashilasalvi1978@gmail.com","1978-01-02","स्त्री","MA / D.Ed","SC","2000-03-14","मराठी, गणित, English"),
-T("संजय ज्ञानोबा पाडोळे","प्रभारी मुख्याध्यापक","7020929833","sanjaypadole77@gmail.com","1977-04-04","पुरुष","HSC / D.Ed","SC","1997-09-03","मराठी, गणित, विज्ञान, इंग्रजी")
-]},
-{ udise:"27270102901", name:"जि.प.प्रा.शा. पोलेवाडी", teachers:[
-T("राजेसाहेब वैजनाथराव सोमवंशी","प्रभारी मुख्याध्यापक","7020708970","rajesahebsomwanshi712@gmail.com","1975-02-17","पुरुष","MA / D.Ed","General","1995-08-07","सर्व विषय"),
-T("सचिन नारायण गायकवाड","प्राथमिक शिक्षक","9637757982","sachin7427@gmail.com","","पुरुष","MA / D.Ed","SC","2009-01-07","सर्व विषय")
-]},
-{ udise:"27270103001", name:"जि.प.प्रा.शा. नागझरी वसाहत", teachers:[
-T("संतोष माणिकराव गिते","प्राथमिक शिक्षक","7588635356","santoshgitte20@gmail.com","1983-12-20","पुरुष","MA / D.Ed","OBC","2006-01-31","-"),
-T("बालासाहेब व्यंकटराव कातळे","प्रभारी मुख्याध्यापक","8999022483","balasahebkatale1975@gmail.com","1975-05-16","पुरुष","BA / D.Ed","General","1998-08-05","-")
-]},
-{ udise:"27270103101", name:"जि.प.प्रा.शा. शेपवाडी", teachers:[
-T("वैशाली विजय बुरांडे","पदवीधर शिक्षक","9405644999","akuskarvk999@gmail.com","1974-05-07","स्त्री","MA / B.Ed","OBC","1993-10-19","इंग्रजी"),
-T("आशालता मनोहरराव लांब","प्राथमिक शिक्षक","7719015759","ashalatalamb24@gmail.com","1971-05-24","स्त्री","BA / D.Ed","General","1995-08-07","सर्व विषय"),
-T("शैलजा उत्तमराव जोशी","प्रभारी मुख्याध्यापक","9403882075","shailajajoshi1971@gmail.com","1971-01-19","स्त्री","BA / D.Ed","General","1995-08-09","मराठी, हिंदी, इतिहास, भूगोल, नागरिकशास्त्र"),
-T("प्रशांत मारुतीराव बिरादार","प्राथमिक शिक्षक","9421328701","biadar11082@gmail.com","1982-10-01","पुरुष","BA / D.Ed","General","2006-09-19","सर्व विषय (इयत्ता १ ते ५)")
-]},
-{ udise:"27270103102", name:"जि.प.प्रा.शा. सह्याद्री नगर शेपवाडी", teachers:[
-T("मीनाक्षी प्रकाश लवटे","प्राथमिक शिक्षक","9823340660","lawatemeena123@gmail.com","1978-07-03","स्त्री","BA / D.Ed","OBC","1998-08-01","इयत्ता १ ते ५ सर्व विषय"),
-T("अनिता सदाशिव नखाते","प्रभारी मुख्याध्यापक","9403356595","nanita9421@gmail.com","1971-09-06","स्त्री","BA / D.Ed","General","2004-03-15","सर्व")
-]},
-{ udise:"27270103201", name:"जि.प.प्रा.शा. पिंपळा धायगुडा (मराठी)", teachers:[
-T("भैय्यासाहेब तुकाराम जोगदंड","प्राथमिक शिक्षक","8888959458","bhaiyasahebjogdand@gmail.com","1986-06-15","पुरुष","MA / D.Ed","SC","2009-06-29","मराठी, गणित, इंग्रजी, परिसर अभ्यास, हिंदी, कला, कार्यानुभव, शारीरिक शिक्षण"),
-T("प्रीती सुभाषचंद्र साहू","प्राथमिक शिक्षक","9422610375","preetigupta2255@gmail.com","1977-03-16","स्त्री","MA / B.Ed","OBC","2000-11-01","सर्व विषय"),
-T("संजीव कचरू उमाप","प्रभारी मुख्याध्यापक","9284023434","sanjeevumap52@gmail.com","1978-06-22","पुरुष","MA / M.Ed","SC","2000-03-14","सामाजिक शास्त्र"),
-T("गंगू मुरलीधर झाडे","पदवीधर शिक्षक","8806269056","ganguzade01@gmail.com","1982-02-01","स्त्री","MA / B.Ed","SC","2005-11-29","सर्व"),
-T("सुरेखा उमाकांत हिशोबे","प्राथमिक शिक्षक","7588114545","Surekhapotdar1970@gmail.com","1970-01-15","स्त्री","BA / D.Ed","OBC","1993-10-19","सर्व विषय"),
-T("ज्योतीराम कोंडीबा कोल्हापुरे","प्राथमिक शिक्षक","9850275947","kolhapurejk74@gmail.com","1974-02-07","पुरुष","BA / D.Ed","OBC","1993-10-19","सर्व विषय"),
-T("सीमा सखारामराव कदम","प्राथमिक शिक्षक","9422329924","sdtseema@gmail.com","1978-06-29","स्त्री","MA / B.Ed","इतर","1998-07-16","सर्व विषय"),
-T("विलास रामराव माचवे","प्राथमिक शिक्षक","9423893494","vilasmachave105@gmail.com","1982-01-29","पुरुष","MA / B.Ed","General","2002-01-30","सर्व")
-]},
-{ udise:"27270103203", name:"जि.प.प्रा.शा. पिंपळा धायगुडा (उर्दू)", teachers:[
-T("सय्यदा हिना सय्यद सरफराजोद्दीन","प्रभारी मुख्याध्यापक","8600504215","hinasyeda132@gmail.com","1975-07-29","स्त्री","MA / B.Ed","General","1995-08-07","Language"),
-T("दायमी सय्यदा नुरुलहुदा अमीरोद्दीन","पदवीधर शिक्षक","9028704480","daiminoor@gmail.com","1992-11-29","स्त्री","MSc / B.Ed","OBC","2024-10-24","गणित, विज्ञान"),
-T("खालीद हसनसाब सय्यद","प्राथमिक शिक्षक","8766734554","khalid1829a@gmail.com","1979-01-03","पुरुष","HSC / D.Ed","General","2003-08-04","-"),
-T("गौसिया बेगम अब्दुल अजीज शेख","प्राथमिक शिक्षक","9579165068","khatibg1975@gmail.com","1975-08-20","स्त्री","HSC / D.Ed","General","2003-02-17","Urdu, maths, English, Marathi")
-]},
-{ udise:"27270103301", name:"जि.प.प्रा.शा. वरवटी", teachers:[
-T("ज्योतीबाई देवीदासराव शिंदे","प्रभारी मुख्याध्यापक","9403645467","vasantjyoti26@gmail.com","1986-04-12","स्त्री","MA / B.Ed","SC","2010-07-12","सर्व"),
-T("श्री सायस साखरोबा गर्जे","प्राथमिक शिक्षक","9561858811","sayasgarje1979@gmail.com","1979-02-01","पुरुष","HSC / D.Ed","OBC","2014-03-01","भाषा, गणित, विज्ञान, इंग्रजी इ.")
-]},
-{ udise:"27270103303", name:"जि.प.प्रा.शा. उघडे वस्ती (वरवटी)", teachers:[
-T("रविकांत सुधाकरराव खेपकर","प्राथमिक शिक्षक","9623520793","ravikantkhepkar99@gmail.com","1970-06-07","पुरुष","SSC / D.Ed","General","1991-07-29","मराठी, गणित, इंग्रजी"),
-T("शोभा अंगदराव चाटे","प्रभारी मुख्याध्यापक","8999768368","kandeshobha1816@gmail.com","1971-01-01","स्त्री","BA / D.Ed","OBC","1992-07-02","मराठी, गणित, इंग्रजी")
-]},
-{ udise:"27270103401", name:"जि.प.प्रा.शा. तलाव पाटी", teachers:[
-T("मनीषा धोंडोपंत चिंचोलीकर","प्रभारी मुख्याध्यापक","9420194266","aadityasd22@gmail.com","1977-07-21","स्त्री","MA / B.Ed","General","1997-09-02","सर्व विषय"),
-T("श्रीदेवी मनोहर सिरसाट","प्राथमिक शिक्षक","8999773919","shridevisirsat1984@gmail.com","1984-06-16","स्त्री","BA / D.Ed","OBC","2003-10-13","सर्व विषय")
-]},
-{ udise:"27270103501", name:"जि.प.प्रा.शा. अंबलवाडी", teachers:[
-T("नवतीला रामराव जाधव","प्राथमिक शिक्षक","7498239099","navtilajadhav@gmail.com","1976-11-06","स्त्री","MA / D.Ed","General","2002-11-20","भाषा, गणित विज्ञान, सामाजिक शास्त्र"),
-T("भगवान आश्रुबा बिल्पे","पदवीधर शिक्षक","9604572196","bhagwanbilpe555@gmail.com","1977-09-15","पुरुष","MA / B.Ed","ST","2000-03-23","भाषा"),
-T("आनंद पांडुरंग सिरसाट","प्रभारी मुख्याध्यापक","9850940078","anandsirsat15@gmail.com","1980-09-05","पुरुष","MA / B.Ed","SC","2004-02-17","भाषा"),
-T("रुक्मिणी हरिश्चंद्र दाभाडे","प्राथमिक शिक्षक","7588342321","rukminidabhade@gmail.com","1975-03-16","स्त्री","MA / D.Ed","General","1997-09-01","Marathi, Math, English")
-]},
-{ udise:"27270103502", name:"जि.प.प्रा.शा. गोल्टावस्ती", teachers:[
-T("सुरेखा अभिमान गालफाडे","प्राथमिक शिक्षक","8999330431","surekhagalphade0812@gmail.com","1978-12-08","स्त्री","MA / D.Ed","SC","2000-03-15","सर्व"),
-T("शालन नागनाथ जोगदंड","प्रभारी मुख्याध्यापक","9763233793","shalanjogdand@gmail.com","1978-06-25","स्त्री","MA / D.Ed","SC","2000-03-04","-")
-]},
-{ udise:"27270103701", name:"जि.प.प्रा.शा. गिरवली आपेट", teachers:[
-T("अर्जुन सूर्यकांत चव्हाण","प्राथमिक शिक्षक","9763737062","arjunchavan137@gmail.com","1987-07-11","पुरुष","BCom / D.Ed","इतर","2026-07-11","सर्व विषय (मराठी, गणित, इंग्रजी, परिसर अभ्यास भाग १-२, कला शिक्षण, कार्यशिक्षण, शारीरिक शिक्षण)"),
-T("सुनिल आनंदराव फुलेवार","प्रभारी मुख्याध्यापक","9423733945","fulewarsunil@gmail.com","1970-07-01","पुरुष","BA / D.Ed","ST","1992-06-20","मराठी, गणित, इंग्रजी, कला शिक्षण, कार्य शिक्षण, शारीरिक शिक्षण")
-]},
-{ udise:"27270103801", name:"जि.प.हा.स्कू. गिरवली", teachers:[]}
-];
+function generateUUID() {
+    if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+        return crypto.randomUUID();
+    }
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    });
+}
+
+function T(name,desig,mobile,email,dob,gender,qual,cat,appoint,subject){
+  return { id: generateUUID(), name,desig,mobile,email,dob,gender,qual,cat,appoint,subject };
+}
+
+// Fallback data in case the server is completely empty
+const DEFAULT_SCHOOLS = []; 
 
 /* ============================================================
-STORAGE KEYS & STATE
-============================================================ */
-// Define your Master Google App Script URL here
-const MASTER_SHEET_URL = "https://script.google.com/macros/s/AKfycbx4d005w7PJXOnMjhl7xrK2LS41HVtFK4IKpk9aarWCrLlghFbyrZ5ikNxZ3ksFYQyb/exec";
-let CLOUD_SYNC_URL = localStorage.getItem("krp-sheet-url-v1") || MASTER_SHEET_URL;
-
+   APPLICATION STATE
+   ============================================================ */
 let schools = [];
-let adminPinHash = "";
-let isAdmin = false;
+let adminPinHash = ""; 
+let isAdmin = false;   
+let authenticatedHmSchoolIdx = null; 
 let currentSchoolIdx = null;
 let editingTeacherId = null;
-let sortField = "desig"; // Set Designation as default sorting
+let editingSchoolIdx = null; 
+let sortField = "desig";
+let schoolSortField = "name"; 
 
-/* ============================================================
-CRYPTOGRAPHY
-============================================================ */
 async function sha256Hex(str){
   const enc = new TextEncoder().encode(str);
   const buf = await crypto.subtle.digest("SHA-256", enc);
@@ -629,23 +552,22 @@ async function sha256Hex(str){
 }
 
 /* ============================================================
-UI HELPERS
-============================================================ */
+   UI HELPERS & TOAST
+   ============================================================ */
 function showToast(msg){
   const t = document.getElementById("toast");
   t.textContent = msg;
   t.classList.add("show");
   clearTimeout(window.__toastTimer);
-  window.__toastTimer = setTimeout(()=>t.classList.remove("show"), 2600);
+  window.__toastTimer = setTimeout(()=>t.classList.remove("show"), 2800);
 }
-
 function openModal(id){ document.getElementById(id).classList.add("show"); }
-
 function closeModal(id){
   document.getElementById(id).classList.remove("show");
-  document.getElementById("loginError") && (document.getElementById("loginError").textContent="");
-  document.getElementById("changePinError") && (document.getElementById("changePinError").textContent="");
-  document.getElementById("teacherError") && (document.getElementById("teacherError").textContent="");
+  ["loginError","changePinError","hmLoginError","changeHmPinError","teacherError", "schoolError"].forEach(eId=>{
+    const el = document.getElementById(eId);
+    if(el) el.textContent = "";
+  });
 }
 
 function renderAdminArea(){
@@ -654,34 +576,40 @@ function renderAdminArea(){
     el.innerHTML = `
       <div class="badge-admin"><span class="dot"></span> केंद्रप्रमुख मोड सुरू</div>
       <button class="btn ghost-light small" onclick="downloadAllSchoolsPdf()">सर्व शाळा PDF</button>
-      <button class="btn ghost-light small" onclick="openSettings()">Sheet सिंक</button>
+      <button class="btn ghost-light small" onclick="openModal('settingsOverlay')">Cloud सिंक</button>
       <button class="btn ghost-light small" onclick="openChangePinModal()">पिन बदला</button>
-      <button class="btn maroon small" onclick="logout()">बाहेर पडा</button>
+      <button class="btn maroon small" onclick="logoutAdmin()">बाहेर पडा</button>
     `;
   } else {
     el.innerHTML = `<button class="btn solid" onclick="openLoginModal()">केंद्रप्रमुख प्रवेश</button>`;
   }
 }
 
-function logout(){
+function logoutAdmin(){
   isAdmin = false;
   renderAdminArea();
   render();
-  showToast("आपण बाहेर पडला आहात");
+  showToast("केंद्रप्रमुख मोडमधून बाहेर पडला आहात");
+}
+
+function hmLogout(){
+  authenticatedHmSchoolIdx = null;
+  render();
+  showToast("मुख्याध्यापक मोडमधून बाहेर पडला आहात");
 }
 
 /* ============================================================
-LOGIN & DYNAMIC PIN SETUP
-============================================================ */
+   KENDRA PRAMUKH AUTHENTICATION 
+   ============================================================ */
 function openLoginModal() {
     if (!adminPinHash) {
-        document.getElementById("loginModalTitle").textContent = "नवीन पिन सेट करा";
+        document.getElementById("loginModalTitle").textContent = "नवीन केंद्रप्रमुख पिन सेट करा";
         document.getElementById("loginModalBtn").textContent = "पिन सेट करा आणि प्रवेश करा";
-        document.getElementById("loginHelpText").innerHTML = "ही तुमची <b>पहिलीच वेळ</b> असल्यामुळे कृपया तुमचा स्वतःचा <b>४-अंकी सिक्रेट पिन</b> तयार करा.<br><br><span style='color:var(--maroon)'>हा पिन लक्षात ठेवा!</span> भविष्यात प्रवेश करण्यासाठी तुम्हाला हाच पिन लागेल.";
+        document.getElementById("loginHelpText").innerHTML = "सर्व्हरवर अद्याप केंद्रप्रमुख पिन तयार केलेला नाही. कृपया तुमचा <b>४-अंकी सिक्रेट पिन</b> तयार करा.<br><br><span style='color:var(--maroon)'>हा पिन लक्षात ठेवा!</span> हा पिन ऑनलाइन जतन होईल.";
     } else {
         document.getElementById("loginModalTitle").textContent = "केंद्रप्रमुख प्रवेश";
         document.getElementById("loginModalBtn").textContent = "प्रवेश करा";
-        document.getElementById("loginHelpText").textContent = "प्रोफाईल संपादित करण्यासाठी तुमचा ४-अंकी पिन टाका.";
+        document.getElementById("loginHelpText").textContent = "सर्व शाळा संपादित करण्यासाठी तुमचा ४-अंकी केंद्रप्रमुख पिन टाका.";
     }
     document.getElementById("pinInput").value = "";
     document.getElementById("loginError").textContent = "";
@@ -697,24 +625,22 @@ async function attemptLogin(){
   const hashed = await sha256Hex(val);
 
   if (!adminPinHash) {
-      // Setup PIN on first login
       adminPinHash = hashed;
       isAdmin = true;
+      await pushToSheet();
       closeModal("loginOverlay");
       renderAdminArea();
       render();
-      showToast("नवीन पिन यशस्वीरित्या सेट केला!");
-      await pushToSheet(); // Sync the new PIN to the cloud!
+      showToast("नवीन केंद्रप्रमुख पिन ऑनलाइन सेट झाला व प्रवेश यशस्वी!");
       return;
   }
 
-  // Normal login
   if(hashed === adminPinHash){
     isAdmin = true;
     closeModal("loginOverlay");
     renderAdminArea();
     render();
-    showToast("प्रवेश यशस्वी — आपण केंद्रप्रमुख मोडमध्ये आहात");
+    showToast("केंद्रप्रमुख मोडमध्ये आपले स्वागत आहे!");
   } else {
     errEl.textContent = "चुकीचा पिन. पुन्हा प्रयत्न करा.";
   }
@@ -746,64 +672,232 @@ async function saveNewPin() {
 
     const hashedOld = await sha256Hex(oldPin);
     if(hashedOld !== adminPinHash) {
-        errEl.textContent = "सध्याचा पिन चुकीचा आहे."; return;
+        errEl.textContent = "सध्याचा केंद्रप्रमुख पिन चुकीचा आहे."; return;
     }
 
     adminPinHash = await sha256Hex(newPin);
-    await pushToSheet(); // Sync the changed PIN to the cloud!
+    await pushToSheet();
     closeModal("changePinOverlay");
-    showToast("पिन यशस्वीरित्या बदलला आहे.");
+    showToast("नवीन केंद्रप्रमुख पिन ऑनलाइन यशस्वीरित्या बदलला.");
 }
 
 /* ============================================================
-ROUTING / RENDER
-============================================================ */
+   HEADMASTER (HM) AUTHENTICATION
+   ============================================================ */
+function openHmLoginModal(idx) {
+    const s = schools[idx];
+    const isNew = !s.hmPin;
+    document.getElementById("hmLoginTitle").textContent = `${s.name} — मुख्याध्यापक प्रवेश`;
+    if(isNew) {
+        document.getElementById("hmLoginHelp").innerHTML = `या शाळेसाठी अद्याप मुख्याध्यापक पिन सेट केलेला नाही. कृपया या शाळेसाठी तुमचा <b>४-अंकी सिक्रेट पिन</b> तयार करा.<br><span style='color:var(--maroon)'>हा पिन या शाळेची माहिती बदलण्यासाठी लागेल.</span>`;
+        document.getElementById("hmLoginBtn").textContent = "पिन सेट करा व प्रवेश करा";
+    } else {
+        document.getElementById("hmLoginHelp").textContent = `या शाळेतील शिक्षकांची माहिती संपादित करण्यासाठी मुख्याध्यापक पिन टाका.`;
+        document.getElementById("hmLoginBtn").textContent = "प्रवेश करा";
+    }
+    document.getElementById("hmPinInput").value = "";
+    document.getElementById("hmLoginError").textContent = "";
+    openModal("hmLoginOverlay");
+}
+
+async function attemptHmLogin() {
+    const s = schools[currentSchoolIdx];
+    const val = document.getElementById("hmPinInput").value.trim();
+    const errEl = document.getElementById("hmLoginError");
+    if(!val) { errEl.textContent = "कृपया पिन टाका"; return; }
+    if(val.length < 4) { errEl.textContent = "पिन किमान ४ अंकी असावा."; return; }
+
+    const hashed = await sha256Hex(val);
+
+    if(!s.hmPin) {
+        s.hmPin = hashed;
+        authenticatedHmSchoolIdx = currentSchoolIdx;
+        await pushToSheet();
+        closeModal("hmLoginOverlay");
+        render();
+        showToast("या शाळेचा HM पिन ऑनलाइन सेट झाला व प्रवेश यशस्वी!");
+        return;
+    }
+
+    if(hashed === s.hmPin) {
+        authenticatedHmSchoolIdx = currentSchoolIdx;
+        closeModal("hmLoginOverlay");
+        render();
+        showToast(`${s.name} — मुख्याध्यापक मोड सक्रिय!`);
+    } else {
+        errEl.textContent = "चुकीचा HM पिन. कृपया योग्य पिन टाका.";
+    }
+}
+
+function openChangeHmPinModal() {
+    const isMaster = isAdmin;
+    document.getElementById("hmOldPinBox").style.display = isMaster ? "none" : "block";
+    document.getElementById("hmOldPinInput").value = "";
+    document.getElementById("hmNewPinInput").value = "";
+    document.getElementById("hmConfirmPinInput").value = "";
+    document.getElementById("changeHmPinError").textContent = "";
+    openModal("changeHmPinOverlay");
+}
+
+async function saveNewHmPin() {
+    const s = schools[currentSchoolIdx];
+    const oldPin = document.getElementById("hmOldPinInput").value.trim();
+    const newPin = document.getElementById("hmNewPinInput").value.trim();
+    const confirmPin = document.getElementById("hmConfirmPinInput").value.trim();
+    const errEl = document.getElementById("changeHmPinError");
+
+    if(!isAdmin && !oldPin) {
+        errEl.textContent = "सध्याचा HM पिन टाकणे आवश्यक आहे."; return;
+    }
+    if(!newPin || !confirmPin) {
+        errEl.textContent = "नवीन पिनचे दोन्ही रकाने भरा."; return;
+    }
+    if(newPin !== confirmPin) {
+        errEl.textContent = "नवीन पिन आणि पुष्टी केलेला पिन जुळत नाहीत."; return;
+    }
+    if(newPin.length < 4) {
+        errEl.textContent = "पिन किमान ४ अंकी असावा."; return;
+    }
+
+    if(!isAdmin && s.hmPin) {
+        const hashedOld = await sha256Hex(oldPin);
+        if(hashedOld !== s.hmPin) {
+            errEl.textContent = "सध्याचा HM पिन चुकीचा आहे."; return;
+        }
+    }
+
+    s.hmPin = await sha256Hex(newPin);
+    await pushToSheet();
+    closeModal("changeHmPinOverlay");
+    showToast("या शाळेचा HM पिन ऑनलाइन यशस्वीरित्या बदलला.");
+}
+
+/* ============================================================
+   SCHOOL CRUD 
+   ============================================================ */
+function openSchoolModal(idx = null) {
+  editingSchoolIdx = idx;
+  const s = idx !== null ? schools[idx] : null;
+  document.getElementById("schoolModalTitle").textContent = s ? "शाळेची माहिती संपादित करा" : "नवीन शाळा जोडा";
+  document.getElementById("s_name").value = s ? s.name : "";
+  document.getElementById("s_udise").value = s ? s.udise : "";
+  
+  document.getElementById("deleteSchoolBtn").style.display = s ? "inline-block" : "none";
+  document.getElementById("schoolError").textContent = "";
+  openModal("schoolOverlay");
+}
+
+async function saveSchool() {
+  const name = document.getElementById("s_name").value.trim();
+  const udise = document.getElementById("s_udise").value.trim();
+  
+  if(!name || !udise) {
+    document.getElementById("schoolError").textContent = "शाळेचे नाव आणि युडायस कोड दोन्ही आवश्यक आहेत.";
+    return;
+  }
+  
+  if (editingSchoolIdx !== null) {
+    schools[editingSchoolIdx].name = name;
+    schools[editingSchoolIdx].udise = udise;
+  } else {
+    schools.push({ udise: udise, name: name, teachers: [], hmPin: null });
+    currentSchoolIdx = schools.length - 1; 
+  }
+  
+  await pushToSheet();
+  closeModal("schoolOverlay");
+  render();
+  showToast("शाळेची माहिती ऑनलाइन जतन झाली");
+}
+
+async function deleteCurrentSchool() {
+  if (editingSchoolIdx === null) return;
+  if (!confirm("ही शाळा आणि यातील सर्व शिक्षकांची माहिती कायमची काढून टाकायची आहे का? हा बदल पूर्ववत करता येणार नाही!")) return;
+  
+  schools.splice(editingSchoolIdx, 1);
+  await pushToSheet();
+  closeModal("schoolOverlay");
+  currentSchoolIdx = null; 
+  render();
+  showToast("शाळा ऑनलाइन डिलीट करण्यात आली");
+}
+
+/* ============================================================
+   ROUTING & RENDERING
+   ============================================================ */
+function canEditCurrentSchool(idx) {
+    return isAdmin || (authenticatedHmSchoolIdx === idx);
+}
+
 function render(){
   if(currentSchoolIdx === null) renderIndex();
   else renderSchoolDetail(currentSchoolIdx);
 }
 
+function sortSchoolList(list){
+  let sorted = [...list];
+  if(schoolSortField === "name"){
+    sorted.sort((a,b)=> a.s.name.localeCompare(b.s.name, 'mr'));
+  } else if(schoolSortField === "udise"){
+    sorted.sort((a,b)=> String(a.s.udise).localeCompare(String(b.s.udise)));
+  } else if(schoolSortField === "tcount"){
+    sorted.sort((a,b)=> (b.s.teachers?b.s.teachers.length:0) - (a.s.teachers?a.s.teachers.length:0));
+  }
+  return sorted;
+}
+
+function handleSchoolSortChange(e){
+  schoolSortField = e.target.value;
+  renderIndex(document.getElementById("searchInput") ? document.getElementById("searchInput").value : "");
+}
+
 function renderIndex(filterText){
   const root = document.getElementById("viewRoot");
   const q = (filterText||"").trim().toLowerCase();
-  const rows = schools
+  let rows = schools
     .map((s,i)=>({s,i}))
-    .filter(({s})=> !q || s.name.toLowerCase().includes(q) || s.udise.includes(q));
+    .filter(({s})=> !q || s.name.toLowerCase().includes(q) || String(s.udise).includes(q));
+  rows = sortSchoolList(rows);
 
   root.innerHTML = `
     <div class="searchbar">
       <input type="text" id="searchInput" placeholder="शाळेचे नाव किंवा युडायस कोड शोधा…" value="${filterText? escapeHtml(filterText):""}">
-      <div class="count-pill">एकूण शाळा: ${schools.length} &nbsp;•&nbsp; एकूण शिक्षक: ${schools.reduce((a,s)=>a+s.teachers.length,0)}</div>
+      <select id="schoolSortSelect" onchange="handleSchoolSortChange(event)">
+        <option value="name" ${schoolSortField==='name'?'selected':''}>नावानुसार (अ-ज्ञ)</option>
+        <option value="udise" ${schoolSortField==='udise'?'selected':''}>युडायस कोडनुसार</option>
+        <option value="tcount" ${schoolSortField==='tcount'?'selected':''}>शिक्षक संख्येनुसार</option>
+      </select>
+      <div class="count-pill">एकूण शाळा: ${schools.length} &nbsp;•&nbsp; एकूण शिक्षक: ${schools.reduce((a,s)=>a+(s.teachers?s.teachers.length:0),0)}</div>
+      ${isAdmin ? `<button class="btn solid" onclick="openSchoolModal(null)">+ नवीन शाळा जोडा</button>` : ``}
     </div>
     <div class="register">
       <div class="reg-head"><div>अ.क्र.</div><div>शाळेचे नाव</div><div>युडायस कोड</div><div>शिक्षक</div><div></div></div>
-      ${rows.map(({s,i})=>`
+      ${rows.map(({s,i},pos)=>`
         <div class="reg-row" onclick="openSchool(${i})">
           <div class="tab-strip"></div>
-          <div class="num">${toMarathiNum(i+1)}</div>
+          <div class="num">${toMarathiNum(pos+1)}</div>
           <div class="name">${escapeHtml(s.name)}</div>
           <div class="udise">${s.udise}</div>
-          <div class="tcount">${s.teachers.length} शिक्षक</div>
+          <div class="tcount">${s.teachers?s.teachers.length:0} शिक्षक</div>
           <div class="arrow">›</div>
         </div>
       `).join("") || `<div class="empty-note">काही सापडले नाही.</div>`}
     </div>
   `;
-  document.getElementById("searchInput").addEventListener("input", (e)=>renderIndex(e.target.value));
-  document.getElementById("searchInput").focus();
-  if(filterText!==undefined){
-    const el = document.getElementById("searchInput");
-    el.setSelectionRange(el.value.length, el.value.length);
+  const searchInput = document.getElementById("searchInput");
+  if(searchInput){
+      searchInput.addEventListener("input", (e)=>renderIndex(e.target.value));
+      searchInput.focus();
+      if(filterText!==undefined) searchInput.setSelectionRange(searchInput.value.length, searchInput.value.length);
   }
 }
 
 function openSchool(idx){
   currentSchoolIdx = idx;
-  sortField = "desig"; // default sort by designation
+  sortField = "desig";
   render();
   window.scrollTo({top:0, behavior:"smooth"});
 }
-
 function backToIndex(){
   currentSchoolIdx = null;
   render();
@@ -824,11 +918,10 @@ const DESIG_ORDER = {
     "केंद्र समन्वयक": 7
 };
 
-function getDesigRank(desig) {
-    return DESIG_ORDER[desig] || 99;
-}
+function getDesigRank(desig) { return DESIG_ORDER[desig] || 99; }
 
 function sortTeacherList(teacherList) {
+    if (!teacherList) return [];
     let sorted = [...teacherList];
     if (sortField === "desig") {
         sorted.sort((a,b) => {
@@ -850,6 +943,8 @@ function sortTeacherList(teacherList) {
 function renderSchoolDetail(idx){
   const s = schools[idx];
   const root = document.getElementById("viewRoot");
+  const canEdit = canEditCurrentSchool(idx);
+  const isThisHm = (authenticatedHmSchoolIdx === idx);
   let sortedTeachers = sortTeacherList(s.teachers);
 
   root.innerHTML = `
@@ -860,48 +955,32 @@ function renderSchoolDetail(idx){
         <div class="meta">युडायस कोड: ${s.udise} &nbsp;•&nbsp; केंद्र रविवार पेठ, ता. अंबाजोगाई, जि. बीड</div>
       </div>
       <div class="school-actions">
+        ${isThisHm ? `<div class="badge-hm"><span class="dot"></span> मुख्याध्यापक मोड</div>` : ""}
+        ${isAdmin ? `<button class="btn ghost-light small" style="color:var(--navy);border-color:var(--navy);background:#fff;" onclick="openSchoolModal(${idx})">⚙️ शाळा संपादित करा</button>` : ""}
         <select id="sortSelect" onchange="handleSortChange(event)">
             <option value="desig" ${sortField==='desig'?'selected':''}>पदनामानुसार</option>
             <option value="name" ${sortField==='name'?'selected':''}>नावानुसार (अ-ज्ञ)</option>
             <option value="appoint" ${sortField==='appoint'?'selected':''}>नियुक्ती दिनांकानुसार</option>
             <option value="dob" ${sortField==='dob'?'selected':''}>जन्मतारखेनुसार</option>
         </select>
-        <button class="btn ghost-light" style="border-color:var(--navy);color:var(--navy);background:#fff" onclick="downloadSchoolPdf(${idx})">⬇ PDF डाउनलोड करा</button>
-        ${isAdmin? `<button class="btn solid" onclick="openTeacherModal(${idx}, null)">+ शिक्षक जोडा</button>`:""}
+        ${isAdmin ? `<button class="btn ghost-light" style="border-color:var(--navy);color:var(--navy);background:#fff" onclick="downloadSchoolPdf(${idx})">⬇ PDF</button>` : ""}
+        ${canEdit ? `<button class="btn solid" onclick="openTeacherModal(${idx}, null)">+ शिक्षक जोडा</button>` : ""}
+        ${canEdit ? `<button class="btn ghost-light small" onclick="openChangeHmPinModal()">HM पिन बदला</button>` : ""}
+        ${isThisHm && !isAdmin ? `<button class="btn maroon small" onclick="hmLogout()">HM बाहेर पडा</button>` : ""}
+        ${!canEdit ? `<button class="btn solid-green" onclick="openHmLoginModal(${idx})">मुख्याध्यापक प्रवेश</button>` : ""}
       </div>
     </div>
     <div class="teacher-grid">
-      ${sortedTeachers.length ? sortedTeachers.map(t=>teacherCardHtml(idx,t)).join("") : `<div class="empty-note">या शाळेसाठी अद्याप शिक्षक माहिती नोंदवलेली नाही.${isAdmin? '':' (केंद्रप्रमुखांनी प्रवेश करून माहिती जोडावी.)'}</div>`}
+      ${sortedTeachers.length ? sortedTeachers.map(t=>teacherCardHtml(idx,t,canEdit)).join("") : `<div class="empty-note">या शाळेसाठी अद्याप शिक्षक माहिती नोंदवलेली नाही.${canEdit? '':' (माहिती भरण्यासाठी मुख्याध्यापक प्रवेश करा.)'}</div>`}
     </div>
   `;
 }
 
-function teacherCardHtml(schoolIdx, t){
-  let leaveInfo = "";
-  if(t.leaveMY || t.elTot || t.clTot || t.lFrom || t.lTo){
-      leaveInfo = `
-      <div class="tcard-grid-item full-width" style="margin-top:4px; border-top:2px solid var(--line);">
-          <span class="lbl" style="color:#e67e22; font-weight:700; margin-bottom:6px;">रजा माहिती (${formatDate(t.leaveMY)}) | कालावधी: ${formatDate(t.lFrom)} ते ${formatDate(t.lTo)}</span>
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
-              <div style="background:#f4f9f5; padding:6px; border-radius:4px; border:1px solid #d0e3d6;">
-                  <b style="color:#27ae60; font-size:.75rem; display:block; margin-bottom:4px;">अर्जित रजा</b> 
-                  <span style="font-size:.78rem;">एकूण: ${escapeHtml(t.elTot||'-')} | घेतलेली: ${escapeHtml(t.elTak||'-')} | शिल्लक: ${escapeHtml(t.elRem||'-')}</span>
-              </div>
-              <div style="background:#fcf4f4; padding:6px; border-radius:4px; border:1px solid #e8d0d3;">
-                  <b style="color:#c0392b; font-size:.75rem; display:block; margin-bottom:4px;">आकस्मिक रजा</b> 
-                  <span style="font-size:.78rem;">एकूण: ${escapeHtml(t.clTot||'-')} | घेतलेली: ${escapeHtml(t.clTak||'-')} | शिल्लक: ${escapeHtml(t.clRem||'-')}</span>
-              </div>
-          </div>
-      </div>`;
-  }
-
+function teacherCardHtml(schoolIdx, t, canEdit){
   return `
   <div class="tcard">
-    ${isAdmin? `<div class="card-tools">
-        <button class="icon-btn" title="संपादित करा" onclick="openTeacherModal(${schoolIdx}, '${t.id}')">✎</button>
-      </div>`:""}
+    ${canEdit? `<div class="card-tools"><button class="icon-btn" title="संपादित करा" onclick="openTeacherModal(${schoolIdx}, '${t.id}')">✎</button></div>`:""}
     <div class="tname">${escapeHtml(t.name)} <span class="desig">(${escapeHtml(t.desig||"")})</span></div>
-    
     <div class="tcard-grid">
       <div class="tcard-grid-item"><span class="lbl">मोबाईल</span><p class="val">${escapeHtml(t.mobile||"-")}</p></div>
       <div class="tcard-grid-item"><span class="lbl">ई-मेल</span><p class="val">${escapeHtml(t.email||"-")}</p></div>
@@ -911,21 +990,20 @@ function teacherCardHtml(schoolIdx, t){
       <div class="tcard-grid-item"><span class="lbl">प्रवर्ग</span><p class="val">${escapeHtml(t.cat||"-")}</p></div>
       <div class="tcard-grid-item"><span class="lbl">नियुक्ती</span><p class="val">${formatDate(t.appoint)}</p></div>
       <div class="tcard-grid-item full-width"><span class="lbl">विषय</span><p class="val">${escapeHtml(t.subject||"-")}</p></div>
-      ${leaveInfo}
     </div>
   </div>`;
 }
 
 /* ============================================================
-TEACHER CRUD
-============================================================ */
+   TEACHER CRUD
+   ============================================================ */
 function openTeacherModal(schoolIdx, teacherId){
   currentSchoolIdx = schoolIdx;
   editingTeacherId = teacherId;
   const s = schools[schoolIdx];
-  const t = teacherId ? s.teachers.find(x=>x.id===teacherId) : null;
+  const t = teacherId ? (s.teachers||[]).find(x=>x.id===teacherId) : null;
   document.getElementById("teacherModalTitle").textContent = t ? "शिक्षक माहिती संपादित करा" : "नवीन शिक्षक जोडा";
-  
+
   document.getElementById("f_name").value = t? t.name : "";
   document.getElementById("f_desig").value = t? (t.desig||"प्राथमिक शिक्षक") : "प्राथमिक शिक्षक";
   document.getElementById("f_mobile").value = t? t.mobile : "";
@@ -936,17 +1014,6 @@ function openTeacherModal(schoolIdx, teacherId){
   document.getElementById("f_cat").value = t? t.cat : "";
   document.getElementById("f_appoint").value = t? t.appoint : "";
   document.getElementById("f_subject").value = t? t.subject : "";
-  
-  // Leave fields
-  document.getElementById("f_leaveMonthYear").value = t? (t.leaveMY||"") : "";
-  document.getElementById("f_elTotal").value = t? (t.elTot||"") : "";
-  document.getElementById("f_elTaken").value = t? (t.elTak||"") : "";
-  document.getElementById("f_elRem").value = t? (t.elRem||"") : "";
-  document.getElementById("f_clTotal").value = t? (t.clTot||"") : "";
-  document.getElementById("f_clTaken").value = t? (t.clTak||"") : "";
-  document.getElementById("f_clRem").value = t? (t.clRem||"") : "";
-  document.getElementById("f_leaveFrom").value = t? (t.lFrom||"") : "";
-  document.getElementById("f_leaveTo").value = t? (t.lTo||"") : "";
 
   document.getElementById("deleteTeacherBtn").style.display = t? "inline-block":"none";
   document.getElementById("teacherError").textContent = "";
@@ -956,7 +1023,10 @@ function openTeacherModal(schoolIdx, teacherId){
 async function saveTeacher(){
   const name = document.getElementById("f_name").value.trim();
   if(!name){ document.getElementById("teacherError").textContent = "नाव आवश्यक आहे."; return; }
+  
   const s = schools[currentSchoolIdx];
+  if(!s.teachers) s.teachers = [];
+
   const data = {
     name,
     desig: document.getElementById("f_desig").value,
@@ -967,50 +1037,138 @@ async function saveTeacher(){
     qual: document.getElementById("f_qual").value.trim(),
     cat: document.getElementById("f_cat").value.trim(),
     appoint: document.getElementById("f_appoint").value,
-    subject: document.getElementById("f_subject").value.trim(),
-    
-    leaveMY: document.getElementById("f_leaveMonthYear").value,
-    elTot: document.getElementById("f_elTotal").value,
-    elTak: document.getElementById("f_elTaken").value,
-    elRem: document.getElementById("f_elRem").value,
-    clTot: document.getElementById("f_clTotal").value,
-    clTak: document.getElementById("f_clTaken").value,
-    clRem: document.getElementById("f_clRem").value,
-    lFrom: document.getElementById("f_leaveFrom").value,
-    lTo: document.getElementById("f_leaveTo").value
+    subject: document.getElementById("f_subject").value.trim()
   };
+
   if(editingTeacherId){
     const t = s.teachers.find(x=>x.id===editingTeacherId);
     Object.assign(t, data);
   } else {
-    data.id = crypto.randomUUID();
+    data.id = generateUUID();
     s.teachers.push(data);
   }
-  
+
   await pushToSheet();
   closeModal("teacherOverlay");
   render();
-  showToast("शिक्षक माहिती जतन केली");
+  showToast("शिक्षक माहिती ऑनलाइन जतन झाली");
 }
 
 async function deleteCurrentTeacher(){
   if(!editingTeacherId) return;
-  if(!confirm("ही शिक्षक नोंद कायमची काढून टाकायची आहे का?")) return;
+  if(!confirm("ही शिक्षक नोंद ऑनलाइन कायमची काढून टाकायची आहे का?")) return;
   const s = schools[currentSchoolIdx];
-  s.teachers = s.teachers.filter(x=>x.id!==editingTeacherId);
-  
+  s.teachers = (s.teachers||[]).filter(x=>x.id!==editingTeacherId);
   await pushToSheet();
   closeModal("teacherOverlay");
   render();
-  showToast("नोंद काढून टाकली");
+  showToast("शिक्षक नोंद ऑनलाइन डिलीट करण्यात आली");
 }
 
 /* ============================================================
-PDF (print-based) EXPORT
-============================================================ */
+   GOOGLE SHEET CLOUD SYNC & ERROR DIAGNOSTICS
+   ============================================================ */
+let __isSyncing = false;
+let __pollTimer = null;
+
+async function pullFromSheet(isBackgroundPoll) {
+  if (!CLOUD_SYNC_URL) return;
+  if (isBackgroundPoll && document.querySelector(".overlay.show")) return;
+
+  try {
+    const url = getValidUrl();
+    if(!isBackgroundPoll) document.getElementById("lastSyncLine").textContent = "ढगावरून (Cloud) माहिती घेत आहे...";
+    
+    const res = await fetch(url, { cache: "no-store" });
+    const text = await res.text();
+    
+    // ERROR CATCHER: If the script returns an HTML login page instead of JSON, permissions are wrong.
+    if(text && (text.trim().startsWith("<html") || text.trim().startsWith("<!DOCTYPE"))) {
+        throw new Error("Web App Permissions Error: Script requires Google Login. Ensure 'Who has access' is set to 'Anyone'.");
+    }
+    
+    const data = text ? JSON.parse(text) : {};
+    
+    if(data && data.schools && data.schools.length > 0) {
+      if(data.adminPin) adminPinHash = data.adminPin;
+      schools = data.schools;
+      document.getElementById("lastSyncLine").textContent = "माहिती अद्ययावत (Cloud Synced)";
+      if(!document.querySelector(".overlay.show")) render();
+    } else if(!isBackgroundPoll) {
+      schools = JSON.parse(JSON.stringify(DEFAULT_SCHOOLS));
+      document.getElementById("lastSyncLine").textContent = "सुरुवातीची माहिती ढगावर जतन करत आहे...";
+      await pushToSheet();
+    }
+  } catch (e) {
+    console.warn("Cloud fetch failed:", e);
+    if(!isBackgroundPoll){
+      schools = JSON.parse(JSON.stringify(DEFAULT_SCHOOLS)); 
+    }
+    // Print the exact error on the screen
+    document.getElementById("lastSyncLine").innerHTML = `<span style="color:#ffb3b3">त्रुटी (Error): ${escapeHtml(e.message)}</span>`;
+  }
+}
+
+async function pushToSheet() {
+  if (!CLOUD_SYNC_URL) return;
+  document.getElementById("lastSyncLine").textContent = "बदल ऑनलाइन जतन करत आहे...";
+  try {
+    const url = getValidUrl(); 
+    const payload = {
+      adminPin: adminPinHash,
+      schools: schools,
+      syncedAt: new Date().toISOString()
+    };
+    
+    await fetch(url, {
+      method: "POST",
+      mode: "no-cors", 
+      body: JSON.stringify(payload)
+    });
+    
+    document.getElementById("lastSyncLine").textContent = "माहिती अद्ययावत (Cloud Synced)";
+    
+  } catch (e) {
+    console.error("Push failed:", e);
+    document.getElementById("lastSyncLine").innerHTML = `<span style="color:#ffb3b3">त्रुटी (Error): जतन करण्यात अडचण आली.</span>`;
+  }
+}
+
+async function manualForceSync() {
+  const msg = document.getElementById("settingsMsg");
+  msg.style.color = "var(--navy)";
+  msg.textContent = "सिंक करत आहे...";
+  try {
+    await pushToSheet();
+    msg.style.color = "var(--green)";
+    msg.textContent = "सिंक यशस्वी! Google Sheet मध्ये सर्व माहिती व पिन जतन झाले आहेत.";
+    showToast("Google Sheet सिंक यशस्वी");
+  } catch(err) {
+    msg.style.color = "var(--maroon)";
+    msg.textContent = "सिंक करताना अडचण आली. इंटरनेट कनेक्शन किंवा URL तपासा.";
+  }
+}
+
+function startBackgroundSync(){
+  if(__pollTimer) clearInterval(__pollTimer);
+  __pollTimer = setInterval(async ()=>{
+    if(__isSyncing) return;
+    __isSyncing = true;
+    try{ await pullFromSheet(true); }
+    finally{ __isSyncing = false; }
+  }, 15000); 
+
+  document.addEventListener("visibilitychange", ()=>{
+    if(document.visibilityState === "visible") pullFromSheet(true);
+  });
+  window.addEventListener("online", ()=> pullFromSheet(true));
+}
+
+/* ============================================================
+   PDF (PRINT) EXPORT
+   ============================================================ */
 function buildPrintHtmlForSchool(s) {
   let sortedTeachers = sortTeacherList(s.teachers);
-
   return `
     <div class="p-school">${escapeHtml(s.name)} &nbsp; (युडायस: ${s.udise})</div>
     ${sortedTeachers.map(t=>`
@@ -1025,13 +1183,6 @@ function buildPrintHtmlForSchool(s) {
           <div class="p-grid-item"><div class="lbl">प्रवर्ग</div>${escapeHtml(t.cat||"-")}</div>
           <div class="p-grid-item"><div class="lbl">नियुक्ती</div>${formatDate(t.appoint)}</div>
           <div class="p-grid-item"><div class="lbl">विषय</div>${escapeHtml(t.subject||"-")}</div>
-          ${(t.leaveMY || t.elTot || t.clTot || t.lFrom || t.lTo) ? `
-          <div class="p-grid-item full-width" style="margin-top:6px; background:#fafafa;">
-              <b>रजा माहिती (${formatDate(t.leaveMY)}) | कालावधी: ${formatDate(t.lFrom)} ते ${formatDate(t.lTo)}</b><br>
-              <span style="color:#1b5e20;">अर्जित रजा - एकूण: ${escapeHtml(t.elTot||'-')} | घेतलेली: ${escapeHtml(t.elTak||'-')} | शिल्लक: ${escapeHtml(t.elRem||'-')}</span><br>
-              <span style="color:#b71c1c;">आकस्मिक रजा - एकूण: ${escapeHtml(t.clTot||'-')} | घेतलेली: ${escapeHtml(t.clTak||'-')} | शिल्लक: ${escapeHtml(t.clRem||'-')}</span>
-          </div>
-          ` : ''}
         </div>
       </div>
     `).join("") || `<div class="p-tcard">या शाळेसाठी शिक्षक माहिती नोंदवलेली नाही.</div>`}
@@ -1039,9 +1190,9 @@ function buildPrintHtmlForSchool(s) {
 }
 
 function downloadSchoolPdf(idx){
+  if(!isAdmin){ showToast("PDF डाउनलोड फक्त केंद्रप्रमुख प्रवेशातच उपलब्ध आहे."); return; }
   const s = schools[idx];
   const area = document.getElementById("printArea");
-  
   area.innerHTML = `
     <div class="p-page-head">
       <h2>शिक्षक वैयक्तिक माहिती (Teacher Profiles)</h2>
@@ -1054,6 +1205,7 @@ function downloadSchoolPdf(idx){
 }
 
 function downloadAllSchoolsPdf(){
+  if(!isAdmin){ showToast("PDF डाउनलोड फक्त केंद्रप्रमुख प्रवेशातच उपलब्ध आहे."); return; }
   const area = document.getElementById("printArea");
   let contentHtml = `
     <div class="p-page-head">
@@ -1061,172 +1213,18 @@ function downloadAllSchoolsPdf(){
       <div class="p-sub">केंद्र: ${CENTER_INFO.name}, तालुका: ${CENTER_INFO.taluka}, जिल्हा: ${CENTER_INFO.district}</div>
     </div>
   `;
-  
-  // Sort schools alphabetically for the combined PDF
   let sortedSchools = [...schools].sort((a,b) => a.name.localeCompare(b.name, 'mr'));
-
   for(const s of sortedSchools) {
       contentHtml += buildPrintHtmlForSchool(s);
   }
-
   area.innerHTML = contentHtml;
   showToast("संपूर्ण माहितीचे PDF तयार होत आहे...");
   setTimeout(()=>window.print(), 350);
 }
 
 /* ============================================================
-GOOGLE SHEET SYNC & LOCAL STORAGE FALLBACK
-============================================================ */
-const APPS_SCRIPT_CODE = `function doPost(e) {
-  var dataStr = e.postData.contents;
-  var data = JSON.parse(dataStr);
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
-  
-  // 1. Save raw JSON for multi-device sync
-  var dbSheet = ss.getSheetByName("DB") || ss.insertSheet("DB");
-  dbSheet.getRange("A1").setValue(dataStr);
-  
-  // 2. Save tabular data for easy reading
-  var viewSheet = ss.getSheetByName("Teachers_View") || ss.insertSheet("Teachers_View");
-  viewSheet.clearContents();
-  var headers = ["School UDISE","School Name","Teacher Name","Designation","Mobile","Email","DOB","Gender","Qualification","Category","Appointment Date","Subject", "Leave Month/Year", "Leave From", "Leave To", "EL Total", "EL Taken", "EL Rem", "CL Total", "CL Taken", "CL Rem"];
-  viewSheet.appendRow(headers);
-  
-  data.schools.forEach(function(s){
-    if(s.teachers.length === 0){
-      viewSheet.appendRow([s.udise, s.name, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]);
-    } else {
-      s.teachers.forEach(function(t){
-        viewSheet.appendRow([s.udise, s.name, t.name, t.desig, t.mobile, t.email, t.dob, t.gender, t.qual, t.cat, t.appoint, t.subject, t.leaveMY, t.lFrom, t.lTo, t.elTot, t.elTak, t.elRem, t.clTot, t.clTak, t.clRem]);
-      });
-    }
-  });
-  return ContentService.createTextOutput(JSON.stringify({status:"ok"})).setMimeType(ContentService.MimeType.JSON);
-}
-
-function doGet(e) {
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
-  var dbSheet = ss.getSheetByName("DB");
-  var jsonStr = '{"schools":[]}';
-  if(dbSheet) {
-     jsonStr = dbSheet.getRange("A1").getValue() || jsonStr;
-  }
-  return ContentService.createTextOutput(jsonStr).setMimeType(ContentService.MimeType.JSON);
-}`;
-
-function openSettings(){
-  document.getElementById("appsScriptCode").value = APPS_SCRIPT_CODE;
-  document.getElementById("sheetUrl").value = CLOUD_SYNC_URL || "";
-  document.getElementById("settingsMsg").textContent = "";
-  openModal("settingsOverlay");
-}
-
-function copyScript(){
-  const ta = document.getElementById("appsScriptCode");
-  ta.select();
-  document.execCommand("copy");
-  showToast("कोड कॉपी केला");
-}
-
-// Force a manual Sync check from Settings
-async function saveSheetUrlAndSync(){
-  const url = document.getElementById("sheetUrl").value.trim();
-  const msg = document.getElementById("settingsMsg");
-  if(!url){ msg.textContent = "कृपया Web App URL टाका."; return; }
-  
-  CLOUD_SYNC_URL = url;
-  localStorage.setItem("krp-sheet-url-v1", url);
-  msg.textContent = "सिंक करत आहे...";
-  
-  try {
-    const payload = {
-        adminPin: adminPinHash,
-        schools: schools,
-        syncedAt: new Date().toISOString()
-    };
-    await fetch(url, {
-      method:"POST",
-      mode:"no-cors",
-      headers:{"Content-Type":"text/plain;charset=utf-8"},
-      body: JSON.stringify(payload)
-    });
-    msg.style.color = "var(--green)";
-    msg.textContent = "सिंक यशस्वी! Google Sheet मध्ये माहिती जतन झाली आहे.";
-    showToast("Google Sheet सिंक यशस्वी");
-    pullFromSheet();
-  } catch(err) {
-    msg.style.color = "var(--maroon)";
-    msg.textContent = "सिंक करताना अडचण आली. URL तपासा.";
-  }
-}
-
-// Automatically called on startup
-async function pullFromSheet() {
-  if(!CLOUD_SYNC_URL) return;
-  try {
-    document.getElementById("lastSyncLine").textContent = "ढगावरून (Cloud) माहिती घेत आहे...";
-    const res = await fetch(CLOUD_SYNC_URL);
-    if (!res.ok) throw new Error("Network Response was not OK");
-    
-    const data = await res.json();
-    if(data && data.schools && data.schools.length > 0) {
-      // Data found on cloud, overwrite local data!
-      schools = data.schools;
-      if(data.adminPin) adminPinHash = data.adminPin; // This syncs the PIN across devices!
-      
-      // Save backup to LocalStorage
-      localStorage.setItem("krp_schools", JSON.stringify(schools));
-      localStorage.setItem("krp_pin", adminPinHash);
-      
-      document.getElementById("lastSyncLine").textContent = "माहिती अद्ययावत (Cloud Synced)";
-      render();
-    } else if(data && data.schools && data.schools.length === 0) {
-       // Cloud is completely empty. Push local default data up.
-       document.getElementById("lastSyncLine").textContent = "सुरुवातीची माहिती ढगावर जतन करत आहे...";
-       await pushToSheet(); 
-    }
-  } catch (e) {
-    console.warn("Cloud Sync pull failed, using local offline data:", e);
-    document.getElementById("lastSyncLine").textContent = "ऑफलाईन मोड (स्थानिक माहिती)";
-  }
-}
-
-// Automatically called when data is saved/deleted
-async function pushToSheet() {
-  // 1. ALWAYS save to local storage immediately so you never lose data
-  localStorage.setItem("krp_schools", JSON.stringify(schools));
-  localStorage.setItem("krp_pin", adminPinHash);
-
-  if(!CLOUD_SYNC_URL) return;
-  
-  try {
-    document.getElementById("lastSyncLine").textContent = "माहिती ढगावर (Cloud) जतन करत आहे...";
-    const payload = {
-        adminPin: adminPinHash,
-        schools: schools,
-        syncedAt: new Date().toISOString()
-    };
-    
-    // 2. Use no-cors mode to bypass Google Redirect blocking issues
-    await fetch(CLOUD_SYNC_URL, {
-      method: "POST",
-      mode: "no-cors", 
-      headers: {"Content-Type": "text/plain;charset=utf-8"},
-      body: JSON.stringify(payload)
-    });
-    
-    // Since no-cors hides the actual HTTP status, we assume it went through 
-    // unless a hard network crash threw an exception.
-    document.getElementById("lastSyncLine").textContent = "माहिती अद्ययावत (Cloud Synced)";
-  } catch (e) {
-    console.warn("Cloud Sync push failed:", e);
-    document.getElementById("lastSyncLine").textContent = "ऑफलाईन (स्थानिकरित्या जतन केली)";
-  }
-}
-
-/* ============================================================
-UTILS
-============================================================ */
+   UTILS
+   ============================================================ */
 function formatDate(dateStr) {
   if (!dateStr || dateStr.trim() === "-" || dateStr.trim() === "") return "-";
   const parts = dateStr.split('-');
@@ -1239,32 +1237,20 @@ function escapeHtml(str){
   if(str===undefined || str===null) return "";
   return String(str).replace(/[&<>"']/g, m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
 }
-
 const MARATHI_DIGITS = ["०","१","२","३","४","५","६","७","८","९"];
 function toMarathiNum(n){
   return String(n).split("").map(d=> MARATHI_DIGITS[+d] ?? d).join("");
 }
 
 /* ============================================================
-INIT
-============================================================ */
+   INIT
+   ============================================================ */
 async function init(){
-  // 1. Load from LocalStorage first so the screen isn't empty if offline
-  const localSchools = localStorage.getItem("krp_schools");
-  if(localSchools) {
-      try { schools = JSON.parse(localSchools); } catch(e){}
-  } else {
-      schools = JSON.parse(JSON.stringify(DEFAULT_SCHOOLS));
-  }
-  adminPinHash = localStorage.getItem("krp_pin") || "";
-
   renderAdminArea();
-  render(); // Instantly show data!
-  
-  // 2. Fetch fresh data from Cloud silently in background
-  await pullFromSheet();
+  await pullFromSheet(); 
+  render(); 
+  startBackgroundSync();
 }
-
 init();
 </script>
 </body>
