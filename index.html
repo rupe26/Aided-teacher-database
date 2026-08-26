@@ -507,8 +507,17 @@ footer.foot{max-width:1100px;margin:0 auto;padding:10px 20px 40px;color:var(--mu
    ============================================================ */
 const CENTER_INFO = { name:"रविवार पेठ", taluka:"अंबाजोगाई", district:"बीड" };
 
-// Dynamic URL loading from local storage (replacing hardcoded URL with your new App Script link)
+// Dynamic URL loading from local storage
 let CLOUD_SYNC_URL = localStorage.getItem("cloudSyncUrl") || "https://script.google.com/macros/s/AKfycbx4d005w7PJXOnMjhl7xrK2LS41HVtFK4IKpk9aarWCrLlghFbyrZ5ikNxZ3ksFYQyb/exec";
+
+function getValidUrl() {
+    let url = CLOUD_SYNC_URL.trim();
+    // Fix accidental capital H in Https which breaks the fetch API
+    if (/^https/i.test(url)) {
+        url = url.replace(/^https/i, "https");
+    }
+    return url;
+}
 
 function updateSyncUrl() {
   CLOUD_SYNC_URL = document.getElementById("sheetUrl").value.trim();
@@ -1506,15 +1515,16 @@ async function pullFromSheet() {
   }
 
   try {
+    const url = getValidUrl(); // Fetches sanitized lowercase URL
     document.getElementById("lastSyncLine").textContent = "ढगावरून (Cloud) माहिती घेत आहे...";
-    const res = await fetch(CLOUD_SYNC_URL);
+    const res = await fetch(url);
     
-    // Check if network request failed completely
     if (!res.ok) {
-        throw new Error("Network response was not ok");
+        throw new Error("HTTP Error " + res.status);
     }
 
-    const data = await res.json();
+    const text = await res.text();
+    const data = text ? JSON.parse(text) : {};
     
     if(data && data.schools && data.schools.length > 0) {
       if(data.adminPin) adminPinHash = data.adminPin;
@@ -1527,8 +1537,7 @@ async function pullFromSheet() {
       await pushToSheet();
     }
   } catch (e) {
-    console.warn("Cloud fetch failed, using local offline default data:", e);
-    // FALLBACK: When Cloud fails, load DEFAULT_SCHOOLS so the page is not empty
+    console.warn("Cloud fetch failed:", e);
     schools = JSON.parse(JSON.stringify(DEFAULT_SCHOOLS)); 
     document.getElementById("lastSyncLine").textContent = "सर्व्हरशी संपर्क तुटला! स्थानिक माहिती दाखवत आहे. (Offline Mode)";
     showToast("ऑनलाइन संपर्क होऊ शकला नाही. ऑफलाइन मोड सुरु.");
@@ -1544,28 +1553,29 @@ async function pushToSheet() {
 
   document.getElementById("lastSyncLine").textContent = "बदल ऑनलाइन जतन करत आहे...";
   try {
+    const url = getValidUrl(); // Fetches sanitized lowercase URL
     const payload = {
       adminPin: adminPinHash,
       schools: schools,
       syncedAt: new Date().toISOString()
     };
     
-    // FIX: Added mode: "no-cors" to bypass Google's redirect block
-    await fetch(CLOUD_SYNC_URL, {
+    // We send this POST completely raw without specific headers to ensure it goes through 
+    // as a simple text/plain request, avoiding browser CORS preflight restrictions
+    await fetch(url, {
       method: "POST",
       mode: "no-cors", 
-      headers: {"Content-Type": "text/plain;charset=utf-8"},
       body: JSON.stringify(payload)
     });
     
-    // FIX: Removed the 'res.ok' check. With no-cors, we assume success 
-    // if the fetch didn't throw a hard network error.
     document.getElementById("lastSyncLine").textContent = "माहिती अद्ययावत (Cloud Synced)";
     
   } catch (e) {
-    console.warn("Push failed:", e);
+    console.error("Push failed:", e);
     document.getElementById("lastSyncLine").textContent = "जतन करण्यात अडचण आली! (Offline)";
-    alert("बदल Google Sheet वर जतन करताना त्रुटी आली. तुमचे बदल तात्पुरते सेव्ह झाले आहेत, परंतु इंटरनेट/URL तपासा.");
+    
+    // Detailed error alert so we know what is failing
+    alert("ऑनलाइन जतन करताना त्रुटी आली:\n" + e.message + "\n\n1. Web App URL तपासा.\n2. Google Apps Script मध्ये 'New Deployment' केले आहे का ते पहा.");
   }
 }
 
@@ -1666,7 +1676,7 @@ function toMarathiNum(n){
 async function init(){
   renderAdminArea();
   await pullFromSheet(); 
-  render(); // Now this will ALWAYS render your data (even in Offline Mode)
+  render(); 
 }
 init();
 </script>
