@@ -1,38 +1,38 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="mr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>केंद्र रविवार पेठ — शाळा व शिक्षक नोंदवही (Cloud Sync & HM Access)</title>
+<title>केंद्र रविवार पेठ — शाळा व शिक्षक नोंदवही</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Marathi:ital@0;1&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --navy:#1b2c47;
-  --navy2:#24365d;
-  --paper:#f7f3e8;
-  --card:#ffffff;
-  --gold:#b8862e;
-  --gold-d:#8f6a20;
-  --maroon:#7c2432;
-  --ink:#232323;
-  --muted:#6b6459;
-  --line:#ddd4bd;
-  --green:#2f6d4f;
-  --shadow: 0 1px 3px rgba(27,44,71,0.08), 0 6px 18px rgba(27,44,71,0.06);
+--navy:#1b2c47;
+--navy2:#24365d;
+--paper:#f7f3e8;
+--card:#ffffff;
+--gold:#b8862e;
+--gold-d:#8f6a20;
+--maroon:#7c2432;
+--ink:#232323;
+--muted:#6b6459;
+--line:#ddd4bd;
+--green:#2f6d4f;
+--shadow: 0 1px 3px rgba(27,44,71,0.08), 0 6px 18px rgba(27,44,71,0.06);
 }
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
 body{
-  background:var(--paper);
-  background-image:
-    linear-gradient(rgba(27,44,71,0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(27,44,71,0.02) 1px, transparent 1px);
-  background-size: 26px 26px;
-  color:var(--ink);
-  font-family:'Noto Sans Devanagari','Noto Sans',sans-serif;
-  min-height:100vh;
+background:var(--paper);
+background-image:
+linear-gradient(rgba(27,44,71,0.02) 1px, transparent 1px),
+linear-gradient(90deg, rgba(27,44,71,0.02) 1px, transparent 1px);
+background-size: 26px 26px;
+color:var(--ink);
+font-family:'Noto Sans Devanagari','Noto Sans',sans-serif;
+min-height:100vh;
 }
 h1,h2,h3,.serif{font-family:'Tiro Devanagari Marathi','Noto Sans Devanagari',serif;}
 a{color:inherit}
@@ -41,53 +41,43 @@ button{font-family:inherit;cursor:pointer}
 
 /* ---------- Header ---------- */
 header.top{
-  background:linear-gradient(180deg,var(--navy),var(--navy2));
-  color:#f3ede0;
-  padding:22px 20px 20px;
-  position:relative;
-  border-bottom:4px solid var(--gold);
+background:linear-gradient(180deg,var(--navy),var(--navy2));
+color:#f3ede0;
+padding:22px 20px 20px;
+position:relative;
+border-bottom:4px solid var(--gold);
 }
 .top-inner{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
 .emblem{
-  width:46px;height:46px;border-radius:50%;
-  border:2px solid var(--gold);
-  display:flex;align-items:center;justify-content:center;
-  font-family:'Tiro Devanagari Marathi',serif;font-weight:700;font-size:18px;
-  color:var(--gold);flex:none;background:rgba(184,134,46,0.08);
+width:46px;height:46px;border-radius:50%;
+border:2px solid var(--gold);
+display:flex;align-items:center;justify-content:center;
+font-family:'Tiro Devanagari Marathi',serif;font-weight:700;font-size:18px;
+color:var(--gold);flex:none;background:rgba(184,134,46,0.08);
 }
 .title-block{display:flex;gap:14px;align-items:flex-start}
 .title-block h1{margin:0;font-size:1.55rem;font-weight:700;letter-spacing:.2px;line-height:1.25}
 .title-block .sub{margin:4px 0 0;font-size:.86rem;color:#cdd6e6;letter-spacing:.3px}
-.title-block .sub2{margin-top:2px;font-size:.78rem;color:#9fb0cb; font-weight:600;}
+.title-block .sub2{margin-top:2px;font-size:.78rem;color:#9fb0cb}
 
 .admin-area{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .badge-admin{
-  display:flex;align-items:center;gap:8px;
-  background:rgba(184,134,46,0.15);
-  border:1px solid var(--gold);
-  color:#f6e6c2;
-  padding:6px 12px;border-radius:999px;font-size:.82rem;font-weight:600;
+display:flex;align-items:center;gap:8px;
+background:rgba(184,134,46,0.15);
+border:1px solid var(--gold);
+color:#f6e6c2;
+padding:6px 12px;border-radius:999px;font-size:.82rem;font-weight:600;
 }
 .badge-admin .dot{width:8px;height:8px;border-radius:50%;background:#5fd08a;box-shadow:0 0 0 3px rgba(95,208,138,0.25)}
-.badge-hm{
-  display:flex;align-items:center;gap:8px;
-  background:rgba(47,109,79,0.15);
-  border:1px solid var(--green);
-  color:var(--navy);
-  padding:5px 12px;border-radius:999px;font-size:.8rem;font-weight:700;
-}
-.badge-hm .dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 3px rgba(47,109,79,0.2)}
 .btn{
-  border:1px solid var(--gold);
-  background:transparent;color:#f3ede0;
-  padding:8px 14px;border-radius:8px;font-size:.85rem;font-weight:600;
-  transition:.15s;
+border:1px solid var(--gold);
+background:transparent;color:#f3ede0;
+padding:8px 14px;border-radius:8px;font-size:.85rem;font-weight:600;
+transition:.15s;
 }
 .btn:hover{background:rgba(184,134,46,0.18)}
 .btn.solid{background:var(--gold);color:#2a1e08;border-color:var(--gold)}
 .btn.solid:hover{background:#c99537}
-.btn.solid-green{background:var(--green);color:#fff;border-color:var(--green)}
-.btn.solid-green:hover{background:#25573e}
 .btn.ghost-light{border-color:rgba(255,255,255,0.35)}
 .btn.small{padding:5px 10px;font-size:.78rem}
 .btn.maroon{border-color:#e2a3ab;color:#ffe2e6}
@@ -96,151 +86,149 @@ header.top{
 /* ---------- Layout ---------- */
 main{max-width:1100px;margin:0 auto;padding:26px 20px 80px}
 .searchbar{
-  display:flex;gap:10px;align-items:center;margin-bottom:22px;flex-wrap:wrap;
+display:flex;gap:10px;align-items:center;margin-bottom:22px;flex-wrap:wrap;
 }
 .searchbar input[type=text], .searchbar select{
-  flex:1;min-width:150px;
-  padding:12px 14px;border-radius:10px;border:1px solid var(--line);
-  background:var(--card);font-size:.95rem;color:var(--ink);
-  box-shadow:var(--shadow);
+flex:1;min-width:150px;
+padding:12px 14px;border-radius:10px;border:1px solid var(--line);
+background:var(--card);font-size:.95rem;color:var(--ink);
+box-shadow:var(--shadow);
 }
 .searchbar input[type=text]:focus, .searchbar select:focus{outline:2px solid var(--gold);outline-offset:1px}
 .count-pill{
-  font-size:.8rem;color:var(--muted);background:var(--card);
-  border:1px solid var(--line);padding:8px 12px;border-radius:999px;white-space:nowrap;
+font-size:.8rem;color:var(--muted);background:var(--card);
+border:1px solid var(--line);padding:8px 12px;border-radius:999px;white-space:nowrap;
 }
 
 /* ---------- Index / register list ---------- */
 .register{
-  background:var(--card);
-  border:1px solid var(--line);
-  border-radius:14px;
-  box-shadow:var(--shadow);
-  overflow:hidden;
+background:var(--card);
+border:1px solid var(--line);
+border-radius:14px;
+box-shadow:var(--shadow);
+overflow:hidden;
 }
 .reg-head{
-  display:grid;grid-template-columns:56px 1fr 150px 90px 36px;
-  gap:10px;padding:12px 18px;background:#f1ecdd;
-  font-size:.74rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:700;
-  border-bottom:1px solid var(--line);
+display:grid;grid-template-columns:56px 1fr 150px 90px 36px;
+gap:10px;padding:12px 18px;background:#f1ecdd;
+font-size:.74rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:700;
+border-bottom:1px solid var(--line);
 }
 .reg-row{
-  display:grid;grid-template-columns:56px 1fr 150px 90px 36px;
-  gap:10px;padding:14px 18px;align-items:center;
-  border-bottom:1px solid var(--line);
-  cursor:pointer;transition:.12s;
-  position:relative;
+display:grid;grid-template-columns:56px 1fr 150px 90px 36px;
+gap:10px;padding:14px 18px;align-items:center;
+border-bottom:1px solid var(--line);
+cursor:pointer;transition:.12s;
+position:relative;
 }
 .reg-row:last-child{border-bottom:none}
 .reg-row:hover{background:#faf7ee}
 .reg-row .num{
-  font-family:'Tiro Devanagari Marathi',serif;font-weight:700;color:var(--gold-d);
-  font-size:1.05rem;
+font-family:'Tiro Devanagari Marathi',serif;font-weight:700;color:var(--gold-d);
+font-size:1.05rem;
 }
 .reg-row .name{font-weight:600;font-size:.98rem}
 .reg-row .udise{color:var(--muted);font-size:.82rem;letter-spacing:.02em}
 .reg-row .tcount{
-  font-size:.78rem;color:var(--green);font-weight:700;background:#e7f2ec;
-  padding:3px 9px;border-radius:999px;text-align:center;width:max-content;
+font-size:.78rem;color:var(--green);font-weight:700;background:#e7f2ec;
+padding:3px 9px;border-radius:999px;text-align:center;width:max-content;
 }
 .reg-row .arrow{color:var(--gold-d);font-size:1.1rem;text-align:right}
 .tab-strip{position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--gold);opacity:0;transition:.15s}
 .reg-row:hover .tab-strip{opacity:1}
 
 @media (max-width:640px){
-  .reg-head{display:none}
-  .reg-row{grid-template-columns:34px 1fr 20px;grid-template-areas:"num name arrow" ". udise arrow" ". tcount arrow";row-gap:4px}
-  .reg-row .num{grid-area:num}
-  .reg-row .name{grid-area:name}
-  .reg-row .udise{grid-area:udise}
-  .reg-row .tcount{grid-area:tcount}
-  .reg-row .arrow{grid-area:arrow;align-self:center}
+.reg-head{display:none}
+.reg-row{grid-template-columns:34px 1fr 20px;grid-template-areas:"num name arrow" ". udise arrow" ". tcount arrow";row-gap:4px}
+.reg-row .num{grid-area:num}
+.reg-row .name{grid-area:name}
+.reg-row .udise{grid-area:udise}
+.reg-row .tcount{grid-area:tcount}
+.reg-row .arrow{grid-area:arrow;align-self:center}
 }
 
 /* ---------- School detail ---------- */
 .back-link{
-  display:inline-flex;align-items:center;gap:6px;color:var(--navy);
-  font-weight:600;font-size:.9rem;margin-bottom:16px;background:none;border:none;padding:0;
+display:inline-flex;align-items:center;gap:6px;color:var(--navy);
+font-weight:600;font-size:.9rem;margin-bottom:16px;background:none;border:none;padding:0;
 }
 .back-link:hover{text-decoration:underline}
 .school-head{
-  background:linear-gradient(180deg,var(--navy),var(--navy2));
-  color:#f3ede0;border-radius:12px 12px 0 0;
-  padding:16px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;
-  border-bottom:3px solid var(--gold);
+background:linear-gradient(180deg,var(--navy),var(--navy2));
+color:#f3ede0;border-radius:12px 12px 0 0;
+padding:16px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;
+border-bottom:3px solid var(--gold);
 }
 .school-head h2{margin:0;font-size:1.25rem}
 .school-head .meta{font-size:.78rem;color:#b9c4d9;margin-top:3px}
 .school-actions{display:flex;gap:8px;flex-wrap:wrap; align-items: center;}
 .school-actions select { padding: 6px 10px; border-radius: 6px; border: 1px solid var(--line); font-size: .85rem; background: var(--card);}
 .teacher-grid{
-  background:#efe9d8;
-  border-radius:0 0 12px 12px;
-  padding:18px;display:grid;gap:14px;
-  grid-template-columns:repeat(auto-fill,minmax(340px,1fr));
-  border:1px solid var(--line);border-top:none;
+background:#efe9d8;
+border-radius:0 0 12px 12px;
+padding:18px;display:grid;gap:14px;
+grid-template-columns:repeat(auto-fill,minmax(340px,1fr));
+border:1px solid var(--line);border-top:none;
 }
 .tcard{
-  background:var(--card);border:1px solid var(--line);border-radius:10px;
-  padding:16px;box-shadow:var(--shadow);position:relative;
+background:var(--card);border:1px solid var(--line);border-radius:10px;
+padding:16px;box-shadow:var(--shadow);position:relative;
 }
 .tcard .tname{font-weight:700;font-size:1.05rem;color:var(--navy); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--line);}
 .tcard .desig{font-size:.8rem;color:var(--gold-d);font-weight:600;margin-left:6px; background: rgba(184,134,46,0.1); padding: 3px 8px; border-radius: 12px;}
 
+/* Distinct boxes for each detail in teacher card */
 .tcard-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-    margin-bottom: 4px;
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 8px;
+margin-bottom: 12px;
 }
 .tcard-grid-item {
-    background: #fbfaf6;
-    border: 1px solid #e1dbcc;
-    padding: 8px 10px;
-    border-radius: 6px;
+background: #fbfaf6;
+border: 1px solid #e1dbcc;
+padding: 8px 10px;
+border-radius: 6px;
 }
 .tcard-grid-item.full-width {
-    grid-column: 1 / -1;
+grid-column: 1 / -1;
 }
 .tcard-grid-item .lbl {
-    color: var(--muted);
-    font-size: .72rem;
-    text-transform: uppercase;
-    letter-spacing: .04em;
-    margin-bottom: 2px;
-    display: block;
+color: var(--muted);
+font-size: .72rem;
+text-transform: uppercase;
+letter-spacing: .04em;
+margin-bottom: 2px;
+display: block;
 }
 .tcard-grid-item .val {
-    margin: 0;
-    font-weight: 500;
-    font-size: .85rem;
-    word-break: break-word;
-    color: var(--ink);
+margin: 0;
+font-weight: 500;
+font-size: .85rem;
+word-break: break-word;
+color: var(--ink);
 }
 
 .tcard .card-tools{position:absolute;top:14px;right:16px;display:flex;gap:6px}
 .icon-btn{
-  width:26px;height:26px;border-radius:6px;border:1px solid var(--line);background:#fbfaf5;
-  display:flex;align-items:center;justify-content:center;font-size:.78rem;color:var(--navy);
+width:26px;height:26px;border-radius:6px;border:1px solid var(--line);background:#fbfaf5;
+display:flex;align-items:center;justify-content:center;font-size:.78rem;color:var(--navy);
 }
 .icon-btn.danger{color:var(--maroon);border-color:#e6c3c8}
 .empty-note{
-  grid-column:1/-1;text-align:center;color:var(--muted);padding:26px 10px;font-size:.9rem;
-}
-.loading-note{
-  grid-column:1/-1;text-align:center;color:var(--navy);padding:60px 10px;font-size:1.15rem;font-weight:bold;
+grid-column:1/-1;text-align:center;color:var(--muted);padding:26px 10px;font-size:.9rem;
 }
 
 /* ---------- Modal & Form Fields ---------- */
 .overlay{
-  position:fixed;inset:0;background:rgba(20,26,38,0.55);
-  display:none;align-items:center;justify-content:center;padding:20px;z-index:60;
+position:fixed;inset:0;background:rgba(20,26,38,0.55);
+display:none;align-items:center;justify-content:center;padding:20px;z-index:60;
 }
 .overlay.show{display:flex}
 .modal{
-  background:var(--card);border-radius:14px;max-width:480px;width:100%;
-  max-height:88vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.3);
-  border-top:5px solid var(--gold);
+background:var(--card);border-radius:14px;max-width:480px;width:100%;
+max-height:88vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.3);
+border-top:5px solid var(--gold);
 }
 .modal.wide{max-width:750px}
 .modal-head{padding:18px 22px 6px;display:flex;justify-content:space-between;align-items:center}
@@ -248,753 +236,392 @@ main{max-width:1100px;margin:0 auto;padding:26px 20px 80px}
 .modal-close{background:none;border:none;font-size:1.2rem;color:var(--muted)}
 .modal-body{padding:6px 22px 22px}
 
+/* Display box around each field */
 .field {
-  margin-bottom: 14px;
-  padding: 12px 14px;
-  border: 1px solid #e1dbcc;
-  border-radius: 8px;
-  background-color: #fbfaf6;
+margin-bottom: 14px;
+padding: 12px 14px;
+border: 1px solid #e1dbcc;
+border-radius: 8px;
+background-color: #fbfaf6;
 }
 .field > label {
-  display: block;
-  font-size: .85rem;
-  color: var(--navy);
-  margin-bottom: 8px;
-  font-weight: 700;
+display: block;
+font-size: .85rem;
+color: var(--navy);
+margin-bottom: 8px;
+font-weight: 700;
 }
 .field input, .field select, .field textarea {
-  width: 100%;
-  padding: 9px 11px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: .92rem;
-  font-family: inherit;
-  background: #fff;
-  transition: .15s;
+width: 100%;
+padding: 9px 11px;
+border: 1px solid #ccc;
+border-radius: 6px;
+font-size: .92rem;
+font-family: inherit;
+background: #fff;
+transition: .15s;
 }
 .field input:focus, .field select:focus, .field textarea:focus {
-  outline: 2px solid var(--gold);
-  outline-offset: 0;
-  border-color: var(--gold);
+outline: 2px solid var(--gold);
+outline-offset: 0;
+border-color: var(--gold);
 }
 .field.row2, .field.row3 {
-  display: grid;
-  gap: 14px;
-  border: none;
-  padding: 0;
-  background: transparent;
+display: grid;
+gap: 14px;
+border: none;
+padding: 0;
+background: transparent;
 }
 .field.row2 { grid-template-columns: 1fr 1fr; }
 .field.row3 { grid-template-columns: 1fr 1fr 1fr; }
+
 .field.row2 > div, .field.row3 > div {
-  border: 1px solid #e1dbcc;
-  padding: 12px 14px;
-  border-radius: 8px;
-  background-color: #fbfaf6;
+border: 1px solid #e1dbcc;
+padding: 12px 14px;
+border-radius: 8px;
+background-color: #fbfaf6;
 }
+
 .modal-foot{display:flex;justify-content:flex-end;gap:10px;margin-top:14px}
 .helptext{font-size:.78rem;color:var(--muted);line-height:1.5;margin-top:2px}
 .error-text{color:var(--maroon);font-size:.82rem;margin-top:6px;min-height:1em}
 .toast{
-  position:fixed;bottom:22px;left:50%;transform:translateX(-50%);
-  background:var(--navy);color:#f3ede0;padding:11px 20px;border-radius:999px;
-  font-size:.85rem;box-shadow:var(--shadow);z-index:80;opacity:0;pointer-events:none;transition:.25s;
-  border:1px solid var(--gold);
+position:fixed;bottom:22px;left:50%;transform:translateX(-50%);
+background:var(--navy);color:#f3ede0;padding:11px 20px;border-radius:999px;
+font-size:.85rem;box-shadow:var(--shadow);z-index:80;opacity:0;pointer-events:none;transition:.25s;
+border:1px solid var(--gold);
 }
 .toast.show{opacity:1;transform:translateX(-50%) translateY(-4px)}
+textarea.code{
+font-family:'Courier New',monospace;font-size:.72rem;height:160px;white-space:pre;
+}
 
 footer.foot{max-width:1100px;margin:0 auto;padding:10px 20px 40px;color:var(--muted);font-size:.78rem;text-align:center}
 
 /* ---------- Print styles ---------- */
 #printArea{display:none}
 @media print{
-  body *{visibility:hidden}
-  #printArea, #printArea *{visibility:visible}
-  #printArea{display:block;position:absolute;left:0;top:0;width:100%;padding:0;background:#fff}
-  .p-page-head{text-align:center;padding:14px 0;border-bottom:2px solid var(--navy);margin-bottom:14px}
-  .p-page-head h2{margin:0;font-family:'Tiro Devanagari Marathi',serif}
-  .p-page-head .p-sub{font-size:.85rem;color:#555;margin-top:4px}
-  .p-school{background:var(--navy);color:#fff;padding:10px 16px;font-weight:700;margin:16px 0 10px;border-radius:4px; page-break-after: avoid;}
-  .p-tcard{border:1px solid #ccc;border-radius:6px;padding:10px 14px;margin-bottom:10px; break-inside:avoid;}
-  .p-tname{font-weight:700;color:var(--navy); margin-bottom: 6px; padding-bottom: 4px; border-bottom: 1px solid #eee;}
-  .p-desig{color:var(--gold-d);font-size:.78rem; margin-left: 5px;}
-  .p-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px 14px;margin-top:6px;font-size:.78rem}
-  .p-grid-item {border: 1px solid #eee; padding: 4px 6px; border-radius: 4px;}
-  .p-grid-item.full-width { grid-column: 1 / -1; }
-  .p-grid .lbl{color:#777;font-size:.68rem;text-transform:uppercase}
+body *{visibility:hidden}
+#printArea, #printArea *{visibility:visible}
+#printArea{display:block;position:absolute;left:0;top:0;width:100%;padding:0;background:#fff}
+.p-page-head{text-align:center;padding:14px 0;border-bottom:2px solid var(--navy);margin-bottom:14px}
+.p-page-head h2{margin:0;font-family:'Tiro Devanagari Marathi',serif}
+.p-page-head .p-sub{font-size:.85rem;color:#555;margin-top:4px}
+.p-school{background:var(--navy);color:#fff;padding:10px 16px;font-weight:700;margin:16px 0 10px;border-radius:4px; page-break-after: avoid;}
+.p-tcard{border:1px solid #ccc;border-radius:6px;padding:10px 14px;margin-bottom:10px; break-inside:avoid;}
+.p-tname{font-weight:700;color:var(--navy); margin-bottom: 6px; padding-bottom: 4px; border-bottom: 1px solid #eee;}
+.p-desig{color:var(--gold-d);font-size:.78rem; margin-left: 5px;}
+.p-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px 14px;margin-top:6px;font-size:.78rem}
+.p-grid-item {border: 1px solid #eee; padding: 4px 6px; border-radius: 4px;}
+.p-grid-item.full-width { grid-column: 1 / -1; }
+.p-grid .lbl{color:#777;font-size:.68rem;text-transform:uppercase}
+.print-btn-global { display: none !important; }
 }
 </style>
 </head>
 <body>
 
 <header class="top">
-  <div class="top-inner">
-    <div class="title-block">
-      <div class="emblem">रा</div>
-      <div>
-        <h1>केंद्र रविवार पेठ — शाळा व शिक्षक नोंदवही</h1>
-        <div class="sub">तालुका: अंबाजोगाई &nbsp;•&nbsp; जिल्हा: बीड &nbsp;•&nbsp; खाजगी अनुदानित शाळा/ विनाअनुदानित शाळा</div>
-        <div class="sub2" id="lastSyncLine">ढगावरून (Cloud) माहिती घेत आहे...</div>
-      </div>
-    </div>
-    <div class="admin-area" id="adminArea"></div>
-  </div>
+<div class="top-inner">
+<div class="title-block">
+<div class="emblem">रा</div>
+<div>
+<h1>केंद्र रविवार पेठ — शाळा व शिक्षक नोंदवही</h1>
+<div class="sub">तालुका: अंबाजोगाई &nbsp;•&nbsp; जिल्हा: बीड &nbsp;•&nbsp; जिल्हा परिषद शाळा (गट १)</div>
+<div class="sub2" id="lastSyncLine">ढगावरून (Cloud) माहिती घेत आहे...</div>
+</div>
+</div>
+<div class="admin-area" id="adminArea"></div>
+</div>
 </header>
 
 <main>
-  <div id="viewRoot">
-      <div class="loading-note">ऑनलाइन सर्व्हरवरून माहिती घेत आहे... कृपया प्रतीक्षा करा.</div>
-  </div>
+<div id="viewRoot"></div>
 </main>
 
-<footer class="foot">केंद्रप्रमुख कार्यालय, रविवार पेठ — अंबाजोगाई, बीड. सर्व माहिती Google Sheet वर सुरक्षितपणे जतन केली जाते.</footer>
+<footer class="foot">केंद्रप्रमुख कार्यालय, रविवार पेठ — अंबाजोगाई, बीड. माहिती अद्ययावत ठेवण्याची जबाबदारी संबंधित केंद्रप्रमुखांची आहे.</footer>
 
-<!-- ===== MODALS ===== -->
-
-<!-- 1. Kendra Pramukh Master Login Modal -->
+<!-- ===== Modals ===== -->
 <div class="overlay" id="loginOverlay">
-  <div class="modal">
-    <div class="modal-head"><h3 id="loginModalTitle">केंद्रप्रमुख प्रवेश</h3><button class="modal-close" onclick="closeModal('loginOverlay')">✕</button></div>
-    <div class="modal-body">
-      <p class="helptext" id="loginHelpText">प्रोफाईल संपादित करण्यासाठी ४-अंकी पिन टाका.</p>
-      <div class="field"><label>केंद्रप्रमुख पिन</label><input id="pinInput" type="password" inputmode="numeric" maxlength="8" placeholder="****" autocomplete="off"></div>
-      <div class="error-text" id="loginError"></div>
-      <div class="modal-foot">
-        <button class="btn" style="border-color:var(--line);color:var(--ink)" onclick="closeModal('loginOverlay')">रद्द करा</button>
-        <button class="btn solid" id="loginModalBtn" onclick="attemptLogin()">प्रवेश करा</button>
-      </div>
-    </div>
-  </div>
+<div class="modal">
+<div class="modal-head"><h3 id="loginModalTitle">केंद्रप्रमुख प्रवेश</h3><button class="modal-close" onclick="closeModal('loginOverlay')">✕</button></div>
+<div class="modal-body">
+<p class="helptext" id="loginHelpText">प्रोफाईल संपादित करण्यासाठी ४-अंकी पिन टाका.</p>
+<div class="field"><label>पिन क्रमांक</label><input id="pinInput" type="password" inputmode="numeric" maxlength="8" placeholder="****" autocomplete="off"></div>
+<div class="error-text" id="loginError"></div>
+<div class="modal-foot">
+<button class="btn" style="border-color:var(--line);color:var(--ink)" onclick="closeModal('loginOverlay')">रद्द करा</button>
+<button class="btn solid" id="loginModalBtn" onclick="attemptLogin()">प्रवेश करा</button>
+</div>
+</div>
+</div>
 </div>
 
-<!-- 2. Kendra Pramukh Master Change PIN Modal -->
 <div class="overlay" id="changePinOverlay">
-  <div class="modal">
-    <div class="modal-head"><h3>केंद्रप्रमुख पिन बदला (Change Master PIN)</h3><button class="modal-close" onclick="closeModal('changePinOverlay')">✕</button></div>
-    <div class="modal-body">
-      <p class="helptext">नवीन केंद्रप्रमुख सिक्रेट पिन ऑनलाइन सेट करा.</p>
-      <div class="field"><label>सध्याचा पिन (Current PIN)</label><input id="oldPinInput" type="password" inputmode="numeric" maxlength="8" placeholder="****"></div>
-      <div class="field"><label>नवीन पिन (New PIN)</label><input id="newPinInput" type="password" inputmode="numeric" maxlength="8" placeholder="****"></div>
-      <div class="field"><label>पुन्हा नवीन पिन टाका (Confirm New PIN)</label><input id="confirmPinInput" type="password" inputmode="numeric" maxlength="8" placeholder="****"></div>
-      <div class="error-text" id="changePinError"></div>
-      <div class="modal-foot">
-        <button class="btn" style="border-color:var(--line);color:var(--ink)" onclick="closeModal('changePinOverlay')">रद्द करा</button>
-        <button class="btn solid" onclick="saveNewPin()">ऑनलाइन जतन करा</button>
-      </div>
-    </div>
-  </div>
+<div class="modal">
+<div class="modal-head"><h3>पिन बदला (Change PIN)</h3><button class="modal-close" onclick="closeModal('changePinOverlay')">✕</button></div>
+<div class="modal-body">
+<p class="helptext">तुमचा नवीन ४-अंकी सिक्रेट पिन सेट करा.</p>
+<div class="field"><label>सध्याचा पिन (Current PIN)</label><input id="oldPinInput" type="password" inputmode="numeric" maxlength="8" placeholder="****"></div>
+<div class="field"><label>नवीन पिन (New PIN)</label><input id="newPinInput" type="password" inputmode="numeric" maxlength="8" placeholder="****"></div>
+<div class="field"><label>पुन्हा नवीन पिन टाका (Confirm New PIN)</label><input id="confirmPinInput" type="password" inputmode="numeric" maxlength="8" placeholder="****"></div>
+<div class="error-text" id="changePinError"></div>
+<div class="modal-foot">
+<button class="btn" style="border-color:var(--line);color:var(--ink)" onclick="closeModal('changePinOverlay')">रद्द करा</button>
+<button class="btn solid" onclick="saveNewPin()">जतन करा</button>
+</div>
+</div>
+</div>
 </div>
 
-<!-- 3. Headmaster (HM) School-Specific Login Modal -->
-<div class="overlay" id="hmLoginOverlay">
-  <div class="modal">
-    <div class="modal-head"><h3 id="hmLoginTitle">शाळा मुख्याध्यापक प्रवेश</h3><button class="modal-close" onclick="closeModal('hmLoginOverlay')">✕</button></div>
-    <div class="modal-body">
-      <p class="helptext" id="hmLoginHelp">शाळेची शिक्षक माहिती संपादित करण्यासाठी ४-अंकी मुख्याध्यापक (HM) पिन टाका.</p>
-      <div class="field"><label>मुख्याध्यापक पिन (HM PIN)</label><input id="hmPinInput" type="password" inputmode="numeric" maxlength="8" placeholder="****" autocomplete="off"></div>
-      <div class="error-text" id="hmLoginError"></div>
-      <div class="modal-foot">
-        <button class="btn" style="border-color:var(--line);color:var(--ink)" onclick="closeModal('hmLoginOverlay')">रद्द करा</button>
-        <button class="btn solid-green" id="hmLoginBtn" onclick="attemptHmLogin()">प्रवेश करा</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- 4. Headmaster (HM) Change PIN Modal -->
-<div class="overlay" id="changeHmPinOverlay">
-  <div class="modal">
-    <div class="modal-head"><h3>मुख्याध्यापक पिन बदला (Change HM PIN)</h3><button class="modal-close" onclick="closeModal('changeHmPinOverlay')">✕</button></div>
-    <div class="modal-body">
-      <p class="helptext">या शाळेसाठी नवीन HM पिन सेट करा.</p>
-      <div class="field" id="hmOldPinBox"><label>सध्याचा HM पिन (Current PIN)</label><input id="hmOldPinInput" type="password" inputmode="numeric" maxlength="8" placeholder="****"></div>
-      <div class="field"><label>नवीन HM पिन (New PIN)</label><input id="hmNewPinInput" type="password" inputmode="numeric" maxlength="8" placeholder="****"></div>
-      <div class="field"><label>पुन्हा नवीन पिन टाका (Confirm New PIN)</label><input id="hmConfirmPinInput" type="password" inputmode="numeric" maxlength="8" placeholder="****"></div>
-      <div class="error-text" id="changeHmPinError"></div>
-      <div class="modal-foot">
-        <button class="btn" style="border-color:var(--line);color:var(--ink)" onclick="closeModal('changeHmPinOverlay')">रद्द करा</button>
-        <button class="btn solid-green" onclick="saveNewHmPin()">ऑनलाइन जतन करा</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- 5. Teacher Modal (Add / Edit) -->
 <div class="overlay" id="teacherOverlay">
-  <div class="modal wide">
-    <div class="modal-head"><h3 id="teacherModalTitle">शिक्षक माहिती</h3><button class="modal-close" onclick="closeModal('teacherOverlay')">✕</button></div>
-    <div class="modal-body">
-      <div class="field"><label>पूर्ण नाव</label><input id="f_name"></div>
-      <div class="field"><label>पदनाम</label>
-        <select id="f_desig">
-          <option>मुख्याध्यापक</option>
-          <option>प्रभारी मुख्याध्यापक</option>
-          <option>पदवीधर शिक्षक</option>
-          <option>सहशिक्षक</option>
-          <option>प्राथमिक शिक्षक</option>
-          <option>विशेष शिक्षक</option>
-          <option>केंद्र समन्वयक</option>
-        </select>
-      </div>
-      <div class="field row2">
-        <div><label>मोबाईल</label><input id="f_mobile" inputmode="tel"></div>
-        <div><label>ई-मेल</label><input id="f_email" type="email"></div>
-      </div>
-      <div class="field row2">
-        <div><label>जन्मतारीख</label><input id="f_dob" type="date"></div>
-        <div><label>लिंग</label>
-          <select id="f_gender"><option>पुरुष</option><option>स्त्री</option><option>इतर</option></select>
-        </div>
-      </div>
-      <div class="field row2">
-        <div><label>पात्रता</label><input id="f_qual" placeholder="उदा. MA / D.Ed"></div>
-        <div><label>प्रवर्ग</label><input id="f_cat" placeholder="उदा. General / OBC / SC / ST"></div>
-      </div>
-      <div class="field"><label>नियुक्ती तारीख</label><input id="f_appoint" type="date"></div>
-      <div class="field"><label>विषय</label><input id="f_subject"></div>
+<div class="modal wide">
+<div class="modal-head"><h3 id="teacherModalTitle">शिक्षक माहिती</h3><button class="modal-close" onclick="closeModal('teacherOverlay')">✕</button></div>
+<div class="modal-body">
+<div class="field"><label>पूर्ण नाव</label><input id="f_name"></div>
+<div class="field"><label>पदनाम</label>
+<select id="f_desig">
+<option>मुख्याध्यापक</option>
+<option>प्रभारी मुख्याध्यापक</option>
+<option>पदवीधर शिक्षक</option>
+<option>सहशिक्षक</option>
+<option>प्राथमिक शिक्षक</option>
+<option>विशेष शिक्षक</option>
+<option>केंद्र समन्वयक</option>
+</select>
+</div>
+<div class="field row2">
+<div><label>मोबाईल</label><input id="f_mobile" inputmode="tel"></div>
+<div><label>ई-मेल</label><input id="f_email" type="email"></div>
+</div>
+<div class="field row2">
+<div><label>जन्मतारीख</label><input id="f_dob" type="date"></div>
+<div><label>लिंग</label>
+<select id="f_gender"><option>पुरुष</option><option>स्त्री</option><option>इतर</option></select>
+</div>
+</div>
+<div class="field row2">
+<div><label>पात्रता</label><input id="f_qual" placeholder="उदा. MA / D.Ed"></div>
+<div><label>प्रवर्ग</label><input id="f_cat" placeholder="उदा. General / OBC / SC / ST"></div>
+</div>
+<div class="field"><label>नियुक्ती तारीख</label><input id="f_appoint" type="date"></div>
+<div class="field"><label>विषय</label><input id="f_subject"></div>
 
-      <div class="error-text" id="teacherError"></div>
-      <div class="modal-foot">
-        <button class="btn maroon" id="deleteTeacherBtn" style="margin-right:auto" onclick="deleteCurrentTeacher()">काढून टाका</button>
-        <button class="btn" style="border-color:var(--line);color:var(--ink)" onclick="closeModal('teacherOverlay')">रद्द करा</button>
-        <button class="btn solid" onclick="saveTeacher()">ऑनलाइन जतन करा</button>
-      </div>
-    </div>
-  </div>
+<!-- Separate inputs for Both types of leaves -->
+<div class="field" style="background:#f2f5f8; border-color:#d5e2da;">
+<label style="font-size:.95rem; border-bottom:1px solid #d5e2da; padding-bottom:6px; margin-bottom:12px;">रजा माहिती (Leave Details)</label>
+<div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-bottom:14px;">
+<div><label style="font-size:0.8rem; margin-bottom:4px; display:block;">महिना व वर्ष</label><input id="f_leaveMonthYear" type="month"></div>
+<div><label style="font-size:0.8rem; margin-bottom:4px; display:block;">कालावधी (पासून)</label><input id="f_leaveFrom" type="date"></div>
+<div><label style="font-size:0.8rem; margin-bottom:4px; display:block;">कालावधी (पर्यंत)</label><input id="f_leaveTo" type="date"></div>
+</div>
+<div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+<div style="background:#fff; border:1px solid #e1dbcc; padding:12px; border-radius:6px;">
+<label style="color:#27ae60; margin-bottom:8px; display:block;">अर्जित रजा (Earned Leave)</label>
+<div style="display:flex; gap:6px;">
+<input id="f_elTotal" type="number" step="1" placeholder="एकूण" title="एकूण">
+<input id="f_elTaken" type="number" step="0.5" placeholder="घेतलेली" title="घेतलेली">
+<input id="f_elRem" type="number" step="0.5" placeholder="शिल्लक" title="शिल्लक">
+</div>
+</div>
+<div style="background:#fff; border:1px solid #e1dbcc; padding:12px; border-radius:6px;">
+<label style="color:#c0392b; margin-bottom:8px; display:block;">आकस्मिक रजा (Casual Leave)</label>
+<div style="display:flex; gap:6px;">
+<input id="f_clTotal" type="number" step="1" placeholder="एकूण" title="एकूण">
+<input id="f_clTaken" type="number" step="0.5" placeholder="घेतलेली" title="घेतलेली">
+<input id="f_clRem" type="number" step="0.5" placeholder="शिल्लक" title="शिल्लक">
+</div>
+</div>
+</div>
 </div>
 
-<!-- 6. Cloud Settings Modal -->
+<div class="error-text" id="teacherError"></div>
+<div class="modal-foot">
+<button class="btn maroon" id="deleteTeacherBtn" style="margin-right:auto" onclick="deleteCurrentTeacher()">काढून टाका</button>
+<button class="btn" style="border-color:var(--line);color:var(--ink)" onclick="closeModal('teacherOverlay')">रद्द करा</button>
+<button class="btn solid" onclick="saveTeacher()">जतन करा</button>
+</div>
+</div>
+</div>
+</div>
+
 <div class="overlay" id="settingsOverlay">
-  <div class="modal wide">
-    <div class="modal-head"><h3>क्लाउड सिंक सेटिंग्ज (Cloud Sync)</h3><button class="modal-close" onclick="closeModal('settingsOverlay')">✕</button></div>
-    <div class="modal-body">
-      <p class="helptext">तुमचा Google Apps Script Web App URL खाली पेस्ट करा.</p>
-      <div class="field"><label>Google Sheet Web App URL</label>
-        <input id="sheetUrl" placeholder="येथे Web App URL पेस्ट करा" style="background:#fff; color:#333" onchange="updateSyncUrl()">
-      </div>
-      <div class="error-text" id="settingsMsg"></div>
-      <div class="modal-foot">
-        <button class="btn" style="border-color:var(--line);color:var(--ink)" onclick="closeModal('settingsOverlay')">बंद करा</button>
-        <button class="btn solid" onclick="manualForceSync()">आत्ता सक्तीने सिंक करा (Force Sync)</button>
-      </div>
-    </div>
-  </div>
+<div class="modal wide">
+<div class="modal-head"><h3>सेटिंग्ज — Google Sheet सिंक</h3><button class="modal-close" onclick="closeModal('settingsOverlay')">✕</button></div>
+<div class="modal-body">
+<p class="helptext">माहिती Google Sheet मध्ये पाठवण्यासाठी, खालील Apps Script कोड आपल्या Google Sheet मध्ये (Extensions → Apps Script) पेस्ट करा, तो Web App म्हणून Deploy करा (Execute as: Me, Access: Anyone), आणि मिळालेली URL खाली टाका.</p>
+<div class="field"><label>Apps Script कोड (कॉपी करा)</label>
+<textarea class="code" readonly id="appsScriptCode"></textarea>
+<button class="btn small" style="margin-top:6px;border-color:var(--line);color:var(--ink)" onclick="copyScript()">कोड कॉपी करा</button>
 </div>
-
-<!-- 7. School Modal (Add / Edit) -->
-<div class="overlay" id="schoolOverlay">
-  <div class="modal">
-    <div class="modal-head"><h3 id="schoolModalTitle">नवीन शाळा जोडा</h3><button class="modal-close" onclick="closeModal('schoolOverlay')">✕</button></div>
-    <div class="modal-body">
-      <div class="field"><label>शाळेचे नाव</label><input id="s_name" placeholder="उदा. जि. प. प्रा. शाळा..."></div>
-      <div class="field"><label>युडायस कोड (UDISE Code)</label><input id="s_udise" type="number" placeholder="उदा. 27270101620"></div>
-      <div class="error-text" id="schoolError"></div>
-      <div class="modal-foot">
-        <button class="btn maroon" id="deleteSchoolBtn" style="margin-right:auto" onclick="deleteCurrentSchool()">शाळा काढून टाका</button>
-        <button class="btn" style="border-color:var(--line);color:var(--ink)" onclick="closeModal('schoolOverlay')">रद्द करा</button>
-        <button class="btn solid" onclick="saveSchool()">ऑनलाइन जतन करा</button>
-      </div>
-    </div>
-  </div>
+<div class="field"><label>Web App URL</label><input id="sheetUrl" placeholder="https://script.google.com/macros/s/xxxxx/exec"></div>
+<div class="error-text" id="settingsMsg"></div>
+<div class="modal-foot">
+<button class="btn" style="border-color:var(--line);color:var(--ink)" onclick="closeModal('settingsOverlay')">बंद करा</button>
+<button class="btn solid" onclick="saveSheetUrlAndSync()">आता सिंक करा</button>
+</div>
+</div>
+</div>
 </div>
 
 <div class="toast" id="toast"></div>
+
+<!-- Printable area (hidden on screen, shown on print) -->
 <div id="printArea"></div>
 
 <script>
 /* ============================================================
-   DATA & ONLINE CONFIG
-   ============================================================ */
+DATA MODEL
+============================================================ */
 const CENTER_INFO = { name:"रविवार पेठ", taluka:"अंबाजोगाई", district:"बीड" };
 
-// 1. Paste your Google Web App URL between the quotes below before sharing the file!
-const MASTER_SHEET_URL = "https://script.google.com/macros/s/AKfycbx4d005w7PJXOnMjhl7xrK2LS41HVtFK4IKpk9aarWCrLlghFbyrZ5ikNxZ3ksFYQyb/exec";
-
-// 2. The system will use the MASTER_SHEET_URL for all new devices that open this file
-let CLOUD_SYNC_URL = localStorage.getItem("cloudSyncUrl") || MASTER_SHEET_URL;
-
-function getValidUrl() {
-    let url = CLOUD_SYNC_URL.trim();
-    // Fix accidental capital H in Https which breaks the fetch API
-    if (/^https/i.test(url)) {
-        url = url.replace(/^https/i, "https");
-    }
-    return url;
-}
-
-function updateSyncUrl() {
-  CLOUD_SYNC_URL = document.getElementById("sheetUrl").value.trim();
-  localStorage.setItem("cloudSyncUrl", CLOUD_SYNC_URL);
-  showToast("Sync URL जतन केला!");
-}
-
-// Ensure the input field shows the saved URL when the app loads
-document.addEventListener("DOMContentLoaded", () => {
-    document.getElementById("sheetUrl").value = CLOUD_SYNC_URL;
-});
-
-function generateUUID() {
-    if (typeof crypto !== 'undefined' && crypto.randomUUID) {
-        return crypto.randomUUID();
-    }
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-        var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
-        return v.toString(16);
-    });
-}
-
-function T(name,desig,mobile,email,dob,gender,qual,cat,appoint,subject){
-  return { id: generateUUID(), name,desig,mobile,email,dob,gender,qual,cat,appoint,subject };
+function T(name,desig,mobile,email,dob,gender,qual,cat,appoint,subject, leaveMY="", elTot="", elTak="", elRem="", clTot="", clTak="", clRem="", lFrom="", lTo=""){
+return {
+id: crypto.randomUUID(), name,desig,mobile,email,dob,gender,qual,cat,appoint,subject,
+leaveMY, elTot, elTak, elRem, clTot, clTak, clRem, lFrom, lTo
+};
 }
 
 const DEFAULT_SCHOOLS = [
-  { udise:"27270101612", name:"सी.पी.एस. रविवार पेठ", teachers:[
-    T("उषाताई नारायण चव्हाण","प्राथमिक शिक्षक","9422929990","addeushatai@gmail.com","1970-06-06","स्त्री","HSC / D.Ed","OBC","1997-09-01","-"),
-    T("रेखा सुखदेव बनसोडे","पदवीधर शिक्षक","9767539553","rekha9553bansode@gmail.com","1972-04-13","स्त्री","BA / B.Ed","SC","1992-06-17","समाजशास्त्र"),
-    T("इंद्रजित शिवाजीराव डांगे","प्रभारी मुख्याध्यापक","9403023319","indradange01@gmail.com","1974-01-01","पुरुष","BA / D.Ed","General","1997-09-01","सर्व"),
-    T("रुपेश पांडुरंग लोंढे","केंद्र समन्वयक","7066100281","-","","","-","-","",""),
-    T("पुरुषोत्तम संभाप्पा रुद्राक्ष","विशेष शिक्षक","7588566554","-","","","-","-","","")
-  ]},
-  { udise:"27270101620", name:"मिलिया प्रा. शा. अंबा", teachers:[
-    T("SHAIKH JAMEEL NAWAB","मुख्याध्यापक","9960454571","-","","","-","-","",""),
-    T("Nehal Nisar Maniyar","प्राथमिक शिक्षक","9970066049","nehalshaikhghj@gmail.com","1997-04-10","पुरुष","BSc / D.El.Ed","OBC","2025-01-01","गणित,उर्दू ,इंग्रजी, मराठी, परिसर अभ्यास")
-  ]},
-  { udise:"27270101695", name:"नारायणा वर्ल्ड स्कूल अंबाजोगाई", teachers:[
-    T("Thorat G P","मुख्याध्यापक","8329811192","-","","","-","-","","")
-  ]},
-  { udise:"27270103002", name:"कै. दादाराव कराड प्रा. शा. नागझरी", teachers:[
-    T("KARAD RAMRAJE NARAYAN","मुख्याध्यापक","9730035874","-","","","-","-","","")
-  ]},
-  { udise:"27270100109", name:"खोलेश्वर जीनियस सीबीएससी स्कूल अंबाजोगाई", teachers:[
-    T("Pratibha Ankush Shinde","मुख्याध्यापक","9975791303","-","","","-","-","","")
-  ]},
-  { udise:"27270101688", name:"छत्रपती संभाजी राजे ग्लोबल स्कूल आणि ज्युनियर कॉलेज जोगाईवाडी", teachers:[
-    T("Gangane Shashikala Nagorao","मुख्याध्यापक","8788801400","-","","","-","-","","")
-  ]},
-  { udise:"27270102405", name:"श्री साई समर्थ प्रा. शा.", teachers:[]},
-  { udise:"27270101618", name:"कै. देवराव बालाजी गणगे योगेश्वरी नूतन प्राथमिक विभाग अंबाजोगाई", teachers:[
-    T("KHANDERAO BHAGWANRAO NANDGAONKAR","मुख्याध्यापक","9881638496","-","","","-","-","",""),
-    T("Ashwini Manik Kharbad","प्राथमिक शिक्षक","7709249627","kharbadashvini@gmail.com","1990-03-28","स्त्री","MA / D.Ed","General","2014-08-12","गणित, इंग्लिश"),
-    T("PAVAN PRADIPRAO PATIL","प्राथमिक शिक्षक","9028560957","patil.pavan60@gmail.com","1991-03-11","पुरुष","MA / B.Ed","General","2022-03-28","गणित, इंग्रजी"),
-    T("अंजली वसंतराव कुलकर्णी","प्राथमिक शिक्षक","9421990674","anjalikulkarni617@gmail.com","1977-10-08","स्त्री","BA / D.Ed","General","2006-07-01","मराठी, इंग्रजी"),
-    T("SHARIF RASHID TAMBOLI","प्राथमिक शिक्षक","9359322719","tambolisharif44@gmail.com","1986-06-15","पुरुष","MA / B.Ed","OBC","2022-03-28","गणित, इंग्रजी"),
-    T("दीपक ज्ञानोबा गोडसे","प्राथमिक शिक्षक","9421517566","deegod14@gmail.com","1973-08-14","पुरुष","HSC / D.Ed","OBC","1996-12-26","मराठी गणित इंग्रजी कला कार्यानुभव शा.शि."),
-    T("Ashwini Ashok Ekhande","प्राथमिक शिक्षक","9850502233","ashwiniekhande6@gmail.com","1991-08-29","स्त्री","BA / D.Ed","OBC","2012-07-23","-"),
-    T("Kalpana Rameshrao Yannawar","प्राथमिक शिक्षक","7020545468","kalpanarapatwar3690@gmail.com","1974-10-15","स्त्री","MA / D.Ed","OBC","2001-07-16","Marathi, english, environment"),
-    T("किरण जयंतराव राऊतमारे","प्राथमिक शिक्षक","9421336873","krautmare@gmail.com","1986-05-30","पुरुष","MA / D.Ed","General","2011-01-01","मराठी"),
-    T("Shubhangi Bhagwat Chate","प्राथमिक शिक्षक","9960950785","shubhangichate11@gmail.com","1991-06-21","स्त्री","MA / D.Ed","इतर","2014-08-12","मराठी,English, आपल्या सभोवतालचे जग"),
-    T("Sarika Hiralal Patange","प्राथमिक शिक्षक","9403510219","sarikapatangemalwadkar@gmail.com","1988-10-28","स्त्री","MA / B.Ed","OBC","2024-09-05","Science, Maths, social science"),
-    T("Tejaswini Rajabhau Waghchaure","प्राथमिक शिक्षक","9890463667","tejaswiniwaghchaure.tw@gmail.com","1993-11-26","स्त्री","MA / D.Ed","SC","2014-08-12","गणित इंग्लिश"),
-    T("सचिन अण्णासाहेब अंबाड","प्राथमिक शिक्षक","9028859686","sachinambad1986@gmail.com","1986-04-01","पुरुष","BA / D.Ed","General","2009-06-15","-"),
-    T("नम्रता वैजिनाथराव पेठे","प्राथमिक शिक्षक","7588817765","namratagirishratnaparkhi@gmail.com","1989-01-07","स्त्री","MA / D.Ed","General","2011-07-18","हिंदी, इंग्रजी, सामाजिक शास्त्रे"),
-    T("विद्या वसंतराव भिसे","प्राथमिक शिक्षक","8275197211","bhisevidhya1@gmail.com","1972-12-01","स्त्री","MA / D.Ed","General","1993-06-21","गणित"),
-    T("Snehal Ramrao Adde","प्राथमिक शिक्षक","8275476403","snehaladde@gmail.com","1989-08-07","स्त्री","MA / D.Ed","OBC","2010-08-12","-"),
-    T("स्मिता गंगाधर मंदावाड","प्राथमिक शिक्षक","9518540068","smitaamanwad@gmail.com","1988-01-12","स्त्री","BA / D.Ed","इतर","2022-03-28","-"),
-    T("Seema Rangrao Rudre","प्राथमिक शिक्षक","9623261902","rudreseema4@gmail.co","1990-02-07","स्त्री","BA / D.Ed","ST","2014-08-13","-"),
-    T("मधुकर माधवराव देवकत्ते","प्राथमिक शिक्षक","8605766790","madhudeva11@gmail.com","1988-05-28","पुरुष","BA / B.Ed","इतर","2024-09-05","गणित, इंग्रजी"),
-    T("Archana Bharatrao Dhaygude","प्राथमिक शिक्षक","7745832008","dhaygudeab84@gmail.com","1984-05-02","स्त्री","BA / D.Ed","General","2007-07-20","मराठी, इंग्रजी,प. अ."),
-    T("प्राजक्ता चिंतामणी गोस्वामी","प्राथमिक शिक्षक","9420391792","prajktacgoswami@gmail.com","1986-01-22","स्त्री","MA / D.Ed","General","2009-06-26","सर्व"),
-    T("मंगल गोपाळराव पतंगे","प्राथमिक शिक्षक","9404029198","mangalpatange68@gmail.com","1977-05-17","स्त्री","BA / D.Ed","OBC","1999-09-20","मराठी"),
-    T("Rupali Kalidas Puskar","प्राथमिक शिक्षक","9405817272","rupalipuskar9@gmail.com","1988-05-09","स्त्री","MA / B.Ed","General","2011-01-01","सर्व -गणित मराठी english"),
-    T("स्नेहा हरिहर अप्पा बर्दापुरे","प्राथमिक शिक्षक","8767393335","snehahbardapure@gmail.com","1989-06-10","स्त्री","MA / D.Ed","General","2011-08-01","मराठी, हिंदी, इंग्रजी"),
-    T("Hanumant Kerba Inglewad","प्राथमिक शिक्षक","9860687572","hanumantinglewad9860@gmail.com","1971-01-07","पुरुष","BA / D.Ed","ST","1992-06-23","परिसर अभ्यास , कला शिक्षण , कार्य शिक्षण"),
-    T("Sachin Rohidas Adsule","प्राथमिक शिक्षक","9422999148","sachinadsule148@gmail.com","1985-07-23","पुरुष","MA / D.Ed","SC","2013-07-22","-"),
-    T("शिवहार विनायक ढगे","प्राथमिक शिक्षक","9404202525","shivdhage30121983@gmail.com","1983-03-20","पुरुष","MA / D.Ed","OBC","2010-07-01","गणित व स्पर्धा परीक्षा"),
-    T("संध्या कालिदासराव जोशी","प्राथमिक शिक्षक","9403329717","sandyrjoshi@gmail.com","1986-09-02","स्त्री","MA / D.Ed","General","2010-07-01","-"),
-    T("सीमा बळीराम उनवणे.","प्राथमिक शिक्षक","9923343657","seemaunawane.90su@gmail.com","1990-03-02","स्त्री","MA / D.Ed","SC","2012-07-25","मराठी ,इंग्रजी, EVS"),
-    T("अनिल सुर्यकांत बडे","प्राथमिक शिक्षक","9834971177","anilbade88@gamil.com","1988-02-15","पुरुष","BA / D.Ed","इतर","2022-03-28","-"),
-    T("Ashok Sakharam Akhade","प्राथमिक शिक्षक","9881351594","akhadeashok4@gmail.com","1983-08-10","पुरुष","BA / D.Ed","OBC","2006-07-25","गणित इंग्रजी"),
-    T("Pallavi Ramrao Gangane","प्राथमिक शिक्षक","7020815970","k23pallavi@gmail.com","1991-04-23","स्त्री","MA / D.Ed","General","2013-07-22","गणित, इंग्रजी"),
-    T("Priyanka Janardhan Dhage","प्राथमिक शिक्षक","9579044588","dhagepriyanka17@gmail.com","1989-01-11","स्त्री","MA / D.Ed","General","2012-07-25","मराठी इंग्लिश"),
-    T("रविकुमार अर्जुन शिंदे","प्राथमिक शिक्षक","9975111242","ravikumarshinde777@gmail.com","1989-07-19","पुरुष","BA / D.Ed","SC","2024-03-28","मराठी"),
-    T("Chatrabhuj Ashruba Dhembre","प्राथमिक शिक्षक","8329910027","chatrabhuj1982@gmail.com","2021-06-03","पुरुष","BA / D.Ed","General","2007-08-01","सर्व"),
-    T("Amol Vitthalrao Jadhav","प्राथमिक शिक्षक","9960827227","amolj827@gmail.com","1985-01-01","पुरुष","BA / D.Ed","OBC","2005-11-16","-"),
-    T("अनंत कमलाकर जोशी","प्राथमिक शिक्षक","9700927777","anant.joshi260@gmail.com","1989-06-22","पुरुष","MA / B.Ed","General","2012-07-25","परिसर अभ्यास , विज्ञान")
-  ]},
-  { udise:"27270101619", name:"नेताजी सुभाषचंद्र प्रा. शा. अंबा", teachers:[
-    T("Magar RB","मुख्याध्यापक","9421946215","-","","","-","-","",""),
-    T("Rahul Vijay Burge","प्राथमिक शिक्षक","9922051313","rahulburge7111@gmail.com","1988-03-26","पुरुष","MA / B.Ed","OBC","2010-02-01","गणित, सामाजिक शास्त्र"),
-    T("प्रफुल्ल मोहनराव कोमटवार","प्राथमिक शिक्षक","8888980705","prafulkomatwar@gmail.com","1987-12-18","पुरुष","MA / D.Ed","ST","2011-02-01","विज्ञान"),
-    T("नंदकिशोर मधुकर साळुंके","पदवीधर शिक्षक","7020423561","salunkenandkishor@gmail.com","1981-04-05","पुरुष","MA / B.Ed","General","2012-06-15","इंग्रजी"),
-    T("Shilpa Dnyanoba Gitte","प्राथमिक शिक्षक","8975873166","www.shilpagambhire123@gmail.com","1993-06-04","स्त्री","HSC / D.Ed","OBC","2015-01-05","Marathi"),
-    T("Manisha Dnyanoba Sonwane","प्राथमिक शिक्षक","9011409501","manishamundhe2324@gmail.com","1986-06-23","स्त्री","MA / D.Ed","OBC","2015-01-06","गणित, इंग्रजी, विज्ञान"),
-    T("Ramabai Balasaheb Jadhav","प्राथमिक शिक्षक","8275757885","jadhavramabai5751@gmail.com","1985-01-20","स्त्री","BA / D.Ed","General","2014-06-16","गणित, विज्ञान"),
-    T("pornima pralhad shinde","प्राथमिक शिक्षक","9850886977","pornima.bhojne8888@gmail.com","1984-11-09","स्त्री","MA / B.Ed","SC","2009-04-01","मराठी"),
-    T("Rani Raghunathrao Rathod","प्राथमिक शिक्षक","8379861117","ranirathod1117.rr@gmail.com","1987-05-01","स्त्री","MA / D.Ed","OBC","2010-04-01","विज्ञान"),
-    T("Dnyaneshwar Shesharao Magar","प्राथमिक शिक्षक","9422876566","magar84ds@gmail.com","1984-07-09","पुरुष","MA / D.Ed","General","2011-08-01","सर्व विषय"),
-    T("Avinash Uttamrao Chopade","प्राथमिक शिक्षक","9854157777","anandchopade77@gmail.com","1986-06-13","पुरुष","MA / D.Ed","SC","2011-03-01","इंग्रजी, विज्ञान, इतिहास"),
-    T("Kaustubh Vijayanand Shinde","प्राथमिक शिक्षक","8766500557","kaustubhshinde20025@gmail.com","1989-09-09","पुरुष","BA / D.Ed","General","2014-09-01","सर्व विषय"),
-    T("जालिंदर बाबुराव तोडकर","प्राथमिक शिक्षक","9623625999","jalindartodkar52@gmail.com","1987-01-07","पुरुष","MA / D.Ed","OBC","2010-01-04","मराठी इतिहास परिसर अभ्यास"),
-    T("मनोज आण्णासाहेब चव्हाण","प्राथमिक शिक्षक","9403519407","mc2238441@gmail.com","1988-05-09","पुरुष","BA / D.Ed","इतर","2012-06-15","सर्व विषय"),
-    T("मेघाराणी रामराव चव्हाण","प्राथमिक शिक्षक","7972127717","meghachavan508@gmail.com","1987-01-03","स्त्री","MA / D.Ed","General","2011-06-15","सर्व विषय"),
-    T("लोचना बळीराम शिनगारे","प्राथमिक शिक्षक","8806448300","lochanaarsude@gmail.com","1975-11-30","स्त्री","MA / D.Ed","OBC","2011-06-01","Marathi"),
-    T("Sanjay Shahaji Gambhire","पदवीधर शिक्षक","9921351111","gambhiresanjay86@gmail.com","1986-04-20","पुरुष","MA / B.Ed","OBC","2009-07-01","मराठी, इतिहास"),
-    T("Parmeshwar Vishnu Reddy","पदवीधर शिक्षक","9403928511","vinodvreddy1987@gmail.com","1987-02-21","पुरुष","BA / B.Ed","OBC","2011-06-15","हिंदी, इतिहास")
-  ]},
-  { udise:"27270101626", name:"खोलेश्वर प्रा. शा. अंबाजोगाई", teachers:[
-    T("Shivaji Angad Hendge","मुख्याध्यापक","9421375441","-","","","-","-","",""),
-    T("वर्षा लक्ष्मणराव मुंडे","प्राथमिक शिक्षक","9422933231","varshavijaykarhad@gmail.com","1978-04-15","स्त्री","BA / D.Ed","OBC","2001-07-16","सर्व विषय"),
-    T("Sachin Shankarrao Aglave","प्राथमिक शिक्षक","9527753319","sachinaglave4786@gmail.com","1986-07-04","पुरुष","HSC / D.Ed","OBC","2008-08-04","सर्व विषय"),
-    T("Krishna Bhagwan Waghmare","प्राथमिक शिक्षक","9421668499","krishnaw4007@gmail.com","1989-06-19","पुरुष","BA / D.Ed","OBC","2012-07-11","-"),
-    T("Parmeshwar Baburao Rathod","प्राथमिक शिक्षक","9423716906","parmeshwarr042@gmail.com","1988-05-12","पुरुष","MA / D.Ed","OBC","2017-04-01","सर्व विषय"),
-    T("Rajshree Shivraj Bharati","प्राथमिक शिक्षक","9420435340","grajshree2810@gmail.com","1986-10-28","स्त्री","BA / D.Ed","OBC","2008-08-20","मराठी, गणित, परिसर अभ्यास, इंग्रजी"),
-    T("राजेश विनायक चव्हाण","प्राथमिक शिक्षक","9022276948","chavanrv86@gmail.com","1986-08-03","पुरुष","MA / D.Ed","OBC","2011-08-12","English,math"),
-    T("मंजुषा अर्जुनराव मुळे","प्राथमिक शिक्षक","7775983947","manjushama6@gmail.com","1984-06-20","स्त्री","BA / D.Ed","General","2005-06-20","सर्व विषय"),
-    T("Mandakini Bajirao Khadke","प्राथमिक शिक्षक","9767134832","mandakinikhadke123@gmail.com","1988-06-05","स्त्री","MA / D.Ed","OBC","2011-08-11","-"),
-    T("Devakbai Uttamrao Kale","प्राथमिक शिक्षक","7057043324","kaledevaki6@gmail.com","1981-05-13","स्त्री","HSC / D.Ed","OBC","2006-10-04","सर्व विषय"),
-    T("Abhishek Sakharam Rajurkar","प्राथमिक शिक्षक","9421308189","abhishekrajurkar1@gmail.com","1994-06-23","पुरुष","BA / D.El.Ed","General","2016-09-01","-"),
-    T("प्रांजली अशोकराव कुलकर्णी","प्राथमिक शिक्षक","8554099083","pranjalikulkarni1992@gmail.com","1992-09-24","स्त्री","HSC / D.Ed","General","2013-01-15","मराठी, गणित, इंग्रजी"),
-    T("प्रतिक्षा जनार्धन ढगे","प्राथमिक शिक्षक","9405024718","pratikshadhage5786@gmail.com","1986-07-05","स्त्री","MA / D.Ed","OBC","2012-06-15","सर्व विषय"),
-    T("Santosh Kishan Aade","प्राथमिक शिक्षक","7666064210","aadebablu2@gmail.com","1991-06-01","पुरुष","HSC / D.Ed","इतर","2016-01-18","-"),
-    T("श्रीधर गंगाधर चौरे","प्राथमिक शिक्षक","8087272416","shridharchoure4215@gmail.com","1978-08-09","पुरुष","BA / D.Ed","OBC","1999-08-14","-"),
-    T("मनोज चंद्रकांत बरुरे","प्राथमिक शिक्षक","8275268651","barure.manoj@gmail.com","1980-02-21","पुरुष","BA / D.Ed","OBC","2006-10-03","-"),
-    T("अश्विनी संतोष होट्टे","प्राथमिक शिक्षक","9011333206","ashwinihotte@gmail.com","1989-12-01","स्त्री","BA / D.Ed","OBC","2012-02-02","-"),
-    T("ममता भिमराव लांडगे","पदवीधर शिक्षक","9420330033","mamtalandge1984@gmail.com","1984-07-31","स्त्री","BA / B.Ed","OBC","2012-06-15","मराठी, इतिहास"),
-    T("Kulkarni Priyanka Ade","प्राथमिक शिक्षक","8857840357","guddikulkarni94@gmail.com","1992-03-20","स्त्री","HSC / D.Ed","General","2012-06-15","-"),
-    T("Nitin vilas sonvane","प्राथमिक शिक्षक","9527939016","nitinsonvane2014@gmail.com","1988-06-03","पुरुष","BA / D.Ed","OBC","2012-06-15","-"),
-    T("प्रीती भागवत शिंदे","प्राथमिक शिक्षक","9921860252","pritishinda@gmail.com","1991-09-10","स्त्री","BA / D.Ed","OBC","2012-06-15","-"),
-    T("Kishan Vaijnath Gaikwad","प्राथमिक शिक्षक","9921147298","gaikwadkishan760@gmail.com","1989-03-04","पुरुष","BA / D.Ed","SC","2011-08-11","-"),
-    T("बालाजी दामोदरराव घोडके","प्राथमिक शिक्षक","9766215385","balajighodke68@gmail.com","1991-02-05","पुरुष","BA / D.Ed","इतर","2012-06-15","सर्व विषय"),
-    T("सुनिता रामधन सोनवणे","पदवीधर शिक्षक","9405100646","sunitadarade1212@gmail.com","1971-07-06","स्त्री","BA / B.Ed","OBC","1989-07-06","हिंदी"),
-    T("पंकज पंडितराव तरवडे","प्राथमिक शिक्षक","9527782728","pankajtarawade@gmail.com","1990-02-11","पुरुष","BA / D.Ed","General","2012-06-15","-"),
-    T("सोनाताई गोपाळराव कळमगावे","प्राथमिक शिक्षक","9370309588","mohinibj77@gmail.com","1991-06-05","स्त्री","BA / D.Ed","General","2012-07-20","-")
-  ]},
-  { udise:"27270101628", name:"उर्दू प्रा. शा. रविवार पेठ अंबाजोगाई", teachers:[
-    T("Qureshi Mohammed Ilyasuddin Salimuddin","मुख्याध्यापक","9422742930","-","","","-","-","","")
-  ]},
-  { udise:"27270101629", name:"न्यू इंग्लिश प्रा. शा. अंबा", teachers:[
-    T("Mr Bhasme Mahesh Marutirao","मुख्याध्यापक","9403645496","-","","","-","-","",""),
-    T("अर्चना अशोकराव काळम","पदवीधर शिक्षक","9766107100","kalamarchana05@gmail.com","1980-08-05","स्त्री","MA / B.Ed","General","2012-06-15","भूगोल मराठी")
-  ]},
-  { udise:"27270101633", name:"घाट नागनाथ प्रा. शा. अंबा", teachers:[
-    T("SOLANKE SANDHYA UTTAMRAO","मुख्याध्यापक","8830773269","-","","","-","-","","")
-  ]},
-  { udise:"27270101660", name:"श्री व्यंकटेश विद्या मंदिर प्रा. शा. अंबा", teachers:[
-    T("Chaudhari SG","मुख्याध्यापक","8805044747","-","","","-","-","","")
-  ]},
-  { udise:"27270105504", name:"सोमेश्वर उर्दू प्राथमिक शाळा पिंपळा धायगुडा अंबाजोगाई", teachers:[
-    T("Pathan Sartaj Khan Razzak Khan","मुख्याध्यापक","9767116668","-","","","-","-","","")
-  ]},
-  { udise:"27270100105", name:"जिजाऊ स्कूल भगवानबाबा चौक अंबाजोगाई", teachers:[
-    T("Londhal DA","मुख्याध्यापक","9405247008","-","","","-","-","","")
-  ]},
-  { udise:"27270101623", name:"नूरजहाँ उर्दू प्राथमिक शाळा अंबाजोगाई", teachers:[
-    T("FAIZ MOOSA SAYYED","मुख्याध्यापक","9028891469","-","","","-","-","","")
-  ]},
-  { udise:"27270101685", name:"सुलावंतीबाई बाळासाहेब शिंदे प्रा. शा. इंग्लिश अंबाजोगाई", teachers:[
-    T("Bade Rekha Subhash","मुख्याध्यापक","9404121272","-","","","-","-","","")
-  ]},
-  { udise:"27270103802", name:"तुकाराम पाटील प्रा. शा. गिरवली", teachers:[
-    T("Gangane Anant Satwaram","मुख्याध्यापक","9421913422","-","","","-","-","",""),
-    T("DATTA ARUN PATANKAR","प्राथमिक शिक्षक","9404888852","dattapatankard86@gmail.com","1989-09-20","पुरुष","MA / D.Ed","OBC","2011-06-15","सर्व विषय"),
-    T("रोहिणी बाबासाहेब वाघमारे","प्राथमिक शिक्षक","9970861233","rohiniwaghmare5237@gmail.com","1982-06-08","स्त्री","BA / D.Ed","General","2003-07-05","सर्व विषय"),
-    T("शोभा वसंतराव शिंदे","प्राथमिक शिक्षक","9284175003","shindeshobha5003@gmail.com","1980-01-20","स्त्री","BA / D.Ed","General","2004-06-21","सर्व विषय"),
-    T("Asha Sudhakar Ambad","प्राथमिक शिक्षक","7020963796","ashaambad83@gmail.com","1983-05-04","स्त्री","BA / D.Ed","General","2005-06-20","All subject"),
-    T("माधुरी माणिकआप्पा चौंडे","प्राथमिक शिक्षक","9284258189","choundemaduri@gmail.com","1980-11-11","स्त्री","HSC / D.Ed","General","2008-06-16","सर्व विषय"),
-    T("अमोल प्रतापराव आपेट","पदवीधर शिक्षक","8275706777","amol.apet@gmail.com","1987-06-15","पुरुष","BA / D.Ed","General","2008-06-16","सर्व विषय"),
-    T("Namdev Devidas Munde","पदवीधर शिक्षक","9405961212","devmunde77@gmail.com","1987-05-18","पुरुष","MA / D.Ed","OBC","2011-06-15","सर्व विषय")
-  ]},
-  { udise:"27270103803", name:"जिजाऊ इंटरनॅशनल स्कूल गिरवली (बी)", teachers:[
-    T("Apet S B","मुख्याध्यापक","9422773141","-","","","-","-","","")
-  ]},
-  { udise:"27270101669", name:"प्रमोदजी महाजन न्यू इंग्लिश स्कूल", teachers:[
-    T("Dr Yogesh Subhashrao Kulkarni","मुख्याध्यापक","9422745733","-","","","-","-","","")
-  ]},
-  { udise:"27270103801", name:"जि.प.हा.स्कू. गिरवली", teachers:[
-    T("Ravindra Deogaonkar","मुख्याध्यापक","9405662166","-","","","-","-","","")
-  ]},
-  { udise:"27270100107", name:"मुक्तांगण विद्यालय गिरवली रोड अंबाजोगाई", teachers:[
-    T("Shinde BV","मुख्याध्यापक","9422773141","-","","","-","-","","")
-  ]},
-  { udise:"27270100110", name:"विझडम इंग्लिश स्कूल ज्युनियर कॉलेज अंबाजोगाई", teachers:[
-    T("Shaikh Ayesha Kirmani Naseer","मुख्याध्यापक","9403881891","-","","","-","-","","")
-  ]},
-  { udise:"27270100111", name:"स्कॉलर्स एज्युकेशन पॅलेस अंबाजोगाई", teachers:[
-    T("PATHAN ARSHAD","मुख्याध्यापक","8380921212","-","","","-","-","","")
-  ]},
-  { udise:"27270101654", name:"न्यू विजन इंग्लिश स्कूल अंबाजोगाई", teachers:[
-    T("M Prashant Kumar","मुख्याध्यापक","9665746911","-","","","-","-","","")
-  ]},
-  { udise:"27270101690", name:"एरा इंटरनॅशनल स्कूल अंबाजोगाई", teachers:[
-    T("Deshmukh Matin Ghulamrasoolatin","मुख्याध्यापक","9730668387","-","","","-","-","","")
-  ]},
-  { udise:"27270103003", name:"सरस्वती पब्लिक स्कूल नागझरी", teachers:[
-    T("RAUT SS","मुख्याध्यापक","9730035872","-","","","-","-","","")
-  ]},
-  { udise:"27270103702", name:"प्रेषिता इंटरनॅशनल स्कूल आणि ज्युनियर कॉलेज", teachers:[]},
-  { udise:"27270101615", name:"डॉ. राम भालचंद्र हायस्कूल अंबाजोगाई", teachers:[
-    T("Awad Sunil Premraj","मुख्याध्यापक","9422931408","-","","","-","-","",""),
-    T("Purushottam Sunderrao Deshmukh","पदवीधर शिक्षक","9421270702","purushottamdeshmukh6444@gmail.com","1974-06-12","पुरुष","MA / B.Ed","General","2004-12-20","इतिहास, मराठी"),
-    T("Rajendra Suresh Kshirsagar","अन्य","9860913543","rajendrakshirsagar1972@gmail.com","1972-08-11","पुरुष","MA / B.Ed","SC","1996-07-01","इंग्रजी"),
-    T("ढगे बाबु कोडींराम","अन्य","9975902195","babudhage33517@gmail.com","1971-06-12","पुरुष","MA / B.Ed","इतर","1996-07-01","हिंदी.भूगोल"),
-    T("शरद अशोकराव पाटील","पदवीधर शिक्षक","8830792550","sharada.patil49@gmail.com","1984-08-29","पुरुष","MA / B.Ed","OBC","2012-06-15","मराठी, इतिहास"),
-    T("मनोज उत्तमराव शिंदे","प्राथमिक शिक्षक","9960572878","manojshinde24494@gmail.com","1978-05-15","पुरुष","BSc / B.Ed","General","2000-06-19","विज्ञान"),
-    T("राजकुमार सुधाकर घुगे","अन्य","9975344607","rajkumarghuge7@gmail.com","1973-02-09","पुरुष","BA / D.Ed","OBC","1998-06-22","हिंदी इतिहास भूगोल चित्रकला")
-  ]},
-  { udise:"27270101635", name:"योगेश्वरी नूतन हायस्कूल अंबा", teachers:[
-    T("Shrimati PATHAK APARNA RAOSAHEB","मुख्याध्यापक","9403927545","-","","","-","-","",""),
-    T("Shubhangi Pravinrao Bhosle","प्राथमिक शिक्षक","9518932931","shubhangibhosle1765@gmail.com","1986-11-20","स्त्री","MA / D.Ed","General","2009-01-01","सर्व विषय"),
-    T("Tukaram Shivaji Admane","पदवीधर शिक्षक","9923112501","tukaram123admane@gmail.com","1986-02-05","पुरुष","MA / B.Ed","SC","2014-09-09","English, History"),
-    T("संजयकुमार गोविंदराव कामखेडकर","पदवीधर शिक्षक","9850022771","justsanju207@gmail.com","1975-07-20","पुरुष","BSc / B.Ed","General","2011-08-04","विज्ञान"),
-    T("प्रताप परमेश्वर भिसे","पदवीधर शिक्षक","7276518949","bhisepratap@gmail.com","1991-09-01","पुरुष","BSc / B.Ed","General","2024-03-12","गणित, विज्ञान"),
-    T("आशिष चंद्रकांतराव भांडारी","पदवीधर शिक्षक","9421345517","sarveshbhandari2010@gmail.com","1981-03-26","पुरुष","MA / B.Ed","General","2006-07-28","इंग्रजी"),
-    T("महेश मधुकरराव सबनीस","पदवीधर शिक्षक","9423470830","maheshsabnis1971@gmail.com","1971-07-08","पुरुष","BSc / B.Ed","General","1995-07-17","विज्ञान"),
-    T("GIRISH - गिरीष GANESHRAO - गणेशराव RATNAPARKHI - रत्नपारखी","पदवीधर शिक्षक","9403103318","girishratnaparkhi2gr@gmail.com","1986-08-16","पुरुष","MA / B.Ed","General","2006-08-01","गणित"),
-    T("महेश केशवराव कुलकर्णी","पदवीधर शिक्षक","8830674418","kmaheshkanna1977@gmail.com","1977-04-10","पुरुष","MA / B.Ed","General","2004-08-03","इंग्रजी, भूगोल"),
-    T("ऋषिकेश प्रभाकरराव फांजेवाड","प्राथमिक शिक्षक","8788367363","phanjewad@gmail.com","1993-03-25","पुरुष","MA / D.Ed","इतर","2025-08-02","-"),
-    T("अरुण अंकुश कलेढेले","पदवीधर शिक्षक","9423720592","arunkaledhele@gmail.com","1979-01-01","पुरुष","MA / M.Ed","OBC","2003-07-01","भूगोल"),
-    T("नितीन राजेंद्र मस्के","प्राथमिक शिक्षक","9561899501","sachinmaske92194@gmail.com","1992-05-16","पुरुष","BSc / D.Ed","SC","2025-08-02","सर्व"),
-    T("सदानंद पुरुषोत्तम पाठक","पदवीधर शिक्षक","9922534142","sagave143@gmail.com","1979-05-11","पुरुष","MA / B.Ed","General","2006-02-01","संस्कृत"),
-    T("Suchita Shrihari Kadke","पदवीधर शिक्षक","9860941606","suchitakadke83@gmail.com","1983-07-15","स्त्री","BSc / B.Ed","General","2008-08-05","गणित"),
-    T("विलास काशिनाथराव गायकवाड","पदवीधर शिक्षक","9096391163","vilasgaik970@gmail.com","1970-07-15","पुरुष","MA / B.Ed","OBC","1996-12-02","इतिहास"),
-    T("Anjali Bhagwanrao Karanwad","पदवीधर शिक्षक","9421913339","anjalichoughule46795@gmail.com","1983-05-07","स्त्री","MA / B.Ed","ST","2004-08-03","Hindi"),
-    T("Sunanda Shivraj Kotlapure","प्राथमिक शिक्षक","7972169065","kotlapuresunanda203@gmail.com","1983-09-05","स्त्री","MA / D.Ed","OBC","2006-08-01","Math, parisar abhyas"),
-    T("गणेश नारावणराव कदम","पदवीधर शिक्षक","8668697827","ganeshkadam8457@gmail.com","1982-01-05","पुरुष","HSC / B.Ed","General","2006-08-01","कला"),
-    T("उपेंद्र बालासाहेब जोशी","पदवीधर शिक्षक","9881455876","ujoshi199@gmail.com","1978-06-01","पुरुष","MA / B.Ed","General","2011-09-02","मराठी आणि भूगोल"),
-    T("बालासाहेब काशिनाथराव मसने","पदवीधर शिक्षक","8275389809","bkmasne@gmail.com","1979-01-12","पुरुष","MA / M.Ed","OBC","2003-08-05","इंग्रजी"),
-    T("सोमेश्वर रावसाहेब जाधव","पदवीधर शिक्षक","9422330446","somyajadhav25@gmail.com","1981-05-24","पुरुष","BSc / B.Ed","General","2005-07-27","Math"),
-    T("DNYANESH PRAKASHRAO PATIL","पदवीधर शिक्षक","9022153088","dnyanesh123patil@gmail.com","1977-06-15","पुरुष","MSc / B.Ed","General","2006-08-01","गणित"),
-    T("सदाशिव किसनराव डोरले","प्राथमिक शिक्षक","9405077182","sadashivdorle2625@gmail.com","1982-05-05","पुरुष","MA / D.Ed","OBC","2004-08-07","मराठी , इंग्रजी"),
-    T("विकास शिवाजी सातपुते","प्राथमिक शिक्षक","8421947002","vssatpute078@gmail.com","1988-04-12","पुरुष","MA / D.Ed","SC","2013-07-26","सामाजिक शास्त्रे [ इतिहास, भूगोल व ना. शास्त्र ]"),
-    T("रवींद्र संभाजी मठपती","पदवीधर शिक्षक","9404697474","ravimathpati4@gmail.com","1975-03-16","पुरुष","MA / B.Ed","OBC","1999-07-21","इंग्रजी"),
-    T("शिल्पा कल्याण सावंत","प्राथमिक शिक्षक","9403592041","savantshilpak@gmail.com","1987-10-29","स्त्री","MA / D.Ed","General","2008-08-05","-"),
-    T("बापूराव दामोधर गोविंदवाड","पदवीधर शिक्षक","9403483474","bapuraogovindwad@gmail.com","1968-10-01","पुरुष","MA / B.Ed","ST","1996-12-02","भूगोल व इतिहास"),
-    T("निलेश दशरथ भद्रे","पदवीधर शिक्षक","9403882791","nileshbhadre9403@gmail.com","1983-09-27","पुरुष","MA / B.Ed","SC","2008-08-05","सामाजिक शास्त्रे"),
-    T("कमलाकर कोंडिबा राऊत","पदवीधर शिक्षक","7249573469","kamalakarraut2@gmail.com","1974-06-07","पुरुष","MA / M.Ed","OBC","1997-06-20","मराठी इतिहास"),
-    T("Hanumant Gopalrao Bhalerao","पदवीधर शिक्षक","9960096062","hemant.dhanorkar8@gmail.com","1979-03-02","पुरुष","MA / M.Ed","General","2013-07-26","इतिहास"),
-    T("Rupali Vaijanath Jujgar","प्राथमिक शिक्षक","9834972369","aglaverupali4487@gmail.com","1987-04-04","स्त्री","HSC / D.Ed","OBC","2009-01-01","सर्व विषय"),
-    T("Sharad Dnyandev Shinde","पदवीधर शिक्षक","8275942665","sharadshinde413@gmail.com","1989-02-11","पुरुष","BA / B.Ed","इतर","2024-05-21","मराठी"),
-    T("तिलोत्तमा नामदेव इंगोले","पदवीधर शिक्षक","9284225598","tiluppp@gmail.com","1984-05-16","स्त्री","MA / M.Ed","ST","2014-09-08","मराठी"),
-    T("भागवत रामकृष्ण मसने","पदवीधर शिक्षक","9420014746","brmasne65@gmail.com","1970-05-01","पुरुष","MA / B.Ed","OBC","2002-11-18","हिंदी"),
-    T("सारंग शशिकांत देशपांडे","पदवीधर शिक्षक","9561621109","deshpandesarang2@gmail.com","1974-12-19","पुरुष","MA / B.P.Ed","General","2000-07-01","प.अ. भाग 2 , शा. शि . आ ."),
-    T("Suwarna Ramrao Deshmukh","पदवीधर शिक्षक","7083489711","suwarnavarad1975@gmail.com","1975-09-07","स्त्री","MA / B.Ed","General","2008-08-05","गणित, विज्ञान"),
-    T("Dr.Vandana Devidas Lande","पदवीधर शिक्षक","7709273471","balatkarvandana@gmail.com","1980-06-12","स्त्री","MA / B.Ed","OBC","2006-02-01","मराठी"),
-    T("शितल हरिदास गंगणे","प्राथमिक शिक्षक","8668714253","jagtapshital458@gmail.com","1990-06-10","स्त्री","BA / D.Ed","General","2013-07-26","मराठी"),
-    T("यशवंत वसराम आडे","पदवीधर शिक्षक","9420128224","yeshwant161973@gmail.com","1973-06-01","पुरुष","MA / B.Ed","इतर","2000-08-01","-"),
-    T("Shubhada Dasopant Goswami","पदवीधर शिक्षक","9604536681","shubhadagoswami@gmail.com","1975-08-12","स्त्री","MA / B.Ed","General","2004-08-03","English"),
-    T("दैवशाली शंकर म्हेत्रे","पदवीधर शिक्षक","9503251411","daivashali17@gmail.com","1983-08-17","स्त्री","MA / B.Ed","OBC","2009-01-01","मराठी, संस्कृत"),
-    T("Saptashila Mukundrao Maind","पदवीधर शिक्षक","9604285044","smmaind1978@gmail.com","1978-07-05","स्त्री","MSc / B.Ed","इतर","2006-02-02","विज्ञान"),
-    T("Pranita Keshav Reddy","पदवीधर शिक्षक","9022396667","pranitareddy1000@gmail.com","1979-02-25","स्त्री","BSc / B.Ed","OBC","2003-08-05","गणित")
-  ]},
-  { udise:"27270101636", name:"श्रीमती गोदावरीबाई कुंकुलोळ योगेश्वरी कन्या हायस्कूल अंबाजोगाई", teachers:[
-    T("MEENA SURESH KULKARNI","मुख्याध्यापक","8459332551","-","","","-","-","",""),
-    T("गणेश लक्ष्मण हरगुले","प्राथमिक शिक्षक","9403514006","Ganesh.beed2012@gmail.com","1984-10-13","पुरुष","MA / D.Ed","General","2010-07-01","-"),
-    T("SHITAL GOPAL BANSODE","पदवीधर शिक्षक","8999637371","shitalbansode133@gmail.com","1985-05-31","स्त्री","MA / M.Ed","SC","2024-09-25","मराठी,सामाजिक शास्त्र"),
-    T("Durga Ramkishan Choudhary","पदवीधर शिक्षक","8378083561","drc0297@gmail.com","1997-09-02","स्त्री","MSc / B.Ed","General","2024-08-17","गणित"),
-    T("PRADIP SHRAWAN MORE","अन्य","9545828458","pradipmore1989@gmail.com","1989-06-23","पुरुष","MSc / B.Ed","SC","2025-08-02","मराठी"),
-    T("मानसी शंकरराव निंबाळकर","पदवीधर शिक्षक","9373723180","manasinimbalkar99@gmail.com","1999-08-25","स्त्री","BSc / B.Ed","General","2025-08-02","गणित"),
-    T("Harish Bhaskar Shinde","पदवीधर शिक्षक","7972523220","harishshinde470@gmail.com","1992-02-14","पुरुष","MA / B.Ed","General","2020-02-24","इतिहास"),
-    T("मनिषा राजेंद्र माने","पदवीधर शिक्षक","9767456436","mdalvi9886@gmail.com","1973-07-29","स्त्री","BSc / B.Ed","OBC","1996-07-05","गणित"),
-    T("Shubhangi Omkarappa Kshirsagar","पदवीधर शिक्षक","9404160540","shubhangi83kshirsagar@gmail.com","1983-11-12","स्त्री","BSc / B.Ed","OBC","2006-11-06","विज्ञान"),
-    T("YOGESH DEVIDAS NAGARGOJE","अन्य","9822972396","yogeshnagargoje55@gmail.com","1985-10-15","पुरुष","MA / D.Ed","इतर","2006-07-01","-"),
-    T("Anita Ramrao Londhe","पदवीधर शिक्षक","9359879296","anitalondhe454@gmail.com","1992-06-30","स्त्री","MA / B.Ed","SC","2013-07-30","मराठी"),
-    T("Mangal Tukaram Komatwar","पदवीधर शिक्षक","9921987658","mangalkople@gmail.com","1975-06-04","स्त्री","BA / B.Ed","ST","1994-07-25","History civics"),
-    T("आप्पासाहेब शिवाजी मोरे","प्राथमिक शिक्षक","9284593738","asmore743@gmail.com","1981-04-10","पुरुष","HSC / D.Ed","इतर","2003-08-01","मराठी, परिसर अभ्यास"),
-    T("लक्ष्मण गंगाराम होळकर","प्राथमिक शिक्षक","9766313289","holkarmiraj89@gmail.com","1989-10-09","पुरुष","BA / D.Ed","OBC","2012-07-25","सर्व"),
-    T("गोविंद दत्तात्रेय नागरगोजे","प्राथमिक शिक्षक","8999770684","govindnagargoje57@gmail.com","1987-07-21","पुरुष","HSC / D.Ed","OBC","2010-06-15","मराठी"),
-    T("रेणुका राजु कुलकर्णी","पदवीधर शिक्षक","9890816579","rrkulkarni1975@gmail.com","1975-12-17","स्त्री","MA / B.Ed","General","1996-07-05","हिंदी"),
-    T("Lata Deelip Gaikwad","पदवीधर शिक्षक","9970869117","gaikwadi305@gmail.com","1969-02-03","स्त्री","MA / B.Ed","SC","1989-07-01","Marathi"),
-    T("जयपाल बाबुराव सूर्यवंशी","पदवीधर शिक्षक","9890102582","jaipals14@gmail.com","1985-03-14","पुरुष","MSc / M.Ed","General","2021-10-23","Science"),
-    T("Pratibha Subhashrao Deshmukh","पदवीधर शिक्षक","8605996964","deshmukhpratibha17@gmail.com","1975-04-07","स्त्री","BSc / B.Ed","General","1999-07-14","Vidnyan"),
-    T("Sharda Dnyanoba Munde","पदवीधर शिक्षक","9970850458","karhadsharda1812@gmail.com","1984-04-02","स्त्री","MA / B.Ed","इतर","2007-11-26","Social Science"),
-    T("देवनंदा श्रीमंत सोन्नर","पदवीधर शिक्षक","9422695064","drdhaigude@gmail.com","1986-06-01","स्त्री","MA / B.Ed","OBC","2006-06-12","इतिहास व भूगोल"),
-    T("आरती प्रभाकरराव जवळबनकर","पदवीधर शिक्षक","7798525288","arti7798525288@gmail.com","1985-04-12","स्त्री","MSc / B.Ed","General","2014-03-01","विज्ञान"),
-    T("Pragati Rameshwar Ghodke","पदवीधर शिक्षक","7020110011","Pragatipragatimengale1245@gmail.com","1983-12-01","स्त्री","MA / B.Ed","OBC","2005-12-01","इंग्रजी"),
-    T("MAHESH GURUBAS URGUNDE","प्राथमिक शिक्षक","8669142123","maheshurgunde@gmail.com","1982-08-17","पुरुष","BA / D.Ed","General","2008-04-07","परिसर अभ्यास,विज्ञान"),
-    T("जिजा मुकूंद गवळे","पदवीधर शिक्षक","9049454667","jijaparve123@gmail.com","1973-02-02","स्त्री","MA / B.Ed","SC","2000-09-11","हिंदी"),
-    T("Dr. Shubham Sureshrao Rajmane","पदवीधर शिक्षक","9075420392","rajmaneshubham257@gmail.com","1995-09-25","पुरुष","MA / B.Ed","General","2025-08-01","इंग्रजी"),
-    T("Rana asma Pashu Sayad","पदवीधर शिक्षक","9075219416","asmasayad123@gmail.com","1984-11-20","स्त्री","MA / M.Ed","OBC","2008-04-05","English"),
-    T("शिवनंदा वसंतराव घोडके","पदवीधर शिक्षक","9767580164","shivnandakatare2@gmail.com","1981-10-15","स्त्री","MA / B.Ed","OBC","2006-11-06","संस्कृत"),
-    T("RANJANA ANANTRAO BABHULGAONKAR","पदवीधर शिक्षक","9420013502","ranjanababhulgaonkar1975@gmail.com","1975-06-13","स्त्री","MSc / B.Ed","General","2000-08-18","गणित"),
-    T("Pradnya Sidram Dhage","प्राथमिक शिक्षक","9403424340","pradnyadhage90@gmail.com","1990-11-09","स्त्री","MA / D.Ed","General","2011-08-01","गणित"),
-    T("Vidya Rambhau Kadam","पदवीधर शिक्षक","9766484944","vidyashinde0509@gmail.com","1978-09-05","स्त्री","BA / B.Ed","General","2012-06-15","English"),
-    T("Kirtee Krishnarao Bedarkar","पदवीधर शिक्षक","8999033078","kirtigpujari1810@gmail.com","1985-10-18","स्त्री","BA / B.Ed","OBC","2010-07-01","संस्कृत"),
-    T("Smita Nilkanthrao Dhawadkar","मुख्याध्यापक","9422069683","smitadhole486@gmail.com","1974-04-29","स्त्री","MA / B.Ed","General","1997-11-11","इंग्रजी"),
-    T("अंजली उमाकांत रेवडकर","पदवीधर शिक्षक","8830861004","asnirmale9412@gmail.com","1971-06-01","स्त्री","MSc / B.P.Ed","General","2001-01-15","शारीरिक शिक्षण"),
-    T("Datta Ramrao Bansode","पदवीधर शिक्षक","9271410849","bansodedatta123@gmail.com","1977-07-27","पुरुष","BA / M.Ed","OBC","2003-10-10","कला शिक्षक")
-  ]},
-  { udise:"27270101639", name:"नेताजी सुभाष हायस्कूल अंबा", teachers:[
-    T("Shinde Satish Bhagvat","मुख्याध्यापक","9421344616","-","","","-","-","",""),
-    T("Laxmikant Limbajirao Fasle","पदवीधर शिक्षक","8806918045","faslelaxmikant@gmail.com","1982-07-01","पुरुष","MSc / B.Ed","SC","2012-06-15","Science"),
-    T("Gunjan Virendra Gupta","पदवीधर शिक्षक","9834862492","gunjanvgupta26@gmail.com","1984-06-26","पुरुष","BA / B.Ed","OBC","2008-06-16","English"),
-    T("Manisha Sumant Sakrate","प्राथमिक शिक्षक","8208560993","manishasakrate5@gmail.com","1987-02-02","स्त्री","BA / D.Ed","General","2012-06-15","गणित"),
-    T("Mahesh Atmaram Salunke","पदवीधर शिक्षक","8830918482","maheshsalunke246@gmail.com","1980-06-01","पुरुष","BA / B.Ed","General","2004-12-11","Hindi"),
-    T("Chandrasen Narhari Khandekar","प्राथमिक शिक्षक","9403585876","khandekarchandrasen@gmail.com","1970-12-14","पुरुष","MA / B.Ed","General","1995-06-15","इंग्लिश"),
-    T("Swati Jagadish Mahajan","पदवीधर शिक्षक","9604168847","swatimahajan2102@gmail.com","1978-02-21","स्त्री","BA / B.Ed","OBC","2012-06-15","Marathi"),
-    T("Balaji Shankarrao Rautwad","अन्य","9689840437","balajirautwad9@gmail.com","1983-12-10","पुरुष","MA / B.Ed","ST","2012-06-15","मराठी, इतिहास"),
-    T("अनिल पांडुरंग क्षीरसागर","अन्य","9370262568","kshirsagaranil75@gmail.com","1975-03-07","पुरुष","MA / B.Ed","OBC","2012-06-15","Social science"),
-    T("Kalpana Shivaji Salvi","पदवीधर शिक्षक","9657949777","salvikalpana0@gmail.com","1970-02-10","स्त्री","BA / B.Ed","SC","2005-10-01","English"),
-    T("रूपेश हिरामण पवार","पदवीधर शिक्षक","9730115740","rupeshpawar185@gmail.com","1985-12-01","पुरुष","MA / B.Ed","ST","2012-06-15","हिंदी"),
-    T("Anita Gopal Sapkal","पदवीधर शिक्षक","9356770031","anitapawar906@gmail.com","1978-05-05","स्त्री","BSc / B.Ed","General","2012-06-15","Maths"),
-    T("Megha Mahesh Lomte","पदवीधर शिक्षक","7020711449","meghalomte12345@gmail.com","1980-06-16","स्त्री","MA / B.Ed","General","2012-06-01","विज्ञान"),
-    T("Pandurang Hanumant Rupnar","अन्य","9527505255","rupnarph2525@gmail.com","1986-12-05","पुरुष","MA / B.Ed","इतर","2012-06-15","संस्कृत  सामाजिक शास्त्र"),
-    T("Angad Harikisan Roman","प्राथमिक शिक्षक","9403597517","romanangad41@gmail.com","1988-01-14","पुरुष","MA / D.Ed","General","2012-06-15","गणित सामाजिक शास्त्र"),
-    T("Bhagwat Vishwanathrao Shinde","पदवीधर शिक्षक","9284444727","shindebhagwat1127@gmail.com","1969-05-20","पुरुष","MA / B.Ed","General","1995-11-01","Hindi"),
-    T("Prashant Ramesh Dhongade","प्राथमिक शिक्षक","8308341833","patilprashant1833@gmail.com","1970-12-22","पुरुष","BA / B.P.Ed","General","2004-12-11","सामाजिक शास्त्र"),
-    T("नंदा केदारी गजाकोश","पदवीधर शिक्षक","9325428643","gajakoshnanda44@gmail.com","1970-02-03","स्त्री","BA / B.Ed","SC","1997-06-16","इतिहास ,भूगोल"),
-    T("Vidya Rambhau Kadam","पदवीधर शिक्षक","9766484944","vidyashinde0509@gmail.com","1978-09-05","स्त्री","BA / B.Ed","General","2012-06-15","English")
-  ]},
-  { udise:"27270101643", name:"खोलेश्वर हायस्कूल अंबाजोगाई", teachers:[
-    T("Anantram sundarrao Kople","मुख्याध्यापक","9403571582","-","","","-","-","",""),
-    T("Ghuge Laxmi dadarao","पदवीधर शिक्षक","8381045243","lghuge705@gmail.com","1985-09-20","स्त्री","MA / B.Ed","OBC","2013-12-02","सर्व"),
-    T("kishori Achyutrao Kulkarni","पदवीधर शिक्षक","9322950424","kulkarnikishori111@gmail.com","1990-12-03","स्त्री","BA / B.Ed","General","2013-02-12","Marathi, History"),
-    T("Sapana Balwantrao Dukare","पदवीधर शिक्षक","8308969792","sapanadukare1983@gmail.com","1983-05-22","स्त्री","MA / B.Ed","ST","2010-07-01","Marathi, History"),
-    T("Shilpa Shashikant Selukar","पदवीधर शिक्षक","9975628723","selukarshilpa7@gmail.com","1979-09-13","स्त्री","BA / B.Ed","General","2008-02-01","Marathi, History"),
-    T("Ramkawar Kashinath Sangale","पदवीधर शिक्षक","9370861461","sangle.ram45@gmail.com","1973-05-25","स्त्री","BA / B.Ed","इतर","2013-12-02","Hindi, Geography"),
-    T("Anjali Anilrao Deshmukh","पदवीधर शिक्षक","9421271014","anjalilomte433@gmail.com","1985-08-15","स्त्री","BA / B.Ed","General","2016-01-20","Marathi, History"),
-    T("Jyoti Madhukar Ghodke","पदवीधर शिक्षक","9763054732","jghodke1982@gmail.com","1982-10-09","स्त्री","BA / B.Ed","OBC","2013-12-02","Marathi, Sanskrit"),
-    T("Surekha Kishanrao Kale","पदवीधर शिक्षक","9359928738","sp9554891@gmail.com","1980-07-27","स्त्री","BA / B.Ed","इतर","2006-10-05","History, Hindi"),
-    T("Atul Kantrao Mugalikar","पदवीधर शिक्षक","9637334063","atulmugalikar83@gmail.com","1983-02-02","पुरुष","BA / B.Ed","General","2013-12-02","English, History"),
-    T("मोहिनी ओमकार बर्दापुरे","पदवीधर शिक्षक","9403340328","mohinibardapure1@gmail.com","1989-06-08","स्त्री","BA / B.Ed","OBC","2016-01-20","हिंदी, इतिहास"),
-    T("Kusumavati Marutirao Baderao","प्राथमिक शिक्षक","9975902140","iambaderao@gmail.com","1969-07-15","स्त्री","HSC / D.Ed","SC","1990-07-01","Marathi"),
-    T("नागेश सुनीलराव देशपांडे","प्राथमिक शिक्षक","7972904776","nageshdeshpande54@gmail.com","1989-05-14","पुरुष","BA / D.Ed","General","2013-12-02","मराठी"),
-    T("अक्षय चंद्रकांत धायगुडे","पदवीधर शिक्षक","9665321221","akshaydhaygude1989@gmail.com","1990-02-02","पुरुष","BA / D.Ed","General","2013-12-02","सर्व विषय"),
-    T("ANIL BHAGWAN RATHOD","प्राथमिक शिक्षक","9822447554","anilrathod1918@gmail.com","1990-03-19","पुरुष","BA / D.Ed","इतर","2016-01-25","सर्व विषय"),
-    T("विलास प्रल्हादराव ठाकूर","प्राथमिक शिक्षक","9823960333","vilasthakurv2@gmail.com","1983-03-11","पुरुष","HSC / D.Ed","ST","2009-09-18","इतिहास भूगोल नागरीक शास्रा"),
-    T("महानंदा मुंजाजी मुंडे","पदवीधर शिक्षक","9404636017","mahanandamunde167@gmail.com","1976-06-06","स्त्री","MSc / B.Ed","OBC","2000-12-11","विज्ञान"),
-    T("SATISH HARIBHAU WANGE","पदवीधर शिक्षक","9623232174","satishwange123@gmail.com","1989-08-15","पुरुष","MA / B.Ed","OBC","2012-02-01","SOCIAL SCIENCE"),
-    T("ज्योती किसनराव शिंदे","प्राथमिक शिक्षक","9689562978","jkshinde03@gmail.com","1985-01-03","स्त्री","MA / D.Ed","ST","2009-09-12","इतिहास"),
-    T("विश्वास मार्तंडराव पत्की","पदवीधर शिक्षक","9890077454","vishwaspatk@gmail.com","1971-09-15","पुरुष","BA / D.Ed","General","1998-08-10","इंग्रजी"),
-    T("प्रेमळ Kaluji खंडागळे","प्राथमिक शिक्षक","9284353758","premakk22@gmail.com","1983-01-01","स्त्री","BA / D.Ed","SC","2005-12-21","इंग्रजी मराठी हिंदी गणित विज्ञान सा . शास्त्र"),
-    T("रोहिणी बालाजी वाघिले","प्राथमिक शिक्षक","7020789227","rohinibakale@gmail.com","1989-02-24","स्त्री","BA / D.Ed","OBC","2016-01-20","-"),
-    T("Vishnu Bapurao Kukar","प्राथमिक शिक्षक","9511293779","Vishnukukar1987@gmail.com","1987-06-05","पुरुष","HSC / D.Ed","इतर","2016-01-20","सर्व  विषय"),
-    T("ज्ञानेश्वरी साहेबराव नेवल","पदवीधर शिक्षक","9284712871","dsneval4216@gmail.com","1986-06-11","स्त्री","BA / B.Ed","General","2017-01-02","मराठी, भूगोल"),
-    T("स्वप्ना शशिकांत सेलूकर","प्राथमिक शिक्षक","9359222274","swapnatamboli9@gmail.com","1994-08-01","स्त्री","BA / D.Ed","General","2015-12-03","इंग्रजी"),
-    T("Anuradha Ashokrao Ranjankar","पदवीधर शिक्षक","7588951973","anushriw22@gmail.com","1982-05-05","स्त्री","BSc / B.Ed","इतर","2009-11-03","Mathematics"),
-    T("केदार दिनकर वाघमारे","पदवीधर शिक्षक","9421622609","kedu910@gmail.com","1989-10-09","पुरुष","BA / B.Ed","General","2017-01-02","मराठी/इतिहास"),
-    T("तेजस्विनी प्रकाशराव सांजेकर","पदवीधर शिक्षक","9850111443","teju.sanjekar@gmail.com","1984-02-17","स्त्री","BA / B.Ed","General","2017-01-02","इंग्रजी, इतिहास"),
-    T("नंदिनी कौस्तुभ कोदरकर","पदवीधर शिक्षक","8788505675","nandinikk2011@gmail.com","1987-03-11","स्त्री","BSc / B.Ed","General","2017-01-02","गणित विज्ञान"),
-    T("KALE SHRIKANT SOPANRAO","पदवीधर शिक्षक","9970017213","kaleshrikant15@gmail.com","1978-07-06","पुरुष","MA / B.Ed","OBC","2004-06-22","मराठी     इतिहास"),
-    T("अर्चना बालासाहेब घेवारे","पदवीधर शिक्षक","9021275259","archanagheware59@gmail.com","1985-06-11","स्त्री","BSc / B.Ed","OBC","2017-01-02","विज्ञान, गणित"),
-    T("धनंजय चंद्रकांतराव जब्दे","पदवीधर शिक्षक","9423777068","dhananjayjabde@gmail.com","1984-03-03","पुरुष","BSc / B.Ed","General","2010-06-15","विज्ञान"),
-    T("Manoj Jivanrao Karad","पदवीधर शिक्षक","9922223980","manojkarad87@gmail.com","1987-05-08","पुरुष","BSc / B.Ed","इतर","2013-12-02","Science"),
-    T("वर्षा ज्ञानोबा मुंडे","पदवीधर शिक्षक","7744874422","varshagitte4422@gmail.com","1974-06-01","स्त्री","BSc / B.Ed","OBC","2001-07-17","विज्ञान"),
-    T("Umesh Ramkrishna Donge","पदवीधर शिक्षक","9922469768","umeshdonge@gmail.com","1979-05-27","पुरुष","HSC / D.Ed","इतर","2008-08-20","चित्रकला")
-  ]},
-  { udise:"27270101648", name:"कै. दादाराव कराड हायस्कूल शेपवाडी", teachers:[
-    T("KARAD RAMRAJE NARAYAN","मुख्याध्यापक","9730035874","-","","","-","-","","")
-  ]},
-  { udise:"27270102402", name:"सरस्वती हायस्कूल साकुड", teachers:[
-    T("Tambade GS","मुख्याध्यापक","7709196103","-","","","-","-","",""),
-    T("Balasaheb Trimbak Karad","अन्य","9822571073","karadbt@gmail.com","1976-02-05","पुरुष","MA / B.Ed","OBC","2001-07-02","English"),
-    T("Madhuri Ganesh Sonwane","प्राथमिक शिक्षक","8379034095","madhurigsonwane@gmail.com","1987-12-09","स्त्री","BA / D.Ed","OBC","2013-06-17","Science"),
-    T("Kerba Ramdhan Chate","अन्य","7499099512","kerbachate1971@gmail.com","1971-09-08","पुरुष","BA / D.El.Ed","OBC","1994-12-01","-"),
-    T("Deepak Madanrao Gadhave","पदवीधर शिक्षक","9421354184","gadhavedeepak30@gmail.com","1971-06-27","पुरुष","MA / B.Ed","General","1997-08-01","Marathi"),
-    T("Bhagwat Baburao Munde","अन्य","9850388674","bhagwatmunde387@gmail.com","1971-07-12","पुरुष","BA / B.P.Ed","OBC","1997-06-16","Hindi"),
-    T("Vikram Prataprao Solanke","अन्य","9657100571","vikramsolanke222@gmail.com","1974-05-24","पुरुष","BSc / B.Ed","General","2003-09-01","गणित"),
-    T("दिनकर मोहनराव मुंडे","पदवीधर शिक्षक","9822682629","mundedinkar123@gmail.com","1983-05-22","पुरुष","MA / B.P.Ed","OBC","2004-06-21","शारीरिक शिक्षण व सामाजिक शास्त्र"),
-    T("Masud Kalekha Shaikh","पदवीधर शिक्षक","9689876321","masudshaikh8565@gmail.com","1970-03-07","पुरुष","MA / B.Ed","General","2006-09-02","Hindi, arts"),
-    T("Sangita Shivaji Jogdand","प्राथमिक शिक्षक","9960579974","sangita4925@gmail.com","1971-09-11","स्त्री","BA / D.Ed","SC","2006-06-17","Science maths")
-  ]},
-  { udise:"27270102702", name:"वेनगंगा हायस्कूल मांडवा पठाण", teachers:[
-    T("Shri Jadhav Rajendra Ramkaran","मुख्याध्यापक","9028987610","-","","","-","-","",""),
-    T("Sambhaji Shivajirao DESHMUKH","अन्य","9423872342","ssd280602@gmail.com","1974-08-18","पुरुष","HSC / B.Ed","General","2002-06-28","Art, hindi,"),
-    T("Badrinath Baburao Munde","प्राथमिक शिक्षक","9421345863","badrinathmunde90@gmail.com","1969-03-01","पुरुष","MA / B.Ed","OBC","1998-07-13","Hindi, Geography"),
-    T("Vijay Harishchandra Somwanshi","अन्य","9423888381","vdeshmukh965@gmail.com","1981-06-11","पुरुष","MA / B.Ed","General","2006-12-01","Hindi, History"),
-    T("कविता लक्ष्मणराव इरे","प्राथमिक शिक्षक","9657731918","kavitaurgunde@gmail.com","1979-01-18","स्त्री","HSC / D.Ed","General","2002-09-24","गणित व मराठी")
-  ]},
-  { udise:"27270103202", name:"अल्लाम सिद्दीकी अल. उर्दू हायस्कूल पिंपळा धायगुडा", teachers:[
-    T("Shaikh Nabee Babamiya","मुख्याध्यापक","9850646724","-","","","-","-","","")
-  ]},
-  { udise:"27270103302", name:"वसंतराव नाईक विद्यालय वरवटी", teachers:[
-    T("MUNDE SS","मुख्याध्यापक","9421277292","-","","","-","-","",""),
-    T("Gangadhar Bankati Munde","पदवीधर शिक्षक","9860712574","munde.gangadhar@gmail.com","1979-06-05","पुरुष","BSc / B.Ed","General","2002-07-08","गणित"),
-    T("MANOJ JANARDHANRAO MUNDE","पदवीधर शिक्षक","9730554699","manojjmunde@gmail.com","1976-09-26","पुरुष","MSc / B.Ed","OBC","2003-07-01","Science"),
-    T("Seema Kondiram Kekan","पदवीधर शिक्षक","9423757122","seemadhakne961@gmail.com","1974-10-15","स्त्री","MA / B.Ed","OBC","2000-07-17","English,Science"),
-    T("Sugriv Eknath Neharkar","अन्य","9423477180","sugrivneharkar@gmail.com","1970-05-07","पुरुष","MA / B.P.Ed","OBC","1992-06-15","Hindi history"),
-    T("Shrihari Amrutrao Kande","पदवीधर शिक्षक","9604830595","shriharikande9602@gmail.com","1971-08-25","पुरुष","MA / B.Ed","OBC","1996-06-24","English,Geography")
-  ]},
-  { udise:"27270101614", name:"जोधाप्रसाद मोदी माध्यमिक व उच्च माध्यमिक शाळा अंबाजोगाई", teachers:[
-    T("Munje VA","मुख्याध्यापक","9421341688","-","","","-","-","",""),
-    T("शंकर दशरथ सिनगारे","अन्य","9822285561","shankarsingare@gmail.com","1980-07-20","पुरुष","BA / B.Ed","OBC","2006-06-15","हिंदी"),
-    T("Balaji Haridas Ambad","अन्य","7588421197","balajih1974@gmail.com","1974-07-01","पुरुष","BSc / B.Ed","General","2001-06-19","गणित"),
-    T("Bhagwant manikrao pawar","पदवीधर शिक्षक","9637175991","bhagwantpawar2015@gmail.com","1978-01-10","पुरुष","MA / M.Ed","General","2012-06-15","इंग्रजी"),
-    T("Kagne Rmchandra Eknathrao","पदवीधर शिक्षक","9860252483","ramchandrakagne1972@gmail.com","1972-08-12","पुरुष","BSc / B.Ed","इतर","2006-06-14","गणित विज्ञान"),
-    T("Rajabhau Sambhaji Kamble","अन्य","9860337008","kamblers2015@gmail.com","1973-05-18","पुरुष","MA / B.Ed","SC","2001-06-19","हिंदी. ईतिहास"),
-    T("दीपमाला ज्ञानेश्वर गजभिये","प्राथमिक शिक्षक","8888187419","deepgajbhiye593@gmail.com","1976-12-28","स्त्री","BSc / D.Ed","SC","2005-07-05","विज्ञान, इंग्रजी"),
-    T("Megha Dattopant Akolkar","पदवीधर शिक्षक","9403268348","akolkarmegha206@gmail.com","1981-10-17","स्त्री","MA / B.Ed","General","2012-06-15","Marathi . geography"),
-    T("Varsha Gurlingappa Gulve","अन्य","9552375496","varshagulve71@gmail.com","1971-07-17","स्त्री","BSc / B.Ed","General","2001-06-19","विज्ञान"),
-    T("Ashwini Vipinchandra Ugile","पदवीधर शिक्षक","8830024046","ashwiniugile6@gmail.com","1984-07-31","स्त्री","MSc / B.Ed","OBC","2011-06-20","-"),
-    T("गजानन बालासाहेब मुळे","अन्य","9423477110","gajananmuley1@gmail.com","1979-05-01","पुरुष","MSc / B.Ed","General","2011-06-26","रसायनशास्त्र ."),
-    T("रामेश्वर तुकाराम माले","अन्य","9420578874","malerameshowar81@gmail.com","1974-09-05","पुरुष","MA / B.Ed","OBC","2011-06-17","संरक्षणशास्त्र इतिहास"),
-    T("नीना शंकरराव सोनवणे","पदवीधर शिक्षक","8275386937","neenamuley432@gmail.com","1975-07-01","स्त्री","MSc / B.Ed","General","2011-06-14","-"),
-    T("Rajabhau Balbhim Hoke","अन्य","9881084130","rajabhauhoke79@gmail.com","1979-05-02","पुरुष","MA / B.Ed","SC","2011-07-15","Political science"),
-    T("Vandana Raosaheb Patil","पदवीधर शिक्षक","8208926565","vandanapatil658@gmail.com","1977-06-29","स्त्री","MA / M.Ed","General","2011-07-01","English"),
-    T("बुधाजी मारोती खरात","पदवीधर शिक्षक","9021244498","budhajikharat417@gmail.com.in","1981-12-20","पुरुष","MA / B.Ed","SC","2011-06-17","pali.")
-  ]},
-  { udise:"27270101640", name:"मिलिया हायस्कूल अंबा", teachers:[
-    T("MOHAMMAD IRSHAD AHMED","मुख्याध्यापक","9284931302","-","","","-","-","",""),
-    T("Khushter Sultana Rahmat Ali Syed","प्राथमिक शिक्षक","9881517447","khushter0781@gmail.com","1981-07-20","स्त्री","MA / D.Ed","General","2003-08-01","Urdu . History Geography. E.V.S"),
-    T("Yousuf Aslam khan Kabeer khan Khan","पदवीधर शिक्षक","9975207845","yakhans19@gmail.com","1984-06-10","पुरुष","MSc / B.Ed","General","2011-07-01","Science, Geography"),
-    T("Faheemuddin . Hameeduddin","अन्य","9372238576","faheemuddins@gmail.com","1985-08-14","पुरुष","MSc / B.Ed","General","2018-06-18","Mathematics"),
-    T("युनूस मूसा सय्यद","पदवीधर शिक्षक","9763106948","younussyed1970@gmail.com","1970-06-20","पुरुष","MA / B.Ed","General","1992-06-15","गणित, विज्ञान"),
-    T("Ubed khan Munir khan Pathan","पदवीधर शिक्षक","8275271146","ubed3423@gmail.com","1986-06-10","पुरुष","MSc / B.Ed","General","2024-02-01","Biology."),
-    T("Anzar Shah Ashraf Shah","अन्य","9960139595","aanzar12@gmail.com","1992-02-20","पुरुष","MA / B.Ed","General","2023-09-01","Political science, History"),
-    T("Salman khan Sattar Khan","पदवीधर शिक्षक","9527920422","salman.salman.khan425@gmail.com","1991-03-13","पुरुष","BSc / B.Ed","General","2020-10-01","विज्ञान , गणित"),
-    T("रईस सलीम शेख","प्राथमिक शिक्षक","9423471170","shaikhraees2510@gmail.com","1978-01-17","पुरुष","BA / D.Ed","General","2000-07-01","गणित (उर्दू) मराठी +हिंदी"),
-    T("Asma Shaheen Nizamoddin Sayed","प्राथमिक शिक्षक","8668826719","sayedasma142@gmail.com","1990-07-16","स्त्री","BSc / D.Ed","General","2023-03-18","Math, Marathi, Hindi"),
-    T("Mudassaroddin Mazharoddin Quazi","पदवीधर शिक्षक","9960688769","amerquazi82@gmail.com","1982-07-30","पुरुष","MA / B.Ed","General","2010-01-01","Urdu  and. History"),
-    T("Mohammad Abubakar Mohammad Haneef Shaikh","पदवीधर शिक्षक","8888989801","siddiqe.mohd14368@gmail.com","1991-02-11","पुरुष","BSc / B.Ed","General","2024-02-15","गणित, विज्ञान"),
-    T("MHOD  MISBAHUDDIN MOHD MOINUDDIN SIDDIQUE","पदवीधर शिक्षक","9423471109","aajkasach100@gmail.com","1970-01-02","पुरुष","BA / B.P.Ed","General","2001-04-01","-"),
-    T("Shakil Nabisab Shaikh","पदवीधर शिक्षक","9922747940","sshaikh3738@gmail.com","1974-04-16","पुरुष","MA / B.Ed","General","2000-06-19","हिंदी, इतिहास"),
-    T("Heena Mohammad Samiuddin Khatib","प्राथमिक शिक्षक","9021947630","irfansyed021990@gmail.com","1996-12-12","स्त्री","BSc / D.Ed","OBC","2023-08-01","गणित विज्ञान सेमी"),
-    T("MOHAMMAD MOHSIN MOHAMMAD SHAKEEL KACHCHI","अन्य","7507381270","kachchimm@gmail.com","1995-11-05","पुरुष","MSc / B.Ed","General","2022-09-10","PHYSICS"),
-    T("Nasreen Begum Shareef Khan Pathan","प्राथमिक शिक्षक","8766949004","nasreen.patahn2727@gmail.com","1978-01-17","स्त्री","BA / D.Ed","General","2004-07-01","History, Geography, E.V.S"),
-    T("MOHAMMAD ABDUL NADEEM MOHAMMAD ABDUL HALEEM","पदवीधर शिक्षक","9970140788","NADEEM1874786@GMAIL.COM","1974-08-01","पुरुष","MA / B.Ed","General","2003-11-13","-"),
-    T("Mohammad Mukhtadir Gulam Jeelani Shaikh","पदवीधर शिक्षक","9096046607","mukhtadirshaikh5@gmail.com","1983-07-04","पुरुष","MA / M.Ed","OBC","2011-09-01","इतिहास ,भूगोल ,नागरिकशास्त्र, इंग्रजी"),
-    T("Parween Fatema Mohd Yonus Mashayek","पदवीधर शिक्षक","7020342267","parveenmashayak77@gmail.com","1979-07-07","स्त्री","MSc / M.Ed","General","2007-03-20","विज्ञान"),
-    T("Yasmeen khanam Asger ali Khan","पदवीधर शिक्षक","9421345513","yasmeen.shaikh5513@gmail.com","1971-02-03","स्त्री","MA / B.Ed","General","2000-07-01","English"),
-    T("AHMER MAJED AKBAR SHAIKH","प्राथमिक शिक्षक","7057757575","ahmer757575@gmail.com","1983-07-12","पुरुष","HSC / D.El.Ed","General","2008-07-01","Art's. Drawing"),
-    T("Mohammad abdul nadeem Hakeem Mohammad","पदवीधर शिक्षक","9860753939","Nadimshaikh03156@gmail.com","1985-05-30","पुरुष","BSc / B.Ed","General","2011-07-01","Science,Geography"),
-    T("SARWAT AARA TAJUDDIN FAROOQUI","पदवीधर शिक्षक","8788542080","farooquisarwataara@gmail.com","1983-05-06","स्त्री","MSc / M.Ed","General","2021-07-01","विज्ञान"),
-    T("Naziya Parveen Aneesuddin Ansari","अन्य","9561938318","fasihashmi@gmail.com","1982-03-09","स्त्री","BA / D.Ed","General","2012-02-01","Drawing"),
-    T("Humera parveen Ahmed Hussain Shaikh","प्राथमिक शिक्षक","9421515458","faizanjagirdar555@gmail.com","1972-11-21","स्त्री","BA / D.Ed","General","1997-08-20","Urdu"),
-    T("Mohammad Ishtiyaque Kagzi Ishaque","पदवीधर शिक्षक","8668540737","kaaagzi@gmail.com","1975-01-26","पुरुष","BA / B.Ed","General","2002-06-10","History,Geography"),
-    T("Ahmed Pasha Gulam Rasul Deshmukh","पदवीधर शिक्षक","8668633865","ahmedpashadeshmukh@gmail.com","1972-01-02","पुरुष","BA / D.Ed","General","1992-08-01","उर्दू.मराठी.गणित"),
-    T("Humaira Parveen Hameed Khan","प्राथमिक शिक्षक","7744028860","humeriasiddiqui@gmail.com","1990-01-05","स्त्री","BA / D.El.Ed","General","2024-08-01","Urdu, Marathi, Social science"),
-    T("Tareque Mohiuddin Khaled Siddiqui","अन्य","9970544781","tmsiddiqui1971@gmail.com","1971-01-10","पुरुष","MSc / B.Ed","General","1996-07-15","Chemistry"),
-    T("Safiya Begum Habeeb Shaikh","पदवीधर शिक्षक","8329261423","shaikhsafiya1122@gmail.com","1971-12-17","स्त्री","MA / B.P.Ed","General","2006-01-01","Marathi, Hindi"),
-    T("Shabana begum Afsar Shaikh","प्राथमिक शिक्षक","8668733276","shabanashaikh3276@gmail.com","1974-10-10","स्त्री","MA / D.Ed","General","2004-07-01","मराठी, उर्दू"),
-    T("Mohammad Irshad Abdul Gafoor Shaikh","मुख्याध्यापक","9096642780","ansariirshad1000@gmail.com","1969-02-01","पुरुष","MA / B.Ed","ST","2003-09-01","History"),
-    T("Rizwana Begum Abdul Haleem Shaikh","पदवीधर शिक्षक","9309884141","hmmilliyaambajogai@rediffmail.com","1970-01-05","स्त्री","MA / B.Ed","General","1996-03-01","Urdu, Geography"),
-    T("Feroz Akber Shaikh","पदवीधर शिक्षक","9766220751","ferozshaikh8518@gmail.com","1984-06-10","पुरुष","BSc / B.Ed","OBC","2023-04-01","Mathematics, science"),
-    T("Mirza Atufa Fatema shafiq Baig","अन्य","7588635427","atufakhan98@gmail.com","1990-01-26","स्त्री","MA / B.Ed","General","2015-12-01","Urdu EVS"),
-    T("Afshan Begum Iqbal Ahmad Syed","पदवीधर शिक्षक","9130834030","syedafshan287@gmail.com","1981-06-10","स्त्री","BA / B.Ed","General","2011-07-01","इंग्रजी"),
-    T("AHEED MUKHTAR SHAIKH","Primary teacher","8459100817","shaikhaheed45@gmail.com","2005-10-05","पुरुष","BA / D.Ed.","General","2026-07-01","English")
-  ]},
-  { udise:"27270101661", name:"श्री व्यंकटेश विद्या मंदिर हायस्कूल अंबा", teachers:[
-    T("Shri KAKADE S B","मुख्याध्यापक","8805044747","-","","","-","-","","")
-  ]},
-  { udise:"27270101305", name:"छत्रपती संभाजी राजे ग्लोबल स्कूल जोगाईवाडी", teachers:[
-    T("Gangane Shashikala Nagorao","मुख्याध्यापक","8788801400","-","","","-","-","","")
-  ]},
-  { udise:"27270101647", name:"मन्सूर हायस्कूल रविवार पेठ अंबाजोगाई", teachers:[
-    T("SAYYED MERAJ AHMAD MOOSA","मुख्याध्यापक","9822283894","-","","","-","-","","")
-  ]},
-  { udise:"27270101649", name:"सावरकर विद्यालय पिंपळा धायगुडा", teachers:[
-    T("Annasaheb Mukundrao Hulge","मुख्याध्यापक","9767801101","-","","","-","-","",""),
-    T("दीपक रघुनाथ कराड","प्राथमिक शिक्षक","9881977257","deepakkarad1971@gmail.com","1971-03-10","पुरुष","HSC / D.Ed","OBC","1994-06-13","-"),
-    T("चंद्रकांत संजीवन रोडगे","पदवीधर शिक्षक","9881293787","chandrakantrodge3787@gmail.com","1978-06-06","पुरुष","MSc / B.Ed","General","2005-07-01","गणित"),
-    T("वसंत किशनराव जळकोटकर","पदवीधर शिक्षक","9119593964","jalkotkarv@gmail.com","1974-06-20","पुरुष","BSc / B.Ed","SC","2005-07-01","विज्ञान")
-  ]},
-  { udise:"27270101653", name:"न्यू इंग्लिश हायस्कूल गुरुवार पेठ अंबाजोगाई", teachers:[
-    T("BHASME MM","मुख्याध्यापक","9890038251","-","","","-","-","","")
-  ]}
+{ udise:"27270101612", name:"सी.पी.एस. रविवार पेठ", teachers:[
+T("उषाताई नारायण चव्हाण","प्राथमिक शिक्षक","9422929990","addeushatai@gmail.com","1970-06-06","स्त्री","HSC / D.Ed","OBC","1997-09-01","-"),
+T("रेखा सुखदेव बनसोडे","पदवीधर शिक्षक","9767539553","rekha9553bansode@gmail.com","1972-04-13","स्त्री","BA / B.Ed","SC","1992-06-17","समाजशास्त्र"),
+T("इंद्रजित शिवाजीराव डांगे","प्रभारी मुख्याध्यापक","9403023319","indradange01@gmail.com","1974-01-01","पुरुष","BA / D.Ed","General","1997-09-01","सर्व"),
+T("रुपेश पांडुरंग लोंढे","केंद्र समन्वयक","7066100281","-","","","-","-","",""),
+T("पुरुषोत्तम संभाप्पा रुद्राक्ष","विशेष शिक्षक","7588566554","-","","","-","-","","")
+]},
+{ udise:"27270101613", name:"जि.प.प्रा.शा. क्र. २, अंबाजोगाई", teachers:[
+T("बालासाहेब रामराव सोनवणे","प्राथमिक शिक्षक","9403608550","balasahebsonwane94@gmail.com","1971-05-15","पुरुष","BA / D.Ed","SC","1993-10-20","भाषा, गणित, इंग्लिश, परिसर अभ्यास १,२"),
+T("बळीराम शिवदास आकुसकर","प्रभारी मुख्याध्यापक","9011999904","baliramakuskar9005@gmail.com","1970-06-04","पुरुष","SSC / D.Ed","General","1995-11-22","भाषा गणित इंग्रजी परिसर अभ्यास १ २")
+]},
+{ udise:"27270102401", name:"जि.प.प्रा.शा. साकुड (मराठी)", teachers:[
+T("अंगद कोंडीबा घुले","प्रभारी मुख्याध्यापक","9822373937","angadghule118@gmail.com","1975-07-10","पुरुष","BA / B.P.Ed","OBC","1995-08-11","-"),
+T("सुर्यवंशी सविता जगन्नाथ","सहशिक्षक","9403646485","Savitagaikwad970@gmail.com","1976-03-04","स्त्री","BA / D.Ed","General","1995-08-05","-"),
+T("लव्हारे सुरेखा तुकाराम","सहशिक्षक","9822576718","surekhalavare@gmail.com","1972-09-16","स्त्री","BA / D.Ed","OBC","1996-12-14","-"),
+T("आघाव सुरेखा प्रल्हाद","सहशिक्षक","9881655787","surekhaaghav07@gmail.com","1981-05-07","स्त्री","MA / B.Ed","OBC","2002-02-05","सर्व विषय"),
+T("जाधव छाया मधुकर","सहशिक्षक","9421480353","chhyadhapate1981@gmail.com","1981-01-01","स्त्री","BA / D.Ed","General","2004-01-30","सर्व"),
+T("तोडकर माधुरी मुरली","सहशिक्षक","8788833061","madhuritodakar79851@gmail.com","1977-06-14","स्त्री","BA / D.Ed","OBC","1998-08-04","-"),
+T("गायके शिल्पा तात्यासाहेब","सहशिक्षक","7588934345","Shilpagayke@gmail.com","1985-02-04","स्त्री","BA / B.Ed","OBC","2007-12-03","-"),
+T("मुंडे मंगल विश्वनाथ","सहशिक्षक","-","-","","","-","-","",""),
+T("राठोड विनायक घुगू","सहशिक्षक","-","-","","","-","-","","")
+]},
+{ udise:"27270102404", name:"जि.प.प्रा.शा. साकुड (उर्दू)", teachers:[
+T("मोहम्मदगौस मोहिउद्दीन फकीरमोहम्मद शेख","पदवीधर शिक्षक","9423170486","anwarshaikhamba.246086@gmail.com","1971-09-12","पुरुष","MA / D.Ed","General","1996-12-02","Language"),
+T("रेश्मा बेगम तुफैल अहमद खान पठाण","पदवीधर शिक्षक","8788220923","fazilgauri264@gmail.com","1978-03-24","स्त्री","BA / D.Ed","General","2002-10-28","Social science"),
+T("तरन्नुम अहमद अली सय्यद","प्राथमिक शिक्षक","8668338554","tannuwajid43@gmail.com","1987-05-17","स्त्री","BA / D.Ed","General","2008-12-24","Math English Science"),
+T("अहमदी बेगम अब्दुल शुकुर साहेब फारुकी","प्राथमिक शिक्षक","9975082007","ahmedibegum0206@gmail.com","1969-06-02","स्त्री","HSC / D.Ed","General","1991-09-25","-"),
+T("फारुकी शहेबाज सादेक","पदवीधर शिक्षक","9420432681","farooquishahebaz49@gmail.com","1997-06-07","पुरुष","BSc / B.Ed","OBC","2024-07-25","Science, math"),
+T("आरिफ अहमद अब्दुल रशीद शेख","प्रभारी मुख्याध्यापक","9405292799","arifahemadabdulrashid78@gmail.com","1978-07-02","पुरुष","BA / M.Ed","General","2009-03-12","-"),
+T("सबीहानाझ जमील अहमद सिद्दीकी","प्राथमिक शिक्षक","8007128724","sabihanaazsiddiqui@gmail.com","1982-06-02","स्त्री","MA / D.Ed","General","2003-06-26","Urdu, marathi, English"),
+T("अयुब कलीम सय्यद","प्राथमिक शिक्षक","8605825544","aksayyed22@gmail.com","1979-07-04","पुरुष","BA / D.Ed","General","2002-04-02","-")
+]},
+{ udise:"27270102501", name:"जि.प.प्रा.शा. काळवटी तांडा क्र. १", teachers:[
+T("कमल गंगाधर चिखले","प्राथमिक शिक्षक","9422082541","kamalchikhale1970@gmail.com","1970-06-01","स्त्री","MA / B.Ed","OBC","1993-01-12","भाषा, गणित, विज्ञान"),
+T("प्रभू बाबुराव खोडवे","प्राथमिक शिक्षक","9764569825","pratikshaprajwal@gmail.com","1971-04-03","पुरुष","BA / D.Ed","OBC","1993-12-01","भाषा, गणित, विज्ञान"),
+T("उत्तम बाबुराव डोंगरे","प्रभारी मुख्याध्यापक","9689008389","uttamdongreuttam@gmail.com","1970-06-20","पुरुष","MA / D.Ed","SC","1993-10-18","भाषा गणित विज्ञान")
+]},
+{ udise:"27270102502", name:"जि.प.प्रा.शा. काळवटी तांडा क्र. ३", teachers:[
+T("मंजुषा भीमाशंकर जिडगे","प्रभारी मुख्याध्यापक","9561941714","manjushavhotte@gmail.com","1973-05-27","स्त्री","MA / M.Ed","OBC","1993-10-18","-"),
+T("नंदकुमार नामदेव सूर्यवंशी","प्राथमिक शिक्षक","9307856717","nandkumarsuryawanshi1122@gemal.com","1974-04-05","पुरुष","BA / D.Ed","SC","1995-08-08","इयत्ता दुसरी")
+]},
+{ udise:"27270102503", name:"जि.प.प्रा.शा. भीमाई वस्ती", teachers:[
+T("वंदना तुकाराम उजगरे","प्रभारी मुख्याध्यापक","9552983384","vandanaujgare37@gmail.com","1978-07-03","स्त्री","MA / D.Ed","SC","2001-06-15","इयत्ता पहिली ते चौथी सर्व विषय"),
+T("वैजनाथ आबासाहेब गडदे","प्राथमिक शिक्षक","9421168755","vaijnathgadade16473@gmail.com","1984-05-27","पुरुष","MA / B.Ed","OBC","2008-01-17","मराठी, गणित, इंग्लीश, सामाजिक शास्त्र")
+]},
+{ udise:"27270102601", name:"जि.प.प्रा.शा. काळवटी तांडा क्र. २", teachers:[
+T("संजय हणमंतराव कचकलवार","प्रभारी मुख्याध्यापक","9284746414","kachkalwarsanjay1@gmail.com","1986-05-01","पुरुष","MA / D.Ed","ST","2009-01-12","सर्व"),
+T("पूनम किसन लेंगरे","प्राथमिक शिक्षक","7798661934","devkate3377@gmail.com","1985-09-04","स्त्री","MA / D.Ed","OBC","2010-05-13","मराठी, गणित, इंग्रजी, विज्ञान")
+]},
+{ udise:"27270102701", name:"जि.प.प्रा.शा. मांडवा पठाण", teachers:[
+T("मनीषा रत्नलिंग बिडवे","प्राथमिक शिक्षक","7875865244","bidwemanisha01@gmail.com","1980-01-01","स्त्री","MA / D.Ed","General","2004-08-28","मराठी, गणित, इंग्लीश, परिसर अभ्यास"),
+T("बापूराव राघुआप्पा धारेकर","प्रभारी मुख्याध्यापक","7020752753","dharekar1969@gmail.com","1969-06-05","पुरुष","BA / D.Ed","इतर मागास वर्ग","1991-07-26","मराठी, गणित, इंग्रजी, विज्ञान"),
+T("सुरेश नामदेव निपाणीकर","पदवीधर शिक्षक","9423469937","nipanikarsuresh1@gmail.com","1969-07-09","पुरुष","BA / D.Ed","General","1992-08-01","सामाजिक शास्त्रे, मराठी")
+]},
+{ udise:"27270102801", name:"जि.प.प्रा.शा. मांडवा तांडा", teachers:[
+T("पंचशीला मधुकर साळवी","प्राथमिक शिक्षक","9503685010","panchashilasalvi1978@gmail.com","1978-01-02","स्त्री","MA / D.Ed","SC","2000-03-14","मराठी, गणित, English"),
+T("संजय ज्ञानोबा पाडोळे","प्रभारी मुख्याध्यापक","7020929833","sanjaypadole77@gmail.com","1977-04-04","पुरुष","HSC / D.Ed","SC","1997-09-03","मराठी, गणित, विज्ञान, इंग्रजी")
+]},
+{ udise:"27270102901", name:"जि.प.प्रा.शा. पोलेवाडी", teachers:[
+T("राजेसाहेब वैजनाथराव सोमवंशी","प्रभारी मुख्याध्यापक","7020708970","rajesahebsomwanshi712@gmail.com","1975-02-17","पुरुष","MA / D.Ed","General","1995-08-07","सर्व विषय"),
+T("सचिन नारायण गायकवाड","प्राथमिक शिक्षक","9637757982","sachin7427@gmail.com","","पुरुष","MA / D.Ed","SC","2009-01-07","सर्व विषय")
+]},
+{ udise:"27270103001", name:"जि.प.प्रा.शा. नागझरी वसाहत", teachers:[
+T("संतोष माणिकराव गिते","प्राथमिक शिक्षक","7588635356","santoshgitte20@gmail.com","1983-12-20","पुरुष","MA / D.Ed","OBC","2006-01-31","-"),
+T("बालासाहेब व्यंकटराव कातळे","प्रभारी मुख्याध्यापक","8999022483","balasahebkatale1975@gmail.com","1975-05-16","पुरुष","BA / D.Ed","General","1998-08-05","-")
+]},
+{ udise:"27270103101", name:"जि.प.प्रा.शा. शेपवाडी", teachers:[
+T("वैशाली विजय बुरांडे","पदवीधर शिक्षक","9405644999","akuskarvk999@gmail.com","1974-05-07","स्त्री","MA / B.Ed","OBC","1993-10-19","इंग्रजी"),
+T("आशालता मनोहरराव लांब","प्राथमिक शिक्षक","7719015759","ashalatalamb24@gmail.com","1971-05-24","स्त्री","BA / D.Ed","General","1995-08-07","सर्व विषय"),
+T("शैलजा उत्तमराव जोशी","प्रभारी मुख्याध्यापक","9403882075","shailajajoshi1971@gmail.com","1971-01-19","स्त्री","BA / D.Ed","General","1995-08-09","मराठी, हिंदी, इतिहास, भूगोल, नागरिकशास्त्र"),
+T("प्रशांत मारुतीराव बिरादार","प्राथमिक शिक्षक","9421328701","biadar11082@gmail.com","1982-10-01","पुरुष","BA / D.Ed","General","2006-09-19","सर्व विषय (इयत्ता १ ते ५)")
+]},
+{ udise:"27270103102", name:"जि.प.प्रा.शा. सह्याद्री नगर शेपवाडी", teachers:[
+T("मीनाक्षी प्रकाश लवटे","प्राथमिक शिक्षक","9823340660","lawatemeena123@gmail.com","1978-07-03","स्त्री","BA / D.Ed","OBC","1998-08-01","इयत्ता १ ते ५ सर्व विषय"),
+T("अनिता सदाशिव नखाते","प्रभारी मुख्याध्यापक","9403356595","nanita9421@gmail.com","1971-09-06","स्त्री","BA / D.Ed","General","2004-03-15","सर्व")
+]},
+{ udise:"27270103201", name:"जि.प.प्रा.शा. पिंपळा धायगुडा (मराठी)", teachers:[
+T("भैय्यासाहेब तुकाराम जोगदंड","प्राथमिक शिक्षक","8888959458","bhaiyasahebjogdand@gmail.com","1986-06-15","पुरुष","MA / D.Ed","SC","2009-06-29","मराठी, गणित, इंग्रजी, परिसर अभ्यास, हिंदी, कला, कार्यानुभव, शारीरिक शिक्षण"),
+T("प्रीती सुभाषचंद्र साहू","प्राथमिक शिक्षक","9422610375","preetigupta2255@gmail.com","1977-03-16","स्त्री","MA / B.Ed","OBC","2000-11-01","सर्व विषय"),
+T("संजीव कचरू उमाप","प्रभारी मुख्याध्यापक","9284023434","sanjeevumap52@gmail.com","1978-06-22","पुरुष","MA / M.Ed","SC","2000-03-14","सामाजिक शास्त्र"),
+T("गंगू मुरलीधर झाडे","पदवीधर शिक्षक","8806269056","ganguzade01@gmail.com","1982-02-01","स्त्री","MA / B.Ed","SC","2005-11-29","सर्व"),
+T("सुरेखा उमाकांत हिशोबे","प्राथमिक शिक्षक","7588114545","Surekhapotdar1970@gmail.com","1970-01-15","स्त्री","BA / D.Ed","OBC","1993-10-19","सर्व विषय"),
+T("ज्योतीराम कोंडीबा कोल्हापुरे","प्राथमिक शिक्षक","9850275947","kolhapurejk74@gmail.com","1974-02-07","पुरुष","BA / D.Ed","OBC","1993-10-19","सर्व विषय"),
+T("सीमा सखारामराव कदम","प्राथमिक शिक्षक","9422329924","sdtseema@gmail.com","1978-06-29","स्त्री","MA / B.Ed","इतर","1998-07-16","सर्व विषय"),
+T("विलास रामराव माचवे","प्राथमिक शिक्षक","9423893494","vilasmachave105@gmail.com","1982-01-29","पुरुष","MA / B.Ed","General","2002-01-30","सर्व")
+]},
+{ udise:"27270103203", name:"जि.प.प्रा.शा. पिंपळा धायगुडा (उर्दू)", teachers:[
+T("सय्यदा हिना सय्यद सरफराजोद्दीन","प्रभारी मुख्याध्यापक","8600504215","hinasyeda132@gmail.com","1975-07-29","स्त्री","MA / B.Ed","General","1995-08-07","Language"),
+T("दायमी सय्यदा नुरुलहुदा अमीरोद्दीन","पदवीधर शिक्षक","9028704480","daiminoor@gmail.com","1992-11-29","स्त्री","MSc / B.Ed","OBC","2024-10-24","गणित, विज्ञान"),
+T("खालीद हसनसाब सय्यद","प्राथमिक शिक्षक","8766734554","khalid1829a@gmail.com","1979-01-03","पुरुष","HSC / D.Ed","General","2003-08-04","-"),
+T("गौसिया बेगम अब्दुल अजीज शेख","प्राथमिक शिक्षक","9579165068","khatibg1975@gmail.com","1975-08-20","स्त्री","HSC / D.Ed","General","2003-02-17","Urdu, maths, English, Marathi")
+]},
+{ udise:"27270103301", name:"जि.प.प्रा.शा. वरवटी", teachers:[
+T("ज्योतीबाई देवीदासराव शिंदे","प्रभारी मुख्याध्यापक","9403645467","vasantjyoti26@gmail.com","1986-04-12","स्त्री","MA / B.Ed","SC","2010-07-12","सर्व"),
+T("श्री सायस साखरोबा गर्जे","प्राथमिक शिक्षक","9561858811","sayasgarje1979@gmail.com","1979-02-01","पुरुष","HSC / D.Ed","OBC","2014-03-01","भाषा, गणित, विज्ञान, इंग्रजी इ.")
+]},
+{ udise:"27270103303", name:"जि.प.प्रा.शा. उघडे वस्ती (वरवटी)", teachers:[
+T("रविकांत सुधाकरराव खेपकर","प्राथमिक शिक्षक","9623520793","ravikantkhepkar99@gmail.com","1970-06-07","पुरुष","SSC / D.Ed","General","1991-07-29","मराठी, गणित, इंग्रजी"),
+T("शोभा अंगदराव चाटे","प्रभारी मुख्याध्यापक","8999768368","kandeshobha1816@gmail.com","1971-01-01","स्त्री","BA / D.Ed","OBC","1992-07-02","मराठी, गणित, इंग्रजी")
+]},
+{ udise:"27270103401", name:"जि.प.प्रा.शा. तलाव पाटी", teachers:[
+T("मनीषा धोंडोपंत चिंचोलीकर","प्रभारी मुख्याध्यापक","9420194266","aadityasd22@gmail.com","1977-07-21","स्त्री","MA / B.Ed","General","1997-09-02","सर्व विषय"),
+T("श्रीदेवी मनोहर सिरसाट","प्राथमिक शिक्षक","8999773919","shridevisirsat1984@gmail.com","1984-06-16","स्त्री","BA / D.Ed","OBC","2003-10-13","सर्व विषय")
+]},
+{ udise:"27270103501", name:"जि.प.प्रा.शा. अंबलवाडी", teachers:[
+T("नवतीला रामराव जाधव","प्राथमिक शिक्षक","7498239099","navtilajadhav@gmail.com","1976-11-06","स्त्री","MA / D.Ed","General","2002-11-20","भाषा, गणित विज्ञान, सामाजिक शास्त्र"),
+T("भगवान आश्रुबा बिल्पे","पदवीधर शिक्षक","9604572196","bhagwanbilpe555@gmail.com","1977-09-15","पुरुष","MA / B.Ed","ST","2000-03-23","भाषा"),
+T("आनंद पांडुरंग सिरसाट","प्रभारी मुख्याध्यापक","9850940078","anandsirsat15@gmail.com","1980-09-05","पुरुष","MA / B.Ed","SC","2004-02-17","भाषा"),
+T("रुक्मिणी हरिश्चंद्र दाभाडे","प्राथमिक शिक्षक","7588342321","rukminidabhade@gmail.com","1975-03-16","स्त्री","MA / D.Ed","General","1997-09-01","Marathi, Math, English")
+]},
+{ udise:"27270103502", name:"जि.प.प्रा.शा. गोल्टावस्ती", teachers:[
+T("सुरेखा अभिमान गालफाडे","प्राथमिक शिक्षक","8999330431","surekhagalphade0812@gmail.com","1978-12-08","स्त्री","MA / D.Ed","SC","2000-03-15","सर्व"),
+T("शालन नागनाथ जोगदंड","प्रभारी मुख्याध्यापक","9763233793","shalanjogdand@gmail.com","1978-06-25","स्त्री","MA / D.Ed","SC","2000-03-04","-")
+]},
+{ udise:"27270103701", name:"जि.प.प्रा.शा. गिरवली आपेट", teachers:[
+T("अर्जुन सूर्यकांत चव्हाण","प्राथमिक शिक्षक","9763737062","arjunchavan137@gmail.com","1987-07-11","पुरुष","BCom / D.Ed","इतर","2026-07-11","सर्व विषय (मराठी, गणित, इंग्रजी, परिसर अभ्यास भाग १-२, कला शिक्षण, कार्यशिक्षण, शारीरिक शिक्षण)"),
+T("सुनिल आनंदराव फुलेवार","प्रभारी मुख्याध्यापक","9423733945","fulewarsunil@gmail.com","1970-07-01","पुरुष","BA / D.Ed","ST","1992-06-20","मराठी, गणित, इंग्रजी, कला शिक्षण, कार्य शिक्षण, शारीरिक शिक्षण")
+]},
+{ udise:"27270103801", name:"जि.प.हा.स्कू. गिरवली", teachers:[]}
 ];
 
 /* ============================================================
-   APPLICATION STATE
-   ============================================================ */
+STORAGE KEYS & STATE
+============================================================ */
+// Define your Master Google App Script URL here
+const MASTER_SHEET_URL = "https://script.google.com/macros/s/AKfycbx4d005w7PJXOnMjhl7xrK2LS41HVtFK4IKpk9aarWCrLlghFbyrZ5ikNxZ3ksFYQyb/exec";
+let CLOUD_SYNC_URL = localStorage.getItem("krp-sheet-url-v1") || MASTER_SHEET_URL;
+
 let schools = [];
-let adminPinHash = ""; // Master Admin PIN (Cloud Synced)
-let isAdmin = false;   // Master Admin Mode
-let authenticatedHmSchoolIdx = null; // Index of school currently logged in via HM PIN
+let adminPinHash = "";
+let isAdmin = false;
 let currentSchoolIdx = null;
 let editingTeacherId = null;
-let editingSchoolIdx = null; // Index of school being edited (Admin only)
-let sortField = "desig";
-let schoolSortField = "name"; // Index page sort: name | udise | tcount
+let sortField = "desig"; // Set Designation as default sorting
 
+/* ============================================================
+CRYPTOGRAPHY
+============================================================ */
 async function sha256Hex(str){
   const enc = new TextEncoder().encode(str);
   const buf = await crypto.subtle.digest("SHA-256", enc);
@@ -1002,22 +629,23 @@ async function sha256Hex(str){
 }
 
 /* ============================================================
-   UI HELPERS & TOAST
-   ============================================================ */
+UI HELPERS
+============================================================ */
 function showToast(msg){
   const t = document.getElementById("toast");
   t.textContent = msg;
   t.classList.add("show");
   clearTimeout(window.__toastTimer);
-  window.__toastTimer = setTimeout(()=>t.classList.remove("show"), 2800);
+  window.__toastTimer = setTimeout(()=>t.classList.remove("show"), 2600);
 }
+
 function openModal(id){ document.getElementById(id).classList.add("show"); }
+
 function closeModal(id){
   document.getElementById(id).classList.remove("show");
-  ["loginError","changePinError","hmLoginError","changeHmPinError","teacherError", "schoolError"].forEach(eId=>{
-    const el = document.getElementById(eId);
-    if(el) el.textContent = "";
-  });
+  document.getElementById("loginError") && (document.getElementById("loginError").textContent="");
+  document.getElementById("changePinError") && (document.getElementById("changePinError").textContent="");
+  document.getElementById("teacherError") && (document.getElementById("teacherError").textContent="");
 }
 
 function renderAdminArea(){
@@ -1026,40 +654,34 @@ function renderAdminArea(){
     el.innerHTML = `
       <div class="badge-admin"><span class="dot"></span> केंद्रप्रमुख मोड सुरू</div>
       <button class="btn ghost-light small" onclick="downloadAllSchoolsPdf()">सर्व शाळा PDF</button>
-      <button class="btn ghost-light small" onclick="openModal('settingsOverlay')">Cloud सिंक</button>
+      <button class="btn ghost-light small" onclick="openSettings()">Sheet सिंक</button>
       <button class="btn ghost-light small" onclick="openChangePinModal()">पिन बदला</button>
-      <button class="btn maroon small" onclick="logoutAdmin()">बाहेर पडा</button>
+      <button class="btn maroon small" onclick="logout()">बाहेर पडा</button>
     `;
   } else {
     el.innerHTML = `<button class="btn solid" onclick="openLoginModal()">केंद्रप्रमुख प्रवेश</button>`;
   }
 }
 
-function logoutAdmin(){
+function logout(){
   isAdmin = false;
   renderAdminArea();
   render();
-  showToast("केंद्रप्रमुख मोडमधून बाहेर पडला आहात");
-}
-
-function hmLogout(){
-  authenticatedHmSchoolIdx = null;
-  render();
-  showToast("मुख्याध्यापक मोडमधून बाहेर पडला आहात");
+  showToast("आपण बाहेर पडला आहात");
 }
 
 /* ============================================================
-   KENDRA PRAMUKH AUTHENTICATION (Cloud-Synced)
-   ============================================================ */
+LOGIN & DYNAMIC PIN SETUP
+============================================================ */
 function openLoginModal() {
     if (!adminPinHash) {
-        document.getElementById("loginModalTitle").textContent = "नवीन केंद्रप्रमुख पिन सेट करा";
+        document.getElementById("loginModalTitle").textContent = "नवीन पिन सेट करा";
         document.getElementById("loginModalBtn").textContent = "पिन सेट करा आणि प्रवेश करा";
-        document.getElementById("loginHelpText").innerHTML = "सर्व्हरवर अद्याप केंद्रप्रमुख पिन तयार केलेला नाही. कृपया तुमचा <b>४-अंकी सिक्रेट पिन</b> तयार करा.<br><br><span style='color:var(--maroon)'>हा पिन लक्षात ठेवा!</span> हा पिन ऑनलाइन जतन होईल.";
+        document.getElementById("loginHelpText").innerHTML = "ही तुमची <b>पहिलीच वेळ</b> असल्यामुळे कृपया तुमचा स्वतःचा <b>४-अंकी सिक्रेट पिन</b> तयार करा.<br><br><span style='color:var(--maroon)'>हा पिन लक्षात ठेवा!</span> भविष्यात प्रवेश करण्यासाठी तुम्हाला हाच पिन लागेल.";
     } else {
         document.getElementById("loginModalTitle").textContent = "केंद्रप्रमुख प्रवेश";
         document.getElementById("loginModalBtn").textContent = "प्रवेश करा";
-        document.getElementById("loginHelpText").textContent = "सर्व शाळा संपादित करण्यासाठी तुमचा ४-अंकी केंद्रप्रमुख पिन टाका.";
+        document.getElementById("loginHelpText").textContent = "प्रोफाईल संपादित करण्यासाठी तुमचा ४-अंकी पिन टाका.";
     }
     document.getElementById("pinInput").value = "";
     document.getElementById("loginError").textContent = "";
@@ -1075,22 +697,24 @@ async function attemptLogin(){
   const hashed = await sha256Hex(val);
 
   if (!adminPinHash) {
+      // Setup PIN on first login
       adminPinHash = hashed;
       isAdmin = true;
-      await pushToSheet();
       closeModal("loginOverlay");
       renderAdminArea();
       render();
-      showToast("नवीन केंद्रप्रमुख पिन ऑनलाइन सेट झाला व प्रवेश यशस्वी!");
+      showToast("नवीन पिन यशस्वीरित्या सेट केला!");
+      await pushToSheet(); // Sync the new PIN to the cloud!
       return;
   }
 
+  // Normal login
   if(hashed === adminPinHash){
     isAdmin = true;
     closeModal("loginOverlay");
     renderAdminArea();
     render();
-    showToast("केंद्रप्रमुख मोडमध्ये आपले स्वागत आहे!");
+    showToast("प्रवेश यशस्वी — आपण केंद्रप्रमुख मोडमध्ये आहात");
   } else {
     errEl.textContent = "चुकीचा पिन. पुन्हा प्रयत्न करा.";
   }
@@ -1122,240 +746,64 @@ async function saveNewPin() {
 
     const hashedOld = await sha256Hex(oldPin);
     if(hashedOld !== adminPinHash) {
-        errEl.textContent = "सध्याचा केंद्रप्रमुख पिन चुकीचा आहे."; return;
+        errEl.textContent = "सध्याचा पिन चुकीचा आहे."; return;
     }
 
     adminPinHash = await sha256Hex(newPin);
-    await pushToSheet();
+    await pushToSheet(); // Sync the changed PIN to the cloud!
     closeModal("changePinOverlay");
-    showToast("नवीन केंद्रप्रमुख पिन ऑनलाइन यशस्वीरित्या बदलला.");
+    showToast("पिन यशस्वीरित्या बदलला आहे.");
 }
 
 /* ============================================================
-   HEADMASTER (HM) AUTHENTICATION (School-Specific)
-   ============================================================ */
-function openHmLoginModal(idx) {
-    const s = schools[idx];
-    const isNew = !s.hmPin;
-    document.getElementById("hmLoginTitle").textContent = `${s.name} — मुख्याध्यापक प्रवेश`;
-    if(isNew) {
-        document.getElementById("hmLoginHelp").innerHTML = `या शाळेसाठी अद्याप मुख्याध्यापक पिन सेट केलेला नाही. कृपया या शाळेसाठी तुमचा <b>४-अंकी सिक्रेट पिन</b> तयार करा.<br><span style='color:var(--maroon)'>हा पिन या शाळेची माहिती बदलण्यासाठी लागेल.</span>`;
-        document.getElementById("hmLoginBtn").textContent = "पिन सेट करा व प्रवेश करा";
-    } else {
-        document.getElementById("hmLoginHelp").textContent = `या शाळेतील शिक्षकांची माहिती संपादित करण्यासाठी मुख्याध्यापक पिन टाका.`;
-        document.getElementById("hmLoginBtn").textContent = "प्रवेश करा";
-    }
-    document.getElementById("hmPinInput").value = "";
-    document.getElementById("hmLoginError").textContent = "";
-    openModal("hmLoginOverlay");
-}
-
-async function attemptHmLogin() {
-    const s = schools[currentSchoolIdx];
-    const val = document.getElementById("hmPinInput").value.trim();
-    const errEl = document.getElementById("hmLoginError");
-    if(!val) { errEl.textContent = "कृपया पिन टाका"; return; }
-    if(val.length < 4) { errEl.textContent = "पिन किमान ४ अंकी असावा."; return; }
-
-    const hashed = await sha256Hex(val);
-
-    if(!s.hmPin) {
-        s.hmPin = hashed;
-        authenticatedHmSchoolIdx = currentSchoolIdx;
-        await pushToSheet();
-        closeModal("hmLoginOverlay");
-        render();
-        showToast("या शाळेचा HM पिन ऑनलाइन सेट झाला व प्रवेश यशस्वी!");
-        return;
-    }
-
-    if(hashed === s.hmPin) {
-        authenticatedHmSchoolIdx = currentSchoolIdx;
-        closeModal("hmLoginOverlay");
-        render();
-        showToast(`${s.name} — मुख्याध्यापक मोड सक्रिय!`);
-    } else {
-        errEl.textContent = "चुकीचा HM पिन. कृपया योग्य पिन टाका.";
-    }
-}
-
-function openChangeHmPinModal() {
-    const isMaster = isAdmin;
-    document.getElementById("hmOldPinBox").style.display = isMaster ? "none" : "block";
-    document.getElementById("hmOldPinInput").value = "";
-    document.getElementById("hmNewPinInput").value = "";
-    document.getElementById("hmConfirmPinInput").value = "";
-    document.getElementById("changeHmPinError").textContent = "";
-    openModal("changeHmPinOverlay");
-}
-
-async function saveNewHmPin() {
-    const s = schools[currentSchoolIdx];
-    const oldPin = document.getElementById("hmOldPinInput").value.trim();
-    const newPin = document.getElementById("hmNewPinInput").value.trim();
-    const confirmPin = document.getElementById("hmConfirmPinInput").value.trim();
-    const errEl = document.getElementById("changeHmPinError");
-
-    if(!isAdmin && !oldPin) {
-        errEl.textContent = "सध्याचा HM पिन टाकणे आवश्यक आहे."; return;
-    }
-    if(!newPin || !confirmPin) {
-        errEl.textContent = "नवीन पिनचे दोन्ही रकाने भरा."; return;
-    }
-    if(newPin !== confirmPin) {
-        errEl.textContent = "नवीन पिन आणि पुष्टी केलेला पिन जुळत नाहीत."; return;
-    }
-    if(newPin.length < 4) {
-        errEl.textContent = "पिन किमान ४ अंकी असावा."; return;
-    }
-
-    if(!isAdmin && s.hmPin) {
-        const hashedOld = await sha256Hex(oldPin);
-        if(hashedOld !== s.hmPin) {
-            errEl.textContent = "सध्याचा HM पिन चुकीचा आहे."; return;
-        }
-    }
-
-    s.hmPin = await sha256Hex(newPin);
-    await pushToSheet();
-    closeModal("changeHmPinOverlay");
-    showToast("या शाळेचा HM पिन ऑनलाइन यशस्वीरित्या बदलला.");
-}
-
-/* ============================================================
-   SCHOOL CRUD (Master Admin Only)
-   ============================================================ */
-function openSchoolModal(idx = null) {
-  editingSchoolIdx = idx;
-  const s = idx !== null ? schools[idx] : null;
-  document.getElementById("schoolModalTitle").textContent = s ? "शाळेची माहिती संपादित करा" : "नवीन शाळा जोडा";
-  document.getElementById("s_name").value = s ? s.name : "";
-  document.getElementById("s_udise").value = s ? s.udise : "";
-  
-  // Show Delete button only if editing an existing school
-  document.getElementById("deleteSchoolBtn").style.display = s ? "inline-block" : "none";
-  document.getElementById("schoolError").textContent = "";
-  openModal("schoolOverlay");
-}
-
-async function saveSchool() {
-  const name = document.getElementById("s_name").value.trim();
-  const udise = document.getElementById("s_udise").value.trim();
-  
-  if(!name || !udise) {
-    document.getElementById("schoolError").textContent = "शाळेचे नाव आणि युडायस कोड दोन्ही आवश्यक आहेत.";
-    return;
-  }
-  
-  if (editingSchoolIdx !== null) {
-    schools[editingSchoolIdx].name = name;
-    schools[editingSchoolIdx].udise = udise;
-  } else {
-    schools.push({
-      udise: udise,
-      name: name,
-      teachers: [],
-      hmPin: null // New school will ask HM to setup pin on first login
-    });
-    currentSchoolIdx = schools.length - 1; // Automatically open newly added school
-  }
-  
-  await pushToSheet();
-  closeModal("schoolOverlay");
-  render();
-  showToast("शाळेची माहिती ऑनलाइन जतन झाली");
-}
-
-async function deleteCurrentSchool() {
-  if (editingSchoolIdx === null) return;
-  if (!confirm("ही शाळा आणि यातील सर्व शिक्षकांची माहिती कायमची काढून टाकायची आहे का? हा बदल पूर्ववत करता येणार नाही!")) return;
-  
-  schools.splice(editingSchoolIdx, 1);
-  
-  await pushToSheet();
-  closeModal("schoolOverlay");
-  
-  currentSchoolIdx = null; // Go back to the main list
-  render();
-  showToast("शाळा ऑनलाइन डिलीट करण्यात आली");
-}
-
-/* ============================================================
-   ROUTING & RENDERING
-   ============================================================ */
-function canEditCurrentSchool(idx) {
-    return isAdmin || (authenticatedHmSchoolIdx === idx);
-}
-
+ROUTING / RENDER
+============================================================ */
 function render(){
   if(currentSchoolIdx === null) renderIndex();
   else renderSchoolDetail(currentSchoolIdx);
 }
 
-function sortSchoolList(list){
-  let sorted = [...list];
-  if(schoolSortField === "name"){
-    sorted.sort((a,b)=> a.s.name.localeCompare(b.s.name, 'mr'));
-  } else if(schoolSortField === "udise"){
-    sorted.sort((a,b)=> String(a.s.udise).localeCompare(String(b.s.udise)));
-  } else if(schoolSortField === "tcount"){
-    sorted.sort((a,b)=> (b.s.teachers?b.s.teachers.length:0) - (a.s.teachers?a.s.teachers.length:0));
-  }
-  return sorted;
-}
-
-function handleSchoolSortChange(e){
-  schoolSortField = e.target.value;
-  renderIndex(document.getElementById("searchInput") ? document.getElementById("searchInput").value : "");
-}
-
 function renderIndex(filterText){
   const root = document.getElementById("viewRoot");
   const q = (filterText||"").trim().toLowerCase();
-  let rows = schools
+  const rows = schools
     .map((s,i)=>({s,i}))
     .filter(({s})=> !q || s.name.toLowerCase().includes(q) || s.udise.includes(q));
-  rows = sortSchoolList(rows);
 
   root.innerHTML = `
     <div class="searchbar">
       <input type="text" id="searchInput" placeholder="शाळेचे नाव किंवा युडायस कोड शोधा…" value="${filterText? escapeHtml(filterText):""}">
-      <select id="schoolSortSelect" onchange="handleSchoolSortChange(event)">
-        <option value="name" ${schoolSortField==='name'?'selected':''}>नावानुसार (अ-ज्ञ)</option>
-        <option value="udise" ${schoolSortField==='udise'?'selected':''}>युडायस कोडनुसार</option>
-        <option value="tcount" ${schoolSortField==='tcount'?'selected':''}>शिक्षक संख्येनुसार</option>
-      </select>
-      <div class="count-pill">एकूण शाळा: ${schools.length} &nbsp;•&nbsp; एकूण शिक्षक: ${schools.reduce((a,s)=>a+(s.teachers?s.teachers.length:0),0)}</div>
-      ${isAdmin ? `<button class="btn solid" onclick="openSchoolModal(null)">+ नवीन शाळा जोडा</button>` : ``}
+      <div class="count-pill">एकूण शाळा: ${schools.length} &nbsp;•&nbsp; एकूण शिक्षक: ${schools.reduce((a,s)=>a+s.teachers.length,0)}</div>
     </div>
     <div class="register">
       <div class="reg-head"><div>अ.क्र.</div><div>शाळेचे नाव</div><div>युडायस कोड</div><div>शिक्षक</div><div></div></div>
-      ${rows.map(({s,i},pos)=>`
+      ${rows.map(({s,i})=>`
         <div class="reg-row" onclick="openSchool(${i})">
           <div class="tab-strip"></div>
-          <div class="num">${toMarathiNum(pos+1)}</div>
+          <div class="num">${toMarathiNum(i+1)}</div>
           <div class="name">${escapeHtml(s.name)}</div>
           <div class="udise">${s.udise}</div>
-          <div class="tcount">${s.teachers?s.teachers.length:0} शिक्षक</div>
+          <div class="tcount">${s.teachers.length} शिक्षक</div>
           <div class="arrow">›</div>
         </div>
       `).join("") || `<div class="empty-note">काही सापडले नाही.</div>`}
     </div>
   `;
-  const searchInput = document.getElementById("searchInput");
-  if(searchInput){
-      searchInput.addEventListener("input", (e)=>renderIndex(e.target.value));
-      searchInput.focus();
-      if(filterText!==undefined) searchInput.setSelectionRange(searchInput.value.length, searchInput.value.length);
+  document.getElementById("searchInput").addEventListener("input", (e)=>renderIndex(e.target.value));
+  document.getElementById("searchInput").focus();
+  if(filterText!==undefined){
+    const el = document.getElementById("searchInput");
+    el.setSelectionRange(el.value.length, el.value.length);
   }
 }
 
 function openSchool(idx){
   currentSchoolIdx = idx;
-  sortField = "desig";
+  sortField = "desig"; // default sort by designation
   render();
   window.scrollTo({top:0, behavior:"smooth"});
 }
+
 function backToIndex(){
   currentSchoolIdx = null;
   render();
@@ -1376,10 +824,11 @@ const DESIG_ORDER = {
     "केंद्र समन्वयक": 7
 };
 
-function getDesigRank(desig) { return DESIG_ORDER[desig] || 99; }
+function getDesigRank(desig) {
+    return DESIG_ORDER[desig] || 99;
+}
 
 function sortTeacherList(teacherList) {
-    if (!teacherList) return [];
     let sorted = [...teacherList];
     if (sortField === "desig") {
         sorted.sort((a,b) => {
@@ -1401,8 +850,6 @@ function sortTeacherList(teacherList) {
 function renderSchoolDetail(idx){
   const s = schools[idx];
   const root = document.getElementById("viewRoot");
-  const canEdit = canEditCurrentSchool(idx);
-  const isThisHm = (authenticatedHmSchoolIdx === idx);
   let sortedTeachers = sortTeacherList(s.teachers);
 
   root.innerHTML = `
@@ -1413,38 +860,48 @@ function renderSchoolDetail(idx){
         <div class="meta">युडायस कोड: ${s.udise} &nbsp;•&nbsp; केंद्र रविवार पेठ, ता. अंबाजोगाई, जि. बीड</div>
       </div>
       <div class="school-actions">
-        ${isThisHm ? `<div class="badge-hm"><span class="dot"></span> मुख्याध्यापक मोड</div>` : ""}
-        
-        ${isAdmin ? `<button class="btn ghost-light small" style="color:var(--navy);border-color:var(--navy);background:#fff;" onclick="openSchoolModal(${idx})">⚙️ शाळा संपादित करा</button>` : ""}
-
         <select id="sortSelect" onchange="handleSortChange(event)">
             <option value="desig" ${sortField==='desig'?'selected':''}>पदनामानुसार</option>
             <option value="name" ${sortField==='name'?'selected':''}>नावानुसार (अ-ज्ञ)</option>
             <option value="appoint" ${sortField==='appoint'?'selected':''}>नियुक्ती दिनांकानुसार</option>
             <option value="dob" ${sortField==='dob'?'selected':''}>जन्मतारखेनुसार</option>
         </select>
-        ${isAdmin ? `<button class="btn ghost-light" style="border-color:var(--navy);color:var(--navy);background:#fff" onclick="downloadSchoolPdf(${idx})">⬇ PDF</button>` : ""}
-
-        ${canEdit ? `<button class="btn solid" onclick="openTeacherModal(${idx}, null)">+ शिक्षक जोडा</button>` : ""}
-        ${canEdit ? `<button class="btn ghost-light small" onclick="openChangeHmPinModal()">HM पिन बदला</button>` : ""}
-        
-        ${isThisHm && !isAdmin ? `<button class="btn maroon small" onclick="hmLogout()">HM बाहेर पडा</button>` : ""}
-        ${!canEdit ? `<button class="btn solid-green" onclick="openHmLoginModal(${idx})">मुख्याध्यापक प्रवेश</button>` : ""}
+        <button class="btn ghost-light" style="border-color:var(--navy);color:var(--navy);background:#fff" onclick="downloadSchoolPdf(${idx})">⬇ PDF डाउनलोड करा</button>
+        ${isAdmin? `<button class="btn solid" onclick="openTeacherModal(${idx}, null)">+ शिक्षक जोडा</button>`:""}
       </div>
     </div>
     <div class="teacher-grid">
-      ${sortedTeachers.length ? sortedTeachers.map(t=>teacherCardHtml(idx,t,canEdit)).join("") : `<div class="empty-note">या शाळेसाठी अद्याप शिक्षक माहिती नोंदवलेली नाही.${canEdit? '':' (माहिती भरण्यासाठी मुख्याध्यापक प्रवेश करा.)'}</div>`}
+      ${sortedTeachers.length ? sortedTeachers.map(t=>teacherCardHtml(idx,t)).join("") : `<div class="empty-note">या शाळेसाठी अद्याप शिक्षक माहिती नोंदवलेली नाही.${isAdmin? '':' (केंद्रप्रमुखांनी प्रवेश करून माहिती जोडावी.)'}</div>`}
     </div>
   `;
 }
 
-function teacherCardHtml(schoolIdx, t, canEdit){
+function teacherCardHtml(schoolIdx, t){
+  let leaveInfo = "";
+  if(t.leaveMY || t.elTot || t.clTot || t.lFrom || t.lTo){
+      leaveInfo = `
+      <div class="tcard-grid-item full-width" style="margin-top:4px; border-top:2px solid var(--line);">
+          <span class="lbl" style="color:#e67e22; font-weight:700; margin-bottom:6px;">रजा माहिती (${formatDate(t.leaveMY)}) | कालावधी: ${formatDate(t.lFrom)} ते ${formatDate(t.lTo)}</span>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+              <div style="background:#f4f9f5; padding:6px; border-radius:4px; border:1px solid #d0e3d6;">
+                  <b style="color:#27ae60; font-size:.75rem; display:block; margin-bottom:4px;">अर्जित रजा</b> 
+                  <span style="font-size:.78rem;">एकूण: ${escapeHtml(t.elTot||'-')} | घेतलेली: ${escapeHtml(t.elTak||'-')} | शिल्लक: ${escapeHtml(t.elRem||'-')}</span>
+              </div>
+              <div style="background:#fcf4f4; padding:6px; border-radius:4px; border:1px solid #e8d0d3;">
+                  <b style="color:#c0392b; font-size:.75rem; display:block; margin-bottom:4px;">आकस्मिक रजा</b> 
+                  <span style="font-size:.78rem;">एकूण: ${escapeHtml(t.clTot||'-')} | घेतलेली: ${escapeHtml(t.clTak||'-')} | शिल्लक: ${escapeHtml(t.clRem||'-')}</span>
+              </div>
+          </div>
+      </div>`;
+  }
+
   return `
   <div class="tcard">
-    ${canEdit? `<div class="card-tools">
+    ${isAdmin? `<div class="card-tools">
         <button class="icon-btn" title="संपादित करा" onclick="openTeacherModal(${schoolIdx}, '${t.id}')">✎</button>
       </div>`:""}
     <div class="tname">${escapeHtml(t.name)} <span class="desig">(${escapeHtml(t.desig||"")})</span></div>
+    
     <div class="tcard-grid">
       <div class="tcard-grid-item"><span class="lbl">मोबाईल</span><p class="val">${escapeHtml(t.mobile||"-")}</p></div>
       <div class="tcard-grid-item"><span class="lbl">ई-मेल</span><p class="val">${escapeHtml(t.email||"-")}</p></div>
@@ -1454,20 +911,21 @@ function teacherCardHtml(schoolIdx, t, canEdit){
       <div class="tcard-grid-item"><span class="lbl">प्रवर्ग</span><p class="val">${escapeHtml(t.cat||"-")}</p></div>
       <div class="tcard-grid-item"><span class="lbl">नियुक्ती</span><p class="val">${formatDate(t.appoint)}</p></div>
       <div class="tcard-grid-item full-width"><span class="lbl">विषय</span><p class="val">${escapeHtml(t.subject||"-")}</p></div>
+      ${leaveInfo}
     </div>
   </div>`;
 }
 
 /* ============================================================
-   TEACHER CRUD (ONLINE DIRECT SYNC)
-   ============================================================ */
+TEACHER CRUD
+============================================================ */
 function openTeacherModal(schoolIdx, teacherId){
   currentSchoolIdx = schoolIdx;
   editingTeacherId = teacherId;
   const s = schools[schoolIdx];
-  const t = teacherId ? (s.teachers||[]).find(x=>x.id===teacherId) : null;
+  const t = teacherId ? s.teachers.find(x=>x.id===teacherId) : null;
   document.getElementById("teacherModalTitle").textContent = t ? "शिक्षक माहिती संपादित करा" : "नवीन शिक्षक जोडा";
-
+  
   document.getElementById("f_name").value = t? t.name : "";
   document.getElementById("f_desig").value = t? (t.desig||"प्राथमिक शिक्षक") : "प्राथमिक शिक्षक";
   document.getElementById("f_mobile").value = t? t.mobile : "";
@@ -1478,6 +936,17 @@ function openTeacherModal(schoolIdx, teacherId){
   document.getElementById("f_cat").value = t? t.cat : "";
   document.getElementById("f_appoint").value = t? t.appoint : "";
   document.getElementById("f_subject").value = t? t.subject : "";
+  
+  // Leave fields
+  document.getElementById("f_leaveMonthYear").value = t? (t.leaveMY||"") : "";
+  document.getElementById("f_elTotal").value = t? (t.elTot||"") : "";
+  document.getElementById("f_elTaken").value = t? (t.elTak||"") : "";
+  document.getElementById("f_elRem").value = t? (t.elRem||"") : "";
+  document.getElementById("f_clTotal").value = t? (t.clTot||"") : "";
+  document.getElementById("f_clTaken").value = t? (t.clTak||"") : "";
+  document.getElementById("f_clRem").value = t? (t.clRem||"") : "";
+  document.getElementById("f_leaveFrom").value = t? (t.lFrom||"") : "";
+  document.getElementById("f_leaveTo").value = t? (t.lTo||"") : "";
 
   document.getElementById("deleteTeacherBtn").style.display = t? "inline-block":"none";
   document.getElementById("teacherError").textContent = "";
@@ -1487,10 +956,7 @@ function openTeacherModal(schoolIdx, teacherId){
 async function saveTeacher(){
   const name = document.getElementById("f_name").value.trim();
   if(!name){ document.getElementById("teacherError").textContent = "नाव आवश्यक आहे."; return; }
-  
   const s = schools[currentSchoolIdx];
-  if(!s.teachers) s.teachers = [];
-
   const data = {
     name,
     desig: document.getElementById("f_desig").value,
@@ -1501,161 +967,50 @@ async function saveTeacher(){
     qual: document.getElementById("f_qual").value.trim(),
     cat: document.getElementById("f_cat").value.trim(),
     appoint: document.getElementById("f_appoint").value,
-    subject: document.getElementById("f_subject").value.trim()
+    subject: document.getElementById("f_subject").value.trim(),
+    
+    leaveMY: document.getElementById("f_leaveMonthYear").value,
+    elTot: document.getElementById("f_elTotal").value,
+    elTak: document.getElementById("f_elTaken").value,
+    elRem: document.getElementById("f_elRem").value,
+    clTot: document.getElementById("f_clTotal").value,
+    clTak: document.getElementById("f_clTaken").value,
+    clRem: document.getElementById("f_clRem").value,
+    lFrom: document.getElementById("f_leaveFrom").value,
+    lTo: document.getElementById("f_leaveTo").value
   };
-
   if(editingTeacherId){
     const t = s.teachers.find(x=>x.id===editingTeacherId);
     Object.assign(t, data);
   } else {
-    data.id = generateUUID();
+    data.id = crypto.randomUUID();
     s.teachers.push(data);
   }
-
+  
   await pushToSheet();
   closeModal("teacherOverlay");
   render();
-  showToast("शिक्षक माहिती ऑनलाइन जतन झाली");
+  showToast("शिक्षक माहिती जतन केली");
 }
 
 async function deleteCurrentTeacher(){
   if(!editingTeacherId) return;
-  if(!confirm("ही शिक्षक नोंद ऑनलाइन कायमची काढून टाकायची आहे का?")) return;
-  
+  if(!confirm("ही शिक्षक नोंद कायमची काढून टाकायची आहे का?")) return;
   const s = schools[currentSchoolIdx];
-  s.teachers = (s.teachers||[]).filter(x=>x.id!==editingTeacherId);
+  s.teachers = s.teachers.filter(x=>x.id!==editingTeacherId);
   
   await pushToSheet();
   closeModal("teacherOverlay");
   render();
-  showToast("शिक्षक नोंद ऑनलाइन डिलीट करण्यात आली");
+  showToast("नोंद काढून टाकली");
 }
 
 /* ============================================================
-   GOOGLE SHEET CLOUD SYNC (WITH ERROR FALLBACK)
-   ============================================================ */
-let __isSyncing = false;
-let __pollTimer = null;
-
-async function pullFromSheet(isBackgroundPoll) {
-  if (!CLOUD_SYNC_URL) {
-      document.getElementById("lastSyncLine").textContent = "Web App URL सेट केलेला नाही. (Offline Mode)";
-      if(!isBackgroundPoll) schools = JSON.parse(JSON.stringify(DEFAULT_SCHOOLS));
-      return;
-  }
-
-  // Don't let a background poll clobber whatever the user is actively typing in a modal
-  if (isBackgroundPoll && document.querySelector(".overlay.show")) {
-      return;
-  }
-
-  try {
-    const url = getValidUrl(); // Fetches sanitized lowercase URL
-    if(!isBackgroundPoll) document.getElementById("lastSyncLine").textContent = "ढगावरून (Cloud) माहिती घेत आहे...";
-    const res = await fetch(url, { cache: "no-store" });
-    
-    if (!res.ok) {
-        throw new Error("HTTP Error " + res.status);
-    }
-
-    const text = await res.text();
-    const data = text ? JSON.parse(text) : {};
-    
-    if(data && data.schools && data.schools.length > 0) {
-      if(data.adminPin) adminPinHash = data.adminPin;
-      schools = data.schools;
-      document.getElementById("lastSyncLine").textContent = "माहिती अद्ययावत (Cloud Synced)";
-      // Re-render only if we're not in the middle of the user editing something
-      if(!document.querySelector(".overlay.show")) render();
-    } else if(!isBackgroundPoll) {
-      // Cloud is empty, push default schools to initialize
-      schools = JSON.parse(JSON.stringify(DEFAULT_SCHOOLS));
-      document.getElementById("lastSyncLine").textContent = "सुरुवातीची माहिती ढगावर जतन करत आहे...";
-      await pushToSheet();
-    }
-  } catch (e) {
-    console.warn("Cloud fetch failed:", e);
-    if(!isBackgroundPoll){
-      schools = JSON.parse(JSON.stringify(DEFAULT_SCHOOLS)); 
-      showToast("ऑनलाइन संपर्क होऊ शकला नाही. ऑफलाइन मोड सुरु.");
-    }
-    document.getElementById("lastSyncLine").textContent = "सर्व्हरशी संपर्क तुटला! स्थानिक माहिती दाखवत आहे. (Offline Mode)";
-  }
-}
-
-async function pushToSheet() {
-  if (!CLOUD_SYNC_URL) {
-      showToast("कृपया सेटिंग्जमध्ये जाऊन Web App URL सेट करा.");
-      document.getElementById("lastSyncLine").textContent = "URL नाही! (Offline)";
-      return;
-  }
-
-  document.getElementById("lastSyncLine").textContent = "बदल ऑनलाइन जतन करत आहे...";
-  try {
-    const url = getValidUrl(); // Fetches sanitized lowercase URL
-    const payload = {
-      adminPin: adminPinHash,
-      schools: schools,
-      syncedAt: new Date().toISOString()
-    };
-    
-    // We send this POST completely raw without specific headers to ensure it goes through 
-    // as a simple text/plain request, avoiding browser CORS preflight restrictions
-    await fetch(url, {
-      method: "POST",
-      mode: "no-cors", 
-      body: JSON.stringify(payload)
-    });
-    
-    document.getElementById("lastSyncLine").textContent = "माहिती अद्ययावत (Cloud Synced)";
-    
-  } catch (e) {
-    console.error("Push failed:", e);
-    document.getElementById("lastSyncLine").textContent = "जतन करण्यात अडचण आली! (Offline)";
-    
-    // Detailed error alert so we know what is failing
-    alert("ऑनलाइन जतन करताना त्रुटी आली:\n" + e.message + "\n\n1. Web App URL तपासा.\n2. Google Apps Script मध्ये 'New Deployment' केले आहे का ते पहा.");
-  }
-}
-
-async function manualForceSync() {
-  const msg = document.getElementById("settingsMsg");
-  msg.style.color = "var(--navy)";
-  msg.textContent = "सिंक करत आहे...";
-  try {
-    await pushToSheet();
-    msg.style.color = "var(--green)";
-    msg.textContent = "सिंक यशस्वी! Google Sheet मध्ये सर्व माहिती व पिन जतन झाले आहेत.";
-    showToast("Google Sheet सिंक यशस्वी");
-  } catch(err) {
-    msg.style.color = "var(--maroon)";
-    msg.textContent = "सिंक करताना अडचण आली. इंटरनेट कनेक्शन किंवा URL तपासा.";
-  }
-}
-
-// Keep every open tab/device fresh: poll the sheet quietly in the background
-// so changes made on one device/link show up on all others without a manual refresh.
-function startBackgroundSync(){
-  if(__pollTimer) clearInterval(__pollTimer);
-  __pollTimer = setInterval(async ()=>{
-    if(__isSyncing) return;
-    __isSyncing = true;
-    try{ await pullFromSheet(true); }
-    finally{ __isSyncing = false; }
-  }, 15000); // every 15 seconds
-
-  // Also refresh immediately whenever the tab/app regains focus or comes back online
-  document.addEventListener("visibilitychange", ()=>{
-    if(document.visibilityState === "visible") pullFromSheet(true);
-  });
-  window.addEventListener("online", ()=> pullFromSheet(true));
-}
-
-/* ============================================================
-   PDF (PRINT) EXPORT
-   ============================================================ */
+PDF (print-based) EXPORT
+============================================================ */
 function buildPrintHtmlForSchool(s) {
   let sortedTeachers = sortTeacherList(s.teachers);
+
   return `
     <div class="p-school">${escapeHtml(s.name)} &nbsp; (युडायस: ${s.udise})</div>
     ${sortedTeachers.map(t=>`
@@ -1670,6 +1025,13 @@ function buildPrintHtmlForSchool(s) {
           <div class="p-grid-item"><div class="lbl">प्रवर्ग</div>${escapeHtml(t.cat||"-")}</div>
           <div class="p-grid-item"><div class="lbl">नियुक्ती</div>${formatDate(t.appoint)}</div>
           <div class="p-grid-item"><div class="lbl">विषय</div>${escapeHtml(t.subject||"-")}</div>
+          ${(t.leaveMY || t.elTot || t.clTot || t.lFrom || t.lTo) ? `
+          <div class="p-grid-item full-width" style="margin-top:6px; background:#fafafa;">
+              <b>रजा माहिती (${formatDate(t.leaveMY)}) | कालावधी: ${formatDate(t.lFrom)} ते ${formatDate(t.lTo)}</b><br>
+              <span style="color:#1b5e20;">अर्जित रजा - एकूण: ${escapeHtml(t.elTot||'-')} | घेतलेली: ${escapeHtml(t.elTak||'-')} | शिल्लक: ${escapeHtml(t.elRem||'-')}</span><br>
+              <span style="color:#b71c1c;">आकस्मिक रजा - एकूण: ${escapeHtml(t.clTot||'-')} | घेतलेली: ${escapeHtml(t.clTak||'-')} | शिल्लक: ${escapeHtml(t.clRem||'-')}</span>
+          </div>
+          ` : ''}
         </div>
       </div>
     `).join("") || `<div class="p-tcard">या शाळेसाठी शिक्षक माहिती नोंदवलेली नाही.</div>`}
@@ -1677,9 +1039,9 @@ function buildPrintHtmlForSchool(s) {
 }
 
 function downloadSchoolPdf(idx){
-  if(!isAdmin){ showToast("PDF डाउनलोड फक्त केंद्रप्रमुख प्रवेशातच उपलब्ध आहे."); return; }
   const s = schools[idx];
   const area = document.getElementById("printArea");
+  
   area.innerHTML = `
     <div class="p-page-head">
       <h2>शिक्षक वैयक्तिक माहिती (Teacher Profiles)</h2>
@@ -1687,12 +1049,11 @@ function downloadSchoolPdf(idx){
     </div>
     ${buildPrintHtmlForSchool(s)}
   `;
-  showToast("प्रिंट संवाद उघडत গান্ধ — 'Save as PDF' निवडा");
+  showToast("प्रिंट संवाद उघडत आहे — 'Save as PDF' निवडा");
   setTimeout(()=>window.print(), 250);
 }
 
 function downloadAllSchoolsPdf(){
-  if(!isAdmin){ showToast("PDF डाउनलोड फक्त केंद्रप्रमुख प्रवेशातच उपलब्ध आहे."); return; }
   const area = document.getElementById("printArea");
   let contentHtml = `
     <div class="p-page-head">
@@ -1700,18 +1061,172 @@ function downloadAllSchoolsPdf(){
       <div class="p-sub">केंद्र: ${CENTER_INFO.name}, तालुका: ${CENTER_INFO.taluka}, जिल्हा: ${CENTER_INFO.district}</div>
     </div>
   `;
+  
+  // Sort schools alphabetically for the combined PDF
   let sortedSchools = [...schools].sort((a,b) => a.name.localeCompare(b.name, 'mr'));
+
   for(const s of sortedSchools) {
       contentHtml += buildPrintHtmlForSchool(s);
   }
+
   area.innerHTML = contentHtml;
   showToast("संपूर्ण माहितीचे PDF तयार होत आहे...");
   setTimeout(()=>window.print(), 350);
 }
 
 /* ============================================================
-   UTILS
-   ============================================================ */
+GOOGLE SHEET SYNC & LOCAL STORAGE FALLBACK
+============================================================ */
+const APPS_SCRIPT_CODE = `function doPost(e) {
+  var dataStr = e.postData.contents;
+  var data = JSON.parse(dataStr);
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  
+  // 1. Save raw JSON for multi-device sync
+  var dbSheet = ss.getSheetByName("DB") || ss.insertSheet("DB");
+  dbSheet.getRange("A1").setValue(dataStr);
+  
+  // 2. Save tabular data for easy reading
+  var viewSheet = ss.getSheetByName("Teachers_View") || ss.insertSheet("Teachers_View");
+  viewSheet.clearContents();
+  var headers = ["School UDISE","School Name","Teacher Name","Designation","Mobile","Email","DOB","Gender","Qualification","Category","Appointment Date","Subject", "Leave Month/Year", "Leave From", "Leave To", "EL Total", "EL Taken", "EL Rem", "CL Total", "CL Taken", "CL Rem"];
+  viewSheet.appendRow(headers);
+  
+  data.schools.forEach(function(s){
+    if(s.teachers.length === 0){
+      viewSheet.appendRow([s.udise, s.name, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]);
+    } else {
+      s.teachers.forEach(function(t){
+        viewSheet.appendRow([s.udise, s.name, t.name, t.desig, t.mobile, t.email, t.dob, t.gender, t.qual, t.cat, t.appoint, t.subject, t.leaveMY, t.lFrom, t.lTo, t.elTot, t.elTak, t.elRem, t.clTot, t.clTak, t.clRem]);
+      });
+    }
+  });
+  return ContentService.createTextOutput(JSON.stringify({status:"ok"})).setMimeType(ContentService.MimeType.JSON);
+}
+
+function doGet(e) {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var dbSheet = ss.getSheetByName("DB");
+  var jsonStr = '{"schools":[]}';
+  if(dbSheet) {
+     jsonStr = dbSheet.getRange("A1").getValue() || jsonStr;
+  }
+  return ContentService.createTextOutput(jsonStr).setMimeType(ContentService.MimeType.JSON);
+}`;
+
+function openSettings(){
+  document.getElementById("appsScriptCode").value = APPS_SCRIPT_CODE;
+  document.getElementById("sheetUrl").value = CLOUD_SYNC_URL || "";
+  document.getElementById("settingsMsg").textContent = "";
+  openModal("settingsOverlay");
+}
+
+function copyScript(){
+  const ta = document.getElementById("appsScriptCode");
+  ta.select();
+  document.execCommand("copy");
+  showToast("कोड कॉपी केला");
+}
+
+// Force a manual Sync check from Settings
+async function saveSheetUrlAndSync(){
+  const url = document.getElementById("sheetUrl").value.trim();
+  const msg = document.getElementById("settingsMsg");
+  if(!url){ msg.textContent = "कृपया Web App URL टाका."; return; }
+  
+  CLOUD_SYNC_URL = url;
+  localStorage.setItem("krp-sheet-url-v1", url);
+  msg.textContent = "सिंक करत आहे...";
+  
+  try {
+    const payload = {
+        adminPin: adminPinHash,
+        schools: schools,
+        syncedAt: new Date().toISOString()
+    };
+    await fetch(url, {
+      method:"POST",
+      mode:"no-cors",
+      headers:{"Content-Type":"text/plain;charset=utf-8"},
+      body: JSON.stringify(payload)
+    });
+    msg.style.color = "var(--green)";
+    msg.textContent = "सिंक यशस्वी! Google Sheet मध्ये माहिती जतन झाली आहे.";
+    showToast("Google Sheet सिंक यशस्वी");
+    pullFromSheet();
+  } catch(err) {
+    msg.style.color = "var(--maroon)";
+    msg.textContent = "सिंक करताना अडचण आली. URL तपासा.";
+  }
+}
+
+// Automatically called on startup
+async function pullFromSheet() {
+  if(!CLOUD_SYNC_URL) return;
+  try {
+    document.getElementById("lastSyncLine").textContent = "ढगावरून (Cloud) माहिती घेत आहे...";
+    const res = await fetch(CLOUD_SYNC_URL);
+    if (!res.ok) throw new Error("Network Response was not OK");
+    
+    const data = await res.json();
+    if(data && data.schools && data.schools.length > 0) {
+      // Data found on cloud, overwrite local data!
+      schools = data.schools;
+      if(data.adminPin) adminPinHash = data.adminPin; // This syncs the PIN across devices!
+      
+      // Save backup to LocalStorage
+      localStorage.setItem("krp_schools", JSON.stringify(schools));
+      localStorage.setItem("krp_pin", adminPinHash);
+      
+      document.getElementById("lastSyncLine").textContent = "माहिती अद्ययावत (Cloud Synced)";
+      render();
+    } else if(data && data.schools && data.schools.length === 0) {
+       // Cloud is completely empty. Push local default data up.
+       document.getElementById("lastSyncLine").textContent = "सुरुवातीची माहिती ढगावर जतन करत आहे...";
+       await pushToSheet(); 
+    }
+  } catch (e) {
+    console.warn("Cloud Sync pull failed, using local offline data:", e);
+    document.getElementById("lastSyncLine").textContent = "ऑफलाईन मोड (स्थानिक माहिती)";
+  }
+}
+
+// Automatically called when data is saved/deleted
+async function pushToSheet() {
+  // 1. ALWAYS save to local storage immediately so you never lose data
+  localStorage.setItem("krp_schools", JSON.stringify(schools));
+  localStorage.setItem("krp_pin", adminPinHash);
+
+  if(!CLOUD_SYNC_URL) return;
+  
+  try {
+    document.getElementById("lastSyncLine").textContent = "माहिती ढगावर (Cloud) जतन करत आहे...";
+    const payload = {
+        adminPin: adminPinHash,
+        schools: schools,
+        syncedAt: new Date().toISOString()
+    };
+    
+    // 2. Use no-cors mode to bypass Google Redirect blocking issues
+    await fetch(CLOUD_SYNC_URL, {
+      method: "POST",
+      mode: "no-cors", 
+      headers: {"Content-Type": "text/plain;charset=utf-8"},
+      body: JSON.stringify(payload)
+    });
+    
+    // Since no-cors hides the actual HTTP status, we assume it went through 
+    // unless a hard network crash threw an exception.
+    document.getElementById("lastSyncLine").textContent = "माहिती अद्ययावत (Cloud Synced)";
+  } catch (e) {
+    console.warn("Cloud Sync push failed:", e);
+    document.getElementById("lastSyncLine").textContent = "ऑफलाईन (स्थानिकरित्या जतन केली)";
+  }
+}
+
+/* ============================================================
+UTILS
+============================================================ */
 function formatDate(dateStr) {
   if (!dateStr || dateStr.trim() === "-" || dateStr.trim() === "") return "-";
   const parts = dateStr.split('-');
@@ -1724,20 +1239,32 @@ function escapeHtml(str){
   if(str===undefined || str===null) return "";
   return String(str).replace(/[&<>"']/g, m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
 }
+
 const MARATHI_DIGITS = ["०","१","२","३","४","५","६","७","८","९"];
 function toMarathiNum(n){
   return String(n).split("").map(d=> MARATHI_DIGITS[+d] ?? d).join("");
 }
 
 /* ============================================================
-   INIT
-   ============================================================ */
+INIT
+============================================================ */
 async function init(){
+  // 1. Load from LocalStorage first so the screen isn't empty if offline
+  const localSchools = localStorage.getItem("krp_schools");
+  if(localSchools) {
+      try { schools = JSON.parse(localSchools); } catch(e){}
+  } else {
+      schools = JSON.parse(JSON.stringify(DEFAULT_SCHOOLS));
+  }
+  adminPinHash = localStorage.getItem("krp_pin") || "";
+
   renderAdminArea();
-  await pullFromSheet(); 
-  render(); 
-  startBackgroundSync();
+  render(); // Instantly show data!
+  
+  // 2. Fetch fresh data from Cloud silently in background
+  await pullFromSheet();
 }
+
 init();
 </script>
 </body>
