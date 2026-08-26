@@ -504,7 +504,7 @@ footer.foot{max-width:1100px;margin:0 auto;padding:10px 20px 40px;color:var(--mu
    ============================================================ */
 const CENTER_INFO = { name:"रविवार पेठ", taluka:"अंबाजोगाई", district:"बीड" };
 
-// 1. HARDCODED URL: The code will ONLY use this URL, preventing cache issues.
+// 1. HARDCODED URL: The code will ONLY use this URL, preventing cache and mismatch issues.
 const CLOUD_SYNC_URL = "https://script.google.com/macros/s/AKfycbx4d005w7PJXOnMjhl7xrK2LS41HVtFK4IKpk9aarWCrLlghFbyrZ5ikNxZ3ksFYQyb/exec";
 
 function getValidUrl() {
@@ -1084,7 +1084,7 @@ async function pullFromSheet(isBackgroundPoll) {
     
     // ERROR CATCHER: If the script returns an HTML login page instead of JSON, permissions are wrong.
     if(text && (text.trim().startsWith("<html") || text.trim().startsWith("<!DOCTYPE"))) {
-        throw new Error("Web App Permissions Error: Script requires Google Login. Ensure 'Who has access' is set to 'Anyone'.");
+        throw new Error("Google Login Error: Script requires permission. Ensure 'Who has access' is set to 'Anyone'.");
     }
     
     const data = text ? JSON.parse(text) : {};
@@ -1104,7 +1104,6 @@ async function pullFromSheet(isBackgroundPoll) {
     if(!isBackgroundPoll){
       schools = JSON.parse(JSON.stringify(DEFAULT_SCHOOLS)); 
     }
-    // Print the exact error on the screen
     document.getElementById("lastSyncLine").innerHTML = `<span style="color:#ffb3b3">त्रुटी (Error): ${escapeHtml(e.message)}</span>`;
   }
 }
@@ -1120,17 +1119,23 @@ async function pushToSheet() {
       syncedAt: new Date().toISOString()
     };
     
-    await fetch(url, {
+    const res = await fetch(url, {
       method: "POST",
-      mode: "no-cors", 
+      headers: {
+        // text/plain bypasses Google's strict CORS rules, ensuring data is saved!
+        "Content-Type": "text/plain;charset=utf-8", 
+      },
       body: JSON.stringify(payload)
     });
+    
+    if(!res.ok) throw new Error("Network Response Error");
     
     document.getElementById("lastSyncLine").textContent = "माहिती अद्ययावत (Cloud Synced)";
     
   } catch (e) {
     console.error("Push failed:", e);
     document.getElementById("lastSyncLine").innerHTML = `<span style="color:#ffb3b3">त्रुटी (Error): जतन करण्यात अडचण आली.</span>`;
+    throw e;
   }
 }
 
