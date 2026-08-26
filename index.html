@@ -1665,12 +1665,26 @@ function toMarathiNum(n){
 /* ============================================================
    INIT
    ============================================================ */
+/* ============================================================
+   INIT
+   ============================================================ */
 async function init(){
   renderAdminArea();
-  await pullFromSheet(); 
+  
+  // --- TEMPORARY OVERRIDE: Force push DEFAULT_SCHOOLS to Google Sheet ---
+  document.getElementById("lastSyncLine").textContent = "नवीन डिफॉल्ट माहिती ढगावर जतन करत आहे...";
+  schools = JSON.parse(JSON.stringify(DEFAULT_SCHOOLS));
+  
+  try {
+    await pushToSheet();
+    showToast("डिफॉल्ट शाळांची माहिती यशस्वीरित्या Cloud वर जतन झाली!");
+  } catch(e) {
+    console.error("Force push failed", e);
+  }
+  // ----------------------------------------------------------------------
+  
   render(); 
 }
-init();
 </script>
 </body>
 </html>
