@@ -1662,27 +1662,18 @@ function toMarathiNum(n){
   return String(n).split("").map(d=> MARATHI_DIGITS[+d] ?? d).join("");
 }
 /* ============================================================
-   INIT
+   INIT (Safe Mode - For Regular Use)
    ============================================================ */
 async function init(){
   renderAdminArea();
   
-  // --- TEMPORARY OVERRIDE: पहिल्यांदा डेटा सक्तीने Sheet वर पाठवण्यासाठी ---
-  document.getElementById("lastSyncLine").textContent = "नवीन डिफॉल्ट माहिती ढगावर जतन करत आहे...";
-  schools = JSON.parse(JSON.stringify(DEFAULT_SCHOOLS));
-  
-  try {
-    await pushToSheet();
-    showToast("डिफॉल्ट शाळांची माहिती पहिल्यांदा Cloud वर यशस्वीरित्या जतन झाली!");
-    console.log("Success: Please remove this force-push code now.");
-  } catch(e) {
-    console.error("Force push failed", e);
-    showToast("डेटा जतन करण्यात त्रुटी आली.");
-  }
+  // Sheet वरून डेटा घेणे सुरू करा
+  await pullFromSheet();
   
   render(); 
 }
 init();
+
 
 
 </script>
