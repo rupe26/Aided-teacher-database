@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="mr">
 <head>
@@ -524,6 +523,13 @@ function T(name,desig,mobile,email,dob,gender,qual,cat,appoint,subject){
 }
 
 const DEFAULT_SCHOOLS = [
+  { udise:"27270101612", name:"सी.पी.एस. रविवार पेठ", teachers:[
+    T("उषाताई नारायण चव्हाण","प्राथमिक शिक्षक","9422929990","addeushatai@gmail.com","1970-06-06","स्त्री","HSC / D.Ed","OBC","1997-09-01","-"),
+    T("रेखा सुखदेव बनसोडे","पदवीधर शिक्षक","9767539553","rekha9553bansode@gmail.com","1972-04-13","स्त्री","BA / B.Ed","SC","1992-06-17","समाजशास्त्र"),
+    T("इंद्रजित शिवाजीराव डांगे","प्रभारी मुख्याध्यापक","9403023319","indradange01@gmail.com","1974-01-01","पुरुष","BA / D.Ed","General","1997-09-01","सर्व"),
+    T("रुपेश पांडुरंग लोंढे","केंद्र समन्वयक","7066100281","-","","","-","-","",""),
+    T("पुरुषोत्तम संभाप्पा रुद्राक्ष","विशेष शिक्षक","7588566554","-","","","-","-","","")
+  ]},
   { udise:"27270101620", name:"मिलिया प्रा. शा. अंबा", teachers:[
     T("SHAIKH JAMEEL NAWAB","मुख्याध्यापक","9960454571","-","","","-","-","",""),
     T("Nehal Nisar Maniyar","प्राथमिक शिक्षक","9970066049","nehalshaikhghj@gmail.com","1997-04-10","पुरुष","BSc / D.El.Ed","OBC","2025-01-01","गणित,उर्दू ,इंग्रजी, मराठी, परिसर अभ्यास")
@@ -779,7 +785,7 @@ const DEFAULT_SCHOOLS = [
     T("Vidya Rambhau Kadam","पदवीधर शिक्षक","9766484944","vidyashinde0509@gmail.com","1978-09-05","स्त्री","BA / B.Ed","General","2012-06-15","English"),
     T("Kirtee Krishnarao Bedarkar","पदवीधर शिक्षक","8999033078","kirtigpujari1810@gmail.com","1985-10-18","स्त्री","BA / B.Ed","OBC","2010-07-01","संस्कृत"),
     T("Smita Nilkanthrao Dhawadkar","मुख्याध्यापक","9422069683","smitadhole486@gmail.com","1974-04-29","स्त्री","MA / B.Ed","General","1997-11-11","इंग्रजी"),
-    T("अंजली उमाकांत रेवडकर","पदवीधर शिक्षक","8830861004","asnirmale9412@gmail.com","1971-06-01","स्त्री","MSc / B.P.Ed","General","2001-01-15","श शारीरिक शिक्षण"),
+    T("अंजली उमाकांत रेवडकर","पदवीधर शिक्षक","8830861004","asnirmale9412@gmail.com","1971-06-01","स्त्री","MSc / B.P.Ed","General","2001-01-15","शारीरिक शिक्षण"),
     T("Datta Ramrao Bansode","पदवीधर शिक्षक","9271410849","bansodedatta123@gmail.com","1977-07-27","पुरुष","BA / M.Ed","OBC","2003-10-10","कला शिक्षक")
   ]},
   { udise:"27270101639", name:"नेताजी सुभाष हायस्कूल अंबा", teachers:[
@@ -1477,12 +1483,18 @@ async function deleteCurrentTeacher(){
 }
 
 /* ============================================================
-   GOOGLE SHEET CLOUD SYNC
+   GOOGLE SHEET CLOUD SYNC (WITH ERROR FALLBACK)
    ============================================================ */
 async function pullFromSheet() {
   try {
     document.getElementById("lastSyncLine").textContent = "ढगावरून (Cloud) माहिती घेत आहे...";
     const res = await fetch(CLOUD_SYNC_URL);
+    
+    // Check if network request failed completely
+    if (!res.ok) {
+        throw new Error("Network response was not ok");
+    }
+
     const data = await res.json();
     
     if(data && data.schools && data.schools.length > 0) {
@@ -1491,13 +1503,16 @@ async function pullFromSheet() {
       document.getElementById("lastSyncLine").textContent = "माहिती अद्ययावत (Cloud Synced)";
     } else {
       // Cloud is empty, push default schools to initialize
-      schools = DEFAULT_SCHOOLS;
+      schools = JSON.parse(JSON.stringify(DEFAULT_SCHOOLS));
       document.getElementById("lastSyncLine").textContent = "सुरुवातीची माहिती ढगावर जतन करत आहे...";
       await pushToSheet();
     }
   } catch (e) {
-    document.getElementById("lastSyncLine").textContent = "सर्व्हरशी संपर्क तुटला! (Offline)";
-    alert("ऑनलाइन सर्व्हरशी संपर्क होऊ शकला नाही. इंटरनेट कनेक्शन तपासा.");
+    console.warn("Cloud fetch failed, using local offline default data:", e);
+    // FALLBACK: When Cloud fails, load DEFAULT_SCHOOLS so the page is not empty
+    schools = JSON.parse(JSON.stringify(DEFAULT_SCHOOLS)); 
+    document.getElementById("lastSyncLine").textContent = "सर्व्हरशी संपर्क तुटला! स्थानिक माहिती दाखवत आहे. (Offline Mode)";
+    showToast("ऑनलाइन संपर्क होऊ शकला नाही. ऑफलाइन मोड सुरु.");
   }
 }
 
@@ -1509,15 +1524,19 @@ async function pushToSheet() {
       schools: schools,
       syncedAt: new Date().toISOString()
     };
-    await fetch(CLOUD_SYNC_URL, {
+    const res = await fetch(CLOUD_SYNC_URL, {
       method: "POST",
       headers: {"Content-Type": "text/plain;charset=utf-8"},
       body: JSON.stringify(payload)
     });
+    
+    if (!res.ok) throw new Error("Failed to push");
+
     document.getElementById("lastSyncLine").textContent = "माहिती अद्ययावत (Cloud Synced)";
   } catch (e) {
-    document.getElementById("lastSyncLine").textContent = "जतन करण्यात अडचण आली!";
-    alert("बदल Google Sheet वर जतन करताना त्रुटी आली. कृपया इंटरनेट कनेक्शन तपासा.");
+    console.warn("Push failed:", e);
+    document.getElementById("lastSyncLine").textContent = "जतन करण्यात अडचण आली! (Offline)";
+    alert("बदल Google Sheet वर जतन करताना त्रुटी आली. तुमचे बदल तात्पुरते सेव्ह झाले आहेत, परंतु इंटरनेट/URL तपासा.");
   }
 }
 
@@ -1532,7 +1551,7 @@ async function manualForceSync() {
     showToast("Google Sheet सिंक यशस्वी");
   } catch(err) {
     msg.style.color = "var(--maroon)";
-    msg.textContent = "सिंक करताना अडचण आली. इंटरनेट कनेक्शन तपासा.";
+    msg.textContent = "सिंक करताना अडचण आली. इंटरनेट कनेक्शन किंवा URL तपासा.";
   }
 }
 
@@ -1618,7 +1637,7 @@ function toMarathiNum(n){
 async function init(){
   renderAdminArea();
   await pullFromSheet(); 
-  render();
+  render(); // Now this will ALWAYS render your data (even in Offline Mode)
 }
 init();
 </script>
