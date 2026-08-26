@@ -308,20 +308,20 @@ footer.foot{max-width:1100px;margin:0 auto;padding:10px 20px 40px;color:var(--mu
 /* ---------- Print styles ---------- */
 #printArea{display:none}
 @media print{
-  body > * { display: none !important; }
-  #printArea { display: block !important; background: #fff; width: 100%; }
-  
-  .p-page-head { text-align: center; padding: 14px 0; border-bottom: 2px solid var(--navy); margin-bottom: 14px; }
-  .p-page-head h2 { margin: 0; font-family: 'Tiro Devanagari Marathi', serif; }
-  .p-page-head .p-sub { font-size: .85rem; color: #555; margin-top: 4px; }
-  .p-school { background: var(--navy); color: #fff; padding: 10px 16px; font-weight: 700; margin: 16px 0 10px; border-radius: 4px; page-break-after: avoid; }
-  .p-tcard { border: 1px solid #ccc; border-radius: 6px; padding: 10px 14px; margin-bottom: 10px; break-inside: avoid; }
-  .p-tname { font-weight: 700; color: var(--navy); margin-bottom: 6px; padding-bottom: 4px; border-bottom: 1px solid #eee; }
-  .p-desig { color: var(--gold-d); font-size: .78rem; margin-left: 5px; }
-  .p-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 6px 14px; margin-top: 6px; font-size: .78rem; }
-  .p-grid-item { border: 1px solid #eee; padding: 4px 6px; border-radius: 4px; }
+  body *{visibility:hidden}
+  #printArea, #printArea *{visibility:visible}
+  #printArea{display:block;position:absolute;left:0;top:0;width:100%;padding:0;background:#fff}
+  .p-page-head{text-align:center;padding:14px 0;border-bottom:2px solid var(--navy);margin-bottom:14px}
+  .p-page-head h2{margin:0;font-family:'Tiro Devanagari Marathi',serif}
+  .p-page-head .p-sub{font-size:.85rem;color:#555;margin-top:4px}
+  .p-school{background:var(--navy);color:#fff;padding:10px 16px;font-weight:700;margin:16px 0 10px;border-radius:4px; page-break-after: avoid;}
+  .p-tcard{border:1px solid #ccc;border-radius:6px;padding:10px 14px;margin-bottom:10px; break-inside:avoid;}
+  .p-tname{font-weight:700;color:var(--navy); margin-bottom: 6px; padding-bottom: 4px; border-bottom: 1px solid #eee;}
+  .p-desig{color:var(--gold-d);font-size:.78rem; margin-left: 5px;}
+  .p-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px 14px;margin-top:6px;font-size:.78rem}
+  .p-grid-item {border: 1px solid #eee; padding: 4px 6px; border-radius: 4px;}
   .p-grid-item.full-width { grid-column: 1 / -1; }
-  .p-grid .lbl { color: #777; font-size: .68rem; text-transform: uppercase; }
+  .p-grid .lbl{color:#777;font-size:.68rem;text-transform:uppercase}
 }
 </style>
 </head>
@@ -468,9 +468,9 @@ footer.foot{max-width:1100px;margin:0 auto;padding:10px 20px 40px;color:var(--mu
   <div class="modal wide">
     <div class="modal-head"><h3>क्लाउड सिंक सेटिंग्ज (Cloud Sync)</h3><button class="modal-close" onclick="closeModal('settingsOverlay')">✕</button></div>
     <div class="modal-body">
-      <p class="helptext">या ॲपमधील सर्व माहिती, केंद्रप्रमुख पिन आणि प्रत्येक शाळेचा HM पिन थेट Google Sheet वर साठवला जातो.</p>
+      <p class="helptext">तुमचा Google Apps Script Web App URL खाली पेस्ट करा.</p>
       <div class="field"><label>Google Sheet Web App URL</label>
-        <input id="sheetUrl" value="https://script.google.com/macros/s/AKfycbxAUqX7mWImVTX7m7BQkIAEZucqF4KVGCDXcAOZXR-GfTk--0aXYGRnh1m3f9bYdEo/exec" readonly style="background:#f0f0f0; color:#555">
+        <input id="sheetUrl" placeholder="येथे Web App URL पेस्ट करा" style="background:#fff; color:#333" onchange="updateSyncUrl()">
       </div>
       <div class="error-text" id="settingsMsg"></div>
       <div class="modal-foot">
@@ -506,7 +506,20 @@ footer.foot{max-width:1100px;margin:0 auto;padding:10px 20px 40px;color:var(--mu
    DATA & ONLINE CONFIG
    ============================================================ */
 const CENTER_INFO = { name:"रविवार पेठ", taluka:"अंबाजोगाई", district:"बीड" };
-const CLOUD_SYNC_URL = "https://script.google.com/macros/s/AKfycbxAUqX7mWImVTX7m7BQkIAEZucqF4KVGCDXcAOZXR-GfTk--0aXYGRnh1m3f9bYdEo/exec";
+
+// Dynamic URL loading from local storage (replacing hardcoded URL with your new App Script link)
+let CLOUD_SYNC_URL = localStorage.getItem("cloudSyncUrl") || "https://script.google.com/macros/s/AKfycbx4d005w7PJXOnMjhl7xrK2LS41HVtFK4IKpk9aarWCrLlghFbyrZ5ikNxZ3ksFYQyb/exec";
+
+function updateSyncUrl() {
+  CLOUD_SYNC_URL = document.getElementById("sheetUrl").value.trim();
+  localStorage.setItem("cloudSyncUrl", CLOUD_SYNC_URL);
+  showToast("Sync URL जतन केला!");
+}
+
+// Ensure the input field shows the saved URL when the app loads
+document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("sheetUrl").value = CLOUD_SYNC_URL;
+});
 
 function generateUUID() {
     if (typeof crypto !== 'undefined' && crypto.randomUUID) {
@@ -968,14 +981,8 @@ let currentSchoolIdx = null;
 let editingTeacherId = null;
 let editingSchoolIdx = null; // Index of school being edited (Admin only)
 let sortField = "desig";
-let isOfflineMode = false; // Added to prevent offline saves from wiping the cloud
 
 async function sha256Hex(str){
-  // Fix for local files / HTTP where crypto.subtle is unavailable
-  if (!crypto.subtle) {
-      alert("सुरक्षा त्रुटी: पिन सेट करण्यासाठी ॲप HTTPS किंवा सुरक्षित सर्व्हरवर असणे आवश्यक आहे.");
-      throw new Error("Crypto API not available.");
-  }
   const enc = new TextEncoder().encode(str);
   const buf = await crypto.subtle.digest("SHA-256", enc);
   return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,"0")).join("");
@@ -1272,59 +1279,39 @@ function render(){
   else renderSchoolDetail(currentSchoolIdx);
 }
 
-function renderIndex(filterText) {
+function renderIndex(filterText){
   const root = document.getElementById("viewRoot");
-  const q = (filterText || "").trim().toLowerCase();
-  
-  // Fix for Marathi IME Typing - don't destroy the input container on each keystroke
-  if (!document.getElementById("searchContainer")) {
-    root.innerHTML = `
-      <div class="searchbar" id="searchContainer">
-        <input type="text" id="searchInput" placeholder="शाळेचे नाव किंवा युडायस कोड शोधा…">
-        <div class="count-pill" id="countPill"></div>
-        <div id="adminAddBtnContainer"></div>
-      </div>
-      <div class="register" id="schoolListContainer"></div>
-    `;
-    
-    document.getElementById("searchInput").addEventListener("input", (e) => {
-      updateSchoolList(e.target.value);
-    });
-  }
-
-  // Update Admin button visibility based on auth state
-  const btnContainer = document.getElementById("adminAddBtnContainer");
-  btnContainer.innerHTML = isAdmin ? `<button class="btn solid" onclick="openSchoolModal(null)">+ नवीन शाळा जोडा</button>` : ``;
-
-  // Update just the list
-  updateSchoolList(q);
-}
-
-function updateSchoolList(q) {
-  const listContainer = document.getElementById("schoolListContainer");
-  const pillContainer = document.getElementById("countPill");
-  
-  if (!listContainer || !pillContainer) return;
-
+  const q = (filterText||"").trim().toLowerCase();
   const rows = schools
-    .map((s, i) => ({ s, i }))
-    .filter(({ s }) => !q || s.name.toLowerCase().includes(q) || s.udise.includes(q));
+    .map((s,i)=>({s,i}))
+    .filter(({s})=> !q || s.name.toLowerCase().includes(q) || s.udise.includes(q));
 
-  pillContainer.innerHTML = `एकूण शाळा: ${schools.length} &nbsp;•&nbsp; एकूण शिक्षक: ${schools.reduce((a, s) => a + (s.teachers ? s.teachers.length : 0), 0)}`;
-
-  listContainer.innerHTML = `
-    <div class="reg-head"><div>अ.क्र.</div><div>शाळेचे नाव</div><div>युडायस कोड</div><div>शिक्षक</div><div></div></div>
-    ${rows.map(({ s, i }) => `
-      <div class="reg-row" onclick="openSchool(${i})">
-        <div class="tab-strip"></div>
-        <div class="num">${toMarathiNum(i + 1)}</div>
-        <div class="name">${escapeHtml(s.name)}</div>
-        <div class="udise">${s.udise}</div>
-        <div class="tcount">${s.teachers ? s.teachers.length : 0} शिक्षक</div>
-        <div class="arrow">›</div>
-      </div>
-    `).join("") || `<div class="empty-note">काही सापडले नाही.</div>`}
+  root.innerHTML = `
+    <div class="searchbar">
+      <input type="text" id="searchInput" placeholder="शाळेचे नाव किंवा युडायस कोड शोधा…" value="${filterText? escapeHtml(filterText):""}">
+      <div class="count-pill">एकूण शाळा: ${schools.length} &nbsp;•&nbsp; एकूण शिक्षक: ${schools.reduce((a,s)=>a+(s.teachers?s.teachers.length:0),0)}</div>
+      ${isAdmin ? `<button class="btn solid" onclick="openSchoolModal(null)">+ नवीन शाळा जोडा</button>` : ``}
+    </div>
+    <div class="register">
+      <div class="reg-head"><div>अ.क्र.</div><div>शाळेचे नाव</div><div>युडायस कोड</div><div>शिक्षक</div><div></div></div>
+      ${rows.map(({s,i})=>`
+        <div class="reg-row" onclick="openSchool(${i})">
+          <div class="tab-strip"></div>
+          <div class="num">${toMarathiNum(i+1)}</div>
+          <div class="name">${escapeHtml(s.name)}</div>
+          <div class="udise">${s.udise}</div>
+          <div class="tcount">${s.teachers?s.teachers.length:0} शिक्षक</div>
+          <div class="arrow">›</div>
+        </div>
+      `).join("") || `<div class="empty-note">काही सापडले नाही.</div>`}
+    </div>
   `;
+  const searchInput = document.getElementById("searchInput");
+  if(searchInput){
+      searchInput.addEventListener("input", (e)=>renderIndex(e.target.value));
+      searchInput.focus();
+      if(filterText!==undefined) searchInput.setSelectionRange(searchInput.value.length, searchInput.value.length);
+  }
 }
 
 function openSchool(idx){
@@ -1512,39 +1499,47 @@ async function deleteCurrentTeacher(){
    GOOGLE SHEET CLOUD SYNC (WITH ERROR FALLBACK)
    ============================================================ */
 async function pullFromSheet() {
+  if (!CLOUD_SYNC_URL) {
+      document.getElementById("lastSyncLine").textContent = "Web App URL सेट केलेला नाही. (Offline Mode)";
+      schools = JSON.parse(JSON.stringify(DEFAULT_SCHOOLS));
+      return;
+  }
+
   try {
     document.getElementById("lastSyncLine").textContent = "ढगावरून (Cloud) माहिती घेत आहे...";
     const res = await fetch(CLOUD_SYNC_URL);
     
-    if (!res.ok) throw new Error("Network response was not ok");
+    // Check if network request failed completely
+    if (!res.ok) {
+        throw new Error("Network response was not ok");
+    }
 
     const data = await res.json();
     
     if(data && data.schools && data.schools.length > 0) {
       if(data.adminPin) adminPinHash = data.adminPin;
       schools = data.schools;
-      isOfflineMode = false;
       document.getElementById("lastSyncLine").textContent = "माहिती अद्ययावत (Cloud Synced)";
     } else {
+      // Cloud is empty, push default schools to initialize
       schools = JSON.parse(JSON.stringify(DEFAULT_SCHOOLS));
-      isOfflineMode = false;
       document.getElementById("lastSyncLine").textContent = "सुरुवातीची माहिती ढगावर जतन करत आहे...";
       await pushToSheet();
     }
   } catch (e) {
-    console.warn("Cloud fetch failed:", e);
+    console.warn("Cloud fetch failed, using local offline default data:", e);
+    // FALLBACK: When Cloud fails, load DEFAULT_SCHOOLS so the page is not empty
     schools = JSON.parse(JSON.stringify(DEFAULT_SCHOOLS)); 
-    isOfflineMode = true; // Block future saves to prevent overriding the cloud with old local data
-    document.getElementById("lastSyncLine").innerHTML = "<span style='color:#ffc1c1'>सर्व्हरशी संपर्क तुटला! स्थानिक माहिती दाखवत आहे. (Offline Mode)</span>";
+    document.getElementById("lastSyncLine").textContent = "सर्व्हरशी संपर्क तुटला! स्थानिक माहिती दाखवत आहे. (Offline Mode)";
     showToast("ऑनलाइन संपर्क होऊ शकला नाही. ऑफलाइन मोड सुरु.");
   }
 }
 
 async function pushToSheet() {
-  // Prevent offline local default array from wiping the cloud
-  if (isOfflineMode) {
-      alert("तुम्ही सध्या ऑफलाइन आहात. जुनी माहिती Cloud वर जतन केली गेल्यास नवीन माहिती नष्ट होऊ शकते. कृपया इंटरनेट तपासा आणि पेज रिफ्रेश करा.");
-      throw new Error("Offline mode active. Blocked cloud push.");
+  if (!CLOUD_SYNC_URL) {
+      showToast("कृपया सेटिंग्जमध्ये जाऊन Web App URL सेट करा.");
+      document.getElementById("lastSyncLine").textContent = "URL नाही! (Offline)";
+      return;
   }
 
   document.getElementById("lastSyncLine").textContent = "बदल ऑनलाइन जतन करत आहे...";
@@ -1566,8 +1561,7 @@ async function pushToSheet() {
   } catch (e) {
     console.warn("Push failed:", e);
     document.getElementById("lastSyncLine").textContent = "जतन करण्यात अडचण आली! (Offline)";
-    alert("बदल Google Sheet वर जतन करताना त्रुटी आली. कृपया इंटरनेट/URL तपासा.");
-    throw e; // Important to re-throw so manualForceSync knows it failed
+    alert("बदल Google Sheet वर जतन करताना त्रुटी आली. तुमचे बदल तात्पुरते सेव्ह झाले आहेत, परंतु इंटरनेट/URL तपासा.");
   }
 }
 
@@ -1604,7 +1598,7 @@ function buildPrintHtmlForSchool(s) {
           <div class="p-grid-item"><div class="lbl">पात्रता</div>${escapeHtml(t.qual||"-")}</div>
           <div class="p-grid-item"><div class="lbl">प्रवर्ग</div>${escapeHtml(t.cat||"-")}</div>
           <div class="p-grid-item"><div class="lbl">नियुक्ती</div>${formatDate(t.appoint)}</div>
-          <div class="p-grid-item full-width"><div class="lbl">विषय</div>${escapeHtml(t.subject||"-")}</div>
+          <div class="p-grid-item"><div class="lbl">विषय</div>${escapeHtml(t.subject||"-")}</div>
         </div>
       </div>
     `).join("") || `<div class="p-tcard">या शाळेसाठी शिक्षक माहिती नोंदवलेली नाही.</div>`}
@@ -1661,19 +1655,16 @@ const MARATHI_DIGITS = ["०","१","२","३","४","५","६","७","८","�
 function toMarathiNum(n){
   return String(n).split("").map(d=> MARATHI_DIGITS[+d] ?? d).join("");
 }
+
 /* ============================================================
-   INIT (Safe Mode - For Regular Use)
+   INIT
    ============================================================ */
 async function init(){
   renderAdminArea();
-  
-  // Sheet वरून डेटा घेणे सुरू करा
-  await pullFromSheet();
-  
-  render(); 
+  await pullFromSheet(); 
+  render(); // Now this will ALWAYS render your data (even in Offline Mode)
 }
 init();
-
 </script>
 </body>
 </html>
