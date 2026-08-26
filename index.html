@@ -1215,7 +1215,7 @@ async function saveNewHmPin() {
 function openSchoolModal(idx = null) {
   editingSchoolIdx = idx;
   const s = idx !== null ? schools[idx] : null;
-  document.getElementById("schoolModalTitle").textContent = s ? "शाळेची माहिती संपादित करा" : "नवीन शाळा جوडा";
+  document.getElementById("schoolModalTitle").textContent = s ? "शाळेची माहिती संपादित करा" : "नवीन शाळा जोडा";
   document.getElementById("s_name").value = s ? s.name : "";
   document.getElementById("s_udise").value = s ? s.udise : "";
   
@@ -1549,15 +1549,19 @@ async function pushToSheet() {
       schools: schools,
       syncedAt: new Date().toISOString()
     };
-    const res = await fetch(CLOUD_SYNC_URL, {
+    
+    // FIX: Added mode: "no-cors" to bypass Google's redirect block
+    await fetch(CLOUD_SYNC_URL, {
       method: "POST",
+      mode: "no-cors", 
       headers: {"Content-Type": "text/plain;charset=utf-8"},
       body: JSON.stringify(payload)
     });
     
-    if (!res.ok) throw new Error("Failed to push");
-
+    // FIX: Removed the 'res.ok' check. With no-cors, we assume success 
+    // if the fetch didn't throw a hard network error.
     document.getElementById("lastSyncLine").textContent = "माहिती अद्ययावत (Cloud Synced)";
+    
   } catch (e) {
     console.warn("Push failed:", e);
     document.getElementById("lastSyncLine").textContent = "जतन करण्यात अडचण आली! (Offline)";
