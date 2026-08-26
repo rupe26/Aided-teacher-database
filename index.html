@@ -507,8 +507,11 @@ footer.foot{max-width:1100px;margin:0 auto;padding:10px 20px 40px;color:var(--mu
    ============================================================ */
 const CENTER_INFO = { name:"रविवार पेठ", taluka:"अंबाजोगाई", district:"बीड" };
 
-// Dynamic URL loading from local storage
-let CLOUD_SYNC_URL = localStorage.getItem("cloudSyncUrl") || "https://script.google.com/macros/s/AKfycbx4d005w7PJXOnMjhl7xrK2LS41HVtFK4IKpk9aarWCrLlghFbyrZ5ikNxZ3ksFYQyb/exec";
+// 1. Paste your Google Web App URL between the quotes below before sharing the file!
+const MASTER_SHEET_URL = "https://script.google.com/macros/s/AKfycbx4d005w7PJXOnMjhl7xrK2LS41HVtFK4IKpk9aarWCrLlghFbyrZ5ikNxZ3ksFYQyb/exec";
+
+// 2. The system will use the MASTER_SHEET_URL for all new devices that open this file
+let CLOUD_SYNC_URL = localStorage.getItem("cloudSyncUrl") || MASTER_SHEET_URL;
 
 function getValidUrl() {
     let url = CLOUD_SYNC_URL.trim();
@@ -1684,7 +1687,7 @@ function downloadSchoolPdf(idx){
     </div>
     ${buildPrintHtmlForSchool(s)}
   `;
-  showToast("प्रिंट संवाद उघडत आहे — 'Save as PDF' निवडा");
+  showToast("प्रिंट संवाद उघडत গান্ধ — 'Save as PDF' निवडा");
   setTimeout(()=>window.print(), 250);
 }
 
