@@ -990,6 +990,7 @@ let currentSchoolIdx = null;
 let editingTeacherId = null;
 let editingSchoolIdx = null; // Index of school being edited (Admin only)
 let sortField = "desig";
+let schoolSortField = "name"; // Index page sort: name | udise | tcount
 
 async function sha256Hex(str){
   const enc = new TextEncoder().encode(str);
@@ -1288,25 +1289,48 @@ function render(){
   else renderSchoolDetail(currentSchoolIdx);
 }
 
+function sortSchoolList(list){
+  let sorted = [...list];
+  if(schoolSortField === "name"){
+    sorted.sort((a,b)=> a.s.name.localeCompare(b.s.name, 'mr'));
+  } else if(schoolSortField === "udise"){
+    sorted.sort((a,b)=> String(a.s.udise).localeCompare(String(b.s.udise)));
+  } else if(schoolSortField === "tcount"){
+    sorted.sort((a,b)=> (b.s.teachers?b.s.teachers.length:0) - (a.s.teachers?a.s.teachers.length:0));
+  }
+  return sorted;
+}
+
+function handleSchoolSortChange(e){
+  schoolSortField = e.target.value;
+  renderIndex(document.getElementById("searchInput") ? document.getElementById("searchInput").value : "");
+}
+
 function renderIndex(filterText){
   const root = document.getElementById("viewRoot");
   const q = (filterText||"").trim().toLowerCase();
-  const rows = schools
+  let rows = schools
     .map((s,i)=>({s,i}))
     .filter(({s})=> !q || s.name.toLowerCase().includes(q) || s.udise.includes(q));
+  rows = sortSchoolList(rows);
 
   root.innerHTML = `
     <div class="searchbar">
       <input type="text" id="searchInput" placeholder="शाळेचे नाव किंवा युडायस कोड शोधा…" value="${filterText? escapeHtml(filterText):""}">
+      <select id="schoolSortSelect" onchange="handleSchoolSortChange(event)">
+        <option value="name" ${schoolSortField==='name'?'selected':''}>नावानुसार (अ-ज्ञ)</option>
+        <option value="udise" ${schoolSortField==='udise'?'selected':''}>युडायस कोडनुसार</option>
+        <option value="tcount" ${schoolSortField==='tcount'?'selected':''}>शिक्षक संख्येनुसार</option>
+      </select>
       <div class="count-pill">एकूण शाळा: ${schools.length} &nbsp;•&nbsp; एकूण शिक्षक: ${schools.reduce((a,s)=>a+(s.teachers?s.teachers.length:0),0)}</div>
       ${isAdmin ? `<button class="btn solid" onclick="openSchoolModal(null)">+ नवीन शाळा जोडा</button>` : ``}
     </div>
     <div class="register">
       <div class="reg-head"><div>अ.क्र.</div><div>शाळेचे नाव</div><div>युडायस कोड</div><div>शिक्षक</div><div></div></div>
-      ${rows.map(({s,i})=>`
+      ${rows.map(({s,i},pos)=>`
         <div class="reg-row" onclick="openSchool(${i})">
           <div class="tab-strip"></div>
-          <div class="num">${toMarathiNum(i+1)}</div>
+          <div class="num">${toMarathiNum(pos+1)}</div>
           <div class="name">${escapeHtml(s.name)}</div>
           <div class="udise">${s.udise}</div>
           <div class="tcount">${s.teachers?s.teachers.length:0} शिक्षक</div>
@@ -1396,7 +1420,7 @@ function renderSchoolDetail(idx){
             <option value="appoint" ${sortField==='appoint'?'selected':''}>नियुक्ती दिनांकानुसार</option>
             <option value="dob" ${sortField==='dob'?'selected':''}>जन्मतारखेनुसार</option>
         </select>
-        <button class="btn ghost-light" style="border-color:var(--navy);color:var(--navy);background:#fff" onclick="downloadSchoolPdf(${idx})">⬇ PDF</button>
+        ${isAdmin ? `<button class="btn ghost-light" style="border-color:var(--navy);color:var(--navy);background:#fff" onclick="downloadSchoolPdf(${idx})">⬇ PDF</button>` : ""}
 
         ${canEdit ? `<button class="btn solid" onclick="openTeacherModal(${idx}, null)">+ शिक्षक जोडा</button>` : ""}
         ${canEdit ? `<button class="btn ghost-light small" onclick="openChangeHmPinModal()">HM पिन बदला</button>` : ""}
@@ -1507,17 +1531,25 @@ async function deleteCurrentTeacher(){
 /* ============================================================
    GOOGLE SHEET CLOUD SYNC (WITH ERROR FALLBACK)
    ============================================================ */
-async function pullFromSheet() {
+let __isSyncing = false;
+let __pollTimer = null;
+
+async function pullFromSheet(isBackgroundPoll) {
   if (!CLOUD_SYNC_URL) {
       document.getElementById("lastSyncLine").textContent = "Web App URL सेट केलेला नाही. (Offline Mode)";
-      schools = JSON.parse(JSON.stringify(DEFAULT_SCHOOLS));
+      if(!isBackgroundPoll) schools = JSON.parse(JSON.stringify(DEFAULT_SCHOOLS));
+      return;
+  }
+
+  // Don't let a background poll clobber whatever the user is actively typing in a modal
+  if (isBackgroundPoll && document.querySelector(".overlay.show")) {
       return;
   }
 
   try {
     const url = getValidUrl(); // Fetches sanitized lowercase URL
-    document.getElementById("lastSyncLine").textContent = "ढगावरून (Cloud) माहिती घेत आहे...";
-    const res = await fetch(url);
+    if(!isBackgroundPoll) document.getElementById("lastSyncLine").textContent = "ढगावरून (Cloud) माहिती घेत आहे...";
+    const res = await fetch(url, { cache: "no-store" });
     
     if (!res.ok) {
         throw new Error("HTTP Error " + res.status);
@@ -1530,7 +1562,9 @@ async function pullFromSheet() {
       if(data.adminPin) adminPinHash = data.adminPin;
       schools = data.schools;
       document.getElementById("lastSyncLine").textContent = "माहिती अद्ययावत (Cloud Synced)";
-    } else {
+      // Re-render only if we're not in the middle of the user editing something
+      if(!document.querySelector(".overlay.show")) render();
+    } else if(!isBackgroundPoll) {
       // Cloud is empty, push default schools to initialize
       schools = JSON.parse(JSON.stringify(DEFAULT_SCHOOLS));
       document.getElementById("lastSyncLine").textContent = "सुरुवातीची माहिती ढगावर जतन करत आहे...";
@@ -1538,9 +1572,11 @@ async function pullFromSheet() {
     }
   } catch (e) {
     console.warn("Cloud fetch failed:", e);
-    schools = JSON.parse(JSON.stringify(DEFAULT_SCHOOLS)); 
+    if(!isBackgroundPoll){
+      schools = JSON.parse(JSON.stringify(DEFAULT_SCHOOLS)); 
+      showToast("ऑनलाइन संपर्क होऊ शकला नाही. ऑफलाइन मोड सुरु.");
+    }
     document.getElementById("lastSyncLine").textContent = "सर्व्हरशी संपर्क तुटला! स्थानिक माहिती दाखवत आहे. (Offline Mode)";
-    showToast("ऑनलाइन संपर्क होऊ शकला नाही. ऑफलाइन मोड सुरु.");
   }
 }
 
@@ -1594,6 +1630,24 @@ async function manualForceSync() {
   }
 }
 
+// Keep every open tab/device fresh: poll the sheet quietly in the background
+// so changes made on one device/link show up on all others without a manual refresh.
+function startBackgroundSync(){
+  if(__pollTimer) clearInterval(__pollTimer);
+  __pollTimer = setInterval(async ()=>{
+    if(__isSyncing) return;
+    __isSyncing = true;
+    try{ await pullFromSheet(true); }
+    finally{ __isSyncing = false; }
+  }, 15000); // every 15 seconds
+
+  // Also refresh immediately whenever the tab/app regains focus or comes back online
+  document.addEventListener("visibilitychange", ()=>{
+    if(document.visibilityState === "visible") pullFromSheet(true);
+  });
+  window.addEventListener("online", ()=> pullFromSheet(true));
+}
+
 /* ============================================================
    PDF (PRINT) EXPORT
    ============================================================ */
@@ -1620,6 +1674,7 @@ function buildPrintHtmlForSchool(s) {
 }
 
 function downloadSchoolPdf(idx){
+  if(!isAdmin){ showToast("PDF डाउनलोड फक्त केंद्रप्रमुख प्रवेशातच उपलब्ध आहे."); return; }
   const s = schools[idx];
   const area = document.getElementById("printArea");
   area.innerHTML = `
@@ -1634,6 +1689,7 @@ function downloadSchoolPdf(idx){
 }
 
 function downloadAllSchoolsPdf(){
+  if(!isAdmin){ showToast("PDF डाउनलोड फक्त केंद्रप्रमुख प्रवेशातच उपलब्ध आहे."); return; }
   const area = document.getElementById("printArea");
   let contentHtml = `
     <div class="p-page-head">
@@ -1677,6 +1733,7 @@ async function init(){
   renderAdminArea();
   await pullFromSheet(); 
   render(); 
+  startBackgroundSync();
 }
 init();
 </script>
