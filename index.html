@@ -45,6 +45,7 @@ header.top {
 .btn.danger { background: #fee2e2; color: var(--maroon); border: 1px solid #fca5a5; }
 .btn.success { background: #10b981; color: #fff; border: none; }
 .btn.success:hover { background: #059669; }
+.btn:disabled { opacity: 0.6; cursor: not-allowed; }
 
 /* Main Layout */
 main { max-width: 1000px; margin: 20px auto; padding: 0 15px; padding-bottom: 50px; }
@@ -90,6 +91,10 @@ td.actions { text-align: center; width: 60px; }
 .print-settings .box { flex: 1; min-width: 150px; }
 .print-settings input { width: 100%; padding: 8px; border: 1px solid #93c5fd; border-radius: 4px; font-family: inherit; }
 
+/* Toast */
+#toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #333; color: #fff; padding: 10px 20px; border-radius: 5px; font-size: 0.9rem; opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 1000; }
+#toast.show { opacity: 1; }
+
 /* Print Styles */
 #printArea { display: none; }
 @media print {
@@ -118,7 +123,7 @@ td.actions { text-align: center; width: 60px; }
 <header class="top">
   <div class="title-block">
     <h1>शिक्षण परीषद उपस्थिती प्रपत्र</h1>
-    <p>तालुका: अंबाजोगाई • जिल्हा: बीड (Offline Mode)</p>
+    <p>तालुका: अंबाजोगाई • जिल्हा: बीड (Database Connected)</p>
   </div>
   <div id="authArea"></div>
 </header>
@@ -188,10 +193,11 @@ td.actions { text-align: center; width: 60px; }
 </div>
 
 <div id="printArea"></div>
+<div id="toast"></div>
 
 <script>
 // ==========================================
-// १. GOOGLE SHEET SETTINGS (User URL added)
+// १. GOOGLE APP SCRIPT URL (New Database URL)
 // ==========================================
 const GOOGLE_APP_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzd-1bUwsysozdqPpUF8NBKVPjXOJtV8Iz7cTuc_p_1d-8HK93rHFEfq1_jUbyHZxg/exec"; 
 
@@ -204,7 +210,7 @@ function T(name, desig, mobile, attendance="उपस्थित") {
     return { id: generateUUID(), name, desig, mobile, attendance }; 
 }
 
-const STORAGE_KEY = "shikshanParishad_SyncV1";
+const STORAGE_KEY = "shikshanParishad_CloudDB";
 let schools = [];
 let adminPin = "";
 let isAdmin = false;
@@ -212,7 +218,7 @@ let currentView = "list";
 let currentSchoolIdx = null;
 let editingTeacherId = null;
 
-// ALL DATA (46 Schools and all Teachers)
+// Default Offline Data (Used on first run or if internet fails on first run)
 const DEFAULT_SCHOOLS = [
   { udise:"27270101612", name:"सी.पी.एस. रविवार पेठ", teachers:[
     T("उषाताई नारायण चव्हाण","प्राथमिक शिक्षक","9422929990"), T("रेखा सुखदेव बनसोडे","पदवीधर शिक्षक","9767539553"), T("इंद्रजित शिवाजीराव डांगे","प्रभारी मुख्याध्यापक","9403023319"), T("रुपेश पांडुरंग लोंढे","केंद्र समन्वयक","7066100281"), T("पुरुषोत्तम संभाप्पा रुद्राक्ष","विशेष शिक्षक","7588566554")
@@ -220,18 +226,10 @@ const DEFAULT_SCHOOLS = [
   { udise:"27270101620", name:"मिलिया प्रा. शा. अंबा", teachers:[
     T("SHAIKH JAMEEL NAWAB","मुख्याध्यापक","9960454571"), T("Nehal Nisar Maniyar","प्राथमिक शिक्षक","9970066049")
   ]},
-  { udise:"27270101695", name:"नारायणा वर्ल्ड स्कूल अंबाजोगाई", teachers:[
-    T("Thorat G P","मुख्याध्यापक","8329811192")
-  ]},
-  { udise:"27270103002", name:"कै. दादाराव कराड प्रा. शा. नागझरी", teachers:[
-    T("KARAD RAMRAJE NARAYAN","मुख्याध्यापक","9730035874")
-  ]},
-  { udise:"27270100109", name:"खोलेश्वर जीनियस सीबीएससी स्कूल अंबाजोगाई", teachers:[
-    T("Pratibha Ankush Shinde","मुख्याध्यापक","9975791303")
-  ]},
-  { udise:"27270101688", name:"छत्रपती संभाजी राजे ग्लोबल स्कूल आणि ज्युनियर कॉलेज जोगाईवाडी", teachers:[
-    T("Gangane Shashikala Nagorao","मुख्याध्यापक","8788801400")
-  ]},
+  { udise:"27270101695", name:"नारायणा वर्ल्ड स्कूल अंबाजोगाई", teachers:[ T("Thorat G P","मुख्याध्यापक","8329811192") ]},
+  { udise:"27270103002", name:"कै. दादाराव कराड प्रा. शा. नागझरी", teachers:[ T("KARAD RAMRAJE NARAYAN","मुख्याध्यापक","9730035874") ]},
+  { udise:"27270100109", name:"खोलेश्वर जीनियस सीबीएससी स्कूल अंबाजोगाई", teachers:[ T("Pratibha Ankush Shinde","मुख्याध्यापक","9975791303") ]},
+  { udise:"27270101688", name:"छत्रपती संभाजी राजे ग्लोबल स्कूल आणि ज्युनियर कॉलेज जोगाईवाडी", teachers:[ T("Gangane Shashikala Nagorao","मुख्याध्यापक","8788801400") ]},
   { udise:"27270102405", name:"श्री साई समर्थ प्रा. शा.", teachers:[]},
   { udise:"27270101618", name:"कै. देवराव बालाजी गणगे योगेश्वरी नूतन प्राथमिक विभाग अंबाजोगाई", teachers:[
     T("KHANDERAO BHAGWANRAO NANDGAONKAR","मुख्याध्यापक","9881638496"), T("Ashwini Manik Kharbad","प्राथमिक शिक्षक","7709249627"), T("PAVAN PRADIPRAO PATIL","प्राथमिक शिक्षक","9028560957"), T("अंजली वसंतराव कुलकर्णी","प्राथमिक शिक्षक","9421990674"), T("SHARIF RASHID TAMBOLI","प्राथमिक शिक्षक","9359322719"), T("दीपक ज्ञानोबा गोडसे","प्राथमिक शिक्षक","9421517566"), T("Ashwini Ashok Ekhande","प्राथमिक शिक्षक","9850502233"), T("Kalpana Rameshrao Yannawar","प्राथमिक शिक्षक","7020545468"), T("किरण जयंतराव राऊतमारे","प्राथमिक शिक्षक","9421336873"), T("Shubhangi Bhagwat Chate","प्राथमिक शिक्षक","9960950785"), T("Sarika Hiralal Patange","प्राथमिक शिक्षक","9403510219"), T("Tejaswini Rajabhau Waghchaure","प्राथमिक शिक्षक","9890463667"), T("सचिन अण्णासाहेब अंबाड","प्राथमिक शिक्षक","9028859686"), T("नम्रता वैजिनाथराव पेठे","प्राथमिक शिक्षक","7588817765"), T("विद्या वसंतराव भिसे","प्राथमिक शिक्षक","8275197211"), T("Snehal Ramrao Adde","प्राथमिक शिक्षक","8275476403"), T("स्मिता गंगाधर मंदावाड","प्राथमिक शिक्षक","9518540068"), T("Seema Rangrao Rudre","प्राथमिक शिक्षक","9623261902"), T("मधुकर माधवराव देवकत्ते","प्राथमिक शिक्षक","8605766790"), T("Archana Bharatrao Dhaygude","प्राथमिक शिक्षक","7745832008"), T("प्राजक्ता चिंतामणी गोस्वामी","प्राथमिक शिक्षक","9420391792"), T("मंगल गोपाळराव पतंगे","प्राथमिक शिक्षक","9404029198"), T("Rupali Kalidas Puskar","प्राथमिक शिक्षक","9405817272"), T("स्नेहा हरिहर अप्पा बर्दापुरे","प्राथमिक शिक्षक","8767393335"), T("Hanumant Kerba Inglewad","प्राथमिक शिक्षक","9860687572"), T("Sachin Rohidas Adsule","प्राथमिक शिक्षक","9422999148"), T("शिवहार विनायक ढगे","प्राथमिक शिक्षक","9404202525"), T("संध्या कालिदासराव जोशी","प्राथमिक शिक्षक","9403329717"), T("सीमा बळीराम उनवणे.","प्राथमिक शिक्षक","9923343657"), T("अनिल सुर्यकांत बडे","प्राथमिक शिक्षक","9834971177"), T("Ashok Sakharam Akhade","प्राथमिक शिक्षक","9881351594"), T("Pallavi Ramrao Gangane","प्राथमिक शिक्षक","7020815970"), T("Priyanka Janardhan Dhage","प्राथमिक शिक्षक","9579044588"), T("रविकुमार अर्जुन शिंदे","प्राथमिक शिक्षक","9975111242"), T("Chatrabhuj Ashruba Dhembre","प्राथमिक शिक्षक","8329910027"), T("Amol Vitthalrao Jadhav","प्राथमिक शिक्षक","9960827227"), T("अनंत कमलाकर जोशी","प्राथमिक शिक्षक","9700927777")
@@ -242,60 +240,26 @@ const DEFAULT_SCHOOLS = [
   { udise:"27270101626", name:"खोलेश्वर प्रा. शा. अंबाजोगाई", teachers:[
     T("Shivaji Angad Hendge","मुख्याध्यापक","9421375441"), T("वर्षा लक्ष्मणराव मुंडे","प्राथमिक शिक्षक","9422933231"), T("Sachin Shankarrao Aglave","प्राथमिक शिक्षक","9527753319"), T("Krishna Bhagwan Waghmare","प्राथमिक शिक्षक","9421668499"), T("Parmeshwar Baburao Rathod","प्राथमिक शिक्षक","9423716906"), T("Rajshree Shivraj Bharati","प्राथमिक शिक्षक","9420435340"), T("राजेश विनायक चव्हाण","प्राथमिक शिक्षक","9022276948"), T("मंजुषा अर्जुनराव मुळे","प्राथमिक शिक्षक","7775983947"), T("Mandakini Bajirao Khadke","प्राथमिक शिक्षक","9767134832"), T("Devakbai Uttamrao Kale","प्राथमिक शिक्षक","7057043324"), T("Abhishek Sakharam Rajurkar","प्राथमिक शिक्षक","9421308189"), T("प्रांजली अशोकराव कुलकर्णी","प्राथमिक शिक्षक","8554099083"), T("प्रतिक्षा जनार्धन ढगे","प्राथमिक शिक्षक","9405024718"), T("Santosh Kishan Aade","प्राथमिक शिक्षक","7666064210"), T("श्रीधर गंगाधर चौरे","प्राथमिक शिक्षक","8087272416"), T("मनोज चंद्रकांत बरुरे","प्राथमिक शिक्षक","8275268651"), T("अश्विनी संतोष होट्टे","प्राथमिक शिक्षक","9011333206"), T("ममता भिमराव लांडगे","पदवीधर शिक्षक","9420330033"), T("Kulkarni Priyanka Ade","प्राथमिक शिक्षक","8857840357"), T("Nitin vilas sonvane","प्राथमिक शिक्षक","9527939016"), T("प्रीती भागवत शिंदे","प्राथमिक शिक्षक","9921860252"), T("Kishan Vaijnath Gaikwad","प्राथमिक शिक्षक","9921147298"), T("बालाजी दामोदरराव घोडके","प्राथमिक शिक्षक","9766215385"), T("सुनिता रामधन सोनवणे","पदवीधर शिक्षक","9405100646"), T("पंकज पंडितराव तरवडे","प्राथमिक शिक्षक","9527782728"), T("सोनाताई गोपाळराव कळमगावे","प्राथमिक शिक्षक","9370309588")
   ]},
-  { udise:"27270101628", name:"उर्दू प्रा. शा. रविवार पेठ अंबाजोगाई", teachers:[
-    T("Qureshi Mohammed Ilyasuddin Salimuddin","मुख्याध्यापक","9422742930")
-  ]},
-  { udise:"27270101629", name:"न्यू इंग्लिश प्रा. शा. अंबा", teachers:[
-    T("Mr Bhasme Mahesh Marutirao","मुख्याध्यापक","9403645496"), T("अर्चना अशोकराव काळम","पदवीधर शिक्षक","9766107100")
-  ]},
-  { udise:"27270101633", name:"घाट नागनाथ प्रा. शा. अंबा", teachers:[
-    T("SOLANKE SANDHYA UTTAMRAO","मुख्याध्यापक","8830773269")
-  ]},
-  { udise:"27270101660", name:"श्री व्यंकटेश विद्या मंदिर प्रा. शा. अंबा", teachers:[
-    T("Chaudhari SG","मुख्याध्यापक","8805044747")
-  ]},
-  { udise:"27270105504", name:"सोमेश्वर उर्दू प्राथमिक शाळा पिंपळा धायगुडा अंबाजोगाई", teachers:[
-    T("Pathan Sartaj Khan Razzak Khan","मुख्याध्यापक","9767116668")
-  ]},
-  { udise:"27270100105", name:"जिजाऊ स्कूल भगवानबाबा चौक अंबाजोगाई", teachers:[
-    T("Londhal DA","मुख्याध्यापक","9405247008")
-  ]},
-  { udise:"27270101623", name:"नूरजहाँ उर्दू प्राथमिक शाळा अंबाजोगाई", teachers:[
-    T("FAIZ MOOSA SAYYED","मुख्याध्यापक","9028891469")
-  ]},
-  { udise:"27270101685", name:"सुलावंतीबाई बाळासाहेब शिंदे प्रा. शा. इंग्लिश अंबाजोगाई", teachers:[
-    T("Bade Rekha Subhash","मुख्याध्यापक","9404121272")
-  ]},
+  { udise:"27270101628", name:"उर्दू प्रा. शा. रविवार पेठ अंबाजोगाई", teachers:[ T("Qureshi Mohammed Ilyasuddin Salimuddin","मुख्याध्यापक","9422742930") ]},
+  { udise:"27270101629", name:"न्यू इंग्लिश प्रा. शा. अंबा", teachers:[ T("Mr Bhasme Mahesh Marutirao","मुख्याध्यापक","9403645496"), T("अर्चना अशोकराव काळम","पदवीधर शिक्षक","9766107100") ]},
+  { udise:"27270101633", name:"घाट नागनाथ प्रा. शा. अंबा", teachers:[ T("SOLANKE SANDHYA UTTAMRAO","मुख्याध्यापक","8830773269") ]},
+  { udise:"27270101660", name:"श्री व्यंकटेश विद्या मंदिर प्रा. शा. अंबा", teachers:[ T("Chaudhari SG","मुख्याध्यापक","8805044747") ]},
+  { udise:"27270105504", name:"सोमेश्वर उर्दू प्राथमिक शाळा पिंपळा धायगुडा अंबाजोगाई", teachers:[ T("Pathan Sartaj Khan Razzak Khan","मुख्याध्यापक","9767116668") ]},
+  { udise:"27270100105", name:"जिजाऊ स्कूल भगवानबाबा चौक अंबाजोगाई", teachers:[ T("Londhal DA","मुख्याध्यापक","9405247008") ]},
+  { udise:"27270101623", name:"नूरजहाँ उर्दू प्राथमिक शाळा अंबाजोगाई", teachers:[ T("FAIZ MOOSA SAYYED","मुख्याध्यापक","9028891469") ]},
+  { udise:"27270101685", name:"सुलावंतीबाई बाळासाहेब शिंदे प्रा. शा. इंग्लिश अंबाजोगाई", teachers:[ T("Bade Rekha Subhash","मुख्याध्यापक","9404121272") ]},
   { udise:"27270103802", name:"तुकाराम पाटील प्रा. शा. गिरवली", teachers:[
     T("Gangane Anant Satwaram","मुख्याध्यापक","9421913422"), T("DATTA ARUN PATANKAR","प्राथमिक शिक्षक","9404888852"), T("रोहिणी बाबासाहेब वाघमारे","प्राथमिक शिक्षक","9970861233"), T("शोभा वसंतराव शिंदे","प्राथमिक शिक्षक","9284175003"), T("Asha Sudhakar Ambad","प्राथमिक शिक्षक","7020963796"), T("माधुरी माणिकआप्पा चौंडे","प्राथमिक शिक्षक","9284258189"), T("अमोल प्रतापराव आपेट","पदवीधर शिक्षक","8275706777"), T("Namdev Devidas Munde","पदवीधर शिक्षक","9405961212")
   ]},
-  { udise:"27270103803", name:"जिजाऊ इंटरनॅशनल स्कूल गिरवली (बी)", teachers:[
-    T("Apet S B","मुख्याध्यापक","9422773141")
-  ]},
-  { udise:"27270101669", name:"प्रमोदजी महाजन न्यू इंग्लिश स्कूल", teachers:[
-    T("Dr Yogesh Subhashrao Kulkarni","मुख्याध्यापक","9422745733")
-  ]},
-  { udise:"27270103801", name:"जि.प.हा.स्कू. गिरवली", teachers:[
-    T("Ravindra Deogaonkar","मुख्याध्यापक","9405662166")
-  ]},
-  { udise:"27270100107", name:"मुक्तांगण विद्यालय गिरवली रोड अंबाजोगाई", teachers:[
-    T("Shinde BV","मुख्याध्यापक","9422773141")
-  ]},
-  { udise:"27270100110", name:"विझडम इंग्लिश स्कूल ज्युनियर कॉलेज अंबाजोगाई", teachers:[
-    T("Shaikh Ayesha Kirmani Naseer","मुख्याध्यापक","9403881891")
-  ]},
-  { udise:"27270100111", name:"स्कॉलर्स एज्युकेशन पॅलेस अंबाजोगाई", teachers:[
-    T("PATHAN ARSHAD","मुख्याध्यापक","8380921212")
-  ]},
-  { udise:"27270101654", name:"न्यू विजन इंग्लिश स्कूल अंबाजोगाई", teachers:[
-    T("M Prashant Kumar","मुख्याध्यापक","9665746911")
-  ]},
-  { udise:"27270101690", name:"एरा इंटरनॅशनल स्कूल अंबाजोगाई", teachers:[
-    T("Deshmukh Matin Ghulamrasoolatin","मुख्याध्यापक","9730668387")
-  ]},
-  { udise:"27270103003", name:"सरस्वती पब्लिक स्कूल नागझरी", teachers:[
-    T("RAUT SS","मुख्याध्यापक","9730035872")
-  ]},
+  { udise:"27270103803", name:"जिजाऊ इंटरनॅशनल स्कूल गिरवली (बी)", teachers:[ T("Apet S B","मुख्याध्यापक","9422773141") ]},
+  { udise:"27270101669", name:"प्रमोदजी महाजन न्यू इंग्लिश स्कूल", teachers:[ T("Dr Yogesh Subhashrao Kulkarni","मुख्याध्यापक","9422745733") ]},
+  { udise:"27270103801", name:"जि.प.हा.स्कू. गिरवली", teachers:[ T("Ravindra Deogaonkar","मुख्याध्यापक","9405662166") ]},
+  { udise:"27270100107", name:"मुक्तांगण विद्यालय गिरवली रोड अंबाजोगाई", teachers:[ T("Shinde BV","मुख्याध्यापक","9422773141") ]},
+  { udise:"27270100110", name:"विझडम इंग्लिश स्कूल ज्युनियर कॉलेज अंबाजोगाई", teachers:[ T("Shaikh Ayesha Kirmani Naseer","मुख्याध्यापक","9403881891") ]},
+  { udise:"27270100111", name:"स्कॉलर्स एज्युकेशन पॅलेस अंबाजोगाई", teachers:[ T("PATHAN ARSHAD","मुख्याध्यापक","8380921212") ]},
+  { udise:"27270101654", name:"न्यू विजन इंग्लिश स्कूल अंबाजोगाई", teachers:[ T("M Prashant Kumar","मुख्याध्यापक","9665746911") ]},
+  { udise:"27270101690", name:"एरा इंटरनॅशनल स्कूल अंबाजोगाई", teachers:[ T("Deshmukh Matin Ghulamrasoolatin","मुख्याध्यापक","9730668387") ]},
+  { udise:"27270103003", name:"सरस्वती पब्लिक स्कूल नागझरी", teachers:[ T("RAUT SS","मुख्याध्यापक","9730035872") ]},
   { udise:"27270103702", name:"प्रेषिता इंटरनॅशनल स्कूल आणि ज्युनियर कॉलेज", teachers:[]},
   { udise:"27270101615", name:"डॉ. राम भालचंद्र हायस्कूल अंबाजोगाई", teachers:[
     T("Awad Sunil Premraj","मुख्याध्यापक","9422931408"), T("Purushottam Sunderrao Deshmukh","पदवीधर शिक्षक","9421270702"), T("Rajendra Suresh Kshirsagar","अन्य","9860913543"), T("ढगे बाबु कोडींराम","अन्य","9975902195"), T("शरद अशोकराव पाटील","पदवीधर शिक्षक","8830792550"), T("मनोज उत्तमराव शिंदे","प्राथमिक शिक्षक","9960572878"), T("राजकुमार सुधाकर घुगे","अन्य","9975344607")
@@ -312,18 +276,14 @@ const DEFAULT_SCHOOLS = [
   { udise:"27270101643", name:"खोलेश्वर हायस्कूल अंबाजोगाई", teachers:[
     T("Anantram sundarrao Kople","मुख्याध्यापक","9403571582"), T("Ghuge Laxmi dadarao","पदवीधर शिक्षक","8381045243"), T("kishori Achyutrao Kulkarni","पदवीधर शिक्षक","9322950424"), T("Sapana Balwantrao Dukare","पदवीधर शिक्षक","8308969792"), T("Shilpa Shashikant Selukar","पदवीधर शिक्षक","9975628723"), T("Ramkawar Kashinath Sangale","पदवीधर शिक्षक","9370861461"), T("Anjali Anilrao Deshmukh","पदवीधर शिक्षक","9421271014"), T("Jyoti Madhukar Ghodke","पदवीधर शिक्षक","9763054732"), T("Surekha Kishanrao Kale","पदवीधर शिक्षक","9359928738"), T("Atul Kantrao Mugalikar","पदवीधर शिक्षक","9637334063"), T("मोहिनी ओमकार बर्दापुरे","पदवीधर शिक्षक","9403340328"), T("Kusumavati Marutirao Baderao","प्राथमिक शिक्षक","9975902140"), T("नागेश सुनीलराव देशपांडे","प्राथमिक शिक्षक","7972904776"), T("अक्षय चंद्रकांत धायगुडे","पदवीधर शिक्षक","9665321221"), T("ANIL BHAGWAN RATHOD","प्राथमिक शिक्षक","9822447554"), T("विलास प्रल्हादराव ठाकूर","प्राथमिक शिक्षक","9823960333"), T("महानंदा मुंजाजी मुंडे","पदवीधर शिक्षक","9404636017"), T("SATISH HARIBHAU WANGE","पदवीधर शिक्षक","9623232174"), T("ज्योती किसनराव शिंदे","प्राथमिक शिक्षक","9689562978"), T("विश्वास मार्तंडराव पत्की","पदवीधर शिक्षक","9890077454"), T("प्रेमळ Kaluji खंडागळे","प्राथमिक शिक्षक","9284353758"), T("रोहिणी बालाजी वाघिले","प्राथमिक शिक्षक","7020789227"), T("Vishnu Bapurao Kukar","प्राथमिक शिक्षक","9511293779"), T("ज्ञानेश्वरी साहेबराव नेवल","पदवीधर शिक्षक","9284712871"), T("स्वप्ना शशिकांत सेलूकर","प्राथमिक शिक्षक","9359222274"), T("Anuradha Ashokrao Ranjankar","पदवीधर शिक्षक","7588951973"), T("केदार दिनकर वाघमारे","पदवीधर शिक्षक","9421622609"), T("तेजस्विनी प्रकाशराव सांजेकर","पदवीधर शिक्षक","9850111443"), T("नंदिनी कौस्तुभ कोदरकर","पदवीधर शिक्षक","8788505675"), T("KALE SHRIKANT SOPANRAO","पदवीधर शिक्षक","9970017213"), T("अर्चना बालासाहेब घेवारे","पदवीधर शिक्षक","9021275259"), T("धनंजय चंद्रकांतराव जब्दे","पदवीधर शिक्षक","9423777068"), T("Manoj Jivanrao Karad","पदवीधर शिक्षक","9922223980"), T("वर्षा ज्ञानोबा मुंडे","पदवीधर शिक्षक","7744874422"), T("Umesh Ramkrishna Donge","पदवीधर शिक्षक","9922469768")
   ]},
-  { udise:"27270101648", name:"कै. दादाराव कराड हायस्कूल शेपवाडी", teachers:[
-    T("KARAD RAMRAJE NARAYAN","मुख्याध्यापक","9730035874")
-  ]},
+  { udise:"27270101648", name:"कै. दादाराव कराड हायस्कूल शेपवाडी", teachers:[ T("KARAD RAMRAJE NARAYAN","मुख्याध्यापक","9730035874") ]},
   { udise:"27270102402", name:"सरस्वती हायस्कूल साकुड", teachers:[
     T("Tambade GS","मुख्याध्यापक","7709196103"), T("Balasaheb Trimbak Karad","अन्य","9822571073"), T("Madhuri Ganesh Sonwane","प्राथमिक शिक्षक","8379034095"), T("Kerba Ramdhan Chate","अन्य","7499099512"), T("Deepak Madanrao Gadhave","पदवीधर शिक्षक","9421354184"), T("Bhagwat Baburao Munde","अन्य","9850388674"), T("Vikram Prataprao Solanke","अन्य","9657100571"), T("दिनकर मोहनराव मुंडे","पदवीधर शिक्षक","9822682629"), T("Masud Kalekha Shaikh","पदवीधर शिक्षक","9689876321"), T("Sangita Shivaji Jogdand","प्राथमिक शिक्षक","9960579974")
   ]},
   { udise:"27270102702", name:"वेनगंगा हायस्कूल मांडवा पठाण", teachers:[
     T("Shri Jadhav Rajendra Ramkaran","मुख्याध्यापक","9028987610"), T("Sambhaji Shivajirao DESHMUKH","अन्य","9423872342"), T("Badrinath Baburao Munde","प्राथमिक शिक्षक","9421345863"), T("Vijay Harishchandra Somwanshi","अन्य","9423888381"), T("कविता लक्ष्मणराव इरे","प्राथमिक शिक्षक","9657731918")
   ]},
-  { udise:"27270103202", name:"अल्लाम सिद्दीकी अल. उर्दू हायस्कूल पिंपळा धायगुडा", teachers:[
-    T("Shaikh Nabee Babamiya","मुख्याध्यापक","9850646724")
-  ]},
+  { udise:"27270103202", name:"अल्लाम सिद्दीकी अल. उर्दू हायस्कूल पिंपळा धायगुडा", teachers:[ T("Shaikh Nabee Babamiya","मुख्याध्यापक","9850646724") ]},
   { udise:"27270103302", name:"वसंतराव नाईक विद्यालय वरवटी", teachers:[
     T("MUNDE SS","मुख्याध्यापक","9421277292"), T("Gangadhar Bankati Munde","पदवीधर शिक्षक","9860712574"), T("MANOJ JANARDHANRAO MUNDE","पदवीधर शिक्षक","9730554699"), T("Seema Kondiram Kekan","पदवीधर शिक्षक","9423757122"), T("Sugriv Eknath Neharkar","अन्य","9423477180"), T("Shrihari Amrutrao Kande","पदवीधर शिक्षक","9604830595")
   ]},
@@ -333,24 +293,20 @@ const DEFAULT_SCHOOLS = [
   { udise:"27270101640", name:"मिलिया हायस्कूल अंबा", teachers:[
     T("MOHAMMAD IRSHAD AHMED","मुख्याध्यापक","9284931302"), T("Khushter Sultana Rahmat Ali Syed","प्राथमिक शिक्षक","9881517447"), T("Yousuf Aslam khan Kabeer khan Khan","पदवीधर शिक्षक","9975207845"), T("Faheemuddin . Hameeduddin","अन्य","9372238576"), T("युनूस मूसा सय्यद","पदवीधर शिक्षक","9763106948"), T("Ubed khan Munir khan Pathan","पदवीधर शिक्षक","8275271146"), T("Anzar Shah Ashraf Shah","अन्य","9960139595"), T("Salman khan Sattar Khan","पदवीधर शिक्षक","9527920422"), T("रईस सलीम शेख","प्राथमिक शिक्षक","9423471170"), T("Asma Shaheen Nizamoddin Sayed","प्राथमिक शिक्षक","8668826719"), T("Mudassaroddin Mazharoddin Quazi","पदवीधर शिक्षक","9960688769"), T("Mohammad Abubakar Mohammad Haneef Shaikh","पदवीधर शिक्षक","8888989801"), T("MHOD  MISBAHUDDIN MOHD MOINUDDIN SIDDIQUE","पदवीधर शिक्षक","9423471109"), T("Shakil Nabisab Shaikh","पदवीधर शिक्षक","9922747940"), T("Heena Mohammad Samiuddin Khatib","प्राथमिक शिक्षक","9021947630"), T("MOHAMMAD MOHSIN MOHAMMAD SHAKEEL KACHCHI","अन्य","7507381270"), T("Nasreen Begum Shareef Khan Pathan","प्राथमिक शिक्षक","8766949004"), T("MOHAMMAD ABDUL NADEEM MOHAMMAD ABDUL HALEEM","पदवीधर शिक्षक","9970140788"), T("Mohammad Mukhtadir Gulam Jeelani Shaikh","पदवीधर शिक्षक","9096046607"), T("Parween Fatema Mohd Yonus Mashayek","पदवीधर शिक्षक","7020342267"), T("Yasmeen khanam Asger ali Khan","पदवीधर शिक्षक","9421345513"), T("AHMER MAJED AKBAR SHAIKH","प्राथमिक शिक्षक","7057757575"), T("Mohammad abdul nadeem Hakeem Mohammad","पदवीधर शिक्षक","9860753939"), T("SARWAT AARA TAJUDDIN FAROOQUI","पदवीधर शिक्षक","8788542080"), T("Naziya Parveen Aneesuddin Ansari","अन्य","9561938318"), T("Humera parveen Ahmed Hussain Shaikh","प्राथमिक शिक्षक","9421515458"), T("Mohammad Ishtiyaque Kagzi Ishaque","पदवीधर शिक्षक","8668540737"), T("Ahmed Pasha Gulam Rasul Deshmukh","पदवीधर शिक्षक","8668633865"), T("Humaira Parveen Hameed Khan","प्राथमिक शिक्षक","7744028860"), T("Tareque Mohiuddin Khaled Siddiqui","अन्य","9970544781"), T("Safiya Begum Habeeb Shaikh","पदवीधर शिक्षक","8329261423"), T("Shabana begum Afsar Shaikh","प्राथमिक शिक्षक","8668733276"), T("Mohammad Irshad Abdul Gafoor Shaikh","मुख्याध्यापक","9096642780"), T("Rizwana Begum Abdul Haleem Shaikh","पदवीधर शिक्षक","9309884141"), T("Feroz Akber Shaikh","पदवीधर शिक्षक","9766220751"), T("Mirza Atufa Fatema shafiq Baig","अन्य","7588635427"), T("Afshan Begum Iqbal Ahmad Syed","पदवीधर शिक्षक","9130834030"), T("AHEED MUKHTAR SHAIKH","प्राथमिक शिक्षक","8459100817")
   ]},
-  { udise:"27270101661", name:"श्री व्यंकटेश विद्या मंदिर हायस्कूल अंबा", teachers:[
-    T("Shri KAKADE S B","मुख्याध्यापक","8805044747")
-  ]},
-  { udise:"27270101305", name:"छत्रपती संभाजी राजे ग्लोबल स्कूल जोगाईवाडी", teachers:[
-    T("Gangane Shashikala Nagorao","मुख्याध्यापक","8788801400")
-  ]},
-  { udise:"27270101647", name:"मन्सूर हायस्कूल रविवार पेठ अंबाजोगाई", teachers:[
-    T("SAYYED MERAJ AHMAD MOOSA","मुख्याध्यापक","9822283894")
-  ]},
+  { udise:"27270101661", name:"श्री व्यंकटेश विद्या मंदिर हायस्कूल अंबा", teachers:[ T("Shri KAKADE S B","मुख्याध्यापक","8805044747") ]},
+  { udise:"27270101305", name:"छत्रपती संभाजी राजे ग्लोबल स्कूल जोगाईवाडी", teachers:[ T("Gangane Shashikala Nagorao","मुख्याध्यापक","8788801400") ]},
+  { udise:"27270101647", name:"मन्सूर हायस्कूल रविवार पेठ अंबाजोगाई", teachers:[ T("SAYYED MERAJ AHMAD MOOSA","मुख्याध्यापक","9822283894") ]},
   { udise:"27270101649", name:"सावरकर विद्यालय पिंपळा धायगुडा", teachers:[
     T("Annasaheb Mukundrao Hulge","मुख्याध्यापक","9767801101"), T("दीपक रघुनाथ कराड","प्राथमिक शिक्षक","9881977257"), T("चंद्रकांत संजीवन रोडगे","पदवीधर शिक्षक","9881293787"), T("वसंत किशनराव जळकोटकर","पदवीधर शिक्षक","9119593964")
   ]},
-  { udise:"27270101653", name:"न्यू इंग्लिश हायस्कूल गुरुवार पेठ अंबाजोगाई", teachers:[
-    T("BHASME MM","मुख्याध्यापक","9890038251")
-  ]}
+  { udise:"27270101653", name:"न्यू इंग्लिश हायस्कूल गुरुवार पेठ अंबाजोगाई", teachers:[ T("BHASME MM","मुख्याध्यापक","9890038251") ]}
 ];
 
-function loadData() {
+// ==========================================
+// DATA LOADING (Local First, then Cloud Sync)
+// ==========================================
+async function loadData() {
+    // 1. Load Local
     const raw = localStorage.getItem(STORAGE_KEY);
     if(raw) {
         const data = JSON.parse(raw);
@@ -359,12 +315,39 @@ function loadData() {
     } else {
         schools = JSON.parse(JSON.stringify(DEFAULT_SCHOOLS));
     }
+    initApp(); // Render UI immediately
+
+    // 2. Fetch Latest from Cloud
+    try {
+        const response = await fetch(GOOGLE_APP_SCRIPT_URL + "?t=" + new Date().getTime());
+        const cloudText = await response.text();
+        if(cloudText && cloudText.trim() !== "" && cloudText !== "[]") {
+            const cloudData = JSON.parse(cloudText);
+            if(cloudData.schools && Array.isArray(cloudData.schools)) {
+                schools = cloudData.schools;
+                adminPin = cloudData.pin || "";
+                localStorage.setItem(STORAGE_KEY, JSON.stringify({schools, pin: adminPin}));
+                initApp();
+                showToast("✅ क्लाउडवरून नवीन डेटा अपडेट झाला.");
+            }
+        }
+    } catch(e) {
+        console.log("Cloud load offline/failed. Using local.");
+    }
 }
-function saveData() { localStorage.setItem(STORAGE_KEY, JSON.stringify({ schools, pin: adminPin })); }
+
+function saveData() { 
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ schools, pin: adminPin })); 
+}
 
 // ==========================================
 // UI & AUTH
 // ==========================================
+function showToast(msg) {
+    const t = document.getElementById("toast");
+    t.textContent = msg; t.classList.add("show");
+    setTimeout(() => t.classList.remove("show"), 3000);
+}
 function openModal(id) { document.getElementById(id).classList.add('show'); }
 function closeModal(id) { document.getElementById(id).classList.remove('show'); document.querySelectorAll('.error').forEach(e => e.textContent = ""); }
 const MARATHI_DIGITS = ["०","१","२","३","४","५","६","७","८","९"];
@@ -378,7 +361,7 @@ function renderAuth() {
 function login() {
     const input = document.getElementById("pinInput").value;
     if(input.length < 4) { document.getElementById("loginError").textContent = "४ अंकी पिन आवश्यक!"; return; }
-    if(!adminPin) { adminPin = input; saveData(); } 
+    if(!adminPin) { adminPin = input; saveData(); syncToCloud(null, true); } 
     else if(adminPin !== input) { document.getElementById("loginError").textContent = "चुकीचा पिन!"; return; }
     
     isAdmin = true; closeModal('loginModal'); document.getElementById("pinInput").value = ""; initApp();
@@ -400,7 +383,11 @@ function renderSchoolList(searchQuery = "") {
     let filtered = schools.map((s, i) => ({s, i})).filter(x => x.s.name.includes(searchQuery) || x.s.udise.includes(searchQuery));
 
     let html = `
-      <div class="controls"><input type="text" placeholder="शाळा किंवा युडायस शोधा..." onkeyup="renderSchoolList(this.value)" value="${searchQuery}"></div>
+      <div class="controls">
+        <input type="text" placeholder="शाळा किंवा युडायस शोधा..." onkeyup="renderSchoolList(this.value)" value="${searchQuery}">
+        ${isAdmin ? `<button class="btn success" id="syncBtn1" onclick="syncToCloud(this)">☁️ क्लाउडवर सेव्ह करा</button>
+                     <button class="btn solid" onclick="openSchoolModal(null)">+ नवीन शाळा जोडा</button>` : ``}
+      </div>
       <div class="card table-wrapper">
         <table>
           <thead><tr><th>अ.क्र.</th><th>शाळेचे नाव</th><th>युडायस कोड</th><th>शिक्षक संख्या</th></tr></thead>
@@ -423,8 +410,6 @@ function openSchool(idx) { currentSchoolIdx = idx; currentView = "detail"; initA
 function renderSchoolDetail() {
     const s = schools[currentSchoolIdx];
     const root = document.getElementById("appRoot");
-    
-    // Set default date to today
     const today = new Date().toISOString().split('T')[0];
 
     let html = `
@@ -438,7 +423,7 @@ function renderSchoolDetail() {
             <div class="box"><label>दिनांक:</label><input type="date" id="pDate" value="${today}"></div>
             <div style="display:flex; gap:10px;">
               <button class="btn solid" onclick="printData()">🖨️ PDF / Print</button>
-              ${isAdmin ? `<button class="btn success" id="syncBtn" onclick="syncToSheet()">☁️ Google Sheet वर पाठवा</button>` : ``}
+              ${isAdmin ? `<button class="btn success" id="syncBtn2" onclick="syncToCloud(this)">☁️ क्लाउडवर सेव्ह करा</button>` : ``}
             </div>
         </div>
 
@@ -528,24 +513,41 @@ function deleteTeacher() {
     }
 }
 
-// ==========================================
-// SYNC TO GOOGLE SHEETS
-// ==========================================
-async function syncToSheet() {
-    const s = schools[currentSchoolIdx];
-    const dateStr = document.getElementById("pDate").value;
-    
-    // Prepare Data
-    const payload = {
-        schoolName: s.name,
-        udise: s.udise,
-        date: dateStr,
-        teachers: (s.teachers || []).map(t => ({ name: t.name, desig: t.desig, mobile: t.mobile, attendance: t.attendance || "उपस्थित" }))
-    };
+let tempSchoolIdx = null;
+function openSchoolModal(idx) {
+    tempSchoolIdx = idx;
+    document.getElementById("schoolModalTitle").textContent = idx === null ? "नवीन शाळा जोडा" : "शाळा संपादित करा";
+    document.getElementById("s_name").value = idx === null ? "" : schools[idx].name;
+    document.getElementById("s_udise").value = idx === null ? "" : schools[idx].udise;
+    document.getElementById("btnDeleteSchool").style.display = idx === null ? "none" : "block";
+    openModal("schoolModal");
+}
+function saveSchool() {
+    const name = document.getElementById("s_name").value.trim();
+    const udise = document.getElementById("s_udise").value.trim();
+    if(!name || !udise) { document.getElementById("schoolError").textContent = "नाव आणि युडायस आवश्यक आहे."; return; }
+    if(tempSchoolIdx === null) schools.push({ name, udise, teachers: [] });
+    else { schools[tempSchoolIdx].name = name; schools[tempSchoolIdx].udise = udise; }
+    saveData(); closeModal('schoolModal'); initApp();
+}
+function deleteSchool() {
+    if(confirm("ही शाळा कायमची काढायची आहे का?")) {
+        schools.splice(tempSchoolIdx, 1);
+        saveData(); closeModal('schoolModal'); initApp();
+    }
+}
 
-    const btn = document.getElementById("syncBtn");
-    btn.textContent = "⌛ पाठवत आहे...";
-    btn.disabled = true;
+// ==========================================
+// NEW DB SYNC (Full JSON Backup to Cell A1)
+// ==========================================
+async function syncToCloud(btnElement, quiet = false) {
+    const payload = { schools: schools, pin: adminPin };
+    
+    if(btnElement) {
+        btnElement.dataset.original = btnElement.innerHTML;
+        btnElement.textContent = "⌛ सेव्ह होत आहे...";
+        btnElement.disabled = true;
+    }
 
     try {
         await fetch(GOOGLE_APP_SCRIPT_URL, {
@@ -554,13 +556,14 @@ async function syncToSheet() {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload)
         });
-        // Since no-cors doesn't return readable data, we assume success if no fetch exception.
-        alert("✅ " + s.name + " ची उपस्थिती Google Sheet वर यशस्वीरित्या पाठवली!");
+        if(!quiet) alert("✅ संपूर्ण डेटा Google Sheet (क्लाउड) वर सुरक्षित जतन झाला!");
     } catch(err) {
-        alert("❌ त्रुटी आली. तुमचे इंटरनेट कनेक्शन तपासा.");
+        if(!quiet) alert("❌ त्रुटी आली. तुमचे इंटरनेट कनेक्शन तपासा.");
     } finally {
-        btn.innerHTML = "☁️ Google Sheet वर पाठवा";
-        btn.disabled = false;
+        if(btnElement) {
+            btnElement.innerHTML = btnElement.dataset.original || "☁️ क्लाउडवर सेव्ह करा";
+            btnElement.disabled = false;
+        }
     }
 }
 
@@ -618,7 +621,8 @@ function printData() {
     window.print();
 }
 
-loadData(); initApp();
+// Start App
+loadData(); 
 </script>
 </body>
 </html>
