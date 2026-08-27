@@ -277,16 +277,15 @@ main{max-width:1100px;margin:0 auto;padding:26px 20px 80px}
   outline-offset: 0;
   border-color: var(--gold);
 }
-.field.row2, .field.row3 {
+.field.row2 {
   display: grid;
   gap: 14px;
   border: none;
   padding: 0;
   background: transparent;
+  grid-template-columns: 1fr 1fr;
 }
-.field.row2 { grid-template-columns: 1fr 1fr; }
-.field.row3 { grid-template-columns: 1fr 1fr 1fr; }
-.field.row2 > div, .field.row3 > div {
+.field.row2 > div {
   border: 1px solid #e1dbcc;
   padding: 12px 14px;
   border-radius: 8px;
@@ -308,20 +307,20 @@ footer.foot{max-width:1100px;margin:0 auto;padding:10px 20px 40px;color:var(--mu
 /* ---------- Print styles ---------- */
 #printArea{display:none}
 @media print{
+  @page { size: landscape; margin: 10mm; }
   body *{visibility:hidden}
   #printArea, #printArea *{visibility:visible}
   #printArea{display:block;position:absolute;left:0;top:0;width:100%;padding:0;background:#fff}
-  .p-page-head{text-align:center;padding:14px 0;border-bottom:2px solid var(--navy);margin-bottom:14px}
-  .p-page-head h2{margin:0;font-family:'Tiro Devanagari Marathi',serif}
-  .p-page-head .p-sub{font-size:.85rem;color:#555;margin-top:4px}
-  .p-school{background:var(--navy);color:#fff;padding:10px 16px;font-weight:700;margin:16px 0 10px;border-radius:4px; page-break-after: avoid;}
-  .p-tcard{border:1px solid #ccc;border-radius:6px;padding:10px 14px;margin-bottom:10px; break-inside:avoid;}
-  .p-tname{font-weight:700;color:var(--navy); margin-bottom: 6px; padding-bottom: 4px; border-bottom: 1px solid #eee;}
-  .p-desig{color:var(--gold-d);font-size:.78rem; margin-left: 5px;}
-  .p-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px 14px;margin-top:6px;font-size:.78rem}
-  .p-grid-item {border: 1px solid #eee; padding: 4px 6px; border-radius: 4px;}
-  .p-grid-item.full-width { grid-column: 1 / -1; }
-  .p-grid .lbl{color:#777;font-size:.68rem;text-transform:uppercase}
+  .p-page-head{text-align:center;padding:10px 0;border-bottom:2px solid var(--navy);margin-bottom:14px}
+  .p-page-head h2{margin:0;font-family:'Tiro Devanagari Marathi',serif; font-size:1.5rem;}
+  .p-page-head .p-sub{font-size:.9rem;color:#555;margin-top:4px}
+  .p-school{background:var(--navy);color:#fff;padding:8px 12px;font-weight:700;margin:24px 0 8px;border-radius:4px; page-break-after: avoid; font-size:1.1rem;}
+  
+  /* Table formatting for PDF */
+  .print-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 0.85rem; }
+  .print-table th, .print-table td { border: 1px solid #333; padding: 6px 8px; text-align: left; vertical-align: middle; }
+  .print-table th { background: #f0f0f0 !important; -webkit-print-color-adjust: exact; font-weight: bold; color: var(--navy); }
+  .print-table tr { page-break-inside: avoid; }
 }
 </style>
 </head>
@@ -425,7 +424,7 @@ footer.foot{max-width:1100px;margin:0 auto;padding:10px 20px 40px;color:var(--mu
     <div class="modal-head"><h3 id="teacherModalTitle">शिक्षक माहिती व उपस्थिती</h3><button class="modal-close" onclick="closeModal('teacherOverlay')">✕</button></div>
     <div class="modal-body">
       
-      <!-- New Attendance Fields -->
+      <!-- Attendance Fields -->
       <div class="field row2" style="background:#eef5f0; border-color:#c3dfd0;">
         <div><label style="color:var(--green)">उपस्थिती (Attendance)</label>
           <select id="f_attendance">
@@ -467,23 +466,6 @@ footer.foot{max-width:1100px;margin:0 auto;padding:10px 20px 40px;color:var(--mu
       <div class="field row2">
         <div><label>नियुक्ती तारीख</label><input id="f_appoint" type="date"></div>
         <div><label>विषय</label><input id="f_subject"></div>
-      </div>
-      
-      <!-- Optional Leave Management Fields -->
-      <div class="field row3">
-        <div><label>Leave Month/Year</label><input id="f_leaveMY" placeholder="उदा. 08/2026"></div>
-        <div><label>Leave From</label><input id="f_lFrom" type="date"></div>
-        <div><label>Leave To</label><input id="f_lTo" type="date"></div>
-      </div>
-      <div class="field row3">
-        <div><label>EL Total</label><input id="f_elTot" type="number"></div>
-        <div><label>EL Taken</label><input id="f_elTak" type="number"></div>
-        <div><label>EL Rem</label><input id="f_elRem" type="number"></div>
-      </div>
-      <div class="field row3">
-        <div><label>CL Total</label><input id="f_clTot" type="number"></div>
-        <div><label>CL Taken</label><input id="f_clTak" type="number"></div>
-        <div><label>CL Rem</label><input id="f_clRem" type="number"></div>
       </div>
 
       <div class="error-text" id="teacherError"></div>
@@ -533,11 +515,11 @@ function generateUUID() {
     });
 }
 
-function T(name,desig,mobile,email,dob,gender,qual,cat,appoint,subject, leaveMY="", lFrom="", lTo="", elTot="", elTak="", elRem="", clTot="", clTak="", clRem="", attendance="", attDate=""){
-  return { id: generateUUID(), name,desig,mobile,email,dob,gender,qual,cat,appoint,subject, leaveMY, lFrom, lTo, elTot, elTak, elRem, clTot, clTak, clRem, attendance, attDate };
+function T(name,desig,mobile,email,dob,gender,qual,cat,appoint,subject, attendance="", attDate=""){
+  return { id: generateUUID(), name,desig,mobile,email,dob,gender,qual,cat,appoint,subject, attendance, attDate };
 }
 
-// Complete set of all schools and teachers provided in the prompt
+// Complete set of all schools and teachers
 const DEFAULT_SCHOOLS = [
   { udise:"27270101612", name:"सी.पी.एस. रविवार पेठ", teachers:[
     T("उषाताई नारायण चव्हाण","प्राथमिक शिक्षक","9422929990","addeushatai@gmail.com","1970-06-06","स्त्री","HSC / D.Ed","OBC","1997-09-01","-"),
@@ -1227,7 +1209,7 @@ async function saveNewHmPin() {
 function openSchoolModal(idx = null) {
   editingSchoolIdx = idx;
   const s = idx !== null ? schools[idx] : null;
-  document.getElementById("schoolModalTitle").textContent = s ? "शाळेची माहिती संपादित करा" : "नवीन शाळा जोडा";
+  document.getElementById("schoolModalTitle").textContent = s ? "शाळेची माहिती संपादित करा" : "नवीन शाळा جوडा";
   document.getElementById("s_name").value = s ? s.name : "";
   document.getElementById("s_udise").value = s ? s.udise : "";
   
@@ -1467,17 +1449,6 @@ function teacherCardHtml(schoolIdx, t, canEdit){
       <div class="tcard-grid-item"><span class="lbl">प्रवर्ग</span><p class="val">${escapeHtml(t.cat||"-")}</p></div>
       <div class="tcard-grid-item"><span class="lbl">नियुक्ती</span><p class="val">${formatDate(t.appoint)}</p></div>
       <div class="tcard-grid-item full-width"><span class="lbl">विषय</span><p class="val">${escapeHtml(t.subject||"-")}</p></div>
-      
-      ${t.leaveMY ? `
-      <div class="tcard-grid-item full-width" style="background:#eef5f0; border-color:#c3dfd0; margin-top:8px;">
-        <span class="lbl" style="color:var(--green)">रजा माहिती (${escapeHtml(t.leaveMY)})</span>
-        <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:6px; margin-top:4px;">
-            <div><span class="lbl">कालावधी</span><p class="val" style="font-size:0.8rem">${formatDate(t.lFrom)} ते ${formatDate(t.lTo)}</p></div>
-            <div><span class="lbl">EL (एकूण/घेतलेली/शिल्लक)</span><p class="val" style="font-size:0.8rem">${escapeHtml(t.elTot||0)} / ${escapeHtml(t.elTak||0)} / ${escapeHtml(t.elRem||0)}</p></div>
-            <div><span class="lbl">CL (एकूण/घेतलेली/शिल्लक)</span><p class="val" style="font-size:0.8rem">${escapeHtml(t.clTot||0)} / ${escapeHtml(t.clTak||0)} / ${escapeHtml(t.clRem||0)}</p></div>
-        </div>
-      </div>
-      ` : ''}
     </div>
   </div>`;
 }
@@ -1502,16 +1473,6 @@ function openTeacherModal(schoolIdx, teacherId){
   document.getElementById("f_cat").value = t? t.cat : "";
   document.getElementById("f_appoint").value = t? t.appoint : "";
   document.getElementById("f_subject").value = t? t.subject : "";
-  
-  document.getElementById("f_leaveMY").value = t? (t.leaveMY||"") : "";
-  document.getElementById("f_lFrom").value = t? (t.lFrom||"") : "";
-  document.getElementById("f_lTo").value = t? (t.lTo||"") : "";
-  document.getElementById("f_elTot").value = t? (t.elTot||"") : "";
-  document.getElementById("f_elTak").value = t? (t.elTak||"") : "";
-  document.getElementById("f_elRem").value = t? (t.elRem||"") : "";
-  document.getElementById("f_clTot").value = t? (t.clTot||"") : "";
-  document.getElementById("f_clTak").value = t? (t.clTak||"") : "";
-  document.getElementById("f_clRem").value = t? (t.clRem||"") : "";
 
   document.getElementById("f_attendance").value = t? (t.attendance||"") : "";
   document.getElementById("f_attDate").value = t? (t.attDate||"") : "";
@@ -1539,15 +1500,6 @@ async function saveTeacher(){
     cat: document.getElementById("f_cat").value.trim(),
     appoint: document.getElementById("f_appoint").value,
     subject: document.getElementById("f_subject").value.trim(),
-    leaveMY: document.getElementById("f_leaveMY").value.trim(),
-    lFrom: document.getElementById("f_lFrom").value,
-    lTo: document.getElementById("f_lTo").value,
-    elTot: document.getElementById("f_elTot").value,
-    elTak: document.getElementById("f_elTak").value,
-    elRem: document.getElementById("f_elRem").value,
-    clTot: document.getElementById("f_clTot").value,
-    clTak: document.getElementById("f_clTak").value,
-    clRem: document.getElementById("f_clRem").value,
     attendance: document.getElementById("f_attendance").value,
     attDate: document.getElementById("f_attDate").value
   };
@@ -1617,41 +1569,59 @@ async function saveData() {
 }
 
 /* ============================================================
-   PDF (PRINT) EXPORT
+   PDF (PRINT) EXPORT - TABLE FORMAT
    ============================================================ */
 function buildPrintHtmlForSchool(s) {
   let sortedTeachers = sortTeacherList(s.teachers);
-  return `
-    <div class="p-school">${escapeHtml(s.name)} &nbsp; (युडायस: ${s.udise})</div>
-    ${sortedTeachers.map(t=>`
-      <div class="p-tcard">
-        <div class="p-tname">${escapeHtml(t.name)} <span class="p-desig">(${escapeHtml(t.desig||"")})</span></div>
-        <div class="p-grid">
-          
-          ${t.attendance ? `
-          <div class="p-grid-item full-width" style="font-weight:bold; background:#eee;">
-            <div class="lbl">उपस्थिती / दिनांक</div>${escapeHtml(t.attendance)} &nbsp;|&nbsp; ${formatDate(t.attDate)}
-          </div>
-          ` : ''}
-
-          <div class="p-grid-item"><div class="lbl">मोबाईल</div>${escapeHtml(t.mobile||"-")}</div>
-          <div class="p-grid-item"><div class="lbl">ई-मेल</div>${escapeHtml(t.email||"-")}</div>
-          <div class="p-grid-item"><div class="lbl">जन्मतारीख</div>${formatDate(t.dob)}</div>
-          <div class="p-grid-item"><div class="lbl">लिंग</div>${escapeHtml(t.gender||"-")}</div>
-          <div class="p-grid-item"><div class="lbl">पात्रता</div>${escapeHtml(t.qual||"-")}</div>
-          <div class="p-grid-item"><div class="lbl">प्रवर्ग</div>${escapeHtml(t.cat||"-")}</div>
-          <div class="p-grid-item"><div class="lbl">नियुक्ती</div>${formatDate(t.appoint)}</div>
-          <div class="p-grid-item"><div class="lbl">विषय</div>${escapeHtml(t.subject||"-")}</div>
-          
-          ${t.leaveMY ? `
-          <div class="p-grid-item full-width">
-            <div class="lbl">रजा (${escapeHtml(t.leaveMY)}): ${formatDate(t.lFrom)} ते ${formatDate(t.lTo)} | EL(एकूण/घेतली/शिल्लक): ${escapeHtml(t.elTot||0)}/${escapeHtml(t.elTak||0)}/${escapeHtml(t.elRem||0)} | CL: ${escapeHtml(t.clTot||0)}/${escapeHtml(t.clTak||0)}/${escapeHtml(t.clRem||0)}</div>
-          </div>
-          ` : ''}
-        </div>
-      </div>
-    `).join("") || `<div class="p-tcard">या शाळेसाठी शिक्षक माहिती नोंदवलेली नाही.</div>`}
+  let html = `<div class="p-school">${escapeHtml(s.name)} &nbsp; (युडायस: ${s.udise})</div>`;
+  
+  html += `
+    <table class="print-table">
+      <thead>
+        <tr>
+          <th style="width:4%; text-align:center;">अ.क्र.</th>
+          <th style="width:20%;">शिक्षकाचे नाव</th>
+          <th style="width:12%;">पदनाम</th>
+          <th style="width:10%;">मोबाईल</th>
+          <th style="width:9%;">जन्मतारीख</th>
+          <th style="width:9%;">नियुक्ती</th>
+          <th style="width:12%;">विषय</th>
+          <th style="width:12%;">उपस्थिती व दिनांक</th>
+          <th style="width:12%;">स्वाक्षरी</th>
+        </tr>
+      </thead>
+      <tbody>
   `;
+  
+  if(sortedTeachers.length === 0) {
+    html += `<tr><td colspan="9" style="text-align:center; padding:15px;">या शाळेसाठी शिक्षक माहिती नोंदवलेली नाही.</td></tr>`;
+  } else {
+    sortedTeachers.forEach((t, i) => {
+      let attText = t.attendance ? escapeHtml(t.attendance) : "";
+      let dateText = t.attDate ? formatDate(t.attDate) : "";
+      let attCombined = attText;
+      
+      if(attText && dateText) attCombined += `<br><span style="font-size:0.75rem;color:#555">${dateText}</span>`;
+      else if(dateText) attCombined = dateText;
+
+      html += `
+        <tr>
+          <td style="text-align:center;">${toMarathiNum(i+1)}</td>
+          <td style="font-weight:bold;">${escapeHtml(t.name)}</td>
+          <td>${escapeHtml(t.desig||"-")}</td>
+          <td>${escapeHtml(t.mobile||"-")}</td>
+          <td>${formatDate(t.dob)}</td>
+          <td>${formatDate(t.appoint)}</td>
+          <td>${escapeHtml(t.subject||"-")}</td>
+          <td>${attCombined}</td>
+          <td></td>
+        </tr>
+      `;
+    });
+  }
+  
+  html += `</tbody></table>`;
+  return html;
 }
 
 function downloadSchoolPdf(idx){
@@ -1683,7 +1653,7 @@ function downloadAllSchoolsPdf(){
       contentHtml += buildPrintHtmlForSchool(s);
   }
   area.innerHTML = contentHtml;
-  showToast("संपूर्ण माहितीचे PDF तयार होत গান্ধ्या होत आहे...");
+  showToast("संपूर्ण माहितीचे PDF तयार होत आहे...");
   setTimeout(()=>window.print(), 350);
 }
 
