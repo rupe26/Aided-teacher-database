@@ -45,6 +45,8 @@ header.top {
 .btn.danger { background: #fee2e2; color: var(--maroon); border: 1px solid #fca5a5; }
 .btn.success { background: #10b981; color: #fff; border: none; }
 .btn.success:hover { background: #059669; }
+.btn.dark { background: #334155; color: #fff; border: none; }
+.btn.dark:hover { background: #1e293b; }
 .btn:disabled { opacity: 0.6; cursor: not-allowed; }
 
 /* Main Layout */
@@ -52,7 +54,7 @@ main { max-width: 1000px; margin: 20px auto; padding: 0 15px; padding-bottom: 50
 .card { background: var(--card); padding: 20px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 20px; }
 
 /* Controls */
-.controls { display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; }
+.controls { display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; align-items: center; }
 .controls input { flex: 1; min-width: 200px; padding: 10px; border: 1px solid var(--border); border-radius: 6px; font-size: 1rem; }
 .controls select { padding: 10px; border: 1px solid var(--border); border-radius: 6px; font-size: 1rem; background: #fff; }
 
@@ -104,19 +106,18 @@ td.actions { text-align: center; white-space: nowrap; width: 100px; }
   #printArea, #printArea * { visibility: visible; }
   #printArea { display: block; position: absolute; left: 0; top: 0; width: 100%; background: #fff; padding: 10mm; }
   
-  .print-header { text-align: center; margin-bottom: 20px; border-bottom: 2px solid #000; padding-bottom: 10px; }
-  .print-header h1 { font-size: 22px; margin-bottom: 10px; }
-  .print-meta { display: flex; justify-content: space-between; font-weight: bold; font-size: 14px; }
-  .print-school-name { font-size: 18px; font-weight: bold; margin: 20px 0 10px; background: #f0f0f0; padding: 8px; border: 1px solid #000; }
+  .print-page-block { page-break-after: always; margin-bottom: 30px; }
+  .print-page-block:last-child { page-break-after: avoid; }
   
-  table.print-table { width: 100%; border-collapse: collapse; font-size: 14px; }
-  table.print-table th, table.print-table td { border: 1px solid #000; padding: 8px; text-align: left; vertical-align: middle; }
+  .print-header { text-align: center; margin-bottom: 15px; border-bottom: 2px solid #000; padding-bottom: 10px; }
+  .print-header h1 { font-size: 20px; margin-bottom: 6px; }
+  .print-meta { display: flex; justify-content: space-between; font-weight: bold; font-size: 13px; }
+  .print-school-name { font-size: 16px; font-weight: bold; margin: 15px 0 10px; background: #f0f0f0; padding: 6px; border: 1px solid #000; display: flex; justify-content: space-between; }
+  
+  table.print-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 10px; }
+  table.print-table th, table.print-table td { border: 1px solid #000; padding: 6px 8px; text-align: left; vertical-align: middle; }
   table.print-table th { background: #e2e2e2 !important; -webkit-print-color-adjust: exact; text-align: center; }
-  table.print-table td:nth-child(1) { text-align: center; width: 5%; }
-  table.print-table td:nth-child(2) { width: 35%; }
-  table.print-table td:nth-child(3) { width: 25%; }
-  table.print-table td:nth-child(4) { width: 15%; text-align: center; font-weight: bold; }
-  table.print-table td:nth-child(5) { width: 20%; }
+  table.print-table td.center { text-align: center; }
 }
 </style>
 </head>
@@ -471,8 +472,11 @@ function renderSchoolList(searchQuery = "") {
           <option value="teachers" ${schoolSortBy==='teachers'?'selected':''}>शिक्षक संख्येनुसार</option>
         </select>
         
-        ${isAdmin ? `<button class="btn success" id="syncBtn1" onclick="syncToCloud(this)">☁️ क्लाउडवर सेव्ह करा</button>
-                     <button class="btn solid" onclick="openSchoolModal(null)">+ नवीन शाळा जोडा</button>` : ``}
+        ${isAdmin ? `
+          <button class="btn dark" onclick="printAllSchoolsReport()">📑 सर्व शाळा उपस्थिती अहवाल</button>
+          <button class="btn success" id="syncBtn1" onclick="syncToCloud(this)">☁️ क्लाउडवर सेव्ह करा</button>
+          <button class="btn solid" onclick="openSchoolModal(null)">+ नवीन शाळा जोडा</button>
+        ` : ``}
       </div>
       <div class="card table-wrapper">
         <table>
@@ -665,12 +669,12 @@ async function syncToCloud(btnElement, quiet = false) {
 }
 
 // ==========================================
-// PRINT
+// PRINT (Single School - Sign Sheet)
 // ==========================================
 function printData() {
     const s = schools[currentSchoolIdx];
-    const venue = document.getElementById("pVenue").value || "_______________";
-    const dateInput = document.getElementById("pDate").value;
+    const venue = document.getElementById("pVenue")?.value || "रविवार पेठ, अंबाजोगाई";
+    const dateInput = document.getElementById("pDate")?.value;
     let dateStr = "____/____/२०२___";
     if(dateInput) {
         const d = new Date(dateInput);
@@ -678,42 +682,136 @@ function printData() {
     }
 
     let html = `
+      <div class="print-page-block">
         <div class="print-header">
             <h1>शिक्षण परीषद उपस्थिती प्रपत्र</h1>
             <div class="print-meta"><span>स्थळ: ${venue}</span><span>दिनांक: ${dateStr}</span></div>
         </div>
-        <div class="print-school-name">${s.name} (युडायस: ${s.udise})</div>
+        <div class="print-school-name">
+          <span>${s.name}</span>
+          <span>युडायस: ${s.udise}</span>
+        </div>
         <table class="print-table">
             <thead>
                 <tr>
-                    <th>अ.क्र.</th>
-                    <th>शिक्षकाचे नाव</th>
-                    <th>पदनाम</th>
-                    <th>उपस्थिती</th>
-                    <th>स्वाक्षरी</th>
+                    <th style="width:6%">अ.क्र.</th>
+                    <th style="width:34%">शिक्षकाचे नाव</th>
+                    <th style="width:25%">पदनाम</th>
+                    <th style="width:18%">मोबाईल नंबर</th>
+                    <th style="width:17%">स्वाक्षरी</th>
                 </tr>
             </thead>
             <tbody>
     `;
 
     if (!s.teachers || s.teachers.length === 0) {
-         html += `<tr><td colspan="5" style="text-align:center; padding:15px;">माहिती उपलब्ध नाही.</td></tr>`;
+         html += `<tr><td colspan="5" class="center" style="padding:15px;">माहिती उपलब्ध नाही.</td></tr>`;
     }
 
     (s.teachers || []).forEach((t, i) => {
-        let att = t.attendance || "उपस्थित";
         html += `
             <tr>
-                <td>${toMarathi(i+1)}</td>
+                <td class="center">${toMarathi(i+1)}</td>
                 <td style="font-weight:bold">${t.name}</td>
                 <td>${t.desig}</td>
-                <td>${att}</td>
+                <td class="center">${t.mobile || "-"}</td>
                 <td></td> 
             </tr>
         `;
     });
 
-    html += `</tbody></table>`;
+    html += `</tbody></table></div>`;
+    document.getElementById("printArea").innerHTML = html;
+    window.print();
+}
+
+// ==========================================
+// PRINT (All Schools Combined Attendance Report)
+// ==========================================
+function printAllSchoolsReport() {
+    const today = new Date();
+    const dateStr = `${String(today.getDate()).padStart(2, '0')}/${String(today.getMonth()+1).padStart(2, '0')}/${today.getFullYear()}`;
+    
+    // Overall Stats
+    let totalT = 0, presT = 0, absT = 0, leaveT = 0;
+    schools.forEach(s => {
+        (s.teachers || []).forEach(t => {
+            totalT++;
+            const att = t.attendance || "उपस्थित";
+            if(att === "उपस्थित") presT++;
+            else if(att === "गैरहजर") absT++;
+            else if(att === "रजा") leaveT++;
+        });
+    });
+
+    let html = `
+      <div class="print-page-block">
+        <div class="print-header">
+            <h1>शिक्षण परीषद - सर्व शाळा एकत्रित उपस्थिती अहवाल</h1>
+            <div class="print-meta">
+              <span>तालुका: अंबाजोगाई • जिल्हा: बीड</span>
+              <span>दिनांक: ${dateStr}</span>
+            </div>
+            <div style="font-size:12px; margin-top:8px; font-weight:bold;">
+              एकूण शिक्षक: ${toMarathi(totalT)} | उपस्थित: ${toMarathi(presT)} | गैरहजर: ${toMarathi(absT)} | रजा: ${toMarathi(leaveT)}
+            </div>
+        </div>
+    `;
+
+    schools.forEach((s, sIdx) => {
+        let sPres = 0, sAbs = 0, sLeave = 0;
+        (s.teachers || []).forEach(t => {
+            const att = t.attendance || "उपस्थित";
+            if(att === "उपस्थित") sPres++;
+            else if(att === "गैरहजर") sAbs++;
+            else if(att === "रजा") sLeave++;
+        });
+
+        html += `
+          <div class="print-school-name">
+            <span>${toMarathi(sIdx + 1)}. ${s.name} (UDISE: ${s.udise})</span>
+            <span style="font-size:12px; font-weight:normal;">उपस्थित: <b>${toMarathi(sPres)}</b> | गैरहजर: <b>${toMarathi(sAbs)}</b> | रजा: <b>${toMarathi(sLeave)}</b></span>
+          </div>
+          <table class="print-table">
+            <thead>
+                <tr>
+                    <th style="width:6%">अ.क्र.</th>
+                    <th style="width:30%">शिक्षकाचे नाव</th>
+                    <th style="width:20%">पदनाम</th>
+                    <th style="width:16%">मोबाईल</th>
+                    <th style="width:13%">उपस्थिती</th>
+                    <th style="width:15%">शेरा</th>
+                </tr>
+            </thead>
+            <tbody>
+        `;
+
+        if (!s.teachers || s.teachers.length === 0) {
+            html += `<tr><td colspan="6" class="center" style="padding:10px;">माहिती उपलब्ध नाही.</td></tr>`;
+        } else {
+            s.teachers.forEach((t, i) => {
+                const att = t.attendance || "उपस्थित";
+                let attDisplay = att;
+                if(att === "गैरहजर") attDisplay = `<span style="color:#b91c1c; font-weight:bold;">गैरहजर</span>`;
+                else if(att === "रजा") attDisplay = `<span style="color:#d97706; font-weight:bold;">रजा</span>`;
+                else attDisplay = `<span style="color:#047857; font-weight:bold;">उपस्थित</span>`;
+
+                html += `
+                  <tr>
+                      <td class="center">${toMarathi(i+1)}</td>
+                      <td style="font-weight:600;">${t.name}</td>
+                      <td>${t.desig}</td>
+                      <td class="center">${t.mobile || "-"}</td>
+                      <td class="center">${attDisplay}</td>
+                      <td></td>
+                  </tr>
+                `;
+            });
+        }
+        html += `</tbody></table>`;
+    });
+
+    html += `</div>`;
     document.getElementById("printArea").innerHTML = html;
     window.print();
 }
