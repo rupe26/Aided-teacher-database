@@ -148,6 +148,23 @@ td.actions { text-align: center; white-space: nowrap; width: 100px; }
   </div>
 </div>
 
+<!-- Reset PIN Modal -->
+<div class="overlay" id="resetPinModal">
+  <div class="modal">
+    <div class="modal-head"><h3>प्रशासक पिन बदला (Change PIN)</h3><button class="icon-btn" style="color:#fff" onclick="closeModal('resetPinModal')">✕</button></div>
+    <div class="modal-body">
+      <div class="field"><label>सध्याचा पिन (Current PIN)</label><input type="password" id="currPin" maxlength="4" placeholder="४ अंकी चालू पिन"></div>
+      <div class="field"><label>नवीन पिन (New PIN)</label><input type="password" id="newPin" maxlength="4" placeholder="नवीन ४ अंकी पिन"></div>
+      <div class="field"><label>नवीन पिन पुन्हा टाका (Confirm PIN)</label><input type="password" id="confPin" maxlength="4" placeholder="नवीन पिन पुन्हा टाका"></div>
+      <div class="error" id="resetPinError"></div>
+      <div class="modal-foot">
+        <button class="btn" style="color:var(--navy); border-color:var(--border)" onclick="closeModal('resetPinModal')">रद्द करा</button>
+        <button class="btn solid" onclick="changeAdminPin()">पिन बदला</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- School Modal (Add/Edit) -->
 <div class="overlay" id="schoolModal">
   <div class="modal">
@@ -219,7 +236,7 @@ let currentSchoolIdx = null;
 let editingTeacherId = null;
 let schoolSortBy = "nameAsc"; 
 
-// Default Data (Your 46 Schools)
+// Default Data (46 Schools)
 const DEFAULT_SCHOOLS = [
   { udise:"27270101612", name:"सी.पी.एस. रविवार पेठ", teachers:[
     T("उषाताई नारायण चव्हाण","प्राथमिक शिक्षक","9422929990"), T("रेखा सुखदेव बनसोडे","पदवीधर शिक्षक","9767539553"), T("इंद्रजित शिवाजीराव डांगे","प्रभारी मुख्याध्यापक","9403023319"), T("रुपेश पांडुरंग लोंढे","केंद्र समन्वयक","7066100281"), T("पुरुषोत्तम संभाप्पा रुद्राक्ष","विशेष शिक्षक","7588566554")
@@ -348,14 +365,24 @@ function showToast(msg) {
     setTimeout(() => t.classList.remove("show"), 3000);
 }
 function openModal(id) { document.getElementById(id).classList.add('show'); }
-function closeModal(id) { document.getElementById(id).classList.remove('show'); document.querySelectorAll('.error').forEach(e => e.textContent = ""); }
+function closeModal(id) { 
+    document.getElementById(id).classList.remove('show'); 
+    document.querySelectorAll('.error').forEach(e => e.textContent = ""); 
+}
 const MARATHI_DIGITS = ["०","१","२","३","४","५","६","७","८","९"];
 function toMarathi(n) { return String(n).split("").map(d => MARATHI_DIGITS[+d] ?? d).join(""); }
 
 function renderAuth() {
     const div = document.getElementById("authArea");
-    if (isAdmin) div.innerHTML = `<span style="margin-right:10px;">🟢 ॲडमिन मोड</span> <button class="btn" onclick="logout()">बाहेर पडा</button>`;
-    else div.innerHTML = `<button class="btn solid" onclick="openModal('loginModal')">प्रशासक प्रवेश</button>`;
+    if (isAdmin) {
+        div.innerHTML = `
+          <span style="margin-right:10px;">🟢 ॲडमिन मोड</span>
+          <button class="btn" style="margin-right:6px;" onclick="openResetPinModal()">🔑 पिन बदला</button>
+          <button class="btn" onclick="logout()">बाहेर पडा</button>
+        `;
+    } else {
+        div.innerHTML = `<button class="btn solid" onclick="openModal('loginModal')">प्रशासक प्रवेश</button>`;
+    }
 }
 function login() {
     const input = document.getElementById("pinInput").value;
@@ -366,6 +393,43 @@ function login() {
     isAdmin = true; closeModal('loginModal'); document.getElementById("pinInput").value = ""; initApp();
 }
 function logout() { isAdmin = false; initApp(); }
+
+// ==========================================
+// PIN RESET / CHANGE
+// ==========================================
+function openResetPinModal() {
+    document.getElementById("currPin").value = "";
+    document.getElementById("newPin").value = "";
+    document.getElementById("confPin").value = "";
+    document.getElementById("resetPinError").textContent = "";
+    openModal("resetPinModal");
+}
+
+function changeAdminPin() {
+    const curr = document.getElementById("currPin").value.trim();
+    const newP = document.getElementById("newPin").value.trim();
+    const conf = document.getElementById("confPin").value.trim();
+    const err = document.getElementById("resetPinError");
+
+    if (adminPin && curr !== adminPin) {
+        err.textContent = "सध्याचा पिन चुकीचा आहे!";
+        return;
+    }
+    if (newP.length < 4) {
+        err.textContent = "नवीन पिन किमान ४ अंकी असावा!";
+        return;
+    }
+    if (newP !== conf) {
+        err.textContent = "नवीन पिन आणि कन्फर्म पिन जुळत नाहीत!";
+        return;
+    }
+
+    adminPin = newP;
+    saveData();
+    closeModal("resetPinModal");
+    showToast("✅ प्रशासक पिन यशस्वीरित्या बदलला!");
+    syncToCloud(null, true);
+}
 
 // ==========================================
 // RENDER LOGIC
@@ -389,7 +453,7 @@ function renderSchoolList(searchQuery = "") {
         .filter(x => x.s.name.includes(searchQuery) || x.s.udise.includes(searchQuery));
 
     filtered.sort((a, b) => {
-        if (schoolSortBy === "nameAsc") return a.s.name.localeCompare(b.s.name, 'mr');
+        if (schoolSortBy === "nameAsc") return a.s.name.localeCompare(a.s.name, 'mr');
         if (schoolSortBy === "nameDesc") return b.s.name.localeCompare(a.s.name, 'mr');
         if (schoolSortBy === "udise") return String(a.s.udise).localeCompare(String(b.s.udise));
         if (schoolSortBy === "teachers") return (b.s.teachers?.length || 0) - (a.s.teachers?.length || 0);
