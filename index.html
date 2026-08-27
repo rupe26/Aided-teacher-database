@@ -268,11 +268,12 @@ const STORAGE_KEY = "shikshanParishad_CloudDB";
 let schools = [];
 let adminPin = "";
 let isAdmin = false;
-let loggedInHMSchoolUdise = null; // Stores UDISE of school where HM is logged in
+let loggedInHMSchoolUdise = null;
 let currentView = "list"; 
 let currentSchoolIdx = null;
 let editingTeacherId = null;
 let schoolSortBy = "nameAsc"; 
+let teacherSortBy = "default"; // Sorting state for teachers
 
 // Default Data (46 Schools)
 const DEFAULT_SCHOOLS = [
@@ -566,6 +567,11 @@ function changeSort(val) {
     initApp();
 }
 
+function changeTeacherSort(val) {
+    teacherSortBy = val;
+    renderSchoolDetail();
+}
+
 function renderSchoolList(searchQuery = "") {
     currentView = "list";
     const root = document.getElementById("appRoot");
@@ -622,7 +628,29 @@ function renderSchoolList(searchQuery = "") {
     root.innerHTML = html;
 }
 
-function openSchool(idx) { currentSchoolIdx = idx; currentView = "detail"; initApp(); }
+function openSchool(idx) { 
+    currentSchoolIdx = idx; 
+    teacherSortBy = "default";
+    currentView = "detail"; 
+    initApp(); 
+}
+
+function getSortedTeachers(teachersList) {
+    if(!teachersList) return [];
+    let list = [...teachersList];
+
+    if (teacherSortBy === "nameAsc") {
+        list.sort((a, b) => (a.name || "").localeCompare(b.name || "", 'mr'));
+    } else if (teacherSortBy === "nameDesc") {
+        list.sort((a, b) => (b.name || "").localeCompare(a.name || "", 'mr'));
+    } else if (teacherSortBy === "desig") {
+        list.sort((a, b) => (a.desig || "").localeCompare(b.desig || "", 'mr'));
+    } else if (teacherSortBy === "att") {
+        const order = { "उपस्थित": 1, "गैरहजर": 2, "रजा": 3 };
+        list.sort((a, b) => (order[a.attendance || "उपस्थित"] || 9) - (order[b.attendance || "उपस्थित"] || 9));
+    }
+    return list;
+}
 
 function renderSchoolDetail() {
     const s = schools[currentSchoolIdx];
@@ -644,6 +672,8 @@ function renderSchoolDetail() {
         hmAuthSection = `<button class="btn hm" onclick="openHMLoginModal()">🔐 HM लॉगिन (शिक्षकांची माहिती बदला)</button>`;
     }
 
+    let sortedTeachers = getSortedTeachers(s.teachers);
+
     let html = `
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:10px;">
         <button class="btn" style="color:var(--navy); border:none; padding:0; font-weight:bold" onclick="currentView='list'; initApp()">← सर्व शाळा यादीकडे जा</button>
@@ -663,7 +693,17 @@ function renderSchoolDetail() {
             </div>
         </div>
 
-        <div class="controls" style="justify-content: flex-end;">
+        <div class="controls" style="justify-content: space-between;">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <label style="font-weight:600; font-size:0.9rem; color:var(--navy);">शिक्षक क्रमवारी (Sort):</label>
+            <select onchange="changeTeacherSort(this.value)">
+              <option value="default" ${teacherSortBy==='default'?'selected':''}>मूळ क्रम (Default)</option>
+              <option value="nameAsc" ${teacherSortBy==='nameAsc'?'selected':''}>नावानुसार (अ-ज्ञ)</option>
+              <option value="nameDesc" ${teacherSortBy==='nameDesc'?'selected':''}>नावानुसार (ज्ञ-अ)</option>
+              <option value="desig" ${teacherSortBy==='desig'?'selected':''}>पदनामानुसार</option>
+              <option value="att" ${teacherSortBy==='att'?'selected':''}>उपस्थितीनुसार</option>
+            </select>
+          </div>
           ${canEdit ? `<button class="btn solid" onclick="openTeacherModal(null)">+ नवीन शिक्षक जोडा</button>` : ``}
         </div>
         
@@ -682,11 +722,11 @@ function renderSchoolDetail() {
             <tbody>
     `;
 
-    if(!s.teachers || s.teachers.length === 0) {
+    if(!sortedTeachers || sortedTeachers.length === 0) {
         html += `<tr><td colspan="${canEdit ? 6 : 5}" style="text-align:center; padding:20px;">शिक्षक माहिती उपलब्ध नाही.</td></tr>`;
     }
 
-    (s.teachers || []).forEach((t, i) => {
+    sortedTeachers.forEach((t, i) => {
         let att = t.attendance || "उपस्थित";
         let attClass = att === "उपस्थित" ? "att-present" : (att === "गैरहजर" ? "att-absent" : "att-leave");
         
@@ -843,6 +883,8 @@ function printData() {
         dateStr = `${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth()+1).padStart(2, '0')}/${d.getFullYear()}`;
     }
 
+    const sortedTeachers = getSortedTeachers(s.teachers);
+
     let html = `
       <div class="print-page-block">
         <div class="print-header">
@@ -866,11 +908,11 @@ function printData() {
             <tbody>
     `;
 
-    if (!s.teachers || s.teachers.length === 0) {
+    if (!sortedTeachers || sortedTeachers.length === 0) {
          html += `<tr><td colspan="5" class="center" style="padding:15px;">माहिती उपलब्ध नाही.</td></tr>`;
     }
 
-    (s.teachers || []).forEach((t, i) => {
+    sortedTeachers.forEach((t, i) => {
         html += `
             <tr>
                 <td class="center">${toMarathi(i+1)}</td>
@@ -950,7 +992,8 @@ function printAllSchoolsReport() {
         if (!s.teachers || s.teachers.length === 0) {
             html += `<tr><td colspan="6" class="center" style="padding:10px;">माहिती उपलब्ध नाही.</td></tr>`;
         } else {
-            s.teachers.forEach((t, i) => {
+            const sortedTeachers = getSortedTeachers(s.teachers);
+            sortedTeachers.forEach((t, i) => {
                 const att = t.attendance || "उपस्थित";
                 let attDisplay = att;
                 if(att === "गैरहजर") attDisplay = `<span style="color:#b91c1c; font-weight:bold;">गैरहजर</span>`;
