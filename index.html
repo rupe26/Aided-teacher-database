@@ -54,6 +54,7 @@ main { max-width: 1000px; margin: 20px auto; padding: 0 15px; padding-bottom: 50
 /* Controls */
 .controls { display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; }
 .controls input { flex: 1; min-width: 200px; padding: 10px; border: 1px solid var(--border); border-radius: 6px; font-size: 1rem; }
+.controls select { padding: 10px; border: 1px solid var(--border); border-radius: 6px; font-size: 1rem; background: #fff; }
 
 /* Tables */
 .table-wrapper { overflow-x: auto; }
@@ -61,8 +62,9 @@ table { width: 100%; border-collapse: collapse; min-width: 600px; }
 th, td { border: 1px solid var(--border); padding: 10px 12px; text-align: left; font-size: 0.95rem; }
 th { background: #f8fafc; font-weight: 600; color: var(--navy); }
 tr:hover { background: #f1f5f9; }
-td.actions { text-align: center; width: 60px; }
-.icon-btn { background: none; border: none; font-size: 1.1rem; color: var(--navy); padding: 4px; }
+td.actions { text-align: center; white-space: nowrap; width: 100px; }
+.icon-btn { background: none; border: none; font-size: 1.1rem; color: var(--navy); padding: 4px; cursor: pointer; }
+.icon-btn.del { color: var(--maroon); margin-left: 8px; }
 
 /* Dropdown styling */
 .att-select { padding: 6px; border-radius: 4px; border: 1px solid var(--border); font-family: inherit; font-size: 0.9rem; background: #fff;}
@@ -146,7 +148,7 @@ td.actions { text-align: center; width: 60px; }
   </div>
 </div>
 
-<!-- School Modal -->
+<!-- School Modal (Add/Edit) -->
 <div class="overlay" id="schoolModal">
   <div class="modal">
     <div class="modal-head"><h3 id="schoolModalTitle">नवीन शाळा</h3><button class="icon-btn" style="color:#fff" onclick="closeModal('schoolModal')">✕</button></div>
@@ -155,7 +157,6 @@ td.actions { text-align: center; width: 60px; }
       <div class="field"><label>युडायस कोड (UDISE)</label><input type="number" id="s_udise"></div>
       <div class="error" id="schoolError"></div>
       <div class="modal-foot">
-        <button class="btn danger" id="btnDeleteSchool" style="margin-right:auto" onclick="deleteSchool()">शाळा काढा</button>
         <button class="btn" style="color:var(--navy); border-color:var(--border)" onclick="closeModal('schoolModal')">रद्द करा</button>
         <button class="btn solid" onclick="saveSchool()">जतन करा</button>
       </div>
@@ -197,10 +198,9 @@ td.actions { text-align: center; width: 60px; }
 
 <script>
 // ==========================================
-// १. GOOGLE APP SCRIPT URL (New Database URL)
+// १. GOOGLE APP SCRIPT URL (Database URL)
 // ==========================================
 const GOOGLE_APP_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzd-1bUwsysozdqPpUF8NBKVPjXOJtV8Iz7cTuc_p_1d-8HK93rHFEfq1_jUbyHZxg/exec"; 
-
 
 // ==========================================
 // DATA MODEL
@@ -217,8 +217,9 @@ let isAdmin = false;
 let currentView = "list"; 
 let currentSchoolIdx = null;
 let editingTeacherId = null;
+let schoolSortBy = "nameAsc"; 
 
-// Default Offline Data (Used on first run or if internet fails on first run)
+// Default Data (Your 46 Schools)
 const DEFAULT_SCHOOLS = [
   { udise:"27270101612", name:"सी.पी.एस. रविवार पेठ", teachers:[
     T("उषाताई नारायण चव्हाण","प्राथमिक शिक्षक","9422929990"), T("रेखा सुखदेव बनसोडे","पदवीधर शिक्षक","9767539553"), T("इंद्रजित शिवाजीराव डांगे","प्रभारी मुख्याध्यापक","9403023319"), T("रुपेश पांडुरंग लोंढे","केंद्र समन्वयक","7066100281"), T("पुरुषोत्तम संभाप्पा रुद्राक्ष","विशेष शिक्षक","7588566554")
@@ -303,10 +304,9 @@ const DEFAULT_SCHOOLS = [
 ];
 
 // ==========================================
-// DATA LOADING (Local First, then Cloud Sync)
+// DATA LOADING
 // ==========================================
 async function loadData() {
-    // 1. Load Local
     const raw = localStorage.getItem(STORAGE_KEY);
     if(raw) {
         const data = JSON.parse(raw);
@@ -315,9 +315,8 @@ async function loadData() {
     } else {
         schools = JSON.parse(JSON.stringify(DEFAULT_SCHOOLS));
     }
-    initApp(); // Render UI immediately
+    initApp();
 
-    // 2. Fetch Latest from Cloud
     try {
         const response = await fetch(GOOGLE_APP_SCRIPT_URL + "?t=" + new Date().getTime());
         const cloudText = await response.text();
@@ -332,7 +331,7 @@ async function loadData() {
             }
         }
     } catch(e) {
-        console.log("Cloud load offline/failed. Using local.");
+        console.log("Cloud load offline/failed.");
     }
 }
 
@@ -373,32 +372,62 @@ function logout() { isAdmin = false; initApp(); }
 // ==========================================
 function initApp() {
     renderAuth();
-    if (currentView === "list") renderSchoolList();
+    if (currentView === "list") renderSchoolList(document.getElementById("searchInput")?.value || "");
     else renderSchoolDetail();
+}
+
+function changeSort(val) {
+    schoolSortBy = val;
+    initApp();
 }
 
 function renderSchoolList(searchQuery = "") {
     currentView = "list";
     const root = document.getElementById("appRoot");
-    let filtered = schools.map((s, i) => ({s, i})).filter(x => x.s.name.includes(searchQuery) || x.s.udise.includes(searchQuery));
+    
+    let filtered = schools.map((s, i) => ({s, i}))
+        .filter(x => x.s.name.includes(searchQuery) || x.s.udise.includes(searchQuery));
+
+    filtered.sort((a, b) => {
+        if (schoolSortBy === "nameAsc") return a.s.name.localeCompare(b.s.name, 'mr');
+        if (schoolSortBy === "nameDesc") return b.s.name.localeCompare(a.s.name, 'mr');
+        if (schoolSortBy === "udise") return String(a.s.udise).localeCompare(String(b.s.udise));
+        if (schoolSortBy === "teachers") return (b.s.teachers?.length || 0) - (a.s.teachers?.length || 0);
+        return 0;
+    });
 
     let html = `
       <div class="controls">
-        <input type="text" placeholder="शाळा किंवा युडायस शोधा..." onkeyup="renderSchoolList(this.value)" value="${searchQuery}">
+        <input type="text" id="searchInput" placeholder="शाळा किंवा युडायस शोधा..." onkeyup="renderSchoolList(this.value)" value="${searchQuery}">
+        
+        <select onchange="changeSort(this.value)">
+          <option value="nameAsc" ${schoolSortBy==='nameAsc'?'selected':''}>नावानुसार (अ-ज्ञ)</option>
+          <option value="nameDesc" ${schoolSortBy==='nameDesc'?'selected':''}>नावानुसार (ज्ञ-अ)</option>
+          <option value="udise" ${schoolSortBy==='udise'?'selected':''}>युडायस कोडनुसार</option>
+          <option value="teachers" ${schoolSortBy==='teachers'?'selected':''}>शिक्षक संख्येनुसार</option>
+        </select>
+        
         ${isAdmin ? `<button class="btn success" id="syncBtn1" onclick="syncToCloud(this)">☁️ क्लाउडवर सेव्ह करा</button>
                      <button class="btn solid" onclick="openSchoolModal(null)">+ नवीन शाळा जोडा</button>` : ``}
       </div>
       <div class="card table-wrapper">
         <table>
-          <thead><tr><th>अ.क्र.</th><th>शाळेचे नाव</th><th>युडायस कोड</th><th>शिक्षक संख्या</th></tr></thead>
+          <thead><tr><th>अ.क्र.</th><th>शाळेचे नाव</th><th>युडायस कोड</th><th>शिक्षक संख्या</th>${isAdmin ? '<th style="text-align:center">कृती</th>' : ''}</tr></thead>
           <tbody>
     `;
-    if(filtered.length === 0) html += `<tr><td colspan="4" style="text-align:center">माहिती उपलब्ध नाही</td></tr>`;
+    if(filtered.length === 0) html += `<tr><td colspan="${isAdmin?5:4}" style="text-align:center">माहिती उपलब्ध नाही</td></tr>`;
     
     filtered.forEach((item, idx) => {
-        html += `<tr onclick="openSchool(${item.i})">
-            <td>${toMarathi(idx + 1)}</td><td style="font-weight:bold; color:var(--navy)">${item.s.name}</td>
-            <td>${item.s.udise}</td><td>${toMarathi(item.s.teachers ? item.s.teachers.length : 0)}</td>
+        html += `<tr onclick="if(!event.target.closest('.actions-cell')) openSchool(${item.i})">
+            <td>${toMarathi(idx + 1)}</td>
+            <td style="font-weight:bold; color:var(--navy)">${item.s.name}</td>
+            <td>${item.s.udise}</td>
+            <td>${toMarathi(item.s.teachers ? item.s.teachers.length : 0)}</td>
+            ${isAdmin ? `
+              <td class="actions actions-cell">
+                <button class="icon-btn" title="संपादित करा" onclick="openSchoolModal(${item.i})">✎</button>
+                <button class="icon-btn del" title="शाळा डिलीट करा" onclick="deleteSchoolDirect(${item.i})">🗑️</button>
+              </td>` : ''}
           </tr>`;
     });
     html += `</tbody></table></div>`;
@@ -519,7 +548,6 @@ function openSchoolModal(idx) {
     document.getElementById("schoolModalTitle").textContent = idx === null ? "नवीन शाळा जोडा" : "शाळा संपादित करा";
     document.getElementById("s_name").value = idx === null ? "" : schools[idx].name;
     document.getElementById("s_udise").value = idx === null ? "" : schools[idx].udise;
-    document.getElementById("btnDeleteSchool").style.display = idx === null ? "none" : "block";
     openModal("schoolModal");
 }
 function saveSchool() {
@@ -530,15 +558,20 @@ function saveSchool() {
     else { schools[tempSchoolIdx].name = name; schools[tempSchoolIdx].udise = udise; }
     saveData(); closeModal('schoolModal'); initApp();
 }
-function deleteSchool() {
-    if(confirm("ही शाळा कायमची काढायची आहे का?")) {
-        schools.splice(tempSchoolIdx, 1);
-        saveData(); closeModal('schoolModal'); initApp();
+
+// Direct Delete School function from main list
+function deleteSchoolDirect(idx) {
+    const schoolName = schools[idx].name;
+    if(confirm(`"${schoolName}" ही शाळा आणि त्यातील सर्व शिक्षकांची माहिती कायमची डिलीट करायची आहे का?`)) {
+        schools.splice(idx, 1);
+        saveData();
+        initApp();
+        showToast("शाळा यशस्वीरित्या डिलीट केली.");
     }
 }
 
 // ==========================================
-// NEW DB SYNC (Full JSON Backup to Cell A1)
+// CLOUD SYNC
 // ==========================================
 async function syncToCloud(btnElement, quiet = false) {
     const payload = { schools: schools, pin: adminPin };
@@ -556,9 +589,9 @@ async function syncToCloud(btnElement, quiet = false) {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload)
         });
-        if(!quiet) alert("✅ संपूर्ण डेटा Google Sheet (क्लाउड) वर सुरक्षित जतन झाला!");
+        if(!quiet) showToast("✅ संपूर्ण डेटा Google Sheet (क्लाउड) वर सुरक्षित जतन झाला!");
     } catch(err) {
-        if(!quiet) alert("❌ त्रुटी आली. तुमचे इंटरनेट कनेक्शन तपासा.");
+        if(!quiet) showToast("❌ त्रुटी आली. तुमचे इंटरनेट कनेक्शन तपासा.");
     } finally {
         if(btnElement) {
             btnElement.innerHTML = btnElement.dataset.original || "☁️ क्लाउडवर सेव्ह करा";
@@ -568,7 +601,7 @@ async function syncToCloud(btnElement, quiet = false) {
 }
 
 // ==========================================
-// PRINT (4 Columns + Signature)
+// PRINT
 // ==========================================
 function printData() {
     const s = schools[currentSchoolIdx];
