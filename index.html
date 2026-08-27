@@ -256,6 +256,18 @@ td.actions { text-align: center; white-space: nowrap; width: 100px; }
 // ==========================================
 const GOOGLE_APP_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzd-1bUwsysozdqPpUF8NBKVPjXOJtV8Iz7cTuc_p_1d-8HK93rHFEfq1_jUbyHZxg/exec"; 
 
+// पदनामांचा वरिष्ठता क्रम (Hierarchy Priority)
+const DESIG_ORDER = {
+  "मुख्याध्यापक": 1,
+  "प्रभारी मुख्याध्यापक": 2,
+  "पदवीधर शिक्षक": 3,
+  "सहशिक्षक": 4,
+  "प्राथमिक शिक्षक": 5,
+  "विशेष शिक्षक": 6,
+  "केंद्र समन्वयक": 7,
+  "अन्य": 8
+};
+
 // ==========================================
 // DATA MODEL
 // ==========================================
@@ -273,7 +285,7 @@ let currentView = "list";
 let currentSchoolIdx = null;
 let editingTeacherId = null;
 let schoolSortBy = "nameAsc"; 
-let teacherSortBy = "default"; // Sorting state for teachers
+let teacherSortBy = "desig"; // डीफॉल्ट पदनामानुसार वरिष्ठता क्रम
 
 // Default Data (46 Schools)
 const DEFAULT_SCHOOLS = [
@@ -630,21 +642,27 @@ function renderSchoolList(searchQuery = "") {
 
 function openSchool(idx) { 
     currentSchoolIdx = idx; 
-    teacherSortBy = "default";
+    teacherSortBy = "desig"; // वरिष्ठता क्रम
     currentView = "detail"; 
     initApp(); 
 }
 
+// पदनाम व नावांच्या नियमानुसार अचूक सॉर्टिंग
 function getSortedTeachers(teachersList) {
     if(!teachersList) return [];
     let list = [...teachersList];
 
-    if (teacherSortBy === "nameAsc") {
+    if (teacherSortBy === "desig") {
+        list.sort((a, b) => {
+            const pA = DESIG_ORDER[a.desig] || 99;
+            const pB = DESIG_ORDER[b.desig] || 99;
+            if (pA !== pB) return pA - pB;
+            return (a.name || "").localeCompare(b.name || "", 'mr');
+        });
+    } else if (teacherSortBy === "nameAsc") {
         list.sort((a, b) => (a.name || "").localeCompare(b.name || "", 'mr'));
     } else if (teacherSortBy === "nameDesc") {
         list.sort((a, b) => (b.name || "").localeCompare(a.name || "", 'mr'));
-    } else if (teacherSortBy === "desig") {
-        list.sort((a, b) => (a.desig || "").localeCompare(b.desig || "", 'mr'));
     } else if (teacherSortBy === "att") {
         const order = { "उपस्थित": 1, "गैरहजर": 2, "रजा": 3 };
         list.sort((a, b) => (order[a.attendance || "उपस्थित"] || 9) - (order[b.attendance || "उपस्थित"] || 9));
@@ -697,11 +715,11 @@ function renderSchoolDetail() {
           <div style="display:flex; align-items:center; gap:8px;">
             <label style="font-weight:600; font-size:0.9rem; color:var(--navy);">शिक्षक क्रमवारी (Sort):</label>
             <select onchange="changeTeacherSort(this.value)">
-              <option value="default" ${teacherSortBy==='default'?'selected':''}>मूळ क्रम (Default)</option>
+              <option value="desig" ${teacherSortBy==='desig'?'selected':''}>पदनामानुसार (वरिष्ठता क्रम)</option>
               <option value="nameAsc" ${teacherSortBy==='nameAsc'?'selected':''}>नावानुसार (अ-ज्ञ)</option>
               <option value="nameDesc" ${teacherSortBy==='nameDesc'?'selected':''}>नावानुसार (ज्ञ-अ)</option>
-              <option value="desig" ${teacherSortBy==='desig'?'selected':''}>पदनामानुसार</option>
               <option value="att" ${teacherSortBy==='att'?'selected':''}>उपस्थितीनुसार</option>
+              <option value="default" ${teacherSortBy==='default'?'selected':''}>मूळ नोंदणी क्रमाने (Default)</option>
             </select>
           </div>
           ${canEdit ? `<button class="btn solid" onclick="openTeacherModal(null)">+ नवीन शिक्षक जोडा</button>` : ``}
