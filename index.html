@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>शिक्षण परीषद उपस्थिती प्रपत्र</title>
+<title>शिक्षण परिषद उपस्थिती प्रपत्र</title>
 <link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Marathi:ital@0;1&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -51,8 +51,13 @@ header.top {
 .btn.hm:hover { background: #0369a1; }
 .btn:disabled { opacity: 0.6; cursor: not-allowed; }
 
+/* Tabs */
+.tabs { display: flex; gap: 10px; margin-bottom: 15px; border-bottom: 2px solid var(--border); padding-bottom: 5px; }
+.tab-btn { background: none; border: none; font-size: 1.05rem; font-weight: 700; color: #64748b; padding: 8px 16px; border-radius: 6px; cursor: pointer; }
+.tab-btn.active { background: var(--navy); color: #fff; }
+
 /* Main Layout */
-main { max-width: 1000px; margin: 20px auto; padding: 0 15px; padding-bottom: 50px; }
+main { max-width: 1050px; margin: 20px auto; padding: 0 15px; padding-bottom: 50px; }
 .card { background: var(--card); padding: 20px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 20px; }
 
 /* Controls */
@@ -108,13 +113,13 @@ td.actions { text-align: center; white-space: nowrap; width: 100px; }
   #printArea, #printArea * { visibility: visible; }
   #printArea { display: block; position: absolute; left: 0; top: 0; width: 100%; background: #fff; padding: 10mm; }
   
-  .print-page-block { page-break-after: always; margin-bottom: 30px; }
+  .print-page-block { page-break-after: always; margin-bottom: 25px; }
   .print-page-block:last-child { page-break-after: avoid; }
   
   .print-header { text-align: center; margin-bottom: 15px; border-bottom: 2px solid #000; padding-bottom: 10px; }
-  .print-header h1 { font-size: 20px; margin-bottom: 6px; }
+  .print-header h1 { font-size: 19px; margin-bottom: 6px; }
   .print-meta { display: flex; justify-content: space-between; font-weight: bold; font-size: 13px; }
-  .print-school-name { font-size: 16px; font-weight: bold; margin: 15px 0 10px; background: #f0f0f0; padding: 6px; border: 1px solid #000; display: flex; justify-content: space-between; }
+  .print-school-name { font-size: 15px; font-weight: bold; margin: 12px 0 8px; background: #f0f0f0; padding: 6px; border: 1px solid #000; display: flex; justify-content: space-between; }
   
   table.print-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 10px; }
   table.print-table th, table.print-table td { border: 1px solid #000; padding: 6px 8px; text-align: left; vertical-align: middle; }
@@ -127,8 +132,8 @@ td.actions { text-align: center; white-space: nowrap; width: 100px; }
 
 <header class="top">
   <div class="title-block">
-    <h1>शिक्षण परीषद उपस्थिती प्रपत्र</h1>
-    <p>तालुका: अंबाजोगाई • जिल्हा: बीड (Database Connected)</p>
+    <h1>शिक्षण परिषद उपस्थिती प्रपत्र</h1>
+    <p>केंद्र: रविवार पेठ, तालुका: अंबाजोगाई • जिल्हा: बीड (Database Connected)</p>
   </div>
   <div id="authArea"></div>
 </header>
@@ -173,7 +178,7 @@ td.actions { text-align: center; white-space: nowrap; width: 100px; }
   <div class="modal">
     <div class="modal-head"><h3 id="hmLoginTitle">मुख्याध्यापक प्रवेश (HM Login)</h3><button class="icon-btn" style="color:#fff" onclick="closeModal('hmLoginModal')">✕</button></div>
     <div class="modal-body">
-      <p style="font-size:0.85rem; color:#666; margin-top:0;">या शाळेतील शिक्षक माहिती व्यवस्थापित करण्यासाठी ४ अंकी HM पिन टाका. (पहिल्यांदा जो पिन टाकाल तोच सेट होईल).</p>
+      <p style="font-size:0.85rem; color:#666; margin-top:0;">या शाळेतील शिक्षक माहिती व्यवस्थापित करण्यासाठी ४ अंकी HM पिन टाका.</p>
       <div class="field"><label>४ अंकी HM पिन</label><input type="password" id="hmPinInput" maxlength="4" placeholder="उदा. 4321"></div>
       <div class="error" id="hmLoginError"></div>
       <div class="modal-foot">
@@ -201,14 +206,20 @@ td.actions { text-align: center; white-space: nowrap; width: 100px; }
   </div>
 </div>
 
-<!-- School Modal (Add/Edit - Admin only) -->
+<!-- School Modal (Add/Edit) -->
 <div class="overlay" id="schoolModal">
   <div class="modal">
     <div class="modal-head"><h3 id="schoolModalTitle">नवीन शाळा</h3><button class="icon-btn" style="color:#fff" onclick="closeModal('schoolModal')">✕</button></div>
     <div class="modal-body">
       <div class="field"><label>शाळेचे नाव</label><input type="text" id="s_name" placeholder="उदा. जि. प. प्रा. शाळा..."></div>
-      <div class="field"><label>युडायस कोड (UDISE)</label><input type="number" id="s_udise"></div>
-      <div class="field"><label>HM पिन (Reset/Set HM PIN)</label><input type="password" id="s_hmpin" maxlength="4" placeholder="४ अंकी HM पिन (ऐच्छिक)"></div>
+      <div class="field"><label>शाळा प्रकार (Category)</label>
+        <select id="s_category">
+          <option value="zp">जिल्हा परिषद शाळा (Z.P. School)</option>
+          <option value="other">इतर शाळा (अनुदानित/विनाअनुदानित/माध्यमिक)</option>
+        </select>
+      </div>
+      <div class="field"><label>युडायस कोड (UDISE)</label><input type="text" id="s_udise"></div>
+      <div class="field"><label>HM पिन (Set HM PIN)</label><input type="password" id="s_hmpin" maxlength="4" placeholder="४ अंकी HM पिन (ऐच्छिक)"></div>
       <div class="error" id="schoolError"></div>
       <div class="modal-foot">
         <button class="btn" style="color:var(--navy); border-color:var(--border)" onclick="closeModal('schoolModal')">रद्द करा</button>
@@ -252,11 +263,10 @@ td.actions { text-align: center; white-space: nowrap; width: 100px; }
 
 <script>
 // ==========================================
-// १. GOOGLE APP SCRIPT URL (Database URL)
+// 1. DATABASE CONFIGURATION
 // ==========================================
 const GOOGLE_APP_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzd-1bUwsysozdqPpUF8NBKVPjXOJtV8Iz7cTuc_p_1d-8HK93rHFEfq1_jUbyHZxg/exec"; 
 
-// पदनामांचा वरिष्ठता क्रम (Hierarchy Priority)
 const DESIG_ORDER = {
   "मुख्याध्यापक": 1,
   "प्रभारी मुख्याध्यापक": 2,
@@ -268,15 +278,12 @@ const DESIG_ORDER = {
   "अन्य": 8
 };
 
-// ==========================================
-// DATA MODEL
-// ==========================================
 function generateUUID() { return Math.random().toString(36).substring(2) + Date.now().toString(36); }
 function T(name, desig, mobile, attendance="उपस्थित") { 
     return { id: generateUUID(), name, desig, mobile, attendance }; 
 }
 
-const STORAGE_KEY = "shikshanParishad_CloudDB";
+const STORAGE_KEY = "shikshanParishad_CloudDB_v4";
 let schools = [];
 let adminPin = "";
 let isAdmin = false;
@@ -284,95 +291,143 @@ let loggedInHMSchoolUdise = null;
 let currentView = "list"; 
 let currentSchoolIdx = null;
 let editingTeacherId = null;
+let activeTab = "all"; 
 let schoolSortBy = "nameAsc"; 
-let teacherSortBy = "desig"; // डीफॉल्ट पदनामानुसार वरिष्ठता क्रम
+let teacherSortBy = "desig";
+let teacherAttFilter = "all";
 
-// Default Data (46 Schools)
+// Base Initial Dataset (ZP Schools + High Schools / Private Schools)
 const DEFAULT_SCHOOLS = [
-  { udise:"27270101612", name:"सी.पी.एस. रविवार पेठ", hmPin:"", teachers:[
-    T("उषाताई नारायण चव्हाण","प्राथमिक शिक्षक","9422929990"), T("रेखा सुखदेव बनसोडे","पदवीधर शिक्षक","9767539553"), T("इंद्रजित शिवाजीराव डांगे","प्रभारी मुख्याध्यापक","9403023319"), T("रुपेश पांडुरंग लोंढे","केंद्र समन्वयक","7066100281"), T("पुरुषोत्तम संभाप्पा रुद्राक्ष","विशेष शिक्षक","7588566554")
+  // --- जिल्हा परिषद शाळा (Z.P. Primary Schools) ---
+  { category: "zp", udise: "272701001", name: "जि. प. प्रा. शा. अंबलवाडी", hmPin: "", teachers: [
+    T("नवतीला रामराव जाधव", "प्राथमिक शिक्षक", "7498239099"),
+    T("भगवान आश्रुबा बिल्पे", "पदवीधर शिक्षक", "9604572196"),
+    T("आनंद पांडुरंग सिरसाट", "पदवीधर शिक्षक", "9850940078"),
+    T("रुक्मिणी हरिश्चंद्र दाभाडे", "प्राथमिक शिक्षक", "7588342321")
   ]},
-  { udise:"27270101620", name:"मिलिया प्रा. शा. अंबा", hmPin:"", teachers:[
-    T("SHAIKH JAMEEL NAWAB","मुख्याध्यापक","9960454571"), T("Nehal Nisar Maniyar","प्राथमिक शिक्षक","9970066049")
+  { category: "zp", udise: "272701002", name: "जि. प. प्रा. शा. उघडे वस्ती (वरवटी)", hmPin: "", teachers: [
+    T("रविकांत सुधाकरराव खेपकर", "प्राथमिक शिक्षक", "9623520793"),
+    T("शोभा अंगदराव चाटे", "प्राथमिक शिक्षक", "8999768368")
   ]},
-  { udise:"27270101695", name:"नारायणा वर्ल्ड स्कूल अंबाजोगाई", hmPin:"", teachers:[ T("Thorat G P","मुख्याध्यापक","8329811192") ]},
-  { udise:"27270103002", name:"कै. दादाराव कराड प्रा. शा. नागझरी", hmPin:"", teachers:[ T("KARAD RAMRAJE NARAYAN","मुख्याध्यापक","9730035874") ]},
-  { udise:"27270100109", name:"खोलेश्वर जीनियस सीबीएससी स्कूल अंबाजोगाई", hmPin:"", teachers:[ T("Pratibha Ankush Shinde","मुख्याध्यापक","9975791303") ]},
-  { udise:"27270101688", name:"छत्रपती संभाजी राजे ग्लोबल स्कूल आणि ज्युनियर कॉलेज जोगाईवाडी", hmPin:"", teachers:[ T("Gangane Shashikala Nagorao","मुख्याध्यापक","8788801400") ]},
-  { udise:"27270102405", name:"श्री साई समर्थ प्रा. शा.", hmPin:"", teachers:[]},
-  { udise:"27270101618", name:"कै. देवराव बालाजी गणगे योगेश्वरी नूतन प्राथमिक विभाग अंबाजोगाई", hmPin:"", teachers:[
-    T("KHANDERAO BHAGWANRAO NANDGAONKAR","मुख्याध्यापक","9881638496"), T("Ashwini Manik Kharbad","प्राथमिक शिक्षक","7709249627"), T("PAVAN PRADIPRAO PATIL","प्राथमिक शिक्षक","9028560957"), T("अंजली वसंतराव कुलकर्णी","प्राथमिक शिक्षक","9421990674"), T("SHARIF RASHID TAMBOLI","प्राथमिक शिक्षक","9359322719"), T("दीपक ज्ञानोबा गोडसे","प्राथमिक शिक्षक","9421517566"), T("Ashwini Ashok Ekhande","प्राथमिक शिक्षक","9850502233"), T("Kalpana Rameshrao Yannawar","प्राथमिक शिक्षक","7020545468"), T("किरण जयंतराव राऊतमारे","प्राथमिक शिक्षक","9421336873"), T("Shubhangi Bhagwat Chate","प्राथमिक शिक्षक","9960950785"), T("Sarika Hiralal Patange","प्राथमिक शिक्षक","9403510219"), T("Tejaswini Rajabhau Waghchaure","प्राथमिक शिक्षक","9890463667"), T("सचिन अण्णासाहेब अंबाड","प्राथमिक शिक्षक","9028859686"), T("नम्रता वैजिनाथराव पेठे","प्राथमिक शिक्षक","7588817765"), T("विद्या वसंतराव भिसे","प्राथमिक शिक्षक","8275197211"), T("Snehal Ramrao Adde","प्राथमिक शिक्षक","8275476403"), T("स्मिता गंगाधर मंदावाड","प्राथमिक शिक्षक","9518540068"), T("Seema Rangrao Rudre","प्राथमिक शिक्षक","9623261902"), T("मधुकर माधवराव देवकत्ते","प्राथमिक शिक्षक","8605766790"), T("Archana Bharatrao Dhaygude","प्राथमिक शिक्षक","7745832008"), T("प्राजक्ता चिंतामणी गोस्वामी","प्राथमिक शिक्षक","9420391792"), T("मंगल गोपाळराव पतंगे","प्राथमिक शिक्षक","9404029198"), T("Rupali Kalidas Puskar","प्राथमिक शिक्षक","9405817272"), T("स्नेहा हरिहर अप्पा बर्दापुरे","प्राथमिक शिक्षक","8767393335"), T("Hanumant Kerba Inglewad","प्राथमिक शिक्षक","9860687572"), T("Sachin Rohidas Adsule","प्राथमिक शिक्षक","9422999148"), T("शिवहार विनायक ढगे","प्राथमिक शिक्षक","9404202525"), T("संध्या कालिदासराव जोशी","प्राथमिक शिक्षक","9403329717"), T("सीमा बळीराम उनवणे.","प्राथमिक शिक्षक","9923343657"), T("अनिल सुर्यकांत बडे","प्राथमिक शिक्षक","9834971177"), T("Ashok Sakharam Akhade","प्राथमिक शिक्षक","9881351594"), T("Pallavi Ramrao Gangane","प्राथमिक शिक्षक","7020815970"), T("Priyanka Janardhan Dhage","प्राथमिक शिक्षक","9579044588"), T("रविकुमार अर्जुन शिंदे","प्राथमिक शिक्षक","9975111242"), T("Chatrabhuj Ashruba Dhembre","प्राथमिक शिक्षक","8329910027"), T("Amol Vitthalrao Jadhav","प्राथमिक शिक्षक","9960827227"), T("अनंत कमलाकर जोशी","प्राथमिक शिक्षक","9700927777")
+  { category: "zp", udise: "272701003", name: "जि. प. प्रा. शा. काळवटी तांडा क्र. १", hmPin: "", teachers: [
+    T("कमल गंगाधर चिखले", "प्राथमिक शिक्षक", "9422082541"),
+    T("प्रभू बाबुराव खोडवे", "प्राथमिक शिक्षक", "9764569825"),
+    T("उत्तम बाबुराव डोंगरे", "प्राथमिक शिक्षक", "9689008389")
   ]},
-  { udise:"27270101619", name:"नेताजी सुभाषचंद्र प्रा. शा. अंबा", hmPin:"", teachers:[
-    T("Magar RB","मुख्याध्यापक","9421946215"), T("Rahul Vijay Burge","प्राथमिक शिक्षक","9922051313"), T("प्रफुल्ल मोहनराव कोमटवार","प्राथमिक शिक्षक","8888980705"), T("नंदकिशोर मधुकर साळुंके","पदवीधर शिक्षक","7020423561"), T("Shilpa Dnyanoba Gitte","प्राथमिक शिक्षक","8975873166"), T("Manisha Dnyanoba Sonwane","प्राथमिक शिक्षक","9011409501"), T("Ramabai Balasaheb Jadhav","प्राथमिक शिक्षक","8275757885"), T("pornima pralhad shinde","प्राथमिक शिक्षक","9850886977"), T("Rani Raghunathrao Rathod","प्राथमिक शिक्षक","8379861117"), T("Dnyaneshwar Shesharao Magar","प्राथमिक शिक्षक","9422876566"), T("Avinash Uttamrao Chopade","प्राथमिक शिक्षक","9854157777"), T("Kaustubh Vijayanand Shinde","प्राथमिक शिक्षक","8766500557"), T("जालिंदर बाबुराव तोडकर","प्राथमिक शिक्षक","9623625999"), T("मनोज आण्णासाहेब चव्हाण","प्राथमिक शिक्षक","9403519407"), T("मेघाराणी रामराव चव्हाण","प्राथमिक शिक्षक","7972127717"), T("लोचना बळीराम शिनगारे","प्राथमिक शिक्षक","8806448300"), T("Sanjay Shahaji Gambhire","पदवीधर शिक्षक","9921351111"), T("Parmeshwar Vishnu Reddy","पदवीधर शिक्षक","9403928511")
+  { category: "zp", udise: "272701004", name: "जि. प. प्रा. शा. काळवटी तांडा क्र. २", hmPin: "", teachers: [
+    T("संजय हणमंतराव कचकलवार", "प्राथमिक शिक्षक", "9284746414"),
+    T("पूनम किसन लेंगरे", "प्राथमिक शिक्षक", "7798661934")
   ]},
-  { udise:"27270101626", name:"खोलेश्वर प्रा. शा. अंबाजोगाई", hmPin:"", teachers:[
-    T("Shivaji Angad Hendge","मुख्याध्यापक","9421375441"), T("वर्षा लक्ष्मणराव मुंडे","प्राथमिक शिक्षक","9422933231"), T("Sachin Shankarrao Aglave","प्राथमिक शिक्षक","9527753319"), T("Krishna Bhagwan Waghmare","प्राथमिक शिक्षक","9421668499"), T("Parmeshwar Baburao Rathod","प्राथमिक शिक्षक","9423716906"), T("Rajshree Shivraj Bharati","प्राथमिक शिक्षक","9420435340"), T("राजेश विनायक चव्हाण","प्राथमिक शिक्षक","9022276948"), T("मंजुषा अर्जुनराव मुळे","प्राथमिक शिक्षक","7775983947"), T("Mandakini Bajirao Khadke","प्राथमिक शिक्षक","9767134832"), T("Devakbai Uttamrao Kale","प्राथमिक शिक्षक","7057043324"), T("Abhishek Sakharam Rajurkar","प्राथमिक शिक्षक","9421308189"), T("प्रांजली अशोकराव कुलकर्णी","प्राथमिक शिक्षक","8554099083"), T("प्रतिक्षा जनार्धन ढगे","प्राथमिक शिक्षक","9405024718"), T("Santosh Kishan Aade","प्राथमिक शिक्षक","7666064210"), T("श्रीधर गंगाधर चौरे","प्राथमिक शिक्षक","8087272416"), T("मनोज चंद्रकांत बरुरे","प्राथमिक शिक्षक","8275268651"), T("अश्विनी संतोष होट्टे","प्राथमिक शिक्षक","9011333206"), T("ममता भिमराव लांडगे","पदवीधर शिक्षक","9420330033"), T("Kulkarni Priyanka Ade","प्राथमिक शिक्षक","8857840357"), T("Nitin vilas sonvane","प्राथमिक शिक्षक","9527939016"), T("प्रीती भागवत शिंदे","प्राथमिक शिक्षक","9921860252"), T("Kishan Vaijnath Gaikwad","प्राथमिक शिक्षक","9921147298"), T("बालाजी दामोदरराव घोडके","प्राथमिक शिक्षक","9766215385"), T("सुनिता रामधन सोनवणे","पदवीधर शिक्षक","9405100646"), T("पंकज पंडितराव तरवडे","प्राथमिक शिक्षक","9527782728"), T("सोनाताई गोपाळराव कळमगावे","प्राथमिक शिक्षक","9370309588")
+  { category: "zp", udise: "272701005", name: "जि. प. प्रा. शा. काळवटी तांडा क्र. ३", hmPin: "", teachers: [
+    T("मंजुषा भीमाशंकर जिडगे", "प्राथमिक शिक्षक", "9561941714"),
+    T("नंदकुमार नामदेव सूर्यवंशी", "प्राथमिक शिक्षक", "9307856717")
   ]},
-  { udise:"27270101628", name:"उर्दू प्रा. शा. रविवार पेठ अंबाजोगाई", hmPin:"", teachers:[ T("Qureshi Mohammed Ilyasuddin Salimuddin","मुख्याध्यापक","9422742930") ]},
-  { udise:"27270101629", name:"न्यू इंग्लिश प्रा. शा. अंबा", hmPin:"", teachers:[ T("Mr Bhasme Mahesh Marutirao","मुख्याध्यापक","9403645496"), T("अर्चना अशोकराव काळम","पदवीधर शिक्षक","9766107100") ]},
-  { udise:"27270101633", name:"घाट नागनाथ प्रा. शा. अंबा", hmPin:"", teachers:[ T("SOLANKE SANDHYA UTTAMRAO","मुख्याध्यापक","8830773269") ]},
-  { udise:"27270101660", name:"श्री व्यंकटेश विद्या मंदिर प्रा. शा. अंबा", hmPin:"", teachers:[ T("Chaudhari SG","मुख्याध्यापक","8805044747") ]},
-  { udise:"27270105504", name:"सोमेश्वर उर्दू प्राथमिक शाळा पिंपळा धायगुडा अंबाजोगाई", hmPin:"", teachers:[ T("Pathan Sartaj Khan Razzak Khan","मुख्याध्यापक","9767116668") ]},
-  { udise:"27270100105", name:"जिजाऊ स्कूल भगवानबाबा चौक अंबाजोगाई", hmPin:"", teachers:[ T("Londhal DA","मुख्याध्यापक","9405247008") ]},
-  { udise:"27270101623", name:"नूरजहाँ उर्दू प्राथमिक शाळा अंबाजोगाई", hmPin:"", teachers:[ T("FAIZ MOOSA SAYYED","मुख्याध्यापक","9028891469") ]},
-  { udise:"27270101685", name:"सुलावंतीबाई बाळासाहेब शिंदे प्रा. शा. इंग्लिश अंबाजोगाई", hmPin:"", teachers:[ T("Bade Rekha Subhash","मुख्याध्यापक","9404121272") ]},
-  { udise:"27270103802", name:"तुकाराम पाटील प्रा. शा. गिरवली", hmPin:"", teachers:[
-    T("Gangane Anant Satwaram","मुख्याध्यापक","9421913422"), T("DATTA ARUN PATANKAR","प्राथमिक शिक्षक","9404888852"), T("रोहिणी बाबासाहेब वाघमारे","प्राथमिक शिक्षक","9970861233"), T("शोभा वसंतराव शिंदे","प्राथमिक शिक्षक","9284175003"), T("Asha Sudhakar Ambad","प्राथमिक शिक्षक","7020963796"), T("माधुरी माणिकआप्पा चौंडे","प्राथमिक शिक्षक","9284258189"), T("अमोल प्रतापराव आपेट","पदवीधर शिक्षक","8275706777"), T("Namdev Devidas Munde","पदवीधर शिक्षक","9405961212")
+  { category: "zp", udise: "272701006", name: "जि. प. प्रा. शा. क्र. २, अंबाजोगाई", hmPin: "", teachers: [
+    T("बालासाहेब रामराव सोनवणे", "प्राथमिक शिक्षक", "9403608550"),
+    T("बळीराम शिवदास आकुसकर", "प्राथमिक शिक्षक", "9011999904")
   ]},
-  { udise:"27270103803", name:"जिजाऊ इंटरनॅशनल स्कूल गिरवली (बी)", hmPin:"", teachers:[ T("Apet S B","मुख्याध्यापक","9422773141") ]},
-  { udise:"27270101669", name:"प्रमोदजी महाजन न्यू इंग्लिश स्कूल", hmPin:"", teachers:[ T("Dr Yogesh Subhashrao Kulkarni","मुख्याध्यापक","9422745733") ]},
-  { udise:"27270103801", name:"जि.प.हा.स्कू. गिरवली", hmPin:"", teachers:[ T("Ravindra Deogaonkar","मुख्याध्यापक","9405662166") ]},
-  { udise:"27270100107", name:"मुक्तांगण विद्यालय गिरवली रोड अंबाजोगाई", hmPin:"", teachers:[ T("Shinde BV","मुख्याध्यापक","9422773141") ]},
-  { udise:"27270100110", name:"विझडम इंग्लिश स्कूल ज्युनियर कॉलेज अंबाजोगाई", hmPin:"", teachers:[ T("Shaikh Ayesha Kirmani Naseer","मुख्याध्यापक","9403881891") ]},
-  { udise:"27270100111", name:"स्कॉलर्स एज्युकेशन पॅलेस अंबाजोगाई", hmPin:"", teachers:[ T("PATHAN ARSHAD","मुख्याध्यापक","8380921212") ]},
-  { udise:"27270101654", name:"न्यू विजन इंग्लिश स्कूल अंबाजोगाई", hmPin:"", teachers:[ T("M Prashant Kumar","मुख्याध्यापक","9665746911") ]},
-  { udise:"27270101690", name:"एरा इंटरनॅशनल स्कूल अंबाजोगाई", hmPin:"", teachers:[ T("Deshmukh Matin Ghulamrasoolatin","मुख्याध्यापक","9730668387") ]},
-  { udise:"27270103003", name:"सरस्वती पब्लिक स्कूल नागझरी", hmPin:"", teachers:[ T("RAUT SS","मुख्याध्यापक","9730035872") ]},
-  { udise:"27270103702", name:"प्रेषिता इंटरनॅशनल स्कूल आणि ज्युनियर कॉलेज", hmPin:"", teachers:[]},
-  { udise:"27270101615", name:"डॉ. राम भालचंद्र हायस्कूल अंबाजोगाई", hmPin:"", teachers:[
-    T("Awad Sunil Premraj","मुख्याध्यापक","9422931408"), T("Purushottam Sunderrao Deshmukh","पदवीधर शिक्षक","9421270702"), T("Rajendra Suresh Kshirsagar","अन्य","9860913543"), T("ढगे बाबु कोडींराम","अन्य","9975902195"), T("शरद अशोकराव पाटील","पदवीधर शिक्षक","8830792550"), T("मनोज उत्तमराव शिंदे","प्राथमिक शिक्षक","9960572878"), T("राजकुमार सुधाकर घुगे","अन्य","9975344607")
+  { category: "zp", udise: "272701007", name: "जि. प. प्रा. शा. गिरवली आपेट", hmPin: "", teachers: [
+    T("अर्जुन सूर्यकांत चव्हाण", "प्राथमिक शिक्षक", "9763737062"),
+    T("सुनिल आनंदराव फुलेवार", "प्राथमिक शिक्षक", "9423733945")
   ]},
-  { udise:"27270101635", name:"योगेश्वरी नूतन हायस्कूल अंबा", hmPin:"", teachers:[
-    T("Shrimati PATHAK APARNA RAOSAHEB","मुख्याध्यापक","9403927545"), T("Shubhangi Pravinrao Bhosle","प्राथमिक शिक्षक","9518932931"), T("Tukaram Shivaji Admane","पदवीधर शिक्षक","9923112501"), T("संजयकुमार गोविंदराव कामखेडकर","पदवीधर शिक्षक","9850022771"), T("प्रताप परमेश्वर भिसे","पदवीधर शिक्षक","7276518949"), T("आशिष चंद्रकांतराव भांडारी","पदवीधर शिक्षक","9421345517"), T("महेश मधुकरराव सबनीस","पदवीधर शिक्षक","9423470830"), T("GIRISH GANESHRAO RATNAPARKHI","पदवीधर शिक्षक","9403103318"), T("महेश केशवराव कुलकर्णी","पदवीधर शिक्षक","8830674418"), T("ऋषिकेश प्रभाकरराव फांजेवाड","प्राथमिक शिक्षक","8788367363"), T("अरुण अंकुश कलेढेले","पदवीधर शिक्षक","9423720592"), T("नितीन राजेंद्र मस्के","प्राथमिक शिक्षक","9561899501"), T("सदानंद पुरुषोत्तम पाठक","पदवीधर शिक्षक","9922534142"), T("Suchita Shrihari Kadke","पदवीधर शिक्षक","9860941606"), T("विलास काशिनाथराव गायकवाड","पदवीधर शिक्षक","9096391163"), T("Anjali Bhagwanrao Karanwad","पदवीधर शिक्षक","9421913339"), T("Sunanda Shivraj Kotlapure","प्राथमिक शिक्षक","7972169065"), T("गणेश नारावणराव कदम","पदवीधर शिक्षक","8668697827"), T("उपेंद्र बालासाहेब जोशी","पदवीधर शिक्षक","9881455876"), T("बालासाहेब काशिनाथराव मसने","पदवीधर शिक्षक","8275389809"), T("सोमेश्वर रावसाहेब जाधव","पदवीधर शिक्षक","9422330446"), T("DNYANESH PRAKASHRAO PATIL","पदवीधर शिक्षक","9022153088"), T("सदाशिव किसनराव डोरले","प्राथमिक शिक्षक","9405077182"), T("विकास शिवाजी सातपुते","प्राथमिक शिक्षक","8421947002"), T("रवींद्र संभाजी मठपती","पदवीधर शिक्षक","9404697474"), T("शिल्पा कल्याण सावंत","प्राथमिक शिक्षक","9403592041"), T("बापूराव दामोधर गोविंदवाड","पदवीधर शिक्षक","9403483474"), T("निलेश दशरथ भद्रे","पदवीधर शिक्षक","9403882791"), T("कमलाकर कोंडिबा राऊत","पदवीधर शिक्षक","7249573469"), T("Hanumant Gopalrao Bhalerao","पदवीधर शिक्षक","9960096062"), T("Rupali Vaijanath Jujgar","प्राथमिक शिक्षक","9834972369"), T("Sharad Dnyandev Shinde","पदवीधर शिक्षक","8275942665"), T("तिलोत्तमा नामदेव इंगोले","पदवीधर शिक्षक","9284225598"), T("भागवत रामकृष्ण मसने","पदवीधर शिक्षक","9420014746"), T("सारंग शशिकांत देशपांडे","पदवीधर शिक्षक","9561621109"), T("Suwarna Ramrao Deshmukh","पदवीधर शिक्षक","7083489711"), T("Dr.Vandana Devidas Lande","पदवीधर शिक्षक","7709273471"), T("शितल हरिदास गंगणे","प्राथमिक शिक्षक","8668714253"), T("यशवंत वसराम आडे","पदवीधर शिक्षक","9420128224"), T("Shubhada Dasopant Goswami","पदवीधर शिक्षक","9604536681"), T("दैवशाली शंकर म्हेत्रे","पदवीधर शिक्षक","9503251411"), T("Saptashila Mukundrao Maind","पदवीधर शिक्षक","9604285044"), T("Pranita Keshav Reddy","पदवीधर शिक्षक","9022396667")
+  { category: "zp", udise: "272701008", name: "जि. प. प्रा. शा. गोल्टावस्ती", hmPin: "", teachers: [
+    T("सुरेखा अभिमान गालफाडे", "प्राथमिक शिक्षक", "8999330431"),
+    T("शालन नागनाथ जोगदंड", "प्राथमिक शिक्षक", "9763233793")
   ]},
-  { udise:"27270101636", name:"श्रीमती गोदावरीबाई कुंकुलोळ योगेश्वरी कन्या हायस्कूल अंबाजोगाई", hmPin:"", teachers:[
-    T("MEENA SURESH KULKARNI","मुख्याध्यापक","8459332551"), T("गणेश लक्ष्मण हरगुले","प्राथमिक शिक्षक","9403514006"), T("SHITAL GOPAL BANSODE","पदवीधर शिक्षक","8999637371"), T("Durga Ramkishan Choudhary","पदवीधर शिक्षक","8378083561"), T("PRADIP SHRAWAN MORE","अन्य","9545828458"), T("मानसी शंकरराव निंबाळकर","पदवीधर शिक्षक","9373723180"), T("Harish Bhaskar Shinde","पदवीधर शिक्षक","7972523220"), T("मनिषा राजेंद्र माने","पदवीधर शिक्षक","9767456436"), T("Shubhangi Omkarappa Kshirsagar","पदवीधर शिक्षक","9404160540"), T("YOGESH DEVIDAS NAGARGOJE","अन्य","9822972396"), T("Anita Ramrao Londhe","पदवीधर शिक्षक","9359879296"), T("Mangal Tukaram Komatwar","पदवीधर शिक्षक","9921987658"), T("आप्पासाहेब शिवाजी मोरे","प्राथमिक शिक्षक","9284593738"), T("लक्ष्मण गंगाराम होळकर","प्राथमिक शिक्षक","9766313289"), T("गोविंद दत्तात्रेय नागरगोजे","प्राथमिक शिक्षक","8999770684"), T("रेणुका राजु कुलकर्णी","पदवीधर शिक्षक","9890816579"), T("Lata Deelip Gaikwad","पदवीधर शिक्षक","9970869117"), T("जयपाल बाबुराव सूर्यवंशी","पदवीधर शिक्षक","9890102582"), T("Pratibha Subhashrao Deshmukh","पदवीधर शिक्षक","8605996964"), T("Sharda Dnyanoba Munde","पदवीधर शिक्षक","9970850458"), T("देवनंदा श्रीमंत सोन्नर","पदवीधर शिक्षक","9422695064"), T("आरती प्रभाकरराव जवळबनकर","पदवीधर शिक्षक","7798525288"), T("Pragati Rameshwar Ghodke","पदवीधर शिक्षक","7020110011"), T("MAHESH GURUBAS URGUNDE","प्राथमिक शिक्षक","8669142123"), T("जिजा मुकूंद गवळे","पदवीधर शिक्षक","9049454667"), T("Dr. Shubham Sureshrao Rajmane","पदवीधर शिक्षक","9075420392"), T("Rana asma Pashu Sayad","पदवीधर शिक्षक","9075219416"), T("शिवनंदा वसंतराव घोडके","पदवीधर शिक्षक","9767580164"), T("RANJANA ANANTRAO BABHULGAONKAR","पदवीधर शिक्षक","9420013502"), T("Pradnya Sidram Dhage","प्राथमिक शिक्षक","9403424340"), T("Vidya Rambhau Kadam","पदवीधर शिक्षक","9766484944"), T("Kirtee Krishnarao Bedarkar","पदवीधर शिक्षक","8999033078"), T("Smita Nilkanthrao Dhawadkar","मुख्याध्यापक","9422069683"), T("अंजली उमाकांत रेवडकर","पदवीधर शिक्षक","8830861004"), T("Datta Ramrao Bansode","पदवीधर शिक्षक","9271410849")
+  { category: "zp", udise: "272701009", name: "जि. प. प्रा. शा. तलाव पाटी", hmPin: "", teachers: [
+    T("मनीषा धोंडोपंत चिंचोलीकर", "प्राथमिक शिक्षक", "9420194266"),
+    T("श्रीदेवी मनोहर सिरसाट", "प्राथमिक शिक्षक", "8999773919")
   ]},
-  { udise:"27270101639", name:"नेताजी सुभाष हायस्कूल अंबा", hmPin:"", teachers:[
-    T("Shinde Satish Bhagvat","मुख्याध्यापक","9421344616"), T("Laxmikant Limbajirao Fasle","पदवीधर शिक्षक","8806918045"), T("Gunjan Virendra Gupta","पदवीधर शिक्षक","9834862492"), T("Manisha Sumant Sakrate","प्राथमिक शिक्षक","8208560993"), T("Mahesh Atmaram Salunke","पदवीधर शिक्षक","8830918482"), T("Chandrasen Narhari Khandekar","प्राथमिक शिक्षक","9403585876"), T("Swati Jagadish Mahajan","पदवीधर शिक्षक","9604168847"), T("Balaji Shankarrao Rautwad","अन्य","9689840437"), T("अनिल पांडुरंग क्षीरसागर","अन्य","9370262568"), T("Kalpana Shivaji Salvi","पदवीधर शिक्षक","9657949777"), T("रूपेश हिरामण पवार","पदवीधर शिक्षक","9730115740"), T("Anita Gopal Sapkal","पदवीधर शिक्षक","9356770031"), T("Megha Mahesh Lomte","पदवीधर शिक्षक","7020711449"), T("Pandurang Hanumant Rupnar","अन्य","9527505255"), T("Angad Harikisan Roman","प्राथमिक शिक्षक","9403597517"), T("Bhagwat Vishwanathrao Shinde","पदवीधर शिक्षक","9284444727"), T("Prashant Ramesh Dhongade","प्राथमिक शिक्षक","8308341833"), T("नंदा केदारी गजाकोश","पदवीधर शिक्षक","9325428643"), T("Vidya Rambhau Kadam","पदवीधर शिक्षक","9766484944")
+  { category: "zp", udise: "272701010", name: "जि. प. प्रा. शा. नागझरी वसाहत", hmPin: "", teachers: [
+    T("संतोष माणिकराव गित्ते", "प्राथमिक शिक्षक", "7588635356"),
+    T("बालासाहेब व्यंकटराव कातळे", "प्राथमिक शिक्षक", "8999022483")
   ]},
-  { udise:"27270101643", name:"खोलेश्वर हायस्कूल अंबाजोगाई", hmPin:"", teachers:[
-    T("Anantram sundarrao Kople","मुख्याध्यापक","9403571582"), T("Ghuge Laxmi dadarao","पदवीधर शिक्षक","8381045243"), T("kishori Achyutrao Kulkarni","पदवीधर शिक्षक","9322950424"), T("Sapana Balwantrao Dukare","पदवीधर शिक्षक","8308969792"), T("Shilpa Shashikant Selukar","पदवीधर शिक्षक","9975628723"), T("Ramkawar Kashinath Sangale","पदवीधर शिक्षक","9370861461"), T("Anjali Anilrao Deshmukh","पदवीधर शिक्षक","9421271014"), T("Jyoti Madhukar Ghodke","पदवीधर शिक्षक","9763054732"), T("Surekha Kishanrao Kale","पदवीधर शिक्षक","9359928738"), T("Atul Kantrao Mugalikar","पदवीधर शिक्षक","9637334063"), T("मोहिनी ओमकार बर्दापुरे","पदवीधर शिक्षक","9403340328"), T("Kusumavati Marutirao Baderao","प्राथमिक शिक्षक","9975902140"), T("नागेश सुनीलराव देशपांडे","प्राथमिक शिक्षक","7972904776"), T("अक्षय चंद्रकांत धायगुडे","पदवीधर शिक्षक","9665321221"), T("ANIL BHAGWAN RATHOD","प्राथमिक शिक्षक","9822447554"), T("विलास प्रल्हादराव ठाकूर","प्राथमिक शिक्षक","9823960333"), T("महानंदा मुंजाजी मुंडे","पदवीधर शिक्षक","9404636017"), T("SATISH HARIBHAU WANGE","पदवीधर शिक्षक","9623232174"), T("ज्योती किसनराव शिंदे","प्राथमिक शिक्षक","9689562978"), T("विश्वास मार्तंडराव पत्की","पदवीधर शिक्षक","9890077454"), T("प्रेमळ Kaluji खंडागळे","प्राथमिक शिक्षक","9284353758"), T("रोहिणी बालाजी वाघिले","प्राथमिक शिक्षक","7020789227"), T("Vishnu Bapurao Kukar","प्राथमिक शिक्षक","9511293779"), T("ज्ञानेश्वरी साहेबराव नेवल","पदवीधर शिक्षक","9284712871"), T("स्वप्ना शशिकांत सेलूकर","प्राथमिक शिक्षक","9359222274"), T("Anuradha Ashokrao Ranjankar","पदवीधर शिक्षक","7588951973"), T("केदार दिनकर वाघमारे","पदवीधर शिक्षक","9421622609"), T("तेजस्विनी प्रकाशराव सांजेकर","पदवीधर शिक्षक","9850111443"), T("नंदिनी कौस्तुभ कोदरकर","पदवीधर शिक्षक","8788505675"), T("KALE SHRIKANT SOPANRAO","पदवीधर शिक्षक","9970017213"), T("अर्चना बालासाहेब घेवारे","पदवीधर शिक्षक","9021275259"), T("धनंजय चंद्रकांतराव जब्दे","पदवीधर शिक्षक","9423777068"), T("Manoj Jivanrao Karad","पदवीधर शिक्षक","9922223980"), T("वर्षा ज्ञानोबा मुंडे","पदवीधर शिक्षक","7744874422"), T("Umesh Ramkrishna Donge","पदवीधर शिक्षक","9922469768")
+  { category: "zp", udise: "272701011", name: "जि. प. प्रा. शा. पिंपळा धायगुडा (मराठी)", hmPin: "", teachers: [
+    T("भैय्यासाहेब तुकाराम जोगदंड", "प्राथमिक शिक्षक", "8888959458"),
+    T("प्रीती सुभाषचंद्र साहू", "प्राथमिक शिक्षक", "9422610375"),
+    T("संजीव कचरू उमाप", "पदवीधर शिक्षक", "9284023434"),
+    T("गंगू मुरलीधर झाडे", "पदवीधर शिक्षक", "8806269056"),
+    T("सुरेखा उमाकांत हिशोबे", "प्राथमिक शिक्षक", "7588114545"),
+    T("ज्योतीराम कोंडीबा कोल्हापुरे", "प्राथमिक शिक्षक", "9850275947"),
+    T("सीमा सखारामराव कदम", "प्राथमिक शिक्षक", "9422329924"),
+    T("विलास रामराव माचवे", "प्राथमिक शिक्षक", "9423893494")
   ]},
-  { udise:"27270101648", name:"कै. दादाराव कराड हायस्कूल शेपवाडी", hmPin:"", teachers:[ T("KARAD RAMRAJE NARAYAN","मुख्याध्यापक","9730035874") ]},
-  { udise:"27270102402", name:"सरस्वती हायस्कूल साकुड", hmPin:"", teachers:[
-    T("Tambade GS","मुख्याध्यापक","7709196103"), T("Balasaheb Trimbak Karad","अन्य","9822571073"), T("Madhuri Ganesh Sonwane","प्राथमिक शिक्षक","8379034095"), T("Kerba Ramdhan Chate","अन्य","7499099512"), T("Deepak Madanrao Gadhave","पदवीधर शिक्षक","9421354184"), T("Bhagwat Baburao Munde","अन्य","9850388674"), T("Vikram Prataprao Solanke","अन्य","9657100571"), T("दिनकर मोहनराव मुंडे","पदवीधर शिक्षक","9822682629"), T("Masud Kalekha Shaikh","पदवीधर शिक्षक","9689876321"), T("Sangita Shivaji Jogdand","प्राथमिक शिक्षक","9960579974")
+  { category: "zp", udise: "272701012", name: "जि. प. प्रा. शा. पोलेवाडी", hmPin: "", teachers: [
+    T("राजेसाहेब वैजनाथराव सोमवंशी", "प्राथमिक शिक्षक", "7020708970"),
+    T("सचिन नारायण गायकवाड", "प्राथमिक शिक्षक", "9637757982")
   ]},
-  { udise:"27270102702", name:"वेनगंगा हायस्कूल मांडवा पठाण", hmPin:"", teachers:[
-    T("Shri Jadhav Rajendra Ramkaran","मुख्याध्यापक","9028987610"), T("Sambhaji Shivajirao DESHMUKH","अन्य","9423872342"), T("Badrinath Baburao Munde","प्राथमिक शिक्षक","9421345863"), T("Vijay Harishchandra Somwanshi","अन्य","9423888381"), T("कविता लक्ष्मणराव इरे","प्राथमिक शिक्षक","9657731918")
+  { category: "zp", udise: "272701013", name: "जि. प. प्रा. शा. भीमाई वस्ती", hmPin: "", teachers: [
+    T("वंदना तुकाराम उजगरे", "प्राथमिक शिक्षक", "9552983384"),
+    T("वैजनाथ आबासाहेब गडदे", "प्राथमिक शिक्षक", "9421168755")
   ]},
-  { udise:"27270103202", name:"अल्लाम सिद्दीकी अल. उर्दू हायस्कूल पिंपळा धायगुडा", hmPin:"", teachers:[ T("Shaikh Nabee Babamiya","मुख्याध्यापक","9850646724") ]},
-  { udise:"27270103302", name:"वसंतराव नाईक विद्यालय वरवटी", hmPin:"", teachers:[
-    T("MUNDE SS","मुख्याध्यापक","9421277292"), T("Gangadhar Bankati Munde","पदवीधर शिक्षक","9860712574"), T("MANOJ JANARDHANRAO MUNDE","पदवीधर शिक्षक","9730554699"), T("Seema Kondiram Kekan","पदवीधर शिक्षक","9423757122"), T("Sugriv Eknath Neharkar","अन्य","9423477180"), T("Shrihari Amrutrao Kande","पदवीधर शिक्षक","9604830595")
+  { category: "zp", udise: "272701014", name: "जि. प. प्रा. शा. मांडवा तांडा", hmPin: "", teachers: [
+    T("पंचशीला मधुकर साळवी", "प्राथमिक शिक्षक", "9503685010"),
+    T("संजय ज्ञानोबा पाडोळे", "प्राथमिक शिक्षक", "7020929833")
   ]},
-  { udise:"27270101614", name:"जोधाप्रसाद मोदी माध्यमिक व उच्च माध्यमिक शाळा अंबाजोगाई", hmPin:"", teachers:[
-    T("Munje VA","मुख्याध्यापक","9421341688"), T("शंकर दशरथ सिनगारे","अन्य","9822285561"), T("Balaji Haridas Ambad","अन्य","7588421197"), T("Bhagwant manikrao pawar","पदवीधर शिक्षक","9637175991"), T("Kagne Rmchandra Eknathrao","पदवीधर शिक्षक","9860252483"), T("Rajabhau Sambhaji Kamble","अन्य","9860337008"), T("दीपमाला ज्ञानेश्वर गजभिये","प्राथमिक शिक्षक","8888187419"), T("Megha Dattopant Akolkar","पदवीधर शिक्षक","9403268348"), T("Varsha Gurlingappa Gulve","अन्य","9552375496"), T("Ashwini Vipinchandra Ugile","पदवीधर शिक्षक","8830024046"), T("गजानन बालासाहेब मुळे","अन्य","9423477110"), T("रामेश्वर तुकाराम माले","अन्य","9420578874"), T("नीना शंकरराव सोनवणे","पदवीधर शिक्षक","8275386937"), T("Rajabhau Balbhim Hoke","अन्य","9881084130"), T("Vandana Raosaheb Patil","पदवीधर शिक्षक","8208926565"), T("बुधाजी मारोती खरात","पदवीधर शिक्षक","9021244498")
+  { category: "zp", udise: "272701015", name: "जि. प. प्रा. शा. मांडवा पठाण", hmPin: "", teachers: [
+    T("मनीषा रत्नलिंग बिडवे", "प्राथमिक शिक्षक", "7875865244"),
+    T("बापूराव राघुआप्पा धारेकर", "प्राथमिक शिक्षक", "7020752753"),
+    T("सुरेश नामदेव निपाणीकर", "पदवीधर शिक्षक", "9423469937")
   ]},
-  { udise:"27270101640", name:"मिलिया हायस्कूल अंबा", hmPin:"", teachers:[
-    T("MOHAMMAD IRSHAD AHMED","मुख्याध्यापक","9284931302"), T("Khushter Sultana Rahmat Ali Syed","प्राथमिक शिक्षक","9881517447"), T("Yousuf Aslam khan Kabeer khan Khan","पदवीधर शिक्षक","9975207845"), T("Faheemuddin . Hameeduddin","अन्य","9372238576"), T("युनूस मूसा सय्यद","पदवीधर शिक्षक","9763106948"), T("Ubed khan Munir khan Pathan","पदवीधर शिक्षक","8275271146"), T("Anzar Shah Ashraf Shah","अन्य","9960139595"), T("Salman khan Sattar Khan","पदवीधर शिक्षक","9527920422"), T("रईस सलीम शेख","प्राथमिक शिक्षक","9423471170"), T("Asma Shaheen Nizamoddin Sayed","प्राथमिक शिक्षक","8668826719"), T("Mudassaroddin Mazharoddin Quazi","पदवीधर शिक्षक","9960688769"), T("Mohammad Abubakar Mohammad Haneef Shaikh","पदवीधर शिक्षक","8888989801"), T("MHOD  MISBAHUDDIN MOHD MOINUDDIN SIDDIQUE","पदवीधर शिक्षक","9423471109"), T("Shakil Nabisab Shaikh","पदवीधर शिक्षक","9922747940"), T("Heena Mohammad Samiuddin Khatib","प्राथमिक शिक्षक","9021947630"), T("MOHAMMAD MOHSIN MOHAMMAD SHAKEEL KACHCHI","अन्य","7507381270"), T("Nasreen Begum Shareef Khan Pathan","प्राथमिक शिक्षक","8766949004"), T("MOHAMMAD ABDUL NADEEM MOHAMMAD ABDUL HALEEM","पदवीधर शिक्षक","9970140788"), T("Mohammad Mukhtadir Gulam Jeelani Shaikh","पदवीधर शिक्षक","9096046607"), T("Parween Fatema Mohd Yonus Mashayek","पदवीधर शिक्षक","7020342267"), T("Yasmeen khanam Asger ali Khan","पदवीधर शिक्षक","9421345513"), T("AHMER MAJED AKBAR SHAIKH","प्राथमिक शिक्षक","7057757575"), T("Mohammad abdul nadeem Hakeem Mohammad","पदवीधर शिक्षक","9860753939"), T("SARWAT AARA TAJUDDIN FAROOQUI","पदवीधर शिक्षक","8788542080"), T("Naziya Parveen Aneesuddin Ansari","अन्य","9561938318"), T("Humera parveen Ahmed Hussain Shaikh","प्राथमिक शिक्षक","9421515458"), T("Mohammad Ishtiyaque Kagzi Ishaque","पदवीधर शिक्षक","8668540737"), T("Ahmed Pasha Gulam Rasul Deshmukh","पदवीधर शिक्षक","8668633865"), T("Humaira Parveen Hameed Khan","प्राथमिक शिक्षक","7744028860"), T("Tareque Mohiuddin Khaled Siddiqui","अन्य","9970544781"), T("Safiya Begum Habeeb Shaikh","पदवीधर शिक्षक","8329261423"), T("Shabana begum Afsar Shaikh","प्राथमिक शिक्षक","8668733276"), T("Mohammad Irshad Abdul Gafoor Shaikh","मुख्याध्यापक","9096642780"), T("Rizwana Begum Abdul Haleem Shaikh","पदवीधर शिक्षक","9309884141"), T("Feroz Akber Shaikh","पदवीधर शिक्षक","9766220751"), T("Mirza Atufa Fatema shafiq Baig","अन्य","7588635427"), T("Afshan Begum Iqbal Ahmad Syed","पदवीधर शिक्षक","9130834030"), T("AHEED MUKHTAR SHAIKH","प्राथमिक शिक्षक","8459100817")
+  { category: "zp", udise: "272701016", name: "जि. प. प्रा. शा. वरवटी", hmPin: "", teachers: [
+    T("ज्योतीबाई देवीदासराव शिंदे", "प्राथमिक शिक्षक", "9403645467"),
+    T("श्री सायस साखरोबा गर्जे", "प्राथमिक शिक्षक", "9561858811")
   ]},
-  { udise:"27270101661", name:"श्री व्यंकटेश विद्या मंदिर हायस्कूल अंबा", hmPin:"", teachers:[ T("Shri KAKADE S B","मुख्याध्यापक","8805044747") ]},
-  { udise:"27270101305", name:"छत्रपती संभाजी राजे ग्लोबल स्कूल जोगाईवाडी", hmPin:"", teachers:[ T("Gangane Shashikala Nagorao","मुख्याध्यापक","8788801400") ]},
-  { udise:"27270101647", name:"मन्सूर हायस्कूल रविवार पेठ अंबाजोगाई", hmPin:"", teachers:[ T("SAYYED MERAJ AHMAD MOOSA","मुख्याध्यापक","9822283894") ]},
-  { udise:"27270101649", name:"सावरकर विद्यालय पिंपळा धायगुडा", hmPin:"", teachers:[
-    T("Annasaheb Mukundrao Hulge","मुख्याध्यापक","9767801101"), T("दीपक रघुनाथ कराड","प्राथमिक शिक्षक","9881977257"), T("चंद्रकांत संजीवन रोडगे","पदवीधर शिक्षक","9881293787"), T("वसंत किशनराव जळकोटकर","पदवीधर शिक्षक","9119593964")
+  { category: "zp", udise: "272701017", name: "जि. प. प्रा. शा. शेपवाडी", hmPin: "", teachers: [
+    T("वैशाली विजय बुरांडे", "पदवीधर शिक्षक", "9405644999"),
+    T("आशालता मनोहरराव लांब", "प्राथमिक शिक्षक", "7719015759"),
+    T("शैलजा उत्तमराव जोशी", "प्राथमिक शिक्षक", "9403882075"),
+    T("प्रशांत मारुतीराव बिरादार", "प्राथमिक शिक्षक", "9421328701")
   ]},
-  { udise:"27270101653", name:"न्यू इंग्लिश हायस्कूल गुरुवार पेठ अंबाजोगाई", hmPin:"", teachers:[ T("BHASME MM","मुख्याध्यापक","9890038251") ]}
+  { category: "zp", udise: "272701018", name: "जि. प. प्रा. शा. सह्याद्री नगर शेपवाडी", hmPin: "", teachers: [
+    T("मीनाक्षी प्रकाश लवटे", "प्राथमिक शिक्षक", "9823340660"),
+    T("अनिता सदाशिव नखाते", "प्राथमिक शिक्षक", "9403356595")
+  ]},
+  { category: "zp", udise: "272701019", name: "जि. प. प्रा. शा. साकूड (मराठी)", hmPin: "", teachers: [
+    T("अंगद कोंडीबा घुले", "प्राथमिक शिक्षक", "9822373937"),
+    T("सुर्यवंशी सविता जगन्नाथ", "सहशिक्षक", "9403646485"),
+    T("लव्हारे सुरेखा तुकाराम", "सहशिक्षक", "9822576718"),
+    T("आघाव सुरेखा प्रल्हाद", "सहशिक्षक", "9881655787"),
+    T("जाधव छाया मधुकर", "सहशिक्षक", "9421480353"),
+    T("तोडकर माधुरी मुरली", "सहशिक्षक", "8788833061"),
+    T("गायके शिल्पा तात्यासाहेब", "सहशिक्षक", "7588934345"),
+    T("मुंडे मंगल विश्वनाथ", "सहशिक्षक", "-"),
+    T("राठोड विनायक घुगू", "सहशिक्षक", "-")
+  ]},
+  { category: "zp", udise: "27270101612", name: "सी. पी. एस. रविवार पेठ", hmPin: "", teachers: [
+    T("उषाताई नारायण चव्हाण", "प्राथमिक शिक्षक", "9422929990"),
+    T("रेखा सुखदेव बनसोडे", "पदवीधर शिक्षक", "9767539553"),
+    T("इंद्रजित शिवाजीराव डांगे", "प्राथमिक शिक्षक", "9403023319"),
+    T("रुपेश पांडुरंग लोंढे", "केंद्र समन्वयक", "7066100281"),
+    T("पुरुषोत्तम संभाप्पा रुद्राक्ष", "विशेष शिक्षक", "7588566554")
+  ]},
+  { category: "zp", udise: "27270103801", name: "जि.प.हा.स्कू. गिरवली", hmPin: "", teachers: [
+    T("Ravindra Deogaonkar", "मुख्याध्यापक", "9405662166")
+  ]},
+
+  // --- इतर शाळा (Other Private/Aided/High Schools) ---
+  { category: "other", udise: "27270101620", name: "मिलिया प्रा. शा. अंबा", hmPin: "", teachers: [
+    T("SHAIKH JAMEEL NAWAB", "मुख्याध्यापक", "9960454571"), T("Nehal Nisar Maniyar", "प्राथमिक शिक्षक", "9970066049")
+  ]},
+  { category: "other", udise: "27270101618", name: "कै. देवराव बालाजी गणगे योगेश्वरी नूतन प्राथमिक विभाग", hmPin: "", teachers: [
+    T("KHANDERAO BHAGWANRAO NANDGAONKAR", "मुख्याध्यापक", "9881638496"), T("Ashwini Manik Kharbad", "प्राथमिक शिक्षक", "7709249627"), T("PAVAN PRADIPRAO PATIL", "प्राथमिक शिक्षक", "9028560957"), T("अंजली वसंतराव कुलकर्णी", "प्राथमिक शिक्षक", "9421990674"), T("दीपक ज्ञानोबा गोडसे", "प्राथमिक शिक्षक", "9421517566")
+  ]},
+  { category: "other", udise: "27270101619", name: "नेताजी सुभाषचंद्र प्रा. शा. अंबा", hmPin: "", teachers: [
+    T("Magar RB", "मुख्याध्यापक", "9421946215"), T("Rahul Vijay Burge", "प्राथमिक शिक्षक", "9922051313"), T("प्रफुल्ल मोहनराव कोमटवार", "प्राथमिक शिक्षक", "8888980705")
+  ]},
+  { category: "other", udise: "27270101626", name: "खोलेश्वर प्रा. शा. अंबाजोगाई", hmPin: "", teachers: [
+    T("Shivaji Angad Hendge", "मुख्याध्यापक", "9421375441"), T("वर्षा लक्ष्मणराव मुंडे", "प्राथमिक शिक्षक", "9422933231"), T("Sachin Shankarrao Aglave", "प्राथमिक शिक्षक", "9527753319")
+  ]},
+  { category: "other", udise: "27270101635", name: "योगेश्वरी नूतन हायस्कूल अंबा", hmPin: "", teachers: [
+    T("Shrimati PATHAK APARNA RAOSAHEB", "मुख्याध्यापक", "9403927545"), T("Shubhangi Pravinrao Bhosle", "प्राथमिक शिक्षक", "9518932931"), T("Tukaram Shivaji Admane", "पदवीधर शिक्षक", "9923112501")
+  ]},
+  { category: "other", udise: "27270101636", name: "श्रीमती गोदावरीबाई कुंकुलोळ योगेश्वरी कन्या हायस्कूल", hmPin: "", teachers: [
+    T("MEENA SURESH KULKARNI", "मुख्याध्यापक", "8459332551"), T("गणेश लक्ष्मण हरगुले", "प्राथमिक शिक्षक", "9403514006"), T("SHITAL GOPAL BANSODE", "पदवीधर शिक्षक", "8999637371")
+  ]}
 ];
 
 // ==========================================
-// DATA LOADING
+// DATA LOADING WITH SMART FIRST-TIME MERGE
 // ==========================================
 async function loadData() {
     const raw = localStorage.getItem(STORAGE_KEY);
@@ -391,15 +446,38 @@ async function loadData() {
         if(cloudText && cloudText.trim() !== "" && cloudText !== "[]") {
             const cloudData = JSON.parse(cloudText);
             if(cloudData.schools && Array.isArray(cloudData.schools)) {
-                schools = cloudData.schools;
-                adminPin = cloudData.pin || "";
+                let cloudSchools = cloudData.schools;
+                
+                // Check if ZP schools exist in cloud; if missing, merge default ZP schools
+                const hasZpInCloud = cloudSchools.some(s => s.category === "zp" || s.name.includes("जि. प."));
+                let needsUpload = false;
+
+                if (!hasZpInCloud) {
+                    const zpDefaults = DEFAULT_SCHOOLS.filter(s => s.category === "zp");
+                    // Prepend ZP defaults to cloud dataset
+                    cloudSchools = [...zpDefaults, ...cloudSchools];
+                    needsUpload = true;
+                }
+
+                schools = cloudSchools;
+                adminPin = cloudData.pin || adminPin;
                 localStorage.setItem(STORAGE_KEY, JSON.stringify({schools, pin: adminPin}));
                 initApp();
-                showToast("✅ क्लाउडवरून नवीन डेटा अपडेट झाला.");
+
+                if (needsUpload) {
+                    // Sync merged data with cloud automatically
+                    await syncToCloud(null, true);
+                    showToast("✅ जि.प. शाळा क्लाउडवर यशस्वीरित्या सिंक झाल्या!");
+                } else {
+                    showToast("✅ क्लाउडवरून डेटा अपडेट झाला.");
+                }
             }
+        } else {
+            // First time ever online: Seed cloud with full default dataset
+            await syncToCloud(null, true);
         }
     } catch(e) {
-        console.log("Cloud load offline/failed.");
+        console.log("Cloud sync offline/failed:", e);
     }
 }
 
@@ -446,9 +524,6 @@ function login() {
 }
 function logoutAdmin() { isAdmin = false; initApp(); }
 
-// ==========================================
-// MAIN ADMIN PIN RESET
-// ==========================================
 function openResetPinModal() {
     document.getElementById("currPin").value = "";
     document.getElementById("newPin").value = "";
@@ -463,29 +538,15 @@ function changeAdminPin() {
     const conf = document.getElementById("confPin").value.trim();
     const err = document.getElementById("resetPinError");
 
-    if (adminPin && curr !== adminPin) {
-        err.textContent = "सध्याचा पिन चुकीचा आहे!";
-        return;
-    }
-    if (newP.length < 4) {
-        err.textContent = "नवीन पिन किमान ४ अंकी असावा!";
-        return;
-    }
-    if (newP !== conf) {
-        err.textContent = "नवीन पिन आणि कन्फर्म पिन जुळत नाहीत!";
-        return;
-    }
+    if (adminPin && curr !== adminPin) { err.textContent = "सध्याचा पिन चुकीचा आहे!"; return; }
+    if (newP.length < 4) { err.textContent = "नवीन पिन किमान ४ अंकी असावा!"; return; }
+    if (newP !== conf) { err.textContent = "नवीन पिन आणि कन्फर्म पिन जुळत नाहीत!"; return; }
 
-    adminPin = newP;
-    saveData();
-    closeModal("resetPinModal");
+    adminPin = newP; saveData(); closeModal("resetPinModal");
     showToast("✅ मुख्य प्रशासक पिन यशस्वीरित्या बदलला!");
     syncToCloud(null, true);
 }
 
-// ==========================================
-// HM AUTH & PIN LOGIC
-// ==========================================
 function isHMCurrentSchool() {
     if (isAdmin) return true;
     if (currentSchoolIdx !== null && schools[currentSchoolIdx]) {
@@ -506,18 +567,9 @@ function loginHM() {
     const s = schools[currentSchoolIdx];
     const input = document.getElementById("hmPinInput").value.trim();
     const err = document.getElementById("hmLoginError");
-    
     if (input.length < 4) { err.textContent = "४ अंकी HM पिन आवश्यक आहे!"; return; }
-    
-    if (!s.hmPin) {
-        s.hmPin = input;
-        saveData();
-        syncToCloud(null, true);
-    } else if (s.hmPin !== input) {
-        err.textContent = "चुकीचा HM पिन!";
-        return;
-    }
-    
+    if (!s.hmPin) { s.hmPin = input; saveData(); syncToCloud(null, true); } 
+    else if (s.hmPin !== input) { err.textContent = "चुकीचा HM पिन!"; return; }
     loggedInHMSchoolUdise = s.udise;
     closeModal("hmLoginModal");
     showToast(`✅ ${s.name} - HM म्हणून प्रवेशित!`);
@@ -545,28 +597,17 @@ function changeHMPinSelf() {
     const conf = document.getElementById("hmConfPin").value.trim();
     const err = document.getElementById("hmResetPinError");
 
-    if (s.hmPin && curr !== s.hmPin) {
-        err.textContent = "सध्याचा HM पिन चुकीचा आहे!";
-        return;
-    }
-    if (newP.length < 4) {
-        err.textContent = "नवीन पिन किमान ४ अंकी असावा!";
-        return;
-    }
-    if (newP !== conf) {
-        err.textContent = "नवीन पिन आणि कन्फर्म पिन जुळत नाहीत!";
-        return;
-    }
+    if (s.hmPin && curr !== s.hmPin) { err.textContent = "सध्याचा HM पिन चुकीचा आहे!"; return; }
+    if (newP.length < 4) { err.textContent = "नवीन पिन किमान ४ अंकी असावा!"; return; }
+    if (newP !== conf) { err.textContent = "नवीन पिन आणि कन्फर्म पिन जुळत नाहीत!"; return; }
 
-    s.hmPin = newP;
-    saveData();
-    closeModal("hmResetPinModal");
+    s.hmPin = newP; saveData(); closeModal("hmResetPinModal");
     showToast("✅ HM पिन यशस्वीरित्या बदलला!");
     syncToCloud(null, true);
 }
 
 // ==========================================
-// RENDER LOGIC
+// RENDER & FILTER LOGIC
 // ==========================================
 function initApp() {
     renderAuth();
@@ -574,14 +615,9 @@ function initApp() {
     else renderSchoolDetail();
 }
 
-function changeSort(val) {
-    schoolSortBy = val;
+function switchTab(tab) {
+    activeTab = tab;
     initApp();
-}
-
-function changeTeacherSort(val) {
-    teacherSortBy = val;
-    renderSchoolDetail();
 }
 
 function renderSchoolList(searchQuery = "") {
@@ -589,7 +625,12 @@ function renderSchoolList(searchQuery = "") {
     const root = document.getElementById("appRoot");
     
     let filtered = schools.map((s, i) => ({s, i}))
-        .filter(x => x.s.name.includes(searchQuery) || x.s.udise.includes(searchQuery));
+        .filter(x => {
+            const matchesSearch = x.s.name.includes(searchQuery) || String(x.s.udise).includes(searchQuery);
+            if (activeTab === "zp") return matchesSearch && x.s.category === "zp";
+            if (activeTab === "other") return matchesSearch && x.s.category !== "zp";
+            return matchesSearch;
+        });
 
     filtered.sort((a, b) => {
         if (schoolSortBy === "nameAsc") return a.s.name.localeCompare(a.s.name, 'mr');
@@ -600,10 +641,16 @@ function renderSchoolList(searchQuery = "") {
     });
 
     let html = `
+      <div class="tabs">
+        <button class="tab-btn ${activeTab==='all'?'active':''}" onclick="switchTab('all')">सर्व शाळा (${schools.length})</button>
+        <button class="tab-btn ${activeTab==='zp'?'active':''}" onclick="switchTab('zp')">🏫 जिल्हा परिषद शाळा (${schools.filter(s=>s.category==='zp').length})</button>
+        <button class="tab-btn ${activeTab==='other'?'active':''}" onclick="switchTab('other')">इतर शाळा (${schools.filter(s=>s.category!=='zp').length})</button>
+      </div>
+
       <div class="controls">
         <input type="text" id="searchInput" placeholder="शाळा किंवा युडायस शोधा..." onkeyup="renderSchoolList(this.value)" value="${searchQuery}">
         
-        <select onchange="changeSort(this.value)">
+        <select onchange="schoolSortBy=this.value; initApp();">
           <option value="nameAsc" ${schoolSortBy==='nameAsc'?'selected':''}>नावानुसार (अ-ज्ञ)</option>
           <option value="nameDesc" ${schoolSortBy==='nameDesc'?'selected':''}>नावानुसार (ज्ञ-अ)</option>
           <option value="udise" ${schoolSortBy==='udise'?'selected':''}>युडायस कोडनुसार</option>
@@ -611,22 +658,34 @@ function renderSchoolList(searchQuery = "") {
         </select>
         
         ${isAdmin ? `
-          <button class="btn dark" onclick="printAllSchoolsReport()">📑 सर्व शाळा एकत्रित अहवाल</button>
-          <button class="btn success" id="syncBtn1" onclick="syncToCloud(this)">☁️ क्लाउडवर सेव्ह करा</button>
+          <button class="btn dark" onclick="printFilteredReport('all')">📑 एकत्रित अहवाल</button>
           <button class="btn solid" onclick="openSchoolModal(null)">+ नवीन शाळा जोडा</button>
+          <button class="btn success" onclick="syncToCloud(this)">☁️ सेव्ह करा</button>
         ` : ``}
       </div>
+
+      ${isAdmin ? `
+      <div class="card" style="padding:12px 20px; background:#eff6ff; border:1px solid #bfdbfe; margin-bottom:15px; display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+        <span style="font-weight:bold; font-size:0.9rem; color:var(--navy);">🖨️ स्वतंत्र PDF अहवाल (Admin):</span>
+        <button class="btn success" style="padding:4px 10px; font-size:0.85rem;" onclick="printFilteredReport('उपस्थित')">✅ उपस्थित शिक्षक PDF</button>
+        <button class="btn danger" style="padding:4px 10px; font-size:0.85rem;" onclick="printFilteredReport('गैरहजर')">❌ गैरहजर शिक्षक PDF</button>
+        <button class="btn solid" style="padding:4px 10px; font-size:0.85rem; background:#d97706;" onclick="printFilteredReport('रजा')">📋 रजा शिक्षक PDF</button>
+      </div>
+      ` : ''}
+
       <div class="card table-wrapper">
         <table>
-          <thead><tr><th>अ.क्र.</th><th>शाळेचे नाव</th><th>युडायस कोड</th><th>शिक्षक संख्या</th>${isAdmin ? '<th style="text-align:center">कृती</th>' : ''}</tr></thead>
+          <thead><tr><th>अ.क्र.</th><th>शाळेचे नाव</th><th>प्रकार</th><th>युडायस कोड</th><th>शिक्षक संख्या</th>${isAdmin ? '<th style="text-align:center">कृती</th>' : ''}</tr></thead>
           <tbody>
     `;
-    if(filtered.length === 0) html += `<tr><td colspan="${isAdmin?5:4}" style="text-align:center">माहिती उपलब्ध नाही</td></tr>`;
+    if(filtered.length === 0) html += `<tr><td colspan="${isAdmin?6:5}" style="text-align:center">माहिती उपलब्ध नाही</td></tr>`;
     
     filtered.forEach((item, idx) => {
+        const catBadge = item.s.category === 'zp' ? '<span style="background:#e0f2fe; color:#0369a1; padding:2px 6px; border-radius:4px; font-size:0.8rem; font-weight:bold;">जि.प. शाळा</span>' : '<span style="background:#f1f5f9; color:#475569; padding:2px 6px; border-radius:4px; font-size:0.8rem;">इतर</span>';
         html += `<tr onclick="if(!event.target.closest('.actions-cell')) openSchool(${item.i})">
             <td>${toMarathi(idx + 1)}</td>
             <td style="font-weight:bold; color:var(--navy)">${item.s.name}</td>
+            <td>${catBadge}</td>
             <td>${item.s.udise}</td>
             <td>${toMarathi(item.s.teachers ? item.s.teachers.length : 0)}</td>
             ${isAdmin ? `
@@ -642,15 +701,19 @@ function renderSchoolList(searchQuery = "") {
 
 function openSchool(idx) { 
     currentSchoolIdx = idx; 
-    teacherSortBy = "desig"; // वरिष्ठता क्रम
+    teacherSortBy = "desig";
+    teacherAttFilter = "all";
     currentView = "detail"; 
     initApp(); 
 }
 
-// पदनाम व नावांच्या नियमानुसार अचूक सॉर्टिंग
-function getSortedTeachers(teachersList) {
+function getSortedAndFilteredTeachers(teachersList) {
     if(!teachersList) return [];
     let list = [...teachersList];
+
+    if (teacherAttFilter !== "all") {
+        list = list.filter(t => (t.attendance || "उपस्थित") === teacherAttFilter);
+    }
 
     if (teacherSortBy === "desig") {
         list.sort((a, b) => {
@@ -690,7 +753,7 @@ function renderSchoolDetail() {
         hmAuthSection = `<button class="btn hm" onclick="openHMLoginModal()">🔐 HM लॉगिन (शिक्षकांची माहिती बदला)</button>`;
     }
 
-    let sortedTeachers = getSortedTeachers(s.teachers);
+    let displayTeachers = getSortedAndFilteredTeachers(s.teachers);
 
     let html = `
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:10px;">
@@ -700,27 +763,37 @@ function renderSchoolDetail() {
 
       <div class="card">
         <h2 style="margin-bottom: 5px; color:var(--navy)">${s.name}</h2>
-        <p style="margin-top: 0; color: #666;">युडायस कोड: ${s.udise}</p>
+        <p style="margin-top: 0; color: #666;">युडायस कोड: ${s.udise} | प्रकार: <b>${s.category==='zp'?'जिल्हा परिषद शाळा':'इतर शाळा'}</b></p>
         
         <div class="print-settings">
             <div class="box"><label>स्थळ:</label><input type="text" id="pVenue" value="रविवार पेठ, अंबाजोगाई, जि. बीड"></div>
             <div class="box"><label>दिनांक:</label><input type="date" id="pDate" value="${today}"></div>
             <div style="display:flex; gap:10px;">
               <button class="btn solid" onclick="printData()">🖨️ PDF / Print</button>
-              ${canEdit ? `<button class="btn success" id="syncBtn2" onclick="syncToCloud(this)">☁️ क्लाउडवर सेव्ह करा</button>` : ``}
+              ${canEdit ? `<button class="btn success" id="syncBtn2" onclick="syncToCloud(this)">☁️ सेव्ह करा</button>` : ``}
             </div>
         </div>
 
         <div class="controls" style="justify-content: space-between;">
-          <div style="display:flex; align-items:center; gap:8px;">
-            <label style="font-weight:600; font-size:0.9rem; color:var(--navy);">शिक्षक क्रमवारी (Sort):</label>
-            <select onchange="changeTeacherSort(this.value)">
-              <option value="desig" ${teacherSortBy==='desig'?'selected':''}>पदनामानुसार (वरिष्ठता क्रम)</option>
-              <option value="nameAsc" ${teacherSortBy==='nameAsc'?'selected':''}>नावानुसार (अ-ज्ञ)</option>
-              <option value="nameDesc" ${teacherSortBy==='nameDesc'?'selected':''}>नावानुसार (ज्ञ-अ)</option>
-              <option value="att" ${teacherSortBy==='att'?'selected':''}>उपस्थितीनुसार</option>
-              <option value="default" ${teacherSortBy==='default'?'selected':''}>मूळ नोंदणी क्रमाने (Default)</option>
-            </select>
+          <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+            <div>
+              <label style="font-weight:600; font-size:0.85rem; color:var(--navy);">उपस्थिती फिल्टर:</label>
+              <select onchange="teacherAttFilter=this.value; renderSchoolDetail();" style="padding:6px 10px;">
+                <option value="all" ${teacherAttFilter==='all'?'selected':''}>सर्व शिक्षक</option>
+                <option value="उपस्थित" ${teacherAttFilter==='उपस्थित'?'selected':''}>फक्त उपस्थित</option>
+                <option value="गैरहजर" ${teacherAttFilter==='गैरहजर'?'selected':''}>फक्त गैरहजर</option>
+                <option value="रजा" ${teacherAttFilter==='रजा'?'selected':''}>फक्त रजेवरील</option>
+              </select>
+            </div>
+            <div>
+              <label style="font-weight:600; font-size:0.85rem; color:var(--navy);">क्रमवारी:</label>
+              <select onchange="teacherSortBy=this.value; renderSchoolDetail();" style="padding:6px 10px;">
+                <option value="desig" ${teacherSortBy==='desig'?'selected':''}>पदनामानुसार (वरिष्ठता)</option>
+                <option value="nameAsc" ${teacherSortBy==='nameAsc'?'selected':''}>नावानुसार (अ-ज्ञ)</option>
+                <option value="nameDesc" ${teacherSortBy==='nameDesc'?'selected':''}>नावानुसार (ज्ञ-अ)</option>
+                <option value="att" ${teacherSortBy==='att'?'selected':''}>उपस्थितीनुसार</option>
+              </select>
+            </div>
           </div>
           ${canEdit ? `<button class="btn solid" onclick="openTeacherModal(null)">+ नवीन शिक्षक जोडा</button>` : ``}
         </div>
@@ -740,11 +813,11 @@ function renderSchoolDetail() {
             <tbody>
     `;
 
-    if(!sortedTeachers || sortedTeachers.length === 0) {
+    if(!displayTeachers || displayTeachers.length === 0) {
         html += `<tr><td colspan="${canEdit ? 6 : 5}" style="text-align:center; padding:20px;">शिक्षक माहिती उपलब्ध नाही.</td></tr>`;
     }
 
-    sortedTeachers.forEach((t, i) => {
+    displayTeachers.forEach((t, i) => {
         let att = t.attendance || "उपस्थित";
         let attClass = att === "उपस्थित" ? "att-present" : (att === "गैरहजर" ? "att-absent" : "att-leave");
         
@@ -770,15 +843,14 @@ function renderSchoolDetail() {
     root.innerHTML = html;
 }
 
-// Update Attendance Inline
 function updateAttendance(teacherId, status) {
     const s = schools[currentSchoolIdx];
     const t = s.teachers.find(x => x.id === teacherId);
-    if(t) { t.attendance = status; saveData(); initApp(); }
+    if(t) { t.attendance = status; saveData(); renderSchoolDetail(); }
 }
 
 // ==========================================
-// CRUD TEACHER & SCHOOL
+// CRUD OPERATIONS
 // ==========================================
 function openTeacherModal(id) {
     editingTeacherId = id;
@@ -797,24 +869,18 @@ function saveTeacher() {
     const s = schools[currentSchoolIdx];
     if(editingTeacherId) {
         const t = s.teachers.find(x => x.id === editingTeacherId);
-        t.name = name; 
-        t.desig = document.getElementById("t_desig").value; 
-        t.mobile = document.getElementById("t_mobile").value.trim();
+        t.name = name; t.desig = document.getElementById("t_desig").value; t.mobile = document.getElementById("t_mobile").value.trim();
     } else { 
         s.teachers.push(T(name, document.getElementById("t_desig").value, document.getElementById("t_mobile").value.trim())); 
     }
-    saveData(); 
-    closeModal('teacherModal'); 
-    initApp();
+    saveData(); closeModal('teacherModal'); initApp();
     showToast("शिक्षक माहिती जतन झाली!");
 }
 
 function deleteTeacher() {
     if(confirm("ही शिक्षकाची नोंद डिलीट करायची आहे का?")) {
         schools[currentSchoolIdx].teachers = schools[currentSchoolIdx].teachers.filter(x => x.id !== editingTeacherId);
-        saveData(); 
-        closeModal('teacherModal'); 
-        initApp();
+        saveData(); closeModal('teacherModal'); initApp();
         showToast("शिक्षक माहिती काढली.");
     }
 }
@@ -824,6 +890,7 @@ function openSchoolModal(idx) {
     tempSchoolIdx = idx;
     document.getElementById("schoolModalTitle").textContent = idx === null ? "नवीन शाळा जोडा" : "शाळा संपादित करा";
     document.getElementById("s_name").value = idx === null ? "" : schools[idx].name;
+    document.getElementById("s_category").value = idx === null ? (activeTab==='zp'?'zp':'other') : (schools[idx].category || 'zp');
     document.getElementById("s_udise").value = idx === null ? "" : schools[idx].udise;
     document.getElementById("s_hmpin").value = idx === null ? "" : (schools[idx].hmPin || "");
     openModal("schoolModal");
@@ -831,20 +898,20 @@ function openSchoolModal(idx) {
 
 function saveSchool() {
     const name = document.getElementById("s_name").value.trim();
+    const category = document.getElementById("s_category").value;
     const udise = document.getElementById("s_udise").value.trim();
     const hmPin = document.getElementById("s_hmpin").value.trim();
     if(!name || !udise) { document.getElementById("schoolError").textContent = "नाव आणि युडायस आवश्यक आहे."; return; }
     
     if(tempSchoolIdx === null) {
-        schools.push({ name, udise, hmPin: hmPin, teachers: [] });
+        schools.push({ category, name, udise, hmPin, teachers: [] });
     } else { 
         schools[tempSchoolIdx].name = name; 
+        schools[tempSchoolIdx].category = category;
         schools[tempSchoolIdx].udise = udise;
         schools[tempSchoolIdx].hmPin = hmPin;
     }
-    saveData(); 
-    closeModal('schoolModal'); 
-    initApp();
+    saveData(); closeModal('schoolModal'); initApp();
     showToast("शाळा माहिती जतन झाली!");
 }
 
@@ -852,9 +919,8 @@ function deleteSchoolDirect(idx) {
     const schoolName = schools[idx].name;
     if(confirm(`"${schoolName}" ही शाळा आणि त्यातील सर्व शिक्षकांची माहिती कायमची डिलीट करायची आहे का?`)) {
         schools.splice(idx, 1);
-        saveData();
-        initApp();
-        showToast("शाळा यशस्वीरित्या डिलीट केली.");
+        saveData(); initApp();
+        showToast("शाळा डिलीट केली.");
     }
 }
 
@@ -863,13 +929,11 @@ function deleteSchoolDirect(idx) {
 // ==========================================
 async function syncToCloud(btnElement, quiet = false) {
     const payload = { schools: schools, pin: adminPin };
-    
     if(btnElement) {
         btnElement.dataset.original = btnElement.innerHTML;
         btnElement.textContent = "⌛ सेव्ह होत आहे...";
         btnElement.disabled = true;
     }
-
     try {
         await fetch(GOOGLE_APP_SCRIPT_URL, {
             method: "POST",
@@ -877,19 +941,19 @@ async function syncToCloud(btnElement, quiet = false) {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload)
         });
-        if(!quiet) showToast("✅ संपूर्ण डेटा Google Sheet (क्लाउड) वर सुरक्षित जतन झाला!");
+        if(!quiet) showToast("✅ डेटा Google Sheet (क्लाउड) वर सुरक्षित जतन झाला!");
     } catch(err) {
         if(!quiet) showToast("❌ त्रुटी आली. इंटरनेट तपासा.");
     } finally {
         if(btnElement) {
-            btnElement.innerHTML = btnElement.dataset.original || "☁️ क्लाउडवर सेव्ह करा";
+            btnElement.innerHTML = btnElement.dataset.original || "☁️ सेव्ह करा";
             btnElement.disabled = false;
         }
     }
 }
 
 // ==========================================
-// PRINT (Single School - Sign Sheet)
+// PRINT & SEPARATE PDFS
 // ==========================================
 function printData() {
     const s = schools[currentSchoolIdx];
@@ -901,16 +965,16 @@ function printData() {
         dateStr = `${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth()+1).padStart(2, '0')}/${d.getFullYear()}`;
     }
 
-    const sortedTeachers = getSortedTeachers(s.teachers);
+    const sortedTeachers = getSortedAndFilteredTeachers(s.teachers);
 
     let html = `
       <div class="print-page-block">
         <div class="print-header">
-            <h1>शिक्षण परीषद उपस्थिती प्रपत्र</h1>
+            <h1>शिक्षण परिषद उपस्थिती प्रपत्र</h1>
             <div class="print-meta"><span>स्थळ: ${venue}</span><span>दिनांक: ${dateStr}</span></div>
         </div>
         <div class="print-school-name">
-          <span>${s.name}</span>
+          <span>${s.name} (${s.category==='zp'?'जि.प.शाळा':'इतर'})</span>
           <span>युडायस: ${s.udise}</span>
         </div>
         <table class="print-table">
@@ -947,51 +1011,44 @@ function printData() {
     window.print();
 }
 
-// ==========================================
-// PRINT (All Schools Combined Attendance Report)
-// ==========================================
-function printAllSchoolsReport() {
+function printFilteredReport(filterType = "all") {
     const today = new Date();
     const dateStr = `${String(today.getDate()).padStart(2, '0')}/${String(today.getMonth()+1).padStart(2, '0')}/${today.getFullYear()}`;
     
-    let totalT = 0, presT = 0, absT = 0, leaveT = 0;
-    schools.forEach(s => {
-        (s.teachers || []).forEach(t => {
-            totalT++;
-            const att = t.attendance || "उपस्थित";
-            if(att === "उपस्थित") presT++;
-            else if(att === "गैरहजर") absT++;
-            else if(att === "रजा") leaveT++;
-        });
-    });
+    let titleText = "शिक्षण परिषद - सर्व शाळा एकत्रित उपस्थिती अहवाल";
+    if(filterType === "उपस्थित") titleText = "शिक्षण परिषद - उपस्थित शिक्षक अहवाल (Present List)";
+    if(filterType === "गैरहजर") titleText = "शिक्षण परिषद - गैरहजर शिक्षक अहवाल (Absent List)";
+    if(filterType === "रजा") titleText = "शिक्षण परिषद - रजेवरील शिक्षक अहवाल (On Leave List)";
+
+    let listToPrint = (activeTab === "all") ? schools : (activeTab === "zp" ? schools.filter(s=>s.category==='zp') : schools.filter(s=>s.category!=='zp'));
 
     let html = `
       <div class="print-page-block">
         <div class="print-header">
-            <h1>शिक्षण परीषद - सर्व शाळा एकत्रित उपस्थिती अहवाल</h1>
+            <h1>${titleText}</h1>
             <div class="print-meta">
-              <span>तालुका: अंबाजोगाई • जिल्हा: बीड</span>
+              <span>केंद्र: रविवार पेठ, ता. अंबाजोगाई, जि. बीड[span_0](start_span)[span_0](end_span)</span>
               <span>दिनांक: ${dateStr}</span>
-            </div>
-            <div style="font-size:12px; margin-top:8px; font-weight:bold;">
-              एकूण शिक्षक: ${toMarathi(totalT)} | उपस्थित: ${toMarathi(presT)} | गैरहजर: ${toMarathi(absT)} | रजा: ${toMarathi(leaveT)}
             </div>
         </div>
     `;
 
-    schools.forEach((s, sIdx) => {
-        let sPres = 0, sAbs = 0, sLeave = 0;
-        (s.teachers || []).forEach(t => {
+    let contentGenerated = false;
+
+    listToPrint.forEach((s, sIdx) => {
+        let matchingTeachers = (s.teachers || []).filter(t => {
             const att = t.attendance || "उपस्थित";
-            if(att === "उपस्थित") sPres++;
-            else if(att === "गैरहजर") sAbs++;
-            else if(att === "रजा") sLeave++;
+            if (filterType === "all") return true;
+            return att === filterType;
         });
 
+        if (filterType !== "all" && matchingTeachers.length === 0) return;
+
+        contentGenerated = true;
         html += `
           <div class="print-school-name">
-            <span>${toMarathi(sIdx + 1)}. ${s.name} (UDISE: ${s.udise})</span>
-            <span style="font-size:12px; font-weight:normal;">उपस्थित: <b>${toMarathi(sPres)}</b> | गैरहजर: <b>${toMarathi(sAbs)}</b> | रजा: <b>${toMarathi(sLeave)}</b></span>
+            <span>${toMarathi(sIdx + 1)}. ${s.name} (${s.category==='zp'?'जि.प.':'इतर'})</span>
+            <span style="font-size:12px;">शिक्षक संख्या: <b>${toMarathi(matchingTeachers.length)}</b></span>
           </div>
           <table class="print-table">
             <thead>
@@ -1007,38 +1064,41 @@ function printAllSchoolsReport() {
             <tbody>
         `;
 
-        if (!s.teachers || s.teachers.length === 0) {
-            html += `<tr><td colspan="6" class="center" style="padding:10px;">माहिती उपलब्ध नाही.</td></tr>`;
-        } else {
-            const sortedTeachers = getSortedTeachers(s.teachers);
-            sortedTeachers.forEach((t, i) => {
-                const att = t.attendance || "उपस्थित";
-                let attDisplay = att;
-                if(att === "गैरहजर") attDisplay = `<span style="color:#b91c1c; font-weight:bold;">गैरहजर</span>`;
-                else if(att === "रजा") attDisplay = `<span style="color:#d97706; font-weight:bold;">रजा</span>`;
-                else attDisplay = `<span style="color:#047857; font-weight:bold;">उपस्थित</span>`;
+        matchingTeachers.forEach((t, i) => {
+            const att = t.attendance || "उपस्थित";
+            let attDisplay = att;
+            if(att === "गैरहजर") attDisplay = `<span style="color:#b91c1c; font-weight:bold;">गैरहजर</span>`;
+            else if(att === "रजा") attDisplay = `<span style="color:#d97706; font-weight:bold;">रजा</span>`;
+            else attDisplay = `<span style="color:#047857; font-weight:bold;">उपस्थित</span>`;
 
-                html += `
-                  <tr>
-                      <td class="center">${toMarathi(i+1)}</td>
-                      <td style="font-weight:600;">${t.name}</td>
-                      <td>${t.desig}</td>
-                      <td class="center">${t.mobile || "-"}</td>
-                      <td class="center">${attDisplay}</td>
-                      <td></td>
-                  </tr>
-                `;
-            });
-        }
+            html += `
+              <tr>
+                  <td class="center">${toMarathi(i+1)}</td>
+                  <td style="font-weight:600;">${t.name}</td>
+                  <td>${t.desig}</td>
+                  <td class="center">${t.mobile || "-"}</td>
+                  <td class="center">${attDisplay}</td>
+                  <td></td>
+              </tr>
+            `;
+        });
         html += `</tbody></table>`;
     });
 
-    html += `</div>`;
+    if(!contentGenerated) {
+        html += `<div style="text-align:center; padding:30px; font-weight:bold;">या प्रवर्गात एकही शिक्षक नोंदवलेला नाही.</div>`;
+    }
+
+    html += `
+      <div style="margin-top:25px; font-size:12px; border-top:1px dashed #000; padding-top:8px;">
+        <b>प्रतिलिपि:</b> १. मा. गटशिक्षणाधिकारी अंबाजोगाई | २. मा. शिक्षणाधिकारी (प्रा) जि. प. बीड[span_1](start_span)[span_1](end_span) | ३. प्राचार्य, डायट अंबाजोगाई[span_2](start_span)[span_2](end_span)
+      </div>
+    </div>`;
+
     document.getElementById("printArea").innerHTML = html;
     window.print();
 }
 
-// Start App
 loadData(); 
 </script>
 </body>
