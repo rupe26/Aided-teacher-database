@@ -190,7 +190,7 @@ td.actions { text-align: center; white-space: nowrap; width: 90px; }
     <div class="modal-body">
       <div class="field"><label>सध्याचा HM पिन</label><input type="password" id="hmCurrPin" maxlength="4"></div>
       <div class="field"><label>नवीन HM पिन</label><input type="password" id="hmNewPin" maxlength="4"></div>
-      <div class="field"><label>नवीन पिन पुन्हा टाका</label><input type="password" id="hmConfPin" maxlength="4"></div>
+      <div class="field"><label>नवीन पिन पुन्हा टाका</label><input type="password" id="confPin" maxlength="4"></div>
       <div class="error" id="hmResetPinError"></div>
       <div class="modal-foot">
         <button class="btn" style="color:var(--navy); border-color:var(--border)" onclick="closeModal('hmResetPinModal')">रद्द करा</button>
@@ -209,6 +209,13 @@ td.actions { text-align: center; white-space: nowrap; width: 90px; }
         <select id="s_category">
           <option value="zp">जिल्हा परिषद शाळा</option>
           <option value="other">इतर शाळा</option>
+        </select>
+      </div>
+      <div class="field"><label>शाळेचा स्तर (Level)</label>
+        <select id="s_level">
+          <option value="प्राथमिक">प्राथमिक (१ ली ते ५ वी/८ वी)</option>
+          <option value="माध्यमिक">माध्यमिक (५ वी/८ वी ते १० वी)</option>
+          <option value="उच्च माध्यमिक">उच्च माध्यमिक (११ वी ते १२ वी)</option>
         </select>
       </div>
       <div class="field"><label>युडायस कोड</label><input type="text" id="s_udise"></div>
@@ -255,7 +262,7 @@ td.actions { text-align: center; white-space: nowrap; width: 90px; }
 
 <script>
 // ==========================================
-// 1. SAFE DATA & STORAGE WRAPPER
+// 1. DATA & STORAGE
 // ==========================================
 const GOOGLE_APP_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzd-1bUwsysozdqPpUF8NBKVPjXOJtV8Iz7cTuc_p_1d-8HK93rHFEfq1_jUbyHZxg/exec"; 
 
@@ -270,7 +277,7 @@ function T(name, desig, mobile, attendance) {
   return { id: generateUUID(), name: name, desig: desig, mobile: mobile, attendance: attendance || "उपस्थित" }; 
 }
 
-const STORAGE_KEY = "shikshanParishad_SafeDB";
+const STORAGE_KEY = "shikshanParishad_LevelDB_v1";
 let schools = [];
 let adminPin = "";
 let isAdmin = false;
@@ -283,52 +290,52 @@ let schoolSortBy = "nameAsc";
 let teacherSortBy = "desig";
 let teacherAttFilter = "all";
 
-// Base Dataset (21 ZP Schools + Aided Schools)
+// Base Dataset with School Level (शाळेचा स्तर)
 const DEFAULT_SCHOOLS = [
-  { category: "zp", udise: "272701001", name: "जि. प. प्रा. शा. अंबलवाडी", hmPin: "", teachers: [
+  { category: "zp", level: "प्राथमिक", udise: "272701001", name: "जि. प. प्रा. शा. अंबलवाडी", hmPin: "", teachers: [
     T("नवतीला रामराव जाधव", "प्राथमिक शिक्षक", "7498239099"),
     T("भगवान आश्रुबा बिल्पे", "पदवीधर शिक्षक", "9604572196"),
     T("आनंद पांडुरंग सिरसाट", "पदवीधर शिक्षक", "9850940078"),
     T("रुक्मिणी हरिश्चंद्र दाभाडे", "प्राथमिक शिक्षक", "7588342321")
   ]},
-  { category: "zp", udise: "272701002", name: "जि. प. प्रा. शा. उघडे वस्ती (वरवटी)", hmPin: "", teachers: [
+  { category: "zp", level: "प्राथमिक", udise: "272701002", name: "जि. प. प्रा. शा. उघडे वस्ती (वरवटी)", hmPin: "", teachers: [
     T("रविकांत सुधाकरराव खेपकर", "प्राथमिक शिक्षक", "9623520793"),
     T("शोभा अंगदराव चाटे", "प्राथमिक शिक्षक", "8999768368")
   ]},
-  { category: "zp", udise: "272701003", name: "जि. प. प्रा. शा. काळवटी तांडा क्र. १", hmPin: "", teachers: [
+  { category: "zp", level: "प्राथमिक", udise: "272701003", name: "जि. प. प्रा. शा. काळवटी तांडा क्र. १", hmPin: "", teachers: [
     T("कमल गंगाधर चिखले", "प्राथमिक शिक्षक", "9422082541"),
     T("प्रभू बाबुराव खोडवे", "प्राथमिक शिक्षक", "9764569825"),
     T("उत्तम बाबुराव डोंगरे", "प्राथमिक शिक्षक", "9689008389")
   ]},
-  { category: "zp", udise: "272701004", name: "जि. प. प्रा. शा. काळवटी तांडा क्र. २", hmPin: "", teachers: [
+  { category: "zp", level: "प्राथमिक", udise: "272701004", name: "जि. प. प्रा. शा. काळवटी तांडा क्र. २", hmPin: "", teachers: [
     T("संजय हणमंतराव कचकलवार", "प्राथमिक शिक्षक", "9284746414"),
     T("पूनम किसन लेंगरे", "प्राथमिक शिक्षक", "7798661934")
   ]},
-  { category: "zp", udise: "272701005", name: "जि. प. प्रा. शा. काळवटी तांडा क्र. ३", hmPin: "", teachers: [
+  { category: "zp", level: "प्राथमिक", udise: "272701005", name: "जि. प. प्रा. शा. काळवटी तांडा क्र. ३", hmPin: "", teachers: [
     T("मंजुषा भीमाशंकर जिडगे", "प्राथमिक शिक्षक", "9561941714"),
     T("नंदकुमार नामदेव सूर्यवंशी", "प्राथमिक शिक्षक", "9307856717")
   ]},
-  { category: "zp", udise: "272701006", name: "जि. प. प्रा. शा. क्र. २, अंबाजोगाई", hmPin: "", teachers: [
+  { category: "zp", level: "प्राथमिक", udise: "272701006", name: "जि. प. प्रा. शा. क्र. २, अंबाजोगाई", hmPin: "", teachers: [
     T("बालासाहेब रामराव सोनवणे", "प्राथमिक शिक्षक", "9403608550"),
     T("बळीराम शिवदास आकुसकर", "प्राथमिक शिक्षक", "9011999904")
   ]},
-  { category: "zp", udise: "272701007", name: "जि. प. प्रा. शा. गिरवली आपेट", hmPin: "", teachers: [
+  { category: "zp", level: "प्राथमिक", udise: "272701007", name: "जि. प. प्रा. शा. गिरवली आपेट", hmPin: "", teachers: [
     T("अर्जुन सूर्यकांत चव्हाण", "प्राथमिक शिक्षक", "9763737062"),
     T("सुनिल आनंदराव फुलेवार", "प्राथमिक शिक्षक", "9423733945")
   ]},
-  { category: "zp", udise: "272701008", name: "जि. प. प्रा. शा. गोल्टावस्ती", hmPin: "", teachers: [
+  { category: "zp", level: "प्राथमिक", udise: "272701008", name: "जि. प. प्रा. शा. गोल्टावस्ती", hmPin: "", teachers: [
     T("सुरेखा अभिमान गालफाडे", "प्राथमिक शिक्षक", "8999330431"),
     T("शालन नागनाथ जोगदंड", "प्राथमिक शिक्षक", "9763233793")
   ]},
-  { category: "zp", udise: "272701009", name: "जि. प. प्रा. शा. तलाव पाटी", hmPin: "", teachers: [
+  { category: "zp", level: "प्राथमिक", udise: "272701009", name: "जि. प. प्रा. शा. तलाव पाटी", hmPin: "", teachers: [
     T("मनीषा धोंडोपंत चिंचोलीकर", "प्राथमिक शिक्षक", "9420194266"),
     T("श्रीदेवी मनोहर सिरसाट", "प्राथमिक शिक्षक", "8999773919")
   ]},
-  { category: "zp", udise: "272701010", name: "जि. प. प्रा. शा. नागझरी वसाहत", hmPin: "", teachers: [
+  { category: "zp", level: "प्राथमिक", udise: "272701010", name: "जि. प. प्रा. शा. नागझरी वसाहत", hmPin: "", teachers: [
     T("संतोष माणिकराव गित्ते", "प्राथमिक शिक्षक", "7588635356"),
     T("बालासाहेब व्यंकटराव कातळे", "प्राथमिक शिक्षक", "8999022483")
   ]},
-  { category: "zp", udise: "272701011", name: "जि. प. प्रा. शा. पिंपळा धायगुडा (मराठी)", hmPin: "", teachers: [
+  { category: "zp", level: "प्राथमिक", udise: "272701011", name: "जि. प. प्रा. शा. पिंपळा धायगुडा (मराठी)", hmPin: "", teachers: [
     T("भैय्यासाहेब तुकाराम जोगदंड", "प्राथमिक शिक्षक", "8888959458"),
     T("प्रीती सुभाषचंद्र साहू", "प्राथमिक शिक्षक", "9422610375"),
     T("संजीव कचरू उमाप", "पदवीधर शिक्षक", "9284023434"),
@@ -338,38 +345,38 @@ const DEFAULT_SCHOOLS = [
     T("सीमा सखारामराव कदम", "प्राथमिक शिक्षक", "9422329924"),
     T("विलास रामराव माचवे", "प्राथमिक शिक्षक", "9423893494")
   ]},
-  { category: "zp", udise: "272701012", name: "जि. प. प्रा. शा. पोलेवाडी", hmPin: "", teachers: [
+  { category: "zp", level: "प्राथमिक", udise: "272701012", name: "जि. प. प्रा. शा. पोलेवाडी", hmPin: "", teachers: [
     T("राजेसाहेब वैजनाथराव सोमवंशी", "प्राथमिक शिक्षक", "7020708970"),
     T("सचिन नारायण गायकवाड", "प्राथमिक शिक्षक", "9637757982")
   ]},
-  { category: "zp", udise: "272701013", name: "जि. प. प्रा. शा. भीमाई वस्ती", hmPin: "", teachers: [
+  { category: "zp", level: "प्राथमिक", udise: "272701013", name: "जि. प. प्रा. शा. भीमाई वस्ती", hmPin: "", teachers: [
     T("वंदना तुकाराम उजगरे", "प्राथमिक शिक्षक", "9552983384"),
     T("वैजनाथ आबासाहेब गडदे", "प्राथमिक शिक्षक", "9421168755")
   ]},
-  { category: "zp", udise: "272701014", name: "जि. प. प्रा. शा. मांडवा तांडा", hmPin: "", teachers: [
+  { category: "zp", level: "प्राथमिक", udise: "272701014", name: "जि. प. प्रा. शा. मांडवा तांडा", hmPin: "", teachers: [
     T("पंचशीला मधुकर साळवी", "प्राथमिक शिक्षक", "9503685010"),
     T("संजय ज्ञानोबा पाडोळे", "प्राथमिक शिक्षक", "7020929833")
   ]},
-  { category: "zp", udise: "272701015", name: "जि. प. प्रा. शा. मांडवा पठाण", hmPin: "", teachers: [
+  { category: "zp", level: "प्राथमिक", udise: "272701015", name: "जि. प. प्रा. शा. मांडवा पठाण", hmPin: "", teachers: [
     T("मनीषा रत्नलिंग बिडवे", "प्राथमिक शिक्षक", "7875865244"),
     T("बापूराव राघुआप्पा धारेकर", "प्राथमिक शिक्षक", "7020752753"),
     T("सुरेश नामदेव निपाणीकर", "पदवीधर शिक्षक", "9423469937")
   ]},
-  { category: "zp", udise: "272701016", name: "जि. प. प्रा. शा. वरवटी", hmPin: "", teachers: [
+  { category: "zp", level: "प्राथमिक", udise: "272701016", name: "जि. प. प्रा. शा. वरवटी", hmPin: "", teachers: [
     T("ज्योतीबाई देवीदासराव शिंदे", "प्राथमिक शिक्षक", "9403645467"),
     T("श्री सायस साखरोबा गर्जे", "प्राथमिक शिक्षक", "9561858811")
   ]},
-  { category: "zp", udise: "272701017", name: "जि. प. प्रा. शा. शेपवाडी", hmPin: "", teachers: [
+  { category: "zp", level: "प्राथमिक", udise: "272701017", name: "जि. प. प्रा. शा. शेपवाडी", hmPin: "", teachers: [
     T("वैशाली विजय बुरांडे", "पदवीधर शिक्षक", "9405644999"),
     T("आशालता मनोहरराव लांब", "प्राथमिक शिक्षक", "7719015759"),
     T("शैलजा उत्तमराव जोशी", "प्राथमिक शिक्षक", "9403882075"),
     T("प्रशांत मारुतीराव बिरादार", "प्राथमिक शिक्षक", "9421328701")
   ]},
-  { category: "zp", udise: "272701018", name: "जि. प. प्रा. शा. सह्याद्री नगर शेपवाडी", hmPin: "", teachers: [
+  { category: "zp", level: "प्राथमिक", udise: "272701018", name: "जि. प. प्रा. शा. सह्याद्री नगर शेपवाडी", hmPin: "", teachers: [
     T("मीनाक्षी प्रकाश लवटे", "प्राथमिक शिक्षक", "9823340660"),
     T("अनिता सदाशिव नखाते", "प्राथमिक शिक्षक", "9403356595")
   ]},
-  { category: "zp", udise: "272701019", name: "जि. प. प्रा. शा. साकूड (मराठी)", hmPin: "", teachers: [
+  { category: "zp", level: "प्राथमिक", udise: "272701019", name: "जि. प. प्रा. शा. साकूड (मराठी)", hmPin: "", teachers: [
     T("अंगद कोंडीबा घुले", "प्राथमिक शिक्षक", "9822373937"),
     T("सुर्यवंशी सविता जगन्नाथ", "सहशिक्षक", "9403646485"),
     T("लव्हारे सुरेखा तुकाराम", "सहशिक्षक", "9822576718"),
@@ -380,29 +387,29 @@ const DEFAULT_SCHOOLS = [
     T("मुंडे मंगल विश्वनाथ", "सहशिक्षक", "-"),
     T("राठोड विनायक घुगू", "सहशिक्षक", "-")
   ]},
-  { category: "zp", udise: "27270101612", name: "सी. पी. एस. रविवार पेठ", hmPin: "", teachers: [
+  { category: "zp", level: "प्राथमिक", udise: "27270101612", name: "सी. पी. एस. रविवार पेठ", hmPin: "", teachers: [
     T("उषाताई नारायण चव्हाण", "प्राथमिक शिक्षक", "9422929990"),
     T("रेखा सुखदेव बनसोडे", "पदवीधर शिक्षक", "9767539553"),
     T("इंद्रजित शिवाजीराव डांगे", "प्राथमिक शिक्षक", "9403023319"),
     T("रुपेश पांडुरंग लोंढे", "केंद्र समन्वयक", "7066100281"),
     T("पुरुषोत्तम संभाप्पा रुद्राक्ष", "विशेष शिक्षक", "7588566554")
   ]},
-  { category: "zp", udise: "27270103801", name: "जि.प.हा.स्कू. गिरवली", hmPin: "", teachers: [
+  { category: "zp", level: "माध्यमिक", udise: "27270103801", name: "जि.प.हा.स्कू. गिरवली", hmPin: "", teachers: [
     T("Ravindra Deogaonkar", "मुख्याध्यापक", "9405662166")
   ]},
-  { category: "other", udise: "27270101620", name: "मिलिया प्रा. शा. अंबा", hmPin: "", teachers: [
+  { category: "other", level: "प्राथमिक", udise: "27270101620", name: "मिलिया प्रा. शा. अंबा", hmPin: "", teachers: [
     T("SHAIKH JAMEEL NAWAB", "मुख्याध्यापक", "9960454571"), T("Nehal Nisar Maniyar", "प्राथमिक शिक्षक", "9970066049")
   ]},
-  { category: "other", udise: "27270101618", name: "कै. देवराव बालाजी गणगे योगेश्वरी नूतन प्राथमिक विभाग", hmPin: "", teachers: [
+  { category: "other", level: "प्राथमिक", udise: "27270101618", name: "कै. देवराव बालाजी गणगे योगेश्वरी नूतन प्राथमिक विभाग", hmPin: "", teachers: [
     T("KHANDERAO BHAGWANRAO NANDGAONKAR", "मुख्याध्यापक", "9881638496"), T("Ashwini Manik Kharbad", "प्राथमिक शिक्षक", "7709249627"), T("PAVAN PRADIPRAO PATIL", "प्राथमिक शिक्षक", "9028560957")
   ]},
-  { category: "other", udise: "27270101619", name: "नेताजी सुभाषचंद्र प्रा. शा. अंबा", hmPin: "", teachers: [
+  { category: "other", level: "प्राथमिक", udise: "27270101619", name: "नेताजी सुभाषचंद्र प्रा. शा. अंबा", hmPin: "", teachers: [
     T("Magar RB", "मुख्याध्यापक", "9421946215"), T("Rahul Vijay Burge", "प्राथमिक शिक्षक", "9922051313")
   ]},
-  { category: "other", udise: "27270101626", name: "खोलेश्वर प्रा. शा. अंबाजोगाई", hmPin: "", teachers: [
+  { category: "other", level: "प्राथमिक", udise: "27270101626", name: "खोलेश्वर प्रा. शा. अंबाजोगाई", hmPin: "", teachers: [
     T("Shivaji Angad Hendge", "मुख्याध्यापक", "9421375441"), T("वर्षा लक्ष्मणराव मुंडे", "प्राथमिक शिक्षक", "9422933231")
   ]},
-  { category: "other", udise: "27270101635", name: "योगेश्वरी नूतन हायस्कूल अंबा", hmPin: "", teachers: [
+  { category: "other", level: "माध्यमिक", udise: "27270101635", name: "योगेश्वरी नूतन हायस्कूल अंबा", hmPin: "", teachers: [
     T("Shrimati PATHAK APARNA RAOSAHEB", "मुख्याध्यापक", "9403927545"), T("Shubhangi Pravinrao Bhosle", "प्राथमिक शिक्षक", "9518932931")
   ]}
 ];
@@ -411,15 +418,11 @@ function getSafeStorage() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     return raw ? JSON.parse(raw) : null;
-  } catch(e) {
-    return null;
-  }
+  } catch(e) { return null; }
 }
 
 function setSafeStorage(data) {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-  } catch(e) {}
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch(e) {}
 }
 
 function loadData() {
@@ -432,7 +435,6 @@ function loadData() {
   }
   initApp();
 
-  // Background Cloud Sync (fails gracefully)
   if (window.fetch) {
     fetch(GOOGLE_APP_SCRIPT_URL + "?t=" + new Date().getTime())
       .then(res => res.text())
@@ -452,9 +454,7 @@ function loadData() {
           initApp();
         }
       })
-      .catch(err => {
-        console.log("Offline mode active.");
-      });
+      .catch(() => {});
   }
 }
 
@@ -462,7 +462,6 @@ function saveData() {
   setSafeStorage({ schools: schools, pin: adminPin }); 
 }
 
-// UI Functions
 function showToast(msg) {
   const t = document.getElementById("toast");
   if(!t) return;
@@ -583,7 +582,6 @@ function changeHMPinSelf() {
   syncToCloud(null, true);
 }
 
-// App Rendering
 function initApp() {
   renderAuth();
   if (currentView === "list") renderSchoolList(document.getElementById("searchInput")?.value || "");
@@ -634,7 +632,7 @@ function renderSchoolList(searchQuery) {
         <option value="teachers" ${schoolSortBy==='teachers'?'selected':''}>शिक्षक संख्येनुसार</option>
       </select>
       
-      <button class="btn dark" onclick="printCombinedPublicSheet()">🖨️ सर्व शाळा स्वाक्षरी प्रपत्र</button>
+      <button class="btn dark" onclick="printCombinedPublicSheet()">🖨️ सर्व शाळा स्वाक्षरी प्रपत्र (Public PDF)</button>
       
       ${isAdmin ? `
         <button class="btn solid" onclick="openSchoolModal(null)">+ नवीन शाळा</button>
@@ -653,17 +651,19 @@ function renderSchoolList(searchQuery) {
 
     <div class="card table-wrapper">
       <table>
-        <thead><tr><th>अ.क्र.</th><th>शाळेचे नाव</th><th>प्रकार</th><th>युडायस कोड</th><th>शिक्षक</th>${isAdmin ? '<th style="text-align:center">कृती</th>' : ''}</tr></thead>
+        <thead><tr><th>अ.क्र.</th><th>शाळेचे नाव</th><th>प्रकार</th><th>स्तर</th><th>युडायस कोड</th><th>शिक्षक</th>${isAdmin ? '<th style="text-align:center">कृती</th>' : ''}</tr></thead>
         <tbody>
   `;
-  if(filtered.length === 0) html += `<tr><td colspan="${isAdmin?6:5}" style="text-align:center">माहिती उपलब्ध नाही</td></tr>`;
+  if(filtered.length === 0) html += `<tr><td colspan="${isAdmin?7:6}" style="text-align:center">माहिती उपलब्ध नाही</td></tr>`;
   
   filtered.forEach((item, idx) => {
     const catBadge = item.s.category === 'zp' ? '<span style="background:#e0f2fe; color:#0369a1; padding:2px 5px; border-radius:4px; font-size:0.75rem; font-weight:bold;">जि.प.</span>' : '<span style="background:#f1f5f9; color:#475569; padding:2px 5px; border-radius:4px; font-size:0.75rem;">इतर</span>';
+    const levelText = item.s.level || (item.s.name.includes("हायस्कूल") ? "माध्यमिक" : "प्राथमिक");
     html += `<tr onclick="if(!event.target.closest('.actions-cell')) openSchool(${item.i})">
         <td>${toMarathi(idx + 1)}</td>
         <td style="font-weight:bold; color:var(--navy)">${item.s.name}</td>
         <td>${catBadge}</td>
+        <td><span style="font-size:0.8rem; color:#475569;">${levelText}</span></td>
         <td>${item.s.udise}</td>
         <td>${toMarathi(item.s.teachers ? item.s.teachers.length : 0)}</td>
         ${isAdmin ? `
@@ -719,6 +719,7 @@ function renderSchoolDetail() {
   const today = new Date().toISOString().split('T')[0];
   const canEdit = isHMCurrentSchool();
   const isThisHM = (loggedInHMSchoolUdise === s.udise);
+  const schoolLevel = s.level || (s.name.includes("हायस्कूल") ? "माध्यमिक" : "प्राथमिक");
 
   let hmAuthSection = "";
   if (isAdmin) {
@@ -742,7 +743,7 @@ function renderSchoolDetail() {
 
     <div class="card">
       <h2 style="margin-bottom: 4px; color:var(--navy); font-size:1.2rem;">${s.name}</h2>
-      <p style="margin-top: 0; color: #666; font-size:0.85rem;">युडायस: ${s.udise} | प्रकार: <b>${s.category==='zp'?'जि.प. शाळा':'इतर शाळा'}</b></p>
+      <p style="margin-top: 0; color: #666; font-size:0.85rem;">युडायस: ${s.udise} | स्तर: <b>${schoolLevel}</b> | प्रकार: <b>${s.category==='zp'?'जि.प. शाळा':'इतर शाळा'}</b></p>
       
       <div class="print-settings">
         <div class="box"><label>स्थळ:</label><input type="text" id="pVenue" value="रविवार पेठ, अंबाजोगाई"></div>
@@ -820,7 +821,6 @@ function updateAttendance(teacherId, status) {
   if(t) { t.attendance = status; saveData(); renderSchoolDetail(); }
 }
 
-// CRUD Actions
 function openTeacherModal(id) {
   editingTeacherId = id;
   const t = id ? schools[currentSchoolIdx].teachers.find(x => x.id === id) : null;
@@ -860,6 +860,7 @@ function openSchoolModal(idx) {
   document.getElementById("schoolModalTitle").textContent = idx === null ? "नवीन शाळा" : "शाळा संपादन";
   document.getElementById("s_name").value = idx === null ? "" : schools[idx].name;
   document.getElementById("s_category").value = idx === null ? (activeTab==='zp'?'zp':'other') : (schools[idx].category || 'zp');
+  document.getElementById("s_level").value = idx === null ? "प्राथमिक" : (schools[idx].level || "प्राथमिक");
   document.getElementById("s_udise").value = idx === null ? "" : schools[idx].udise;
   document.getElementById("s_hmpin").value = idx === null ? "" : (schools[idx].hmPin || "");
   openModal("schoolModal");
@@ -868,15 +869,17 @@ function openSchoolModal(idx) {
 function saveSchool() {
   const name = document.getElementById("s_name").value.trim();
   const category = document.getElementById("s_category").value;
+  const level = document.getElementById("s_level").value;
   const udise = document.getElementById("s_udise").value.trim();
   const hmPin = document.getElementById("s_hmpin").value.trim();
   if(!name || !udise) { document.getElementById("schoolError").textContent = "नाव आणि युडायस आवश्यक आहे."; return; }
   
   if(tempSchoolIdx === null) {
-    schools.push({ category: category, name: name, udise: udise, hmPin: hmPin, teachers: [] });
+    schools.push({ category: category, level: level, name: name, udise: udise, hmPin: hmPin, teachers: [] });
   } else { 
     schools[tempSchoolIdx].name = name; 
     schools[tempSchoolIdx].category = category;
+    schools[tempSchoolIdx].level = level;
     schools[tempSchoolIdx].udise = udise;
     schools[tempSchoolIdx].hmPin = hmPin;
   }
@@ -921,7 +924,7 @@ function syncToCloud(btnElement, quiet) {
   });
 }
 
-// Print Handlers
+// Single School Print
 function printData() {
   const s = schools[currentSchoolIdx];
   const venue = document.getElementById("pVenue")?.value || "रविवार पेठ, अंबाजोगाई";
@@ -933,6 +936,7 @@ function printData() {
   }
 
   const sortedTeachers = getSortedAndFilteredTeachers(s.teachers);
+  const schoolLevel = s.level || (s.name.includes("हायस्कूल") ? "माध्यमिक" : "प्राथमिक");
 
   let html = `
     <div class="print-page-block">
@@ -941,16 +945,16 @@ function printData() {
         <div class="print-meta"><span>स्थळ: ${venue}</span><span>दिनांक: ${dateStr}</span></div>
       </div>
       <div class="print-school-header">
-        ${s.name} (${s.category==='zp'?'जि.प.शाळा':'इतर'}) — युडायस: ${s.udise}
+        ${s.name} (स्तर: ${schoolLevel} | ${s.category==='zp'?'जि.प.शाळा':'इतर'}) — युडायस: ${s.udise}
       </div>
       <table class="print-table">
         <thead>
           <tr>
             <th style="width:7%">अ.क्र.</th>
-            <th style="width:38%">शिक्षकाचे नाव</th>
-            <th style="width:23%">पदनाम</th>
-            <th style="width:17%">मोबाईल</th>
-            <th style="width:15%">स्वाक्षरी</th>
+            <th style="width:40%">शिक्षकाचे नाव</th>
+            <th style="width:25%">पदनाम</th>
+            <th style="width:15%">मोबाईल</th>
+            <th style="width:13%">स्वाक्षरी</th>
           </tr>
         </thead>
         <tbody>
@@ -977,6 +981,7 @@ function printData() {
   if(window.print) window.print();
 }
 
+// Public Combined Signature Sheet (Mobile Hidden, School Level Shown)
 function printCombinedPublicSheet() {
   const today = new Date();
   const dateStr = `${String(today.getDate()).padStart(2, '0')}/${String(today.getMonth()+1).padStart(2, '0')}/${today.getFullYear()}`;
@@ -1007,16 +1012,18 @@ function printCombinedPublicSheet() {
       return (a.name || "").localeCompare(b.name || "", 'mr');
     });
 
+    const schoolLevel = s.level || (s.name.includes("हायस्कूल") ? "माध्यमिक" : "प्राथमिक");
+
     html += `
       <div class="print-school-header">${s.name} (${s.category==='zp'?'जि.प. शाळा':'इतर'})</div>
       <table class="print-table">
         <thead>
           <tr>
-            <th style="width:7%">अ.क्र.</th>
-            <th style="width:38%">शिक्षकाचे नाव</th>
-            <th style="width:23%">पदनाम</th>
-            <th style="width:17%">मोबाईल क्र.</th>
-            <th style="width:15%">स्वाक्षरी</th>
+            <th style="width:8%">अ.क्र.</th>
+            <th style="width:40%">शिक्षकाचे नाव</th>
+            <th style="width:24%">पदनाम</th>
+            <th style="width:14%">शाळेचा स्तर</th>
+            <th style="width:14%">स्वाक्षरी</th>
           </tr>
         </thead>
         <tbody>
@@ -1028,7 +1035,7 @@ function printCombinedPublicSheet() {
           <td class="center">${toMarathi(globalIndex++)}</td>
           <td style="font-weight:bold;">${t.name}</td>
           <td>${t.desig}</td>
-          <td class="center">${t.mobile || "-"}</td>
+          <td class="center">${schoolLevel}</td>
           <td></td>
         </tr>
       `;
@@ -1041,7 +1048,7 @@ function printCombinedPublicSheet() {
 
   html += `
       <div style="margin-top:15px; font-size:11px; border-top:1px dashed #000; padding-top:6px;">
-        <b>प्रतिलिपि:</b> १. मा. गटशिक्षणाधिकारी अंबाजोगाई | २. मा. शिक्षणाधिकारी (प्रा) जि. प. बीड | ३. प्राचार्य, डायट अंबाजोगाई
+        <b>प्रतिलिपि:</b> १. मा. गटशिक्षणाधिकारी अंबाजोगाई[span_0](start_span)[span_0](end_span) | २. मा. शिक्षणाधिकारी (प्रा) जि. प. बीड[span_1](start_span)[span_1](end_span) | ३. प्राचार्य, डायट अंबाजोगाई[span_2](start_span)[span_2](end_span)
       </div>
     </div>
   `;
@@ -1050,6 +1057,7 @@ function printCombinedPublicSheet() {
   if(window.print) window.print();
 }
 
+// Admin Attendance Report
 function printFilteredReport(filterType) {
   filterType = filterType || "all";
   const today = new Date();
@@ -1067,7 +1075,7 @@ function printFilteredReport(filterType) {
       <div class="print-header">
         <h1>${titleText}</h1>
         <div class="print-meta">
-          <span>केंद्र: रविवार पेठ, ता. अंबाजोगाई, जि. बीड</span>
+          <span>केंद्र: रविवार पेठ, ता. अंबाजोगाई, जि. बीड[span_3](start_span)[span_3](end_span)</span>
           <span>दिनांक: ${dateStr}</span>
         </div>
       </div>
@@ -1084,16 +1092,17 @@ function printFilteredReport(filterType) {
 
     if (filterType !== "all" && matchingTeachers.length === 0) return;
     contentGenerated = true;
+    const schoolLevel = s.level || (s.name.includes("हायस्कूल") ? "माध्यमिक" : "प्राथमिक");
 
     html += `
-      <div class="print-school-header">${toMarathi(sIdx + 1)}. ${s.name} — शिक्षक संख्या: ${toMarathi(matchingTeachers.length)}</div>
+      <div class="print-school-header">${toMarathi(sIdx + 1)}. ${s.name} (स्तर: ${schoolLevel}) — शिक्षक संख्या: ${toMarathi(matchingTeachers.length)}</div>
       <table class="print-table">
         <thead>
           <tr>
-            <th style="width:7%">अ.क्र.</th>
-            <th style="width:38%">शिक्षकाचे नाव</th>
-            <th style="width:23%">पदनाम</th>
-            <th style="width:17%">मोबाईल</th>
+            <th style="width:7%">अ.क्र.[span_4](start_span)[span_4](end_span)</th>
+            <th style="width:38%">शिक्षकाचे नाव[span_5](start_span)[span_5](end_span)</th>
+            <th style="width:23%">पदनाम[span_6](start_span)[span_6](end_span)</th>
+            <th style="width:17%">मोबाईल[span_7](start_span)[span_7](end_span)</th>
             <th style="width:15%">उपस्थिती</th>
           </tr>
         </thead>
@@ -1124,7 +1133,7 @@ function printFilteredReport(filterType) {
 
   html += `
       <div style="margin-top:15px; font-size:11px; border-top:1px dashed #000; padding-top:6px;">
-        <b>प्रतिलिपि:</b> १. मा. गटशिक्षणाधिकारी अंबाजोगाई | २. मा. शिक्षणाधिकारी (प्रा) जि. प. बीड | ३. प्राचार्य, डायट अंबाजोगाई
+        <b>प्रतिलिपि:</b> १. मा. गटशिक्षणाधिकारी अंबाजोगाई[span_8](start_span)[span_8](end_span) | २. मा. शिक्षणाधिकारी (प्रा) जि. प. बीड[span_9](start_span)[span_9](end_span) | ३. प्राचार्य, डायट अंबाजोगाई[span_10](start_span)[span_10](end_span)
       </div>
     </div>
   `;
@@ -1133,7 +1142,6 @@ function printFilteredReport(filterType) {
   if(window.print) window.print();
 }
 
-// Start
 loadData();
 </script>
 </body>
