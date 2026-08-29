@@ -277,7 +277,7 @@ function T(name, desig, mobile, attendance) {
   return { id: generateUUID(), name: name, desig: desig, mobile: mobile, attendance: attendance || "उपस्थित" }; 
 }
 
-const STORAGE_KEY = "shikshanParishad_LevelDB_v1";
+const STORAGE_KEY = "shikshanParishad_FinalCleanDB";
 let schools = [];
 let adminPin = "";
 let isAdmin = false;
@@ -290,7 +290,7 @@ let schoolSortBy = "nameAsc";
 let teacherSortBy = "desig";
 let teacherAttFilter = "all";
 
-// Base Dataset with School Level (शाळेचा स्तर)
+// Base Dataset with School Level (शाळेचा स्तर)[span_0](start_span)[span_0](end_span)
 const DEFAULT_SCHOOLS = [
   { category: "zp", level: "प्राथमिक", udise: "272701001", name: "जि. प. प्रा. शा. अंबलवाडी", hmPin: "", teachers: [
     T("नवतीला रामराव जाधव", "प्राथमिक शिक्षक", "7498239099"),
@@ -981,7 +981,7 @@ function printData() {
   if(window.print) window.print();
 }
 
-// Public Combined Signature Sheet (Mobile Hidden, School Level Shown)
+// Public Combined Signature Sheet (Mobile Hidden, School Level Shown)[span_1](start_span)[span_1](end_span)
 function printCombinedPublicSheet() {
   const today = new Date();
   const dateStr = `${String(today.getDate()).padStart(2, '0')}/${String(today.getMonth()+1).padStart(2, '0')}/${today.getFullYear()}`;
@@ -1048,7 +1048,7 @@ function printCombinedPublicSheet() {
 
   html += `
       <div style="margin-top:15px; font-size:11px; border-top:1px dashed #000; padding-top:6px;">
-        <b>प्रतिलिपि:</b> १. मा. गटशिक्षणाधिकारी अंबाजोगाई[span_0](start_span)[span_0](end_span) | २. मा. शिक्षणाधिकारी (प्रा) जि. प. बीड[span_1](start_span)[span_1](end_span) | ३. प्राचार्य, डायट अंबाजोगाई[span_2](start_span)[span_2](end_span)
+        <b>प्रतिलिपि:</b> १. मा. गटशिक्षणाधिकारी अंबाजोगाई | २. मा. शिक्षणाधिकारी (प्रा) जि. प. बीड | ३. प्राचार्य, डायट अंबाजोगाई
       </div>
     </div>
   `;
@@ -1057,7 +1057,7 @@ function printCombinedPublicSheet() {
   if(window.print) window.print();
 }
 
-// Admin Attendance Report
+// Admin Attendance Report[span_2](start_span)[span_2](end_span)
 function printFilteredReport(filterType) {
   filterType = filterType || "all";
   const today = new Date();
@@ -1075,7 +1075,7 @@ function printFilteredReport(filterType) {
       <div class="print-header">
         <h1>${titleText}</h1>
         <div class="print-meta">
-          <span>केंद्र: रविवार पेठ, ता. अंबाजोगाई, जि. बीड[span_3](start_span)[span_3](end_span)</span>
+          <span>केंद्र: रविवार पेठ, ता. अंबाजोगाई, जि. बीड</span>
           <span>दिनांक: ${dateStr}</span>
         </div>
       </div>
@@ -1099,10 +1099,10 @@ function printFilteredReport(filterType) {
       <table class="print-table">
         <thead>
           <tr>
-            <th style="width:7%">अ.क्र.[span_4](start_span)[span_4](end_span)</th>
-            <th style="width:38%">शिक्षकाचे नाव[span_5](start_span)[span_5](end_span)</th>
-            <th style="width:23%">पदनाम[span_6](start_span)[span_6](end_span)</th>
-            <th style="width:17%">मोबाईल[span_7](start_span)[span_7](end_span)</th>
+            <th style="width:7%">अ.क्र.</th>
+            <th style="width:38%">शिक्षकाचे नाव</th>
+            <th style="width:23%">पदनाम</th>
+            <th style="width:17%">मोबाईल</th>
             <th style="width:15%">उपस्थिती</th>
           </tr>
         </thead>
@@ -1133,7 +1133,7 @@ function printFilteredReport(filterType) {
 
   html += `
       <div style="margin-top:15px; font-size:11px; border-top:1px dashed #000; padding-top:6px;">
-        <b>प्रतिलिपि:</b> १. मा. गटशिक्षणाधिकारी अंबाजोगाई[span_8](start_span)[span_8](end_span) | २. मा. शिक्षणाधिकारी (प्रा) जि. प. बीड[span_9](start_span)[span_9](end_span) | ३. प्राचार्य, डायट अंबाजोगाई[span_10](start_span)[span_10](end_span)
+        <b>प्रतिलिपि:</b> १. मा. गटशिक्षणाधिकारी अंबाजोगाई | २. मा. शिक्षणाधिकारी (प्रा) जि. प. बीड | ३. प्राचार्य, डायट अंबाजोगाई
       </div>
     </div>
   `;
