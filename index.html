@@ -283,7 +283,7 @@ function T(name, desig, mobile, attendance) {
   return { id: generateUUID(), name: name, desig: desig, mobile: mobile, attendance: attendance || "उपस्थित" }; 
 }
 
-const STORAGE_KEY = "shikshanParishad_MasterCleanDB";
+const STORAGE_KEY = "shikshanParishad_MasterCleanDB_v2";
 let schools = [];
 let adminPin = "";
 let isAdmin = false;
@@ -296,7 +296,7 @@ let schoolSortBy = "nameAsc";
 let teacherSortBy = "desig";
 let teacherAttFilter = "all";
 
-// Base Dataset with School Level
+// Base Dataset
 const DEFAULT_SCHOOLS = [
   { category: "zp", level: "प्राथमिक", udise: "272701001", name: "जि. प. प्रा. शा. अंबलवाडी", hmPin: "", teachers: [
     T("नवतीला रामराव जाधव", "प्राथमिक शिक्षक", "7498239099"),
@@ -988,7 +988,7 @@ function printData() {
   if(window.print) window.print();
 }
 
-// Public Combined Signature Sheet (Clean Footer & Level Shown)
+// Public Combined Signature Sheet
 function printCombinedPublicSheet() {
   const today = new Date();
   const dateStr = `${String(today.getDate()).padStart(2, '0')}/${String(today.getMonth()+1).padStart(2, '0')}/${today.getFullYear()}`;
@@ -1064,7 +1064,7 @@ function printCombinedPublicSheet() {
   if(window.print) window.print();
 }
 
-// Admin Attendance Report (Clean Header & Footer + Summary)
+// Admin Attendance Report
 function printFilteredReport(filterType) {
   filterType = filterType || "all";
   const today = new Date();
@@ -1187,7 +1187,7 @@ function printFilteredReport(filterType) {
       </div>
 
       <div style="margin-top:15px; font-size:11px; border-top:1px dashed #000; padding-top:6px;">
-        <b>प्रतिलिपि:</b> १. मा. गटशिक्षणाधिकारी अंबाजोगाई[span_0](start_span)[span_0](end_span) | २. मा. शिक्षणाधिकारी (प्रा) जि. प. बीड[span_1](start_span)[span_1](end_span) | ३. प्राचार्य, डायट अंबाजोगाई[span_2](start_span)[span_2](end_span)
+        <b>प्रतिलिपि:</b> १. मा. गटशिक्षणाधिकारी अंबाजोगाई[span_1](start_span)[span_1](end_span) | २. मा. शिक्षणाधिकारी (प्रा) जि. प. बीड[span_2](start_span)[span_2](end_span) | ३. प्राचार्य, डायट अंबाजोगाई[span_3](start_span)[span_3](end_span)
       </div>
     </div>
   `;
