@@ -296,6 +296,10 @@ let schoolSortBy = "nameAsc";
 let teacherSortBy = "desig";
 let teacherAttFilter = "all";
 
+// Global Print Variables
+let globalPrintVenue = "केंद्र: रविवार पेठ, ता. अंबाजोगाई, जि. बीड";
+let globalPrintDate = new Date().toISOString().split('T')[0];
+
 // Base Dataset
 const DEFAULT_SCHOOLS = [
   { category: "zp", level: "प्राथमिक", udise: "272701001", name: "जि. प. प्रा. शा. अंबलवाडी", hmPin: "", teachers: [
@@ -627,6 +631,18 @@ function renderSchoolList(searchQuery) {
       <button class="tab-btn ${activeTab==='zp'?'active':''}" onclick="switchTab('zp')">🏫 जिल्हा परिषद (${schools.filter(s=>s.category==='zp').length})</button>
       <button class="tab-btn ${activeTab==='other'?'active':''}" onclick="switchTab('other')">इतर शाळा (${schools.filter(s=>s.category!=='zp').length})</button>
     </div>
+    
+    <!-- Global Print Settings for List View -->
+    <div class="print-settings">
+      <div class="box">
+        <label style="font-size:0.85rem; font-weight:bold; color:var(--navy);">छपाईसाठी स्थळ (Print Venue):</label>
+        <input type="text" id="pVenue" value="${globalPrintVenue}" oninput="globalPrintVenue=this.value" placeholder="स्थळ टाका">
+      </div>
+      <div class="box">
+        <label style="font-size:0.85rem; font-weight:bold; color:var(--navy);">छपाईसाठी दिनांक (Print Date):</label>
+        <input type="date" id="pDate" value="${globalPrintDate}" oninput="globalPrintDate=this.value">
+      </div>
+    </div>
 
     <div class="controls">
       <input type="text" id="searchInput" placeholder="शाळा किंवा युडायस शोधा..." onkeyup="renderSchoolList(this.value)" value="${searchQuery}">
@@ -723,7 +739,6 @@ function renderSchoolDetail() {
   const root = document.getElementById("appRoot");
   if(!root || !s) return;
 
-  const today = new Date().toISOString().split('T')[0];
   const canEdit = isHMCurrentSchool();
   const isThisHM = (loggedInHMSchoolUdise === s.udise);
   const schoolLevel = s.level || (s.name.includes("हायस्कूल") ? "माध्यमिक" : "प्राथमिक");
@@ -753,8 +768,14 @@ function renderSchoolDetail() {
       <p style="margin-top: 0; color: #666; font-size:0.85rem;">युडायस: ${s.udise} | स्तर: <b>${schoolLevel}</b> | प्रकार: <b>${s.category==='zp'?'जि.प. शाळा':'इतर शाळा'}</b></p>
       
       <div class="print-settings">
-        <div class="box"><label>स्थळ:</label><input type="text" id="pVenue" value="रविवार पेठ, अंबाजोगाई"></div>
-        <div class="box"><label>दिनांक:</label><input type="date" id="pDate" value="${today}"></div>
+        <div class="box">
+          <label style="font-weight:bold; color:var(--navy);">स्थळ:</label>
+          <input type="text" id="pVenue" value="${globalPrintVenue}" oninput="globalPrintVenue=this.value">
+        </div>
+        <div class="box">
+          <label style="font-weight:bold; color:var(--navy);">दिनांक:</label>
+          <input type="date" id="pDate" value="${globalPrintDate}" oninput="globalPrintDate=this.value">
+        </div>
         <div style="display:flex; gap:8px;">
           <button class="btn solid" onclick="printData()">🖨️ प्रिंट</button>
           ${canEdit ? `<button class="btn success" onclick="syncToCloud(this)">☁️ सेव्ह</button>` : ``}
@@ -931,16 +952,27 @@ function syncToCloud(btnElement, quiet) {
   });
 }
 
+// Helper to Format Print Date
+function formatPrintDate(dString) {
+  if(!dString) return "____/____/२०२___";
+  const d = new Date(dString);
+  return `${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth()+1).padStart(2, '0')}/${d.getFullYear()}`;
+}
+
+// Helper to Sync Input Values securely before printing
+function updateGlobalPrintSettings() {
+  const v = document.getElementById("pVenue");
+  const d = document.getElementById("pDate");
+  if(v) globalPrintVenue = v.value;
+  if(d) globalPrintDate = d.value;
+}
+
 // Single School Print
 function printData() {
+  updateGlobalPrintSettings();
   const s = schools[currentSchoolIdx];
-  const venue = document.getElementById("pVenue")?.value || "रविवार पेठ, अंबाजोगाई";
-  const dateInput = document.getElementById("pDate")?.value;
-  let dateStr = "____/____/२०२___";
-  if(dateInput) {
-    const d = new Date(dateInput);
-    dateStr = `${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth()+1).padStart(2, '0')}/${d.getFullYear()}`;
-  }
+  const dateStr = formatPrintDate(globalPrintDate);
+  const venue = globalPrintVenue;
 
   const sortedTeachers = getSortedAndFilteredTeachers(s.teachers);
   const schoolLevel = s.level || (s.name.includes("हायस्कूल") ? "माध्यमिक" : "प्राथमिक");
@@ -988,10 +1020,12 @@ function printData() {
   if(window.print) window.print();
 }
 
-// Public Combined Signature Sheet (Clean Footer, No Stray Tags)
+// Public Combined Signature Sheet
 function printCombinedPublicSheet() {
-  const today = new Date();
-  const dateStr = `${String(today.getDate()).padStart(2, '0')}/${String(today.getMonth()+1).padStart(2, '0')}/${today.getFullYear()}`;
+  updateGlobalPrintSettings();
+  const dateStr = formatPrintDate(globalPrintDate);
+  const venue = globalPrintVenue;
+
   let listToPrint = (activeTab === "all") ? schools : (activeTab === "zp" ? schools.filter(s => s.category === 'zp') : schools.filter(s => s.category !== 'zp'));
 
   let html = `
@@ -999,7 +1033,7 @@ function printCombinedPublicSheet() {
       <div class="print-header">
         <h1>शिक्षण परिषद उपस्थिती प्रपत्र</h1>
         <div class="print-meta">
-          <span>केंद्र: रविवार पेठ, ता. अंबाजोगाई, जि. बीड</span>
+          <span>स्थळ: ${venue}</span>
           <span>दिनांक: ${dateStr}</span>
         </div>
       </div>
@@ -1064,11 +1098,13 @@ function printCombinedPublicSheet() {
   if(window.print) window.print();
 }
 
-// Admin Attendance Report (Completely Clean Footer & Summary)
+// Admin Attendance Report 
 function printFilteredReport(filterType) {
+  updateGlobalPrintSettings();
   filterType = filterType || "all";
-  const today = new Date();
-  const dateStr = `${String(today.getDate()).padStart(2, '0')}/${String(today.getMonth()+1).padStart(2, '0')}/${today.getFullYear()}`;
+  
+  const dateStr = formatPrintDate(globalPrintDate);
+  const venue = globalPrintVenue;
   
   let titleText = "शिक्षण परिषद - एकत्रित उपस्थिती अहवाल";
   if(filterType === "उपस्थित") titleText = "शिक्षण परिषद - उपस्थित शिक्षक अहवाल";
@@ -1101,7 +1137,7 @@ function printFilteredReport(filterType) {
       <div class="print-header">
         <h1>${titleText}</h1>
         <div class="print-meta">
-          <span>केंद्र: रविवार पेठ, ता. अंबाजोगाई, जि. बीड</span>
+          <span>स्थळ: ${venue}</span>
           <span>दिनांक: ${dateStr}</span>
         </div>
       </div>
