@@ -61,8 +61,7 @@ main { max-width: 1050px; margin: 15px auto; padding: 0 12px; padding-bottom: 50
 
 /* Controls */
 .controls { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; align-items: center; }
-.controls input { flex: 1; min-width: 180px; padding: 9px; border: 1px solid var(--border); border-radius: 6px; font-size: 0.95rem; }
-.controls select { padding: 9px; border: 1px solid var(--border); border-radius: 6px; font-size: 0.95rem; background: #fff; }
+.controls input[type="text"], .controls select { flex: 1; min-width: 180px; padding: 9px; border: 1px solid var(--border); border-radius: 6px; font-size: 0.95rem; background: #fff; }
 
 /* Tables */
 .table-wrapper { overflow-x: auto; }
@@ -70,7 +69,7 @@ table { width: 100%; border-collapse: collapse; min-width: 550px; }
 th, td { border: 1px solid var(--border); padding: 9px 10px; text-align: left; font-size: 0.9rem; }
 th { background: #f8fafc; font-weight: 600; color: var(--navy); }
 tr:hover { background: #f1f5f9; }
-td.actions { text-align: center; white-space: nowrap; width: 90px; }
+td.actions { text-align: center; white-space: nowrap; width: 120px; }
 .icon-btn { background: none; border: none; font-size: 1.1rem; color: var(--navy); padding: 4px; cursor: pointer; }
 .icon-btn.del { color: var(--maroon); margin-left: 6px; }
 
@@ -295,6 +294,7 @@ let activeTab = "all";
 let schoolSortBy = "nameAsc"; 
 let teacherSortBy = "desig";
 let teacherAttFilter = "all";
+let showHiddenSchools = false; // Toggle for admin to see hidden schools
 
 // Global Print Variables
 let globalPrintVenue = "केंद्र: रविवार पेठ, ता. अंबाजोगाई, जि. बीड";
@@ -355,6 +355,12 @@ const DEFAULT_SCHOOLS = [
     T("सीमा सखारामराव कदम", "प्राथमिक शिक्षक", "9422329924"),
     T("विलास रामराव माचवे", "प्राथमिक शिक्षक", "9423893494")
   ]},
+  { category: "zp", level: "प्राथमिक", udise: "27270103203", name: "जि.प.प्रा.शा. पिंपळा धायगुडा (उर्दू)", hmPin: "", teachers: [
+    T("सय्यदा हिना सय्यद सरफराजोद्दीन", "प्रभारी मुख्याध्यापक", "8600504215"),
+    T("दायमी सय्यदा नुरुलहुदा अमीरोद्दीन", "पदवीधर शिक्षक", "9028704480"),
+    T("खालीद हसनसाब सय्यद", "प्राथमिक शिक्षक", "8766734554"),
+    T("गौसिया बेगम अब्दुल अजीज शेख", "प्राथमिक शिक्षक", "9579165068")
+  ]},
   { category: "zp", level: "प्राथमिक", udise: "272701012", name: "जि. प. प्रा. शा. पोलेवाडी", hmPin: "", teachers: [
     T("राजेसाहेब वैजनाथराव सोमवंशी", "प्राथमिक शिक्षक", "7020708970"),
     T("सचिन नारायण गायकवाड", "प्राथमिक शिक्षक", "9637757982")
@@ -396,6 +402,16 @@ const DEFAULT_SCHOOLS = [
     T("गायके शिल्पा तात्यासाहेब", "सहशिक्षक", "7588934345"),
     T("मुंडे मंगल विश्वनाथ", "सहशिक्षक", "-"),
     T("राठोड विनायक घुगू", "सहशिक्षक", "-")
+  ]},
+  { category: "zp", level: "प्राथमिक", udise: "27270102404", name: "जि.प.प्रा.शा. साकुड (उर्दू)", hmPin: "", teachers: [
+    T("आरिफ अहमद अब्दुल रशीद शेख", "प्रभारी मुख्याध्यापक", "9405292799"),
+    T("फारुकी शहेबाज सादेक", "पदवीधर शिक्षक", "9420432681"),
+    T("मोहम्मदगौस मोहिउद्दीन फकीरमोहम्मद शेख", "पदवीधर शिक्षक", "9423170486"),
+    T("रेश्मा बेगम तुफेल अहमद खान पठाण", "पदवीधर शिक्षक", "8788220923"),
+    T("अयुब कलीम सय्यद", "प्राथमिक शिक्षक", "8605825544"),
+    T("अहमदी बेगम अब्दुल शुकुर साहेब फारुकी", "प्राथमिक शिक्षक", "9975082007"),
+    T("तरन्नुम अहमद अली सय्यद", "प्राथमिक शिक्षक", "8668338554"),
+    T("सबीहानाज़ जमील अहमद सिद्दीकी", "प्राथमिक शिक्षक", "8007128724")
   ]},
   { category: "zp", level: "प्राथमिक", udise: "27270101612", name: "सी. पी. एस. रविवार पेठ", hmPin: "", teachers: [
     T("उषाताई नारायण चव्हाण", "प्राथमिक शिक्षक", "9422929990"),
@@ -440,6 +456,12 @@ function loadData() {
   if (local && local.schools && local.schools.length > 0) {
     schools = local.schools;
     adminPin = local.pin || "";
+    // Merge new defaults if missing by matching udise (For existing users)
+    DEFAULT_SCHOOLS.forEach(defSchool => {
+      if(!schools.some(s => s.udise === defSchool.udise)) {
+        schools.push(JSON.parse(JSON.stringify(defSchool)));
+      }
+    });
   } else {
     schools = JSON.parse(JSON.stringify(DEFAULT_SCHOOLS));
   }
@@ -458,6 +480,12 @@ function loadData() {
             const zpDefaults = DEFAULT_SCHOOLS.filter(s => s.category === "zp");
             cloudSchools = [...zpDefaults, ...cloudSchools];
           }
+          // Same merge logic for cloud data
+          DEFAULT_SCHOOLS.forEach(defSchool => {
+            if(!cloudSchools.some(s => s.udise === defSchool.udise)) {
+                cloudSchools.push(JSON.parse(JSON.stringify(defSchool)));
+            }
+          });
           schools = cloudSchools;
           adminPin = cloudData.pin || adminPin;
           setSafeStorage({ schools: schools, pin: adminPin });
@@ -592,6 +620,13 @@ function changeHMPinSelf() {
   syncToCloud(null, true);
 }
 
+function toggleHideSchool(idx) {
+  schools[idx].isHidden = !schools[idx].isHidden;
+  saveData();
+  initApp();
+  showToast(schools[idx].isHidden ? "शाळा लपवली!" : "शाळा दृश्यमान केली!");
+}
+
 function initApp() {
   renderAuth();
   if (currentView === "list") renderSchoolList(document.getElementById("searchInput")?.value || "");
@@ -611,6 +646,10 @@ function renderSchoolList(searchQuery) {
   
   let filtered = schools.map((s, i) => ({s: s, i: i}))
     .filter(x => {
+      // Hide mechanism logic
+      if (!isAdmin && x.s.isHidden) return false; 
+      if (isAdmin && !showHiddenSchools && x.s.isHidden) return false;
+
       const matchesSearch = (x.s.name && x.s.name.includes(searchQuery)) || (x.s.udise && String(x.s.udise).includes(searchQuery));
       if (activeTab === "zp") return matchesSearch && x.s.category === "zp";
       if (activeTab === "other") return matchesSearch && x.s.category !== "zp";
@@ -625,11 +664,15 @@ function renderSchoolList(searchQuery) {
     return 0;
   });
 
+  let activeZpCount = schools.filter(s=> s.category==='zp' && (!s.isHidden || (isAdmin && showHiddenSchools))).length;
+  let activeOtherCount = schools.filter(s=> s.category!=='zp' && (!s.isHidden || (isAdmin && showHiddenSchools))).length;
+  let activeTotalCount = activeZpCount + activeOtherCount;
+
   let html = `
     <div class="tabs">
-      <button class="tab-btn ${activeTab==='all'?'active':''}" onclick="switchTab('all')">सर्व शाळा (${schools.length})</button>
-      <button class="tab-btn ${activeTab==='zp'?'active':''}" onclick="switchTab('zp')">🏫 जिल्हा परिषद (${schools.filter(s=>s.category==='zp').length})</button>
-      <button class="tab-btn ${activeTab==='other'?'active':''}" onclick="switchTab('other')">इतर शाळा (${schools.filter(s=>s.category!=='zp').length})</button>
+      <button class="tab-btn ${activeTab==='all'?'active':''}" onclick="switchTab('all')">सर्व शाळा (${activeTotalCount})</button>
+      <button class="tab-btn ${activeTab==='zp'?'active':''}" onclick="switchTab('zp')">🏫 जिल्हा परिषद (${activeZpCount})</button>
+      <button class="tab-btn ${activeTab==='other'?'active':''}" onclick="switchTab('other')">इतर शाळा (${activeOtherCount})</button>
     </div>
     
     <!-- Global Print Settings for List View -->
@@ -659,6 +702,10 @@ function renderSchoolList(searchQuery) {
       ${isAdmin ? `
         <button class="btn solid" onclick="openSchoolModal(null)">+ नवीन शाळा</button>
         <button class="btn success" onclick="syncToCloud(this)">☁️ सेव्ह करा</button>
+        <label style="display:flex; align-items:center; gap:5px; font-size:0.85rem; font-weight:bold; cursor:pointer; background:#e2e8f0; padding:6px 10px; border-radius:6px; margin-top:5px;">
+          <input type="checkbox" ${showHiddenSchools ? 'checked' : ''} onchange="showHiddenSchools=this.checked; initApp();">
+          लपवलेल्या शाळा दाखवा 👁️
+        </label>
       ` : ``}
     </div>
 
@@ -682,15 +729,18 @@ function renderSchoolList(searchQuery) {
   filtered.forEach((item, idx) => {
     const catBadge = item.s.category === 'zp' ? '<span style="background:#e0f2fe; color:#0369a1; padding:2px 5px; border-radius:4px; font-size:0.75rem; font-weight:bold;">जि.प.</span>' : '<span style="background:#f1f5f9; color:#475569; padding:2px 5px; border-radius:4px; font-size:0.75rem;">इतर</span>';
     const levelText = item.s.level || (item.s.name.includes("हायस्कूल") ? "माध्यमिक" : "प्राथमिक");
-    html += `<tr onclick="if(!event.target.closest('.actions-cell')) openSchool(${item.i})">
+    const hiddenStyle = item.s.isHidden ? 'opacity: 0.6; background-color: #f1f5f9; font-style: italic;' : '';
+    
+    html += `<tr style="${hiddenStyle}" onclick="if(!event.target.closest('.actions-cell')) openSchool(${item.i})">
         <td>${toMarathi(idx + 1)}</td>
-        <td style="font-weight:bold; color:var(--navy)">${item.s.name}</td>
+        <td style="font-weight:bold; color:var(--navy)">${item.s.name} ${item.s.isHidden ? '<span style="color:#ef4444; font-size:0.8rem;">(लपवली)</span>' : ''}</td>
         <td>${catBadge}</td>
         <td><span style="font-size:0.8rem; color:#475569;">${levelText}</span></td>
         <td>${item.s.udise}</td>
         <td>${toMarathi(item.s.teachers ? item.s.teachers.length : 0)}</td>
         ${isAdmin ? `
           <td class="actions actions-cell">
+            <button class="icon-btn" onclick="toggleHideSchool(${item.i})" title="${item.s.isHidden ? 'शाळा दाखवा' : 'शाळा लपवा'}">${item.s.isHidden ? '🙈' : '👁️'}</button>
             <button class="icon-btn" onclick="openSchoolModal(${item.i})">✎</button>
             <button class="icon-btn del" onclick="deleteSchoolDirect(${item.i})">🗑️</button>
           </td>` : ''}
@@ -764,7 +814,7 @@ function renderSchoolDetail() {
     </div>
 
     <div class="card">
-      <h2 style="margin-bottom: 4px; color:var(--navy); font-size:1.2rem;">${s.name}</h2>
+      <h2 style="margin-bottom: 4px; color:var(--navy); font-size:1.2rem;">${s.name} ${s.isHidden ? '<span style="color:#ef4444; font-size:0.9rem;">(लपवलेली शाळा)</span>' : ''}</h2>
       <p style="margin-top: 0; color: #666; font-size:0.85rem;">युडायस: ${s.udise} | स्तर: <b>${schoolLevel}</b> | प्रकार: <b>${s.category==='zp'?'जि.प. शाळा':'इतर शाळा'}</b></p>
       
       <div class="print-settings">
@@ -903,7 +953,7 @@ function saveSchool() {
   if(!name || !udise) { document.getElementById("schoolError").textContent = "नाव आणि युडायस आवश्यक आहे."; return; }
   
   if(tempSchoolIdx === null) {
-    schools.push({ category: category, level: level, name: name, udise: udise, hmPin: hmPin, teachers: [] });
+    schools.push({ category: category, level: level, name: name, udise: udise, hmPin: hmPin, isHidden: false, teachers: [] });
   } else { 
     schools[tempSchoolIdx].name = name; 
     schools[tempSchoolIdx].category = category;
@@ -1027,6 +1077,9 @@ function printCombinedPublicSheet() {
   const venue = globalPrintVenue;
 
   let listToPrint = (activeTab === "all") ? schools : (activeTab === "zp" ? schools.filter(s => s.category === 'zp') : schools.filter(s => s.category !== 'zp'));
+  
+  // नेहमी लपवलेल्या शाळा वगळायच्या (Printing does not include hidden schools)
+  listToPrint = listToPrint.filter(s => !s.isHidden);
 
   let html = `
     <div class="print-page-block">
@@ -1112,6 +1165,9 @@ function printFilteredReport(filterType) {
   if(filterType === "रजा") titleText = "शिक्षण परिषद - रजेवरील शिक्षक अहवाल";
 
   let listToPrint = (activeTab === "all") ? schools : (activeTab === "zp" ? schools.filter(s=>s.category==='zp') : schools.filter(s=>s.category!=='zp'));
+
+  // नेहमी लपवलेल्या शाळा वगळायच्या (Printing does not include hidden schools)
+  listToPrint = listToPrint.filter(s => !s.isHidden);
 
   let totalSchoolsCount = 0;
   let totalTeachersCount = 0;
